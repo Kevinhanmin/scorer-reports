@@ -264,7 +264,8 @@ def main():
         if pages_url:
             report_url = f"{pages_url}/reports/{os.path.basename(rpath)}"
         else:
-            report_url = f"{repo_url}/blob/main/{rpath}"
+            # Use raw GitHub URL (renders HTML properly)
+            report_url = f"https://raw.githubusercontent.com/Kevinhanmin/scorer-reports/main/{rpath}"
         
         
         try:
