@@ -254,23 +254,21 @@ def main():
             f.write(html)
         print(f"   📄 报告: {rpath}")
         
-        # 发送通知给创始人
+        # 发送通知给创始人（卡片形式）
         founder_open_id = os.environ.get("FOUNDER_OPEN_ID", "ou_654b4ab922a747e21af74eaa4884a914")
         repo_url = os.environ.get("REPO_URL", "https://github.com/Kevinhanmin/scorer-reports")
-        report_url = f"{repo_url}/blob/main/{rpath}"
+        # 优先用Pages地址，如果没有则用GitHub文件链接（两者都可访问）
+        pages_url = os.environ.get("PAGES_URL", "")
+        if pages_url:
+            report_url = f"{pages_url}/reports/{os.path.basename(rpath)}"
+        else:
+            report_url = f"{repo_url}/blob/main/{rpath}"
+        
         
         try:
-            summary = (
-                f"📋 新客户诊断报告\n\n"
-                f"企业：{company}\n"
-                f"评分：{total:.2f}/5 · {rating}\n"
-                f"商机：{grade}（损失约{loss_label}）\n"
-                f"联系方式：{contact}\n\n"
-                f"完整报告：{report_url}"
-            )
-            send_feishu_message(founder_open_id, "新报告", summary)
+            send_report_card(founder_open_id, company, total, rating, grade, report_url)
         except Exception as e:
-            print(f"   ⚠️ 通知发送失败: {e}")
+            print(f"   ⚠️ 卡片发送失败: {e}")
         
         processed += 1
 
