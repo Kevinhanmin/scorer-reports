@@ -1,0 +1,40 @@
+name: 评分师云端报告生成
+
+# 两种触发方式：
+# 1. Webhook: 飞书提交表单后实时触发
+# 2. Schedule: 每30分钟自动检查一次（兜底）
+
+on:
+  repository_dispatch:
+    types: [feishu-new-record]
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:  # 手动触发
+
+jobs:
+  score-and-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 运行评分师
+        env:
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+          BITABLE_APP_TOKEN: ${{ secrets.BITABLE_APP_TOKEN }}
+          TABLE_ID: ${{ secrets.TABLE_ID }}
+        run: python scorer_cloud.py
+
+      - name: 提交报告到仓库
+        run: |
+          git config user.name "评分师机器人"
+          git config user.email "scorer@bot.com"
+          git add reports/
+          git diff --staged --quiet || git commit -m "📊 自动诊断报告 $(date +'%Y-%m-%d %H:%M')"
+          git push
