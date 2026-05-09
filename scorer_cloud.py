@@ -60,6 +60,53 @@ def feishu_api(method, path, body=None):
         print(f"  ⚠️ API failed: {e}")
         return {"code": -1}
 
+# ===== 飞书消息通知 =====
+def send_feishu_message(open_id, title, content):
+    """发送飞书消息给指定用户"""
+    msg = {
+        "receive_id": open_id,
+        "msg_type": "text",
+        "content": json.dumps({"text": content})
+    }
+    result = feishu_api("POST", "/im/v1/messages?receive_id_type=open_id", msg)
+    if result.get("code") == 0:
+        print(f"   📨 消息已发送给 {open_id[:10]}...")
+    else:
+        print(f"   ⚠️ 消息发送失败: {result.get('msg','')}")
+    return result
+
+def send_report_card(open_id, company, total, rating, grade, report_url):
+    """发送报告卡片（富文本消息）"""
+    from datetime import datetime
+    now = datetime.now().strftime("%Y-%m-%d %H:%M")
+    
+    msg = {
+        "receive_id": open_id,
+        "msg_type": "interactive",
+        "content": json.dumps({
+            "config": {"wide_screen_mode": True},
+            "header": {
+                "title": {"tag": "plain_text", "content": f"📋 免费诊断报告 - {company}"},
+                "template": "blue"
+            },
+            "elements": [
+                {"tag": "div", "text": {"tag": "lark_md", "content": f"**企业名称：** {company}"}},
+                {"tag": "div", "text": {"tag": "lark_md", "content": f"**综合评分：** {total:.2f} / 5.00  **·**  **评级：** {rating}"}},
+                {"tag": "div", "text": {"tag": "lark_md", "content": f"**商机等级：** {grade}"}},
+                {"tag": "div", "text": {"tag": "lark_md", "content": f"**生成时间：** {now}"}},
+                {"tag": "hr"},
+                {"tag": "div", "text": {"tag": "lark_md", "content": f"📎 完整报告已保存到仓库：\n{report_url}"}},
+                {"tag": "note", "text": {"tag": "plain_text", "content": "思派工业 · 精益智能工厂诊断系统 · 评分师 自动生成"}}
+            ]
+        })
+    }
+    result = feishu_api("POST", "/im/v1/messages?receive_id_type=open_id", msg)
+    if result.get("code") == 0:
+        print(f"   🃏 报告卡片已发送给 {open_id[:10]}...")
+    else:
+        print(f"   ⚠️ 卡片发送失败: {result.get('msg','')}")
+    return result
+
 # ===== 评分核心 =====
 def extract_text(fields, name):
     raw = fields.get(name, "")
@@ -206,6 +253,25 @@ def main():
         with open(rpath, "w", encoding="utf-8") as f:
             f.write(html)
         print(f"   📄 报告: {rpath}")
+        
+        # 发送通知给创始人
+        founder_open_id = os.environ.get("FOUNDER_OPEN_ID", "ou_654b4ab922a747e21af74eaa4884a914")
+        repo_url = os.environ.get("REPO_URL", "https://github.com/Kevinhanmin/scorer-reports")
+        report_url = f"{repo_url}/blob/main/{rpath}"
+        
+        try:
+            summary = (
+                f"📋 新客户诊断报告\n\n"
+                f"企业：{company}\n"
+                f"评分：{total:.2f}/5 · {rating}\n"
+                f"商机：{grade}（损失约{loss_label}）\n"
+                f"联系方式：{contact}\n\n"
+                f"完整报告：{report_url}"
+            )
+            send_feishu_message(founder_open_id, "新报告", summary)
+        except Exception as e:
+            print(f"   ⚠️ 通知发送失败: {e}")
+        
         processed += 1
 
     print(f"\n✅ 完成！处理了 {processed} 条新记录")
