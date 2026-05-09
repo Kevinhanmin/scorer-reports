@@ -246,10 +246,12 @@ def main():
         # 更新飞书状态
         feishu_api("PUT", f"/bitable/v1/apps/{BITABLE_APP_TOKEN}/tables/{TABLE_ID}/records/{rid}", {"fields":{"跟进进度":"已生成报告"}})
 
-        # 生成报告
+        # 生成报告（文件名用英文+数字，避免中文链接问题）
         html = gen_html(company, contact, dim_scores, total, rating, desc, loss_label, grade)
-        safe_name = "".join(c if c.isalnum() else "_" for c in company)[:20] or rid[:8]
-        rpath = f"{REPORT_DIR}/诊断报告_{safe_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.html"
+        ts = datetime.now().strftime('%Y%m%d_%H%M%S')
+        safe_name = "".join(c for c in company if c.isascii() and c.isalnum() or c in " _-")[:15] or "report"
+        safe_name = safe_name.strip().replace(" ", "_") or f"report_{rid[:6]}"
+        rpath = f"{REPORT_DIR}/diagnosis_{safe_name}_{ts}.html"
         with open(rpath, "w", encoding="utf-8") as f:
             f.write(html)
         print(f"   📄 报告: {rpath}")
