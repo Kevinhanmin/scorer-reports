@@ -24,12 +24,14 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: 运行评分师
+      - name: 运行评分师并发送通知
         env:
           FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
           FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
           BITABLE_APP_TOKEN: ${{ secrets.BITABLE_APP_TOKEN }}
           TABLE_ID: ${{ secrets.TABLE_ID }}
+          FOUNDER_OPEN_ID: ${{ secrets.FOUNDER_OPEN_ID }}
+          REPO_URL: ${{ secrets.REPO_URL }}
         run: python scorer_cloud.py
 
       - name: 提交报告到仓库
