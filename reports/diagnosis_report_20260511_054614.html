@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>精益智能工厂免费诊断报告 - 思派工业技术（深圳）有限公司</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#f0f2f5;color:#1d1d1f;padding:20px;line-height:1.6}
+.c{max-width:800px;margin:0 auto;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.08)}
+/* 头部 */
+.h{background:linear-gradient(135deg,#0f172a,#1e3a5f,#2563eb);padding:40px 44px 32px;color:#fff;position:relative;overflow:hidden}
+.h::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.04)}
+.h::after{content:'';position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.03)}
+.h .l{display:inline-block;background:rgba(255,255,255,.12);padding:4px 14px;border-radius:20px;font-size:12px;letter-spacing:.5px;backdrop-filter:blur(4px);margin-bottom:14px;border:1px solid rgba(255,255,255,.08)}
+.h h1{font-size:26px;font-weight:700;letter-spacing:-.5px}
+.h .cname{font-size:16px;opacity:.9;margin-top:10px}
+.h .meta{display:flex;gap:24px;margin-top:12px;font-size:12px;opacity:.65}
+/* 内容区 */
+.b{padding:32px 40px 28px}
+/* 综合评分模块 */
+.score-card{display:flex;gap:28px;padding:24px 28px;background:linear-gradient(135deg,#f8fafc,#f1f5f9);border-radius:16px;margin-bottom:28px;border:1px solid #e2e8f0}
+.score-big{text-align:center;min-width:100px}
+.score-big .num{font-size:48px;font-weight:800;color:#0f172a;line-height:1}
+.score-big .denom{font-size:14px;color:#94a3b8;margin-top:2px}
+.score-big .grade-badge{display:inline-block;margin-top:8px;padding:3px 14px;border-radius:20px;font-size:13px;font-weight:600;color:#fff;background:#65a30d}
+.score-info{flex:1}
+.score-info .g{font-size:18px;font-weight:700;color:#0f172a}
+.score-info .g .tag{display:inline-block;margin-left:8px;padding:2px 12px;font-size:11px;border-radius:12px;background:#65a30d20;color:#65a30d;font-weight:600}
+.score-info .d{font-size:13px;color:#64748b;margin-top:6px;line-height:1.6}
+/* 维度评分 */
+.section-title{font-size:15px;font-weight:700;color:#0f172a;margin:24px 0 12px;padding-bottom:8px;border-bottom:2px solid #eef2f6;display:flex;align-items:center;gap:8px}
+.dim-row{display:flex;align-items:center;padding:7px 0;gap:12px}
+.dim-label{width:100px;font-size:13px;color:#334155;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.dim-tag{font-size:9px;padding:1px 8px;border-radius:10px;font-weight:500}
+.dim-tag.优秀{background:#dcfce7;color:#16a34a}
+.dim-tag.良好{background:#ecfccb;color:#65a30d}
+.dim-tag.关注{background:#fef9c3;color:#ca8a04}
+.dim-tag.薄弱{background:#ffedd5;color:#f97316}
+.dim-tag.风险{background:#fef2f2;color:#dc2626}
+.dim-bar-wrap{flex:1;height:10px;background:#f1f5f9;border-radius:5px;overflow:hidden}
+.dim-bar{height:100%;border-radius:5px;transition:width 1s ease}
+.dim-score{width:36px;font-size:14px;font-weight:700;text-align:right;flex-shrink:0}
+/* 三栏数据 */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px}
+.stat-item{text-align:center;padding:18px 12px;background:#f8fafc;border-radius:12px;border:1px solid #e2e8f0}
+.stat-item .stat-lbl{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.stat-item .stat-val{font-size:22px;font-weight:800}
+/* Top3改善 */
+.improve-list{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.improve-item{display:flex;gap:14px;padding:16px 18px;background:#fef2f2;border:1px solid #fecaca;border-radius:12px}
+.improve-num{font-size:12px;font-weight:800;color:#dc2626;width:28px;text-align:center;padding-top:2px}
+.improve-info{flex:1}
+.improve-title{font-size:14px;font-weight:700;color:#991b1b}
+.improve-desc{font-size:11px;color:#b91c1c;margin-top:2px;opacity:.8}
+.improve-bar{margin-top:6px;height:4px;background:#fecaca;border-radius:2px;overflow:hidden}
+.improve-bar-fill{height:100%;background:#dc2626;border-radius:2px}
+.strength-box{padding:14px 18px;background:#f0fdf4;border:1px solid #86efac;border-radius:12px;font-size:12px;color:#166534;margin-bottom:24px;line-height:1.6}
+/* 建议框 */
+.suggestion-box{padding:18px 22px;background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #bfdbfe;border-radius:12px;margin-bottom:24px}
+.suggestion-box .sug-title{font-size:13px;font-weight:700;color:#1e40af;margin-bottom:4px}
+.suggestion-box .sug-text{font-size:12px;color:#1e40af;line-height:1.7}
+/* 改善潜力亮点 */
+.potential-box{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac;border-radius:16px;overflow:hidden;margin-bottom:24px}
+.potential-header{padding:16px 20px;background:#05966914;font-size:15px;font-weight:700;color:#065f46;border-bottom:1px solid #a7f3d0;display:flex;align-items:center;gap:8px}
+.potential-body{padding:16px 20px;font-size:13px;color:#065f46;line-height:1.7}
+.potential-body p{margin-bottom:8px}
+.potential-benefits{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.benefit-item{padding:10px 14px;background:#fff;border-radius:8px;font-size:13px;border:1px solid #a7f3d0}
+.benefit-icon{margin-right:6px}
+.potential-cta-text{font-size:12px;color:#059669;margin-top:8px;padding:10px 14px;background:#ecfdf5;border-radius:8px;border:1px solid #a7f3d0}
+/* 行动号召 */
+.cta{text-align:center;padding:28px 24px;background:linear-gradient(135deg,#0f172a,#1e3a5f);border-radius:16px;color:#fff;margin-top:20px}
+.cta h3{font-size:17px;font-weight:700;letter-spacing:-.3px}
+.cta p{font-size:13px;opacity:.85;margin:8px 0 16px;line-height:1.6}
+.cta .cta-btn{display:inline-block;padding:12px 32px;background:#2563eb;color:#fff;border-radius:30px;font-size:14px;font-weight:600;text-decoration:none;transition:all .2s;border:1px solid rgba(255,255,255,.15)}
+.cta .cta-btn:hover{background:#1d4ed8;transform:translateY(-1px)}
+.cta .cta-info{font-size:11px;opacity:.6;margin-top:12px}
+/* 底部 */
+.footer{text-align:center;padding:18px;font-size:10px;color:#94a3b8;border-top:1px solid #e2e8f0}
+.footer .brand{font-size:11px;font-weight:600;color:#64748b;margin-bottom:2px}
+.disclaimer{font-size:9px;color:#94a3b8;padding:12px 18px;background:#f8fafc;border-radius:8px;margin-top:12px;line-height:1.5}
+/* 响应式 */
+@media(max-width:600px){.h{padding:28px 20px 24px}.b{padding:20px 16px}.score-card{flex-direction:column;gap:12px;padding:16px}.score-big{min-width:unset}.dim-label{width:80px;font-size:12px}.stat-grid{gap:8px}.stat-item{padding:12px 6px}}
+</style>
+</head>
+<body>
+<div class="c">
+    <div class="h">
+        <div class="l">🔍 免费诊断报告</div>
+        <h1>精益智能工厂 · 初步诊断分析报告</h1>
+        <div class="cname">🏢 思派工业技术（深圳）有限公司</div>
+        <div class="meta"><span>📅 报告日期：2026-05-11</span><span>📋 报告编号：DIAG-202605110546</span></div>
+    </div>
+    <div class="b">
+        <!-- 综合评分 -->
+        <div class="score-card">
+            <div class="score-big">
+                <div class="num">3.58</div>
+                <div class="denom">/ 5.00</div>
+                <div class="grade-badge">B级 良好</div>
+            </div>
+            <div class="score-info">
+                <div class="g">综合评分 · 企业健康度评估<span class="tag">B级 良好</span></div>
+                <div class="d">有精益基础</div>
+            </div>
+        </div>
+
+        <!-- 八维诊断评分 -->
+        <div class="section-title">📊 八维诊断评分体系</div>
+        
+        <div class="dim-row">
+            <div class="dim-label">生产效率 <span class="dim-tag 关注">关注</span></div>
+            <div class="dim-bar-wrap"><div class="dim-bar" style="width:60%;background:#ca8a04"></div></div>
+            <div class="dim-score" style="color:#ca8a04">3.0</div>
+        </div>
+        <div class="dim-row">
+            <div class="dim-label">库存物流 <span class="dim-tag 良好">良好</span></div>
+            <div class="dim-bar-wrap"><div class="dim-bar" style="width:70%;background:#65a30d"></div></div>
+            <div class="dim-score" style="color:#65a30d">3.5</div>
+        </div>
+        <div class="dim-row">
+            <div class="dim-label">设备管理 <span class="dim-tag 良好">良好</span></div>
+            <div class="dim-bar-wrap"><div class="dim-bar" style="width:70%;background:#65a30d"></div></div>
+            <div class="dim-score" style="color:#65a30d">3.5</div>
+        </div>
+        <div class="dim-row">
+            <div class="dim-label">人员效率 <span class="dim-tag 良好">良好</span></div>
+            <div class="dim-bar-wrap"><div class="dim-bar" style="width:70%;background:#65a30d"></div></div>
+            <div class="dim-score" style="color:#65a30d">3.5</div>
+        </div>
+        <div class="dim-row">
+            <div class="dim-label">计划交付 <span class="dim-tag 良好">良好</span></div>
+            <div class="dim-bar-wrap"><div class="dim-bar" style="width:70%;background:#65a30d"></div></div>
+            <div class="dim-score" style="color:#65a30d">3.5</div>
+        </div>
+        <div class="dim-row">
+            <div class="dim-label">质量控制 <span class="dim-tag 良好">良好</span></div>
+            <div class="dim-bar-wrap"><div class="dim-bar" style="width:80%;background:#65a30d"></div></div>
+            <div class="dim-score" style="color:#65a30d">4.0</div>
+        </div>
+        <div class="dim-row">
+            <div class="dim-label">现场管理 <span class="dim-tag 良好">良好</span></div>
+            <div class="dim-bar-wrap"><div class="dim-bar" style="width:80%;background:#65a30d"></div></div>
+            <div class="dim-score" style="color:#65a30d">4.0</div>
+        </div>
+        <div class="dim-row">
+            <div class="dim-label">数字化 <span class="dim-tag 良好">良好</span></div>
+            <div class="dim-bar-wrap"><div class="dim-bar" style="width:80%;background:#65a30d"></div></div>
+            <div class="dim-score" style="color:#65a30d">4.0</div>
+        </div>
+
+        <!-- 损失与改善潜力（商机等级仅创始人内部可见，不向客户展示） -->
+        <div class="section-title">💰 经济效益分析</div>
+        <div class="stat-grid">
+            <div class="stat-item">
+                <div class="stat-lbl">📉 年度预计损失</div>
+                <div class="stat-val" style="color:#dc2626">50–200万</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-lbl">⚡ 紧急程度</div>
+                <div class="stat-val" style="color:#ca8a04">-</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-lbl">💡 年改善潜力</div>
+                <div class="stat-val" style="color:#16a34a">约350万</div>
+            </div>
+        </div>
+
+        <!-- 改善潜力亮点 -->
+        <div class="potential-box">
+            <div class="potential-header">
+                <span class="potential-icon">🎯</span>
+                <span>您每年可能浪费约 <strong style="font-size:22px;color:#059669">350万元</strong></span>
+            </div>
+            <div class="potential-body">
+                <p>根据问卷数据初步评估，贵工厂存在约 <strong>350万元/年</strong> 的改善空间。通过系统精益改善，通常可实现：</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0">
+                    <div style="padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px">⬇️ 生产成本降低 <strong>10-20%</strong></div>
+                    <div style="padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px">⬆️ 生产效率提升 <strong>15-30%</strong></div>
+                    <div style="padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px">📦 库存周转加速 <strong>20-40%</strong></div>
+                    <div style="padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px">✅ 产品合格率提高 <strong>5-15%</strong></div>
+                </div>
+                <div style="font-size:12px;color:#059669;margin-top:8px;padding:10px 14px;background:#ecfdf5;border-radius:8px;border:1px solid #a7f3d0">💡 以上为初步估算，实际改善空间需现场深度诊断确认。立即预约获取专属方案。</div>
+            </div>
+        </div>
+
+        <!-- 优势 -->
+        <div class="strength-box"><span class="strength-icon">⭐</span><span class="strength-label">优势维度</span> <strong>数字化</strong>（4.0分）— 保持此优势并转化为核心竞争力</div>
+
+        <!-- 紧急改善方向 -->
+        <div class="section-title">🔴 优先改善方向（Top 3）</div>
+        <div class="improve-list">
+        <div class="improve-item">
+            <div class="improve-num">01</div>
+            <div class="improve-info">
+                <div class="improve-title">生产效率（3.0分）</div>
+                <div class="improve-desc">关注设备综合效率(OEE)、产线平衡、瓶颈工序</div>
+                <div class="improve-bar"><div class="improve-bar-fill" style="width:60%"></div></div>
+            </div>
+        </div>
+        <div class="improve-item">
+            <div class="improve-num">02</div>
+            <div class="improve-info">
+                <div class="improve-title">库存物流（3.5分）</div>
+                <div class="improve-desc">关注库存周转天数、在制品堆积、物料配送效率</div>
+                <div class="improve-bar"><div class="improve-bar-fill" style="width:70%"></div></div>
+            </div>
+        </div>
+        <div class="improve-item">
+            <div class="improve-num">03</div>
+            <div class="improve-info">
+                <div class="improve-title">设备管理（3.5分）</div>
+                <div class="improve-desc">关注故障率、TPM体系、快速换模水平</div>
+                <div class="improve-bar"><div class="improve-bar-fill" style="width:70%"></div></div>
+            </div>
+        </div></div>
+
+        <!-- 专家建议 -->
+        <div class="suggestion-box">
+            <div class="sug-title">🎯 专家诊断建议</div>
+            <div class="sug-text">具备良好的管理基础，建议针对薄弱维度进行专项改善，可考虑L2轻量诊断做深度评估。</div>
+        </div>
+
+        <!-- 行动号召 -->
+        <div class="cta">
+            <h3>📞 想获取详细改善方案？</h3>
+            <p>以上为初步免费诊断结果。如需获取针对您工厂的详细改善路线图<br>以及量化的投入产出分析，请联系我们安排深度诊断。</p>
+            <a class="cta-btn" href="https://kevinhanmin.github.io/scorer-reports/" target="_blank">📋 预约专家深度诊断 →</a>
+            <div class="cta-info">联系人： · 思派工业技术（深圳）有限公司</div>
+        </div>
+
+        <div class="disclaimer">📌 免责声明：本报告由精益智能工厂诊断系统基于问卷数据自动生成，旨在提供初步参考。报告中的评分、损失估算、改善建议等均为基于有限信息的初步判断，不代表最终诊断结论。如需准确的工厂诊断报告，请联系思派工业技术安排现场深度诊断。</div>
+    </div>
+    <div class="footer">
+        <div class="brand">思派工业技术（深圳）有限公司 · 精益智能工厂领航员</div>
+        <div>© 2026 思派工业技术 · 由评分师自动生成</div>
+    </div>
+</div>
+</body>
+</html>
