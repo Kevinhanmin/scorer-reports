@@ -230,8 +230,9 @@ def main():
     processed = 0
     for rec in records:
         fields = rec.get("fields",{})
-        progress = fields.get("跟进进度","")
-        if progress in ["已生成报告",""]: continue
+        progress = str(fields.get("跟进进度","") or "")
+        # Skip only if already processed
+        if progress == "已生成报告": continue
 
         rid = rec["record_id"]
         dim_scores = {d: get_score(fields, sf) for d, sf in DIM_SCORE_FIELDS}
