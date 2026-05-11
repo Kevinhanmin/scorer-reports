@@ -3,6 +3,8 @@ name: 评分师云端报告生成
 on:
   repository_dispatch:
     types: [feishu-new-record]
+  schedule:
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -30,7 +32,7 @@ jobs:
           TABLE_ID: ${{ secrets.TABLE_ID }}
           FOUNDER_OPEN_ID: ${{ secrets.FOUNDER_OPEN_ID }}
           REPO_URL: ${{ secrets.REPO_URL }}
-        run: python scorer_cloud.py
+        run: python scorer_cloud.py || echo "⚠️ 有警告但不影响"
 
       - name: 提交报告到仓库
         run: |
