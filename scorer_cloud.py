@@ -6,7 +6,7 @@
 
 环境变量通过GitHub Secrets传入（无需本地.env文件）
 """
-import os, sys, json, time, math
+import os, sys, json, time, math, re
 from datetime import datetime
 from pathlib import Path
 
@@ -149,11 +149,13 @@ def get_rating(score):
 
 def get_sales_grade(fields):
     loss = extract_text(fields, "Q24. 以上问题每年大概造成多少损失？（单选题）")
+    # 清洗选项字母（如"A. 50万以下"→"50万以下"）
+    loss_clean = re.sub(r'^[A-Z][\.\s]*', '', loss) if loss else ""
     for kw, g, m in [("50万以下","C级商机",25),("50–200万","B级商机",125),
                      ("200–500万","A级商机",350),("500–1000万","S级商机",750),
                      ("1000万以上","S级商机",1500)]:
-        if kw in loss: return g, m, loss
-    return "待评估", 0, loss
+        if kw in loss_clean: return g, m, loss_clean
+    return "待评估", 0, loss_clean
 
 
 # ===== HTML报告生成（v2.0 大升级）=====
@@ -297,6 +299,15 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,A
 .suggestion-box{{padding:18px 22px;background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #bfdbfe;border-radius:12px;margin-bottom:24px}}
 .suggestion-box .sug-title{{font-size:13px;font-weight:700;color:#1e40af;margin-bottom:4px}}
 .suggestion-box .sug-text{{font-size:12px;color:#1e40af;line-height:1.7}}
+/* 改善潜力亮点 */
+.potential-box{{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac;border-radius:16px;overflow:hidden;margin-bottom:24px}}
+.potential-header{{padding:16px 20px;background:#05966914;font-size:15px;font-weight:700;color:#065f46;border-bottom:1px solid #a7f3d0;display:flex;align-items:center;gap:8px}}
+.potential-body{{padding:16px 20px;font-size:13px;color:#065f46;line-height:1.7}}
+.potential-body p{{margin-bottom:8px}}
+.potential-benefits{{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}}
+.benefit-item{{padding:10px 14px;background:#fff;border-radius:8px;font-size:13px;border:1px solid #a7f3d0}}
+.benefit-icon{{margin-right:6px}}
+.potential-cta-text{{font-size:12px;color:#059669;margin-top:8px;padding:10px 14px;background:#ecfdf5;border-radius:8px;border:1px solid #a7f3d0}}
 /* 行动号召 */
 .cta{{text-align:center;padding:28px 24px;background:linear-gradient(135deg,#0f172a,#1e3a5f);border-radius:16px;color:#fff;margin-top:20px}}
 .cta h3{{font-size:17px;font-weight:700;letter-spacing:-.3px}}
@@ -339,19 +350,37 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,A
         {bars}
 
         <!-- 损失与改善潜力（商机等级仅创始人内部可见，不向客户展示） -->
-        <div class="section-title">💰 经济损失与改善潜力评估</div>
-        <div class="stat-grid">
-            <div class="stat-item">
-                <div class="stat-lbl">📉 年度预计损失</div>
-                <div class="stat-val" style="color:#dc2626">{loss_label}</div>
+        <div class=\"section-title\">💰 经济效益分析</div>
+        <div class=\"stat-grid\">
+            <div class=\"stat-item\">
+                <div class=\"stat-lbl\">📉 年度预计损失</div>
+                <div class=\"stat-val\" style=\"color:#dc2626\">{loss_label}</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-lbl">⚡ 紧急程度</div>
-                <div class="stat-val" style="color:#ca8a04">-</div>
+            <div class=\"stat-item\">
+                <div class=\"stat-lbl\">⚡ 紧急程度</div>
+                <div class=\"stat-val\" style=\"color:#ca8a04\">-</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-lbl">💡 年改善潜力</div>
-                <div class="stat-val" style="color:#16a34a">约{loss_mid}万</div>
+            <div class=\"stat-item\">
+                <div class=\"stat-lbl\">💡 年改善潜力</div>
+                <div class=\"stat-val\" style=\"color:#16a34a\">约{loss_mid}万</div>
+            </div>
+        </div>
+
+        <!-- 改善潜力亮点 -->
+        <div class=\"potential-box\">
+            <div class=\"potential-header\">
+                <span class=\"potential-icon\">🎯</span>
+                <span>您每年可能浪费约 <strong style=\"font-size:22px;color:#059669\">{loss_mid}万元</strong></span>
+            </div>
+            <div class=\"potential-body\">
+                <p>根据问卷数据初步评估，贵工厂存在约 <strong>{loss_mid}万元/年</strong> 的改善空间。通过系统精益改善，通常可实现：</p>
+                <div style=\"display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0\">
+                    <div style=\"padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px\">⬇️ 生产成本降低 <strong>10-20%</strong></div>
+                    <div style=\"padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px\">⬆️ 生产效率提升 <strong>15-30%</strong></div>
+                    <div style=\"padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px\">📦 库存周转加速 <strong>20-40%</strong></div>
+                    <div style=\"padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px\">✅ 产品合格率提高 <strong>5-15%</strong></div>
+                </div>
+                <div style=\"font-size:12px;color:#059669;margin-top:8px;padding:10px 14px;background:#ecfdf5;border-radius:8px;border:1px solid #a7f3d0\">💡 以上为初步估算，实际改善空间需现场深度诊断确认。立即预约获取专属方案。</div>
             </div>
         </div>
 
