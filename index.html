@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思派工业 · 精益智能工厂诊断报告</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f4f8;color:#1a2332;min-height:100vh}
+  .header{background:linear-gradient(135deg,#1a365d,#2d5a8e);padding:48px 24px;text-align:center;color:#fff}
+  .header h1{font-size:28px;font-weight:700;margin-bottom:6px}
+  .header p{font-size:14px;opacity:.75;margin-bottom:4px}
+  .header .badge{display:inline-block;background:rgba(255,255,255,.12);padding:3px 12px;border-radius:12px;font-size:11px;margin-bottom:14px}
+  .content{max-width:800px;margin:0 auto;padding:28px 20px}
+  .stats{display:flex;gap:16px;margin-bottom:28px}
+  .stat-card{flex:1;background:#fff;border-radius:12px;padding:18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+  .stat-card .num{font-size:28px;font-weight:700;color:#1a365d}
+  .stat-card .lbl{font-size:12px;color:#7e93a8;margin-top:2px}
+  .section-title{font-size:16px;font-weight:700;color:#1a365d;margin:24px 0 14px;padding-bottom:8px;border-bottom:2px solid #eef2f6}
+  .report-list{display:grid;gap:10px}
+  .report-card{background:#fff;border-radius:10px;padding:16px 20px;box-shadow:0 1px 4px rgba(0,0,0,.04);display:flex;justify-content:space-between;align-items:center;transition:box-shadow .2s}
+  .report-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08)}
+  .report-card .info{flex:1}
+  .report-card .company{font-size:15px;font-weight:600;color:#1a2332}
+  .report-card .meta{font-size:12px;color:#7e93a8;margin-top:2px}
+  .report-card .score{font-size:18px;font-weight:700;min-width:60px;text-align:right}
+  .report-card .score .grade{font-size:11px;display:block;font-weight:500}
+  .report-card .btn{display:inline-block;padding:6px 16px;background:#1a365d;color:#fff;border-radius:6px;font-size:12px;text-decoration:none;margin-left:12px}
+  .report-card .btn:hover{background:#2d5a8e}
+  .empty{text-align:center;padding:40px;color:#94a3b8;font-size:14px}
+  .footer{text-align:center;padding:24px;font-size:11px;color:#94a3b8}
+  .score-high{color:#16a34a}
+  .score-mid{color:#ca8a04}
+  .score-low{color:#dc2626}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="badge">📋 精益智能工厂诊断系统</div>
+  <h1>免费诊断报告</h1>
+  <p>思派工业技术（深圳）有限公司</p>
+</div>
+<div class="content">
+  <div id="app">
+    <div class="stats">
+      <div class="stat-card"><div class="num" id="totalCount">-</div><div class="lbl">总报告数</div></div>
+      <div class="stat-card"><div class="num" id="avgScore">-</div><div class="lbl">平均评分</div></div>
+      <div class="stat-card"><div class="num" id="highValue">-</div><div class="lbl">A级商机</div></div>
+    </div>
+    <div class="section-title">📄 诊断报告列表</div>
+    <div class="report-list" id="reportList">
+      <div class="empty">加载中...</div>
+    </div>
+  </div>
+</div>
+<div class="footer">思派工业技术（深圳）有限公司 · 精益智能工厂领航员</div>
+
+<script>
+async function loadReports() {
+  try {
+    const resp = await fetch('https://api.github.com/repos/Kevinhanmin/scorer-reports/contents/reports');
+    if (!resp.ok) throw new Error('API error');
+    const files = await resp.json();
+    
+    // Filter only diagnosis HTML files
+    let reports = files.filter(f => f.name.endsWith('.html') && f.name.includes('diagnosis_'));
+    
+    // Group by company (deduplicate)
+    const latest = {};
+    reports.forEach(r => {
+      const parts = r.name.replace('diagnosis_', '').split('_');
+      const company = parts.slice(0, -2).join('_') || 'unknown';
+      if (!latest[company] || r.name > latest[company].name) {
+        latest[company] = {name: r.name, path: r.path, size: r.size, company};
+      }
+    });
+    
+    const unique = Object.values(latest);
+    const list = document.getElementById('reportList');
+    const totalEl = document.getElementById('totalCount');
+    const avgEl = document.getElementById('avgScore');
+    const highEl = document.getElementById('highValue');
+    
+    totalEl.textContent = unique.length;
+    
+    if (unique.length === 0) {
+      list.innerHTML = '<div class=\"empty\">暂无诊断报告</div>';
+      avgEl.textContent = '-';
+      highEl.textContent = '-';
+      return;
+    }
+    
+    // Sort by name (newest first)
+    unique.sort((a, b) => b.name.localeCompare(a.name));
+    
+    list.innerHTML = unique.map(r => {
+      const url = \`./reports/\${r.name}\`;
+      // Try to extract score from filename or use placeholder
+      const companyDisplay = r.company.replace(/_/g, '');
+      return \`
+        <div class="report-card">
+          <div class="info">
+            <div class="company">\${companyDisplay}</div>
+            <div class="meta">\${new Date(r.name.match(/\d{8}/)?.[0] || '').toLocaleDateString('zh-CN') || '近期'}</div>
+          </div>
+          <a href="\${url}" class="btn" target="_blank">查看报告</a>
+        </div>
+      \`;
+    }).join('');
+    
+  } catch(e) {
+    document.getElementById('reportList').innerHTML = '<div class=\"empty\">加载失败，请刷新页面重试</div>';
+    console.error(e);
+  }
+}
+loadReports();
+</script>
+</body>
+</html>
