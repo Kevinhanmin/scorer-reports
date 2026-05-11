@@ -76,7 +76,7 @@ def send_feishu_message(open_id, title, content):
     return result
 
 def send_report_card(open_id, company, total, rating, grade, report_url):
-    """发送报告卡片（富文本消息）"""
+    """发送报告卡片（带点击按钮的交互卡片）"""
     from datetime import datetime
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
     
@@ -93,9 +93,20 @@ def send_report_card(open_id, company, total, rating, grade, report_url):
                 {"tag": "div", "text": {"tag": "lark_md", "content": f"**企业名称：** {company}"}},
                 {"tag": "div", "text": {"tag": "lark_md", "content": f"**综合评分：** {total:.2f} / 5.00  **·**  **评级：** {rating}"}},
                 {"tag": "div", "text": {"tag": "lark_md", "content": f"**商机等级：** {grade}"}},
-                {"tag": "div", "text": {"tag": "lark_md", "content": f"**生成时间：** {now}"}},
                 {"tag": "hr"},
-                {"tag": "div", "text": {"tag": "lark_md", "content": f"📄 [**点击查看完整诊断报告**]({report_url})"}},
+                {"tag": "action", "actions": [
+                    {
+                        "tag": "button",
+                        "type": "primary",
+                        "text": {"tag": "plain_text", "content": "📄 查看完整诊断报告"},
+                        "multi_url": {
+                            "url": report_url,
+                            "android_url": report_url,
+                            "ios_url": report_url,
+                            "pc_url": report_url
+                        }
+                    }
+                ]},
                 {"tag": "note", "text": {"tag": "plain_text", "content": "思派工业 · 精益智能工厂诊断系统 · 评分师 自动生成"}}
             ]
         })
@@ -270,17 +281,10 @@ def main():
         
         
         try:
-            # Send text message with clickable URL (this always works in Feishu)
-            msg = (
-                f"📋 新客户诊断报告\n\n"
-                f"企业：{company}\n"
-                f"评分：{total:.2f}/5 · {rating}\n"
-                f"商机：{grade}\n\n"
-                f"📄 查看完整报告：\n{report_url}"
-            )
-            send_feishu_message(founder_open_id, "新报告", msg)
+            # Send interactive card with button (no raw URL text)
+            send_report_card(founder_open_id, company, total, rating, grade, report_url)
         except Exception as e:
-            print(f"   ⚠️ 消息发送失败: {e}")
+            print(f"   ⚠️ 卡片发送失败: {e}")
         
         processed += 1
 
