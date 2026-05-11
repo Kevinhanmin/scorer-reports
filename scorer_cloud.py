@@ -338,16 +338,16 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,A
         <div class="section-title">📊 八维诊断评分体系</div>
         {bars}
 
-        <!-- 损失与商机 -->
-        <div class="section-title">💰 经济损失与改善机会评估</div>
+        <!-- 损失与改善潜力（商机等级仅创始人内部可见，不向客户展示） -->
+        <div class="section-title">💰 经济损失与改善潜力评估</div>
         <div class="stat-grid">
             <div class="stat-item">
                 <div class="stat-lbl">📉 年度预计损失</div>
                 <div class="stat-val" style="color:#dc2626">{loss_label}</div>
             </div>
             <div class="stat-item">
-                <div class="stat-lbl">🎯 商机等级</div>
-                <div class="stat-val" style="color:#ca8a04">{sales_grade}</div>
+                <div class="stat-lbl">⚡ 紧急程度</div>
+                <div class="stat-val" style="color:#ca8a04">-</div>
             </div>
             <div class="stat-item">
                 <div class="stat-lbl">💡 年改善潜力</div>
