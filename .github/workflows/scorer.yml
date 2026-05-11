@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: 运行评分师
+      - name: 运行评分师（生成报告 + 暂存通知）
         env:
           FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
           FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
@@ -32,7 +32,7 @@ jobs:
           TABLE_ID: ${{ secrets.TABLE_ID }}
           FOUNDER_OPEN_ID: ${{ secrets.FOUNDER_OPEN_ID }}
           REPO_URL: ${{ secrets.REPO_URL }}
-        run: python scorer_cloud.py || echo "⚠️ 有警告但不影响"
+        run: python scorer_cloud.py || echo "⚠️ 评分运行有警告，但不影响提交"
 
       - name: 提交报告到仓库
         run: |
@@ -45,3 +45,12 @@ jobs:
             git commit -m "📊 自动诊断报告 $(date +'%Y-%m-%d %H:%M')"
             git push
           fi
+
+      - name: 发送飞书通知（等文件部署后再发）
+        env:
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+          FOUNDER_OPEN_ID: ${{ secrets.FOUNDER_OPEN_ID }}
+        run: |
+          sleep 30  # 等待GitHub Pages部署（约30秒）
+          python scorer_cloud.py --notify || echo "⚠️ 通知发送有警告"
