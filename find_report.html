@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>我的诊断报告 - 思派工业</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f7fa; color: #333; min-height: 100vh; display: flex; flex-direction: column; }
+  .header { background: linear-gradient(135deg, #1a365d 0%, #2563eb 100%); color: white; padding: 40px 20px 30px; text-align: center; }
+  .header h1 { font-size: 22px; margin-bottom: 6px; }
+  .header p { font-size: 14px; opacity: 0.85; }
+  .container { max-width: 480px; margin: -20px auto 0; padding: 0 16px 40px; flex: 1; }
+  .card { background: white; border-radius: 12px; padding: 24px 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .card h2 { font-size: 16px; color: #1a365d; margin-bottom: 16px; text-align: center; }
+  .input-group { display: flex; gap: 8px; margin-bottom: 16px; }
+  .input-group input { flex: 1; border: 2px solid #e2e8f0; border-radius: 8px; padding: 12px 14px; font-size: 16px; outline: none; }
+  .input-group input:focus { border-color: #2563eb; }
+  .input-group button { background: #2563eb; color: white; border: none; border-radius: 8px; padding: 12px 20px; font-size: 16px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .input-group button:disabled { background: #93c5fd; cursor: not-allowed; }
+  .report-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; margin-bottom: 12px; }
+  .report-item .company { font-size: 16px; font-weight: 600; color: #1a365d; margin-bottom: 4px; }
+  .report-item .meta { font-size: 13px; color: #64748b; margin-bottom: 10px; }
+  .report-item .btn { display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 8px 18px; border-radius: 6px; font-size: 14px; }
+  .report-item .btn:active { background: #1d4ed8; }
+  .error-msg { text-align: center; color: #dc2626; font-size: 14px; padding: 20px 0; }
+  .empty-msg { text-align: center; color: #64748b; font-size: 14px; padding: 30px 0; }
+  .loading { text-align: center; color: #64748b; font-size: 14px; padding: 20px 0; }
+  .footer { text-align: center; padding: 20px; font-size: 12px; color: #94a3b8; }
+  .footer a { color: #2563eb; text-decoration: none; }
+  .tip { font-size: 13px; color: #64748b; text-align: center; margin-top: 12px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🔍 我的诊断报告</h1>
+  <p>思派工业 · 精益智能工厂领航员</p>
+</div>
+<div class="container">
+  <div class="card">
+    <h2>输入手机号查看报告</h2>
+    <p style="text-align:center;font-size:13px;color:#64748b;margin-bottom:16px;">请输入填写免费体检问卷时留下的手机号</p>
+    <div class="input-group">
+      <input type="tel" id="phoneInput" placeholder="请输入手机号" maxlength="11" inputmode="numeric">
+      <button id="searchBtn" onclick="searchReport()">查询</button>
+    </div>
+    <div id="resultContainer"></div>
+    <div class="tip">💡 还没做过体检？<a href="https://kevinhanmin.github.io/scorer-reports/" style="color:#2563eb;">点击这里开始免费体检</a></div>
+  </div>
+  <div class="footer">
+    <p>思派工业技术（深圳）有限公司</p>
+    <p>© 2026 精益智能工厂诊断系统</p>
+  </div>
+</div>
+<script>
+let reportIndex = [];
+async function loadIndex() {
+  const c = document.getElementById('resultContainer');
+  c.innerHTML = '<div class="loading">⏳ 加载中...</div>';
+  try {
+    const r = await fetch('./reports/reports_index.json?t=' + Date.now());
+    if (!r.ok) throw new Error('fail');
+    reportIndex = await r.json();
+    c.innerHTML = '';
+  } catch(e) {
+    c.innerHTML = '<div class="error-msg">⚠️ 系统加载失败，请稍后再试</div>';
+  }
+}
+function searchReport() {
+  const phone = document.getElementById('phoneInput').value.trim();
+  const c = document.getElementById('resultContainer');
+  if (!phone || phone.length < 5) { c.innerHTML = '<div class="error-msg">⚠️ 请输入手机号</div>'; return; }
+  const matches = reportIndex.filter(i => i.phones && i.phones.some(p => p.includes(phone) || phone.includes(p)));
+  if (!matches.length) {
+    c.innerHTML = '<div class="empty-msg">😅 未找到匹配的报告<br><span style="font-size:12px;color:#94a3b8;">请确认手机号与填问卷时一致</span></div>';
+    return;
+  }
+  let html = '<div class="result">';
+  matches.forEach(i => {
+    const u = i.report_url || '#';
+    html += '<div class="report-item"><div class="company">🏭 ' + (i.company||'未知企业') + '</div>';
+    if (i.report_date) html += '<div class="meta">📅 ' + i.report_date + '</div>';
+    if (u) html += '<a class="btn" href="' + u + '" target="_blank">📄 查看诊断报告</a>';
+    else html += '<span style="color:#94a3b8;font-size:13px;">⏳ 报告生成中，请稍后再查</span>';
+    html += '</div>';
+  });
+  html += '</div>';
+  c.innerHTML = html;
+}
+document.getElementById('phoneInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') searchReport(); });
+loadIndex();
+</script>
+</body>
+</html>
