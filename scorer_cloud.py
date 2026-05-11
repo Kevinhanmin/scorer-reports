@@ -155,7 +155,8 @@ def get_sales_grade(fields):
         if kw in loss: return g, m, loss
     return "待评估", 0, loss
 
-# ===== HTML报告生成 =====
+
+# ===== HTML报告生成（v2.0 大升级）=====
 def gen_html(company, contact, dim_scores, total, rating, desc, loss_label, sales_grade):
     now_str = datetime.now().strftime("%Y-%m-%d")
     sorted_dims = sorted(dim_scores.items(), key=lambda x: x[1])
@@ -163,61 +164,229 @@ def gen_html(company, contact, dim_scores, total, rating, desc, loss_label, sale
     best = sorted_dims[-1:] if sorted_dims else []
 
     def sc(s):
-        return "#16a34a" if s>=4 else "#ca8a04" if s>=3 else "#f97316" if s>=2 else "#dc2626"
+        if s >= 4.5: return "#16a34a", "优秀"
+        if s >= 3.5: return "#65a30d", "良好"
+        if s >= 2.5: return "#ca8a04", "关注"
+        if s >= 1.5: return "#f97316", "薄弱"
+        return "#dc2626", "风险"
 
+    # 进度条
     bars = ""
-    for n,s in sorted_dims:
-        p = int(s/5*100); c = sc(s)
-        bars += f'\n<div style="display:flex;align-items:center;padding:8px 0;border-bottom:1px solid #eee"><div style="width:100px;font-size:13px;color:#555">{n}</div><div style="flex:1;height:16px;background:#f0f0f0;border-radius:8px;margin:0 12px;overflow:hidden"><div style="height:100%;width:{p}%;background:{c};border-radius:8px"></div></div><div style="width:36px;font-size:15px;font-weight:700;color:{c};text-align:right">{s:.1f}</div></div>'
+    for n, s in sorted_dims:
+        p = int(s/5*100); c, lbl = sc(s)
+        bars += f'''
+        <div class="dim-row">
+            <div class="dim-label">{n} <span class="dim-tag {lbl}">{lbl}</span></div>
+            <div class="dim-bar-wrap"><div class="dim-bar" style="width:{p}%;background:{c}"></div></div>
+            <div class="dim-score" style="color:{c}">{s:.1f}</div>
+        </div>'''
 
-    top3 = "".join(f"<li>{i+1}. {n}（{s:.1f}分）</li>" for i,(n,s) in enumerate(worst))
-    best_html = f'<div class="fb" style="background:#f0fdf4;border:1px solid #86efac;color:#166534">✅ 优势维度：{best[0][0]}（{best[0][1]:.1f}分）</div>' if best else ""
+    # Top3 列表
+    top3_items = ""
+    dim_descriptions = {
+        "生产效率": "关注设备综合效率(OEE)、产线平衡、瓶颈工序",
+        "质量控制": "关注不良率、返工率、防错体系有效性",
+        "库存物流": "关注库存周转天数、在制品堆积、物料配送效率",
+        "设备管理": "关注故障率、TPM体系、快速换模水平",
+        "人员效率": "关注人员利用率、标准作业覆盖率、技能依赖度",
+        "现场管理": "关注5S水平、目视化管理、标准化程度",
+        "计划交付": "关注交付及时率、计划稳定性、排产合理性",
+        "数字化": "关注信息系统覆盖度、数据可视化、自动化水平",
+    }
+    for i, (n, s) in enumerate(worst):
+        detail = dim_descriptions.get(n, "")
+        bar_w = int(s/5*100)
+        top3_items += f'''
+        <div class="improve-item">
+            <div class="improve-num">0{i+1}</div>
+            <div class="improve-info">
+                <div class="improve-title">{n}（{s:.1f}分）</div>
+                <div class="improve-desc">{detail}</div>
+                <div class="improve-bar"><div class="improve-bar-fill" style="width:{bar_w}%"></div></div>
+            </div>
+        </div>'''
 
-    loss_mid = {"50万以下":25,"50":125,"200":350,"500":750}[next((k for k in ["500","200","50"] if k in str(loss_label)),"200")]
+    best_html = ""
+    if best:
+        n, s = best[0]; c, lbl = sc(s)
+        best_html = f'<div class="strength-box"><span class="strength-icon">⭐</span><span class="strength-label">优势维度</span> <strong>{n}</strong>（{s:.1f}分）— 保持此优势并转化为核心竞争力</div>'
 
-    return f'''<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>精益智能工厂免费诊断报告 - {company}</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+    # 损失估算
+    try:
+        loss_mid = {"50万以下": 25, "50": 125, "200": 350, "500": 750}[next((k for k in ["500", "200", "50"] if k in str(loss_label)), "200")]
+    except:
+        loss_mid = 100
+
+    # 建议内容
+    suggestions = {
+        (4.5, 5.0): "整体运营状况优秀，建议在现有基础上推进数字化升级，建立行业标杆示范效应。",
+        (3.5, 4.5): "具备良好的管理基础，建议针对薄弱维度进行专项改善，可考虑L2轻量诊断做深度评估。",
+        (2.5, 3.5): "存在明显的改善空间和管理浪费，建议尽快启动系统性诊断，制定90天改善计划。",
+        (0, 2.5): "管理水平亟待提升，存在较大经营风险，强烈建议立即启动全面诊断和改善项目。",
+    }
+    suggestion = ""
+    for (lo, hi), text in sorted(suggestions.items(), reverse=True):
+        if lo <= total < hi:
+            suggestion = text
+            break
+
+    # 评级标签
+    grade_color = {"A": "#16a34a", "B": "#65a30d", "C": "#ca8a04", "D": "#dc2626"}
+    grade_key = rating[0] if rating else "C"
+    gc = grade_color.get(grade_key, "#ca8a04")
+
+    return f'''<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>精益智能工厂免费诊断报告 - {company}</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
 *{{margin:0;padding:0;box-sizing:border-box}}
-body{{font-family:-apple-system,sans-serif;background:#f5f7fa;color:#1a2332;padding:20px}}
-.c{{max-width:760px;margin:0 auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.06)}}
-.h{{background:linear-gradient(135deg,#1a365d,#2d5a8e);padding:32px 36px 28px;color:#fff}}
-.h .l{{display:inline-block;background:rgba(255,255,255,.12);padding:3px 12px;border-radius:14px;font-size:11px;margin-bottom:10px}}
-.h h1{{font-size:22px;font-weight:700}}
-.h .cname{{font-size:15px;opacity:.85;margin-top:8px}}
-.h .m{{font-size:11px;opacity:.6;margin-top:4px}}
-.b{{padding:28px 36px}}
-.s{{display:flex;gap:20px;padding:20px 24px;background:#f8fafc;border-radius:12px;margin-bottom:24px}}
-.s .big{{font-size:34px;font-weight:700;color:#1a365d}}
-.s .info{{flex:1}}
-.s .info .g{{font-size:17px;font-weight:700}}
-.s .info .g .tag{{display:inline-block;margin-left:8px;padding:2px 10px;font-size:11px;border-radius:10px;background:#fee2e2;color:#b91c1c;font-weight:600}}
-.s .info .d{{font-size:12px;color:#666;margin-top:4px;line-height:1.5}}
-.st{{font-size:14px;font-weight:700;color:#1a365d;margin:18px 0 10px;padding-bottom:6px;border-bottom:2px solid #eef2f6}}
-.lg{{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px}}
-.li{{text-align:center;padding:14px;background:#f8fafc;border-radius:10px;border:1px solid #eef2f6}}
-.li .lbl{{font-size:10px;color:#888;margin-bottom:2px}}
-.li .val{{font-size:20px;font-weight:700}}
-.fb{{padding:14px 18px;border-radius:10px;margin-bottom:14px;font-size:12px;line-height:1.6}}
-.ca{{text-align:center;padding:20px;background:linear-gradient(135deg,#1a365d,#2d5a8e);border-radius:12px;color:#fff;margin-top:18px}}
-.ca h3{{font-size:14px;font-weight:600}}
-.ca p{{font-size:11px;opacity:.8;margin-top:4px}}
-.ft{{text-align:center;padding:14px;font-size:10px;color:#aaa;border-top:1px solid #eef2f6}}
-.disc{{font-size:9px;color:#999;padding:10px 14px;background:#fafafa;border-radius:8px;margin-top:12px}}
-</style></head><body><div class="c">
-<div class="h"><div class="l">📋 免费诊断报告</div><h1>精益智能工厂初步诊断分析报告</h1><div class="cname">🏢 {company}</div><div class="m">📅 {now_str}</div></div>
-<div class="b">
-<div class="s"><div><div class="big">{total:.2f}</div><div style="font-size:11px;color:#888">/ 5.00</div></div><div class="info"><div class="g">综合评分 · {rating.split(" ")[0] if " " in rating else rating}<span class="tag">{rating}</span></div><div class="d">{desc}</div></div></div>
-<div class="st">📊 八维诊断评分</div>{bars}
-<div class="st">💰 损失与商机评估</div>
-<div class="lg"><div class="li"><div class="lbl">年度损失</div><div class="val" style="color:#b91c1c;font-size:15px">{loss_label}</div></div><div class="li"><div class="lbl">商机等级</div><div class="val" style="color:#ca8a04;font-size:17px">{sales_grade}</div></div><div class="li"><div class="lbl">改善潜力</div><div class="val" style="color:#16a34a;font-size:15px">约{loss_mid}万</div></div></div>
-<div class="st">🔍 Top3改善方向</div>
-<div class="fb" style="background:#fef2f2;border:1px solid #fecaca;color:#991b1b"><ol style="padding-left:16px">{top3}</ol></div>
-{best_html}
-<div class="ca"><h3>📞 想深入了解改善方案？</h3><p>以上为初步诊断。如需详细改善路线图，请联系：<br><strong>思派工业技术（深圳）有限公司 · 联系人：{contact}</strong></p></div>
-<div class="disc">📌 本报告由精益智能工厂诊断系统自动生成，仅供参考。</div>
-</div><div class="ft">思派工业 · 精益智能工厂领航员 · 评分师 自动生成</div>
-</div></body></html>'''
+body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#f0f2f5;color:#1d1d1f;padding:20px;line-height:1.6}}
+.c{{max-width:800px;margin:0 auto;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.08)}}
+/* 头部 */
+.h{{background:linear-gradient(135deg,#0f172a,#1e3a5f,#2563eb);padding:40px 44px 32px;color:#fff;position:relative;overflow:hidden}}
+.h::before{{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.04)}}
+.h::after{{content:'';position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.03)}}
+.h .l{{display:inline-block;background:rgba(255,255,255,.12);padding:4px 14px;border-radius:20px;font-size:12px;letter-spacing:.5px;backdrop-filter:blur(4px);margin-bottom:14px;border:1px solid rgba(255,255,255,.08)}}
+.h h1{{font-size:26px;font-weight:700;letter-spacing:-.5px}}
+.h .cname{{font-size:16px;opacity:.9;margin-top:10px}}
+.h .meta{{display:flex;gap:24px;margin-top:12px;font-size:12px;opacity:.65}}
+/* 内容区 */
+.b{{padding:32px 40px 28px}}
+/* 综合评分模块 */
+.score-card{{display:flex;gap:28px;padding:24px 28px;background:linear-gradient(135deg,#f8fafc,#f1f5f9);border-radius:16px;margin-bottom:28px;border:1px solid #e2e8f0}}
+.score-big{{text-align:center;min-width:100px}}
+.score-big .num{{font-size:48px;font-weight:800;color:#0f172a;line-height:1}}
+.score-big .denom{{font-size:14px;color:#94a3b8;margin-top:2px}}
+.score-big .grade-badge{{display:inline-block;margin-top:8px;padding:3px 14px;border-radius:20px;font-size:13px;font-weight:600;color:#fff;background:{gc}}}
+.score-info{{flex:1}}
+.score-info .g{{font-size:18px;font-weight:700;color:#0f172a}}
+.score-info .g .tag{{display:inline-block;margin-left:8px;padding:2px 12px;font-size:11px;border-radius:12px;background:{gc}20;color:{gc};font-weight:600}}
+.score-info .d{{font-size:13px;color:#64748b;margin-top:6px;line-height:1.6}}
+/* 维度评分 */
+.section-title{{font-size:15px;font-weight:700;color:#0f172a;margin:24px 0 12px;padding-bottom:8px;border-bottom:2px solid #eef2f6;display:flex;align-items:center;gap:8px}}
+.dim-row{{display:flex;align-items:center;padding:7px 0;gap:12px}}
+.dim-label{{width:100px;font-size:13px;color:#334155;display:flex;align-items:center;gap:6px;flex-shrink:0}}
+.dim-tag{{font-size:9px;padding:1px 8px;border-radius:10px;font-weight:500}}
+.dim-tag.优秀{{background:#dcfce7;color:#16a34a}}
+.dim-tag.良好{{background:#ecfccb;color:#65a30d}}
+.dim-tag.关注{{background:#fef9c3;color:#ca8a04}}
+.dim-tag.薄弱{{background:#ffedd5;color:#f97316}}
+.dim-tag.风险{{background:#fef2f2;color:#dc2626}}
+.dim-bar-wrap{{flex:1;height:10px;background:#f1f5f9;border-radius:5px;overflow:hidden}}
+.dim-bar{{height:100%;border-radius:5px;transition:width 1s ease}}
+.dim-score{{width:36px;font-size:14px;font-weight:700;text-align:right;flex-shrink:0}}
+/* 三栏数据 */
+.stat-grid{{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px}}
+.stat-item{{text-align:center;padding:18px 12px;background:#f8fafc;border-radius:12px;border:1px solid #e2e8f0}}
+.stat-item .stat-lbl{{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}}
+.stat-item .stat-val{{font-size:22px;font-weight:800}}
+/* Top3改善 */
+.improve-list{{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}}
+.improve-item{{display:flex;gap:14px;padding:16px 18px;background:#fef2f2;border:1px solid #fecaca;border-radius:12px}}
+.improve-num{{font-size:12px;font-weight:800;color:#dc2626;width:28px;text-align:center;padding-top:2px}}
+.improve-info{{flex:1}}
+.improve-title{{font-size:14px;font-weight:700;color:#991b1b}}
+.improve-desc{{font-size:11px;color:#b91c1c;margin-top:2px;opacity:.8}}
+.improve-bar{{margin-top:6px;height:4px;background:#fecaca;border-radius:2px;overflow:hidden}}
+.improve-bar-fill{{height:100%;background:#dc2626;border-radius:2px}}
+.strength-box{{padding:14px 18px;background:#f0fdf4;border:1px solid #86efac;border-radius:12px;font-size:12px;color:#166534;margin-bottom:24px;line-height:1.6}}
+/* 建议框 */
+.suggestion-box{{padding:18px 22px;background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #bfdbfe;border-radius:12px;margin-bottom:24px}}
+.suggestion-box .sug-title{{font-size:13px;font-weight:700;color:#1e40af;margin-bottom:4px}}
+.suggestion-box .sug-text{{font-size:12px;color:#1e40af;line-height:1.7}}
+/* 行动号召 */
+.cta{{text-align:center;padding:28px 24px;background:linear-gradient(135deg,#0f172a,#1e3a5f);border-radius:16px;color:#fff;margin-top:20px}}
+.cta h3{{font-size:17px;font-weight:700;letter-spacing:-.3px}}
+.cta p{{font-size:13px;opacity:.85;margin:8px 0 16px;line-height:1.6}}
+.cta .cta-btn{{display:inline-block;padding:12px 32px;background:#2563eb;color:#fff;border-radius:30px;font-size:14px;font-weight:600;text-decoration:none;transition:all .2s;border:1px solid rgba(255,255,255,.15)}}
+.cta .cta-btn:hover{{background:#1d4ed8;transform:translateY(-1px)}}
+.cta .cta-info{{font-size:11px;opacity:.6;margin-top:12px}}
+/* 底部 */
+.footer{{text-align:center;padding:18px;font-size:10px;color:#94a3b8;border-top:1px solid #e2e8f0}}
+.footer .brand{{font-size:11px;font-weight:600;color:#64748b;margin-bottom:2px}}
+.disclaimer{{font-size:9px;color:#94a3b8;padding:12px 18px;background:#f8fafc;border-radius:8px;margin-top:12px;line-height:1.5}}
+/* 响应式 */
+@media(max-width:600px){{.h{{padding:28px 20px 24px}}.b{{padding:20px 16px}}.score-card{{flex-direction:column;gap:12px;padding:16px}}.score-big{{min-width:unset}}.dim-label{{width:80px;font-size:12px}}.stat-grid{{gap:8px}}.stat-item{{padding:12px 6px}}}}
+</style>
+</head>
+<body>
+<div class="c">
+    <div class="h">
+        <div class="l">🔍 免费诊断报告</div>
+        <h1>精益智能工厂 · 初步诊断分析报告</h1>
+        <div class="cname">🏢 {company}</div>
+        <div class="meta"><span>📅 报告日期：{now_str}</span><span>📋 报告编号：DIAG-{datetime.now().strftime("%Y%m%d%H%M")}</span></div>
+    </div>
+    <div class="b">
+        <!-- 综合评分 -->
+        <div class="score-card">
+            <div class="score-big">
+                <div class="num">{total:.2f}</div>
+                <div class="denom">/ 5.00</div>
+                <div class="grade-badge">{rating}</div>
+            </div>
+            <div class="score-info">
+                <div class="g">综合评分 · 企业健康度评估<span class="tag">{rating}</span></div>
+                <div class="d">{desc}</div>
+            </div>
+        </div>
 
-# ===== 主流程 =====
+        <!-- 八维诊断评分 -->
+        <div class="section-title">📊 八维诊断评分体系</div>
+        {bars}
+
+        <!-- 损失与商机 -->
+        <div class="section-title">💰 经济损失与改善机会评估</div>
+        <div class="stat-grid">
+            <div class="stat-item">
+                <div class="stat-lbl">📉 年度预计损失</div>
+                <div class="stat-val" style="color:#dc2626">{loss_label}</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-lbl">🎯 商机等级</div>
+                <div class="stat-val" style="color:#ca8a04">{sales_grade}</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-lbl">💡 年改善潜力</div>
+                <div class="stat-val" style="color:#16a34a">约{loss_mid}万</div>
+            </div>
+        </div>
+
+        <!-- 优势 -->
+        {best_html}
+
+        <!-- 紧急改善方向 -->
+        <div class="section-title">🔴 优先改善方向（Top 3）</div>
+        <div class="improve-list">{top3_items}</div>
+
+        <!-- 专家建议 -->
+        <div class="suggestion-box">
+            <div class="sug-title">🎯 专家诊断建议</div>
+            <div class="sug-text">{suggestion}</div>
+        </div>
+
+        <!-- 行动号召 -->
+        <div class="cta">
+            <h3>📞 想获取详细改善方案？</h3>
+            <p>以上为初步免费诊断结果。如需获取针对您工厂的详细改善路线图<br>以及量化的投入产出分析，请联系我们安排深度诊断。</p>
+            <a class="cta-btn" href="https://kevinhanmin.github.io/scorer-reports/" target="_blank">📋 预约专家深度诊断 →</a>
+            <div class="cta-info">联系人：{contact} · 思派工业技术（深圳）有限公司</div>
+        </div>
+
+        <div class="disclaimer">📌 免责声明：本报告由精益智能工厂诊断系统基于问卷数据自动生成，旨在提供初步参考。报告中的评分、损失估算、改善建议等均为基于有限信息的初步判断，不代表最终诊断结论。如需准确的工厂诊断报告，请联系思派工业技术安排现场深度诊断。</div>
+    </div>
+    <div class="footer">
+        <div class="brand">思派工业技术（深圳）有限公司 · 精益智能工厂领航员</div>
+        <div>© 2026 思派工业技术 · 由评分师自动生成</div>
+    </div>
+</div>
+</body>
+</html>'''
+
+
 def main():
     print(f"🤖 评分师云端版启动")
     missing = [v for v in ["FEISHU_APP_ID","FEISHU_APP_SECRET"] if not os.environ.get(v)]
