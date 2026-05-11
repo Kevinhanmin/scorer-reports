@@ -140,12 +140,42 @@ def compute(dim_scores):
     return round(sum(dim_scores.get(d,0)*w for d,w in DIMENSION_WEIGHTS.items()), 3)
 
 def get_rating(score):
-    for t, g, d in [(4.5,"A级 卓越","精益管理成熟"),
-                     (3.5,"B级 良好","有精益基础"),
-                     (2.5,"C级 注意","精益基础薄弱"),
-                     (0,"D级 风险","管理水平亟待提升")]:
-        if score >= t: return g, d
-    return "D级 风险", ""
+    for t, g, d, guidance in [
+        (4.5, "A级 卓越", "精益管理成熟",
+         "贵工厂整体管理水平处于行业领先地位，各项指标表现优秀。\n"
+         "💡 方向建议：\n"
+         "1️⃣ 保持现有管理优势，将成功经验标准化和流程化\n"
+         "2️⃣ 推进数字化升级，建立行业标杆示范效应\n"
+         "3️⃣ 关注前沿管理技术，持续保持竞争优势\n"
+         "4️⃣ 可将您的管理经验转化为行业案例，提升行业影响力"),
+        (3.5, "B级 良好", "有精益基础",
+         "贵工厂具备良好的管理基础，多数维度表现平稳，但仍存在优化空间。\n"
+         "💡 方向建议：\n"
+         "1️⃣ 针对评分较低维度（见Top3改善方向）做专项改善\n"
+         "2️⃣ 建议安排L2轻量诊断对薄弱环节进行深度评估\n"
+         "3️⃣ 建立持续改善机制，避免管理优势下滑\n"
+         "4️⃣ 对标行业标杆，制定3-6个月改善路线图"),
+        (2.5, "C级 注意", "精益基础薄弱",
+         "贵工厂存在明显的改善空间和管理浪费，多个维度需要重点关注。\n"
+         "💡 方向建议：\n"
+         "1️⃣ 立即启动系统性诊断（建议L2诊断），全面评估改善机会\n"
+         "2️⃣ 优先改善Top3薄弱维度，快速见效建立信心\n"
+         "3️⃣ 制定90天改善计划，设定可量化的改善目标\n"
+         "4️⃣ 建议引入精益管理辅导，避免损失持续扩大"),
+        (0, "D级 风险", "管理水平亟待提升",
+         "贵工厂在多个维度存在严重问题，经营风险较高，改善紧迫性极强。\n"
+         "⚠️ 方向建议：\n"
+         "1️⃣ 强烈建议立即启动全面诊断，系统性识别问题根因\n"
+         "2️⃣ 优先解决安全、质量等高风险领域问题\n"
+         "3️⃣ 制定应急改善方案，快速止血止损\n"
+         "4️⃣ 建议联系精益专家做现场诊断，制定整体提升路线图"),
+    ]:
+        if score >= t:
+            # Format with line breaks preserved for HTML
+            d_html = d + "<br><br>" + guidance.replace("\n", "<br>")
+            return g, d_html, guidance
+    return "D级 风险", "", ""
+
 
 def get_sales_grade(fields):
     loss = extract_text(fields, "Q24. 以上问题每年大概造成多少损失？（单选题）")
@@ -183,28 +213,53 @@ def gen_html(company, contact, dim_scores, total, rating, desc, loss_label, sale
             <div class="dim-score" style="color:{c}">{s:.1f}</div>
         </div>'''
 
-    # Top3 列表
+    # Top3 列表 - 添加具体改进行动建议
     top3_items = ""
-    dim_descriptions = {
-        "生产效率": "关注设备综合效率(OEE)、产线平衡、瓶颈工序",
-        "质量控制": "关注不良率、返工率、防错体系有效性",
-        "库存物流": "关注库存周转天数、在制品堆积、物料配送效率",
-        "设备管理": "关注故障率、TPM体系、快速换模水平",
-        "人员效率": "关注人员利用率、标准作业覆盖率、技能依赖度",
-        "现场管理": "关注5S水平、目视化管理、标准化程度",
-        "计划交付": "关注交付及时率、计划稳定性、排产合理性",
-        "数字化": "关注信息系统覆盖度、数据可视化、自动化水平",
+    dim_tips = {
+        "生产效率": {
+            "detail": "设备综合效率(OEE)偏低、产线平衡损失大、瓶颈工序限制产能",
+            "actions": "① 测定OEE基线 → ② 消除六大损失(停机/换型/速度/缺陷) → ③ 建立产线平衡墙"
+        },
+        "质量控制": {
+            "detail": "不良率偏高、返工成本大、缺乏防错机制",
+            "actions": "① 建立不良品统计看板 → ② 导入防错(Poka-Yoke)装置 → ③ 推行首件检验+过程检验"
+        },
+        "库存物流": {
+            "detail": "库存周转天数长、在制品堆积严重、物料配送效率低",
+            "actions": "① ABC分类法优化库存 → ② 建立拉动式配送(Kanban) → ③ 设置物料超市/水蜘蛛配送"
+        },
+        "设备管理": {
+            "detail": "设备故障率高、缺乏TPM体系、换模时间偏长",
+            "actions": "① 建立设备总账+故障记录 → ② 推行自主保全(7步法) → ③ SMED快速换型分析"
+        },
+        "人员效率": {
+            "detail": "人员利用率低、标准化作业覆盖不足、技能依赖度高",
+            "actions": "① 制定标准作业组合票 → ② 建立岗位技能矩阵 → ③ 推行多能工培训计划"
+        },
+        "现场管理": {
+            "detail": "5S水平不高、目视化管理不足、标准化程度不够",
+            "actions": "① 5S红牌作战 → ② 设置区域目视化看板 → ③ 建立现场巡检标准清单"
+        },
+        "计划交付": {
+            "detail": "交付及时率不达标、计划频繁变动、排产不够科学",
+            "actions": "① 建立MPS主生产计划 → ② 推行TOC约束排产 → ③ 设置计划达成率看板"
+        },
+        "数字化": {
+            "detail": "信息系统覆盖不足、数据未可视化、自动化水平偏低",
+            "actions": "① 选择轻量级MES系统 → ② 建立关键指标数字看板 → ③ 试点自动数据采集"
+        },
     }
     for i, (n, s) in enumerate(worst):
-        detail = dim_descriptions.get(n, "")
+        tip = dim_tips.get(n, {"detail": "需进一步分析", "actions": "建议安排现场深度诊断"})
         bar_w = int(s/5*100)
         top3_items += f'''
         <div class="improve-item">
             <div class="improve-num">0{i+1}</div>
             <div class="improve-info">
                 <div class="improve-title">{n}（{s:.1f}分）</div>
-                <div class="improve-desc">{detail}</div>
+                <div class="improve-desc">{tip["detail"]}</div>
                 <div class="improve-bar"><div class="improve-bar-fill" style="width:{bar_w}%"></div></div>
+                <div class="improve-action">{tip["actions"]}</div>
             </div>
         </div>'''
 
@@ -219,12 +274,12 @@ def gen_html(company, contact, dim_scores, total, rating, desc, loss_label, sale
     except:
         loss_mid = 100
 
-    # 建议内容
+    # 智能建议：结合综合评分和最低维度
     suggestions = {
-        (4.5, 5.0): "整体运营状况优秀，建议在现有基础上推进数字化升级，建立行业标杆示范效应。",
-        (3.5, 4.5): "具备良好的管理基础，建议针对薄弱维度进行专项改善，可考虑L2轻量诊断做深度评估。",
-        (2.5, 3.5): "存在明显的改善空间和管理浪费，建议尽快启动系统性诊断，制定90天改善计划。",
-        (0, 2.5): "管理水平亟待提升，存在较大经营风险，强烈建议立即启动全面诊断和改善项目。",
+        (4.5, 5.0): "🎯 整体运营状况优秀！贵工厂已具备行业领先水平。建议：① 将优势经验标准化，打造内部标杆；② 推进数字化升级(可考虑MES/WMS)；③ 建立行业标杆示范，扩大品牌影响力。",
+        (3.5, 4.5): "📈 具备良好的管理基础，改善潜力巨大。建议聚焦薄弱维度（见Top 3改善方向），短期内启动专项改善，快速见效。考虑L2轻量诊断做深度评估，获取定制化路线图。",
+        (2.5, 3.5): "🔍 存在明显的改善空间和管理浪费。建议立即：① 从Top 3维度入手，实施90天快速改善；② 启动系统性诊断，绘制价值流图(VSM)；③ 导入精益管理框架(5S→TPM→标准化)。",
+        (0, 2.5): "🚨 管理水平亟待提升，存在较大经营风险！强烈建议：① 立即启动全面诊断，识别关键痛点；② 制定6-12个月精益转型路径图；③ 考虑引入外部专家指导，避免走弯路。",
     }
     suggestion = ""
     for (lo, hi), text in sorted(suggestions.items(), reverse=True):
@@ -278,7 +333,8 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,A
 .dim-tag.薄弱{{background:#ffedd5;color:#f97316}}
 .dim-tag.风险{{background:#fef2f2;color:#dc2626}}
 .dim-bar-wrap{{flex:1;height:10px;background:#f1f5f9;border-radius:5px;overflow:hidden}}
-.dim-bar{{height:100%;border-radius:5px;transition:width 1s ease}}
+.dim-bar{{height:100%;border-radius:5px;transition:width 1s ease;animation:barGrow 1.2s ease-out}}
+@keyframes barGrow{{from{{width:0%}}}}
 .dim-score{{width:36px;font-size:14px;font-weight:700;text-align:right;flex-shrink:0}}
 /* 三栏数据 */
 .stat-grid{{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px}}
@@ -294,6 +350,7 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,A
 .improve-desc{{font-size:11px;color:#b91c1c;margin-top:2px;opacity:.8}}
 .improve-bar{{margin-top:6px;height:4px;background:#fecaca;border-radius:2px;overflow:hidden}}
 .improve-bar-fill{{height:100%;background:#dc2626;border-radius:2px}}
+.improve-action{{font-size:11px;color:#991b1b;margin-top:6px;padding:6px 10px;background:#fef2f2;border:1px solid #fecaca;border-radius:6px;line-height:1.5}}
 .strength-box{{padding:14px 18px;background:#f0fdf4;border:1px solid #86efac;border-radius:12px;font-size:12px;color:#166534;margin-bottom:24px;line-height:1.6}}
 /* 建议框 */
 .suggestion-box{{padding:18px 22px;background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #bfdbfe;border-radius:12px;margin-bottom:24px}}
@@ -349,38 +406,38 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,A
         <div class="section-title">📊 八维诊断评分体系</div>
         {bars}
 
-        <!-- 损失与改善潜力（商机等级仅创始人内部可见，不向客户展示） -->
-        <div class=\"section-title\">💰 经济效益分析</div>
-        <div class=\"stat-grid\">
-            <div class=\"stat-item\">
-                <div class=\"stat-lbl\">📉 年度预计损失</div>
-                <div class=\"stat-val\" style=\"color:#dc2626\">{loss_label}</div>
+        <!-- 经济效益分析 -->
+        <div class="section-title">💰 经济效益分析</div>
+        <div class="stat-grid">
+            <div class="stat-item">
+                <div class="stat-lbl">📉 年度预计损失</div>
+                <div class="stat-val" style="color:#dc2626">{loss_label}</div>
             </div>
-            <div class=\"stat-item\">
-                <div class=\"stat-lbl\">⚡ 紧急程度</div>
-                <div class=\"stat-val\" style=\"color:#ca8a04\">-</div>
+            <div class="stat-item">
+                <div class="stat-lbl">⚡ 改善空间</div>
+                <div class="stat-val" style="color:#059669">{loss_mid}万元/年</div>
             </div>
-            <div class=\"stat-item\">
-                <div class=\"stat-lbl\">💡 年改善潜力</div>
-                <div class=\"stat-val\" style=\"color:#16a34a\">约{loss_mid}万</div>
+            <div class="stat-item">
+                <div class="stat-lbl">📊 诊断覆盖率</div>
+                <div class="stat-val" style="color:#2563eb">8/8 维度</div>
             </div>
         </div>
 
         <!-- 改善潜力亮点 -->
-        <div class=\"potential-box\">
-            <div class=\"potential-header\">
-                <span class=\"potential-icon\">🎯</span>
-                <span>您每年可能浪费约 <strong style=\"font-size:22px;color:#059669\">{loss_mid}万元</strong></span>
+        <div class="potential-box">
+            <div class="potential-header">
+                <span>🎯</span>
+                <span>您每年可能浪费约 <strong style="font-size:22px;color:#059669;letter-spacing:1px">{loss_mid}万元</strong></span>
             </div>
-            <div class=\"potential-body\">
+            <div class="potential-body">
                 <p>根据问卷数据初步评估，贵工厂存在约 <strong>{loss_mid}万元/年</strong> 的改善空间。通过系统精益改善，通常可实现：</p>
-                <div style=\"display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0\">
-                    <div style=\"padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px\">⬇️ 生产成本降低 <strong>10-20%</strong></div>
-                    <div style=\"padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px\">⬆️ 生产效率提升 <strong>15-30%</strong></div>
-                    <div style=\"padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px\">📦 库存周转加速 <strong>20-40%</strong></div>
-                    <div style=\"padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px\">✅ 产品合格率提高 <strong>5-15%</strong></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0">
+                    <div style="padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px;border:1px solid #a7f3d0">⬇️ 生产成本降低 <strong>10-20%</strong></div>
+                    <div style="padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px;border:1px solid #a7f3d0">⬆️ 生产效率提升 <strong>15-30%</strong></div>
+                    <div style="padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px;border:1px solid #a7f3d0">📦 库存周转加速 <strong>20-40%</strong></div>
+                    <div style="padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px;border:1px solid #a7f3d0">✅ 产品合格率提高 <strong>5-15%</strong></div>
                 </div>
-                <div style=\"font-size:12px;color:#059669;margin-top:8px;padding:10px 14px;background:#ecfdf5;border-radius:8px;border:1px solid #a7f3d0\">💡 以上为初步估算，实际改善空间需现场深度诊断确认。立即预约获取专属方案。</div>
+                <div style="font-size:12px;color:#059669;margin-top:8px;padding:10px 14px;background:#ecfdf5;border-radius:8px;border:1px solid #a7f3d0">💡 以上为初步估算，实际改善空间需现场深度诊断确认。立即预约获取专属方案。</div>
             </div>
         </div>
 
@@ -446,7 +503,7 @@ def main():
         rid = rec["record_id"]
         dim_scores = {d: get_score(fields, sf) for d, sf in DIM_SCORE_FIELDS}
         total = compute(dim_scores)
-        rating, desc = get_rating(total)
+        rating, desc, _ = get_rating(total)
         grade, loss_mid, loss_label = get_sales_grade(fields)
         company = extract_text(fields, "Q1. 企业名称（填空题，必填）")
         contact = extract_text(fields, "Q29.联系人和联系方式（手机号/微信，必填）")
