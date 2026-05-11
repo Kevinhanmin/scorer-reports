@@ -269,27 +269,76 @@ def main():
         print(f"   📄 报告: {rpath}")
         
         # 发送通知给创始人（卡片形式）
-        founder_open_id = os.environ.get("FOUNDER_OPEN_ID", "ou_654b4ab922a747e21af74eaa4884a914")
-        repo_url = os.environ.get("REPO_URL", "https://github.com/Kevinhanmin/scorer-reports")
-        # 优先用Pages地址，如果没有则用GitHub文件链接（两者都可访问）
+        # 生成报告URL（暂不发送，等git commit后再发）
         pages_url = os.environ.get("PAGES_URL", "")
         if pages_url:
             report_url = f"{pages_url}/reports/{os.path.basename(rpath)}"
         else:
-            # Default: use GitHub Pages (repo is public, Pages is free)
             report_url = f"https://kevinhanmin.github.io/scorer-reports/reports/{os.path.basename(rpath)}"
         
-        
-        try:
-            # Send interactive card with button (no raw URL text)
-            send_report_card(founder_open_id, company, total, rating, grade, report_url)
-        except Exception as e:
-            print(f"   ⚠️ 卡片发送失败: {e}")
+        # 保存待发送通知到pending文件（避免git commit前就发通知）
+        founder_open_id = os.environ.get("FOUNDER_OPEN_ID", "ou_654b4ab922a747e21af74eaa4884a914")
+        pending_file = "pending_notifications.json"
+        notif = {
+            "open_id": founder_open_id,
+            "company": company,
+            "total": total,
+            "rating": rating,
+            "grade": grade,
+            "report_url": report_url,
+            "timestamp": datetime.now().isoformat()
+        }
+        pending = []
+        if os.path.exists(pending_file):
+            try:
+                with open(pending_file, "r") as pf:
+                    pending = json.load(pf)
+            except:
+                pass
+        pending.append(notif)
+        with open(pending_file, "w") as pf:
+            json.dump(pending, pf, ensure_ascii=False)
+        print(f"   📝 通知已暂存，待git commit后发送")
         
         processed += 1
 
     print(f"\n✅ 完成！处理了 {processed} 条新记录")
     return processed
 
+def send_pending_notifications():
+    """读取pending_notifications.json并发送所有待发送的飞书卡片"""
+    pending_file = "pending_notifications.json"
+    if not os.path.exists(pending_file):
+        print("📭 没有待发送的通知")
+        return 0
+    
+    with open(pending_file, "r") as pf:
+        pending = json.load(pf)
+    
+    if not pending:
+        print("📭 没有待发送的通知")
+        return 0
+    
+    print(f"📨 发送 {len(pending)} 条待处理通知...")
+    sent = 0
+    for n in pending:
+        try:
+            send_report_card(
+                n["open_id"], n["company"],
+                n["total"], n["rating"], n["grade"], n["report_url"]
+            )
+            sent += 1
+            time.sleep(1)  # 避免频率限制
+        except Exception as e:
+            print(f"   ⚠️ 通知发送失败: {e}")
+    
+    # 发送完成后删除pending文件
+    os.remove(pending_file)
+    print(f"✅ 已发送 {sent} 条通知，临时文件已清理")
+    return sent
+
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) > 1 and sys.argv[1] == "--notify":
+        send_pending_notifications()
+    else:
+        main()
