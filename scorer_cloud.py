@@ -270,6 +270,20 @@ def main():
         
         
         try:
+            # Send plain text message first (URL always clickable in Feishu)
+            plain_msg = (
+                f"📋 新客户诊断报告\n\n"
+                f"企业：{company}\n"
+                f"评分：{total:.2f}/5 · {rating}\n"
+                f"商机：{grade}\n\n"
+                f"📄 查看完整报告：\n{report_url}"
+            )
+            send_feishu_message(founder_open_id, "新报告", plain_msg)
+        except Exception as e:
+            print(f"   ⚠️ 文本消息失败: {e}")
+        
+        try:
+            # Also send card for richer display
             send_report_card(founder_open_id, company, total, rating, grade, report_url)
         except Exception as e:
             print(f"   ⚠️ 卡片发送失败: {e}")
