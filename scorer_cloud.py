@@ -95,7 +95,7 @@ def send_report_card(open_id, company, total, rating, grade, report_url):
                 {"tag": "div", "text": {"tag": "lark_md", "content": f"**商机等级：** {grade}"}},
                 {"tag": "div", "text": {"tag": "lark_md", "content": f"**生成时间：** {now}"}},
                 {"tag": "hr"},
-                {"tag": "div", "text": {"tag": "lark_md", "content": f"📎 完整报告已保存到仓库：\n{report_url}"}},
+                {"tag": "div", "text": {"tag": "lark_md", "content": f"📄 [**点击查看完整诊断报告**]({report_url})"}},
                 {"tag": "note", "text": {"tag": "plain_text", "content": "思派工业 · 精益智能工厂诊断系统 · 评分师 自动生成"}}
             ]
         })
