@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思派工业 · 诊断报告总览</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: #f0f2f5;
+    min-height: 100vh;
+    color: #333;
+}
+.header {
+    background: linear-gradient(135deg, #1a365d 0%, #2563eb 50%, #3b82f6 100%);
+    color: white;
+    padding: 32px 20px 24px;
+    text-align: center;
+}
+.header h1 { font-size: 24px; margin-bottom: 4px; letter-spacing: 1px; }
+.header .subtitle { font-size: 14px; opacity: 0.85; margin-top: 6px; }
+.header .stats {
+    display: flex; justify-content: center; gap: 24px;
+    margin-top: 20px; flex-wrap: wrap;
+}
+.header .stat-item { text-align: center; }
+.header .stat-item .num { font-size: 28px; font-weight: 700; }
+.header .stat-item .label { font-size: 12px; opacity: 0.8; margin-top: 2px; }
+.container { max-width: 960px; margin: 0 auto; padding: 20px 16px; }
+
+/* Tabs */
+.tabs {
+    display: flex; gap: 8px; margin-bottom: 20px;
+    background: white; border-radius: 12px; padding: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.tab-btn {
+    flex: 1; padding: 10px 16px; border: none; border-radius: 8px;
+    background: transparent; font-size: 14px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s; color: #64748b;
+}
+.tab-btn:hover { background: #f1f5f9; }
+.tab-btn.active { background: #2563eb; color: white; box-shadow: 0 2px 8px rgba(37,99,235,0.3); }
+
+/* Filters */
+.filters {
+    background: white; border-radius: 12px; padding: 16px 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 20px;
+    display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+}
+.filters input[type="text"] {
+    flex: 1; min-width: 200px; padding: 10px 14px; border: 2px solid #e2e8f0;
+    border-radius: 8px; font-size: 14px; outline: none; transition: border-color 0.2s;
+}
+.filters input[type="text"]:focus { border-color: #2563eb; }
+.filters select {
+    padding: 10px 14px; border: 2px solid #e2e8f0; border-radius: 8px;
+    font-size: 14px; outline: none; cursor: pointer; background: white;
+    min-width: 120px;
+}
+.filters select:focus { border-color: #2563eb; }
+.filters .filter-label { font-size: 13px; color: #64748b; font-weight: 500; }
+
+/* Report list */
+.report-list { display: none; }
+.report-list.active { display: block; }
+.report-group { margin-bottom: 20px; }
+.report-group h2 {
+    font-size: 15px; color: #1e293b; margin-bottom: 10px; padding-bottom: 6px;
+    border-bottom: 2px solid #e2e8f0; display: flex; align-items: center; gap: 8px;
+}
+.report-group h2 .count { font-size: 12px; font-weight: 400; color: #94a3b8; margin-left: auto; }
+
+.report-card {
+    background: white; border-radius: 12px; padding: 14px 18px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 8px;
+    border-left: 4px solid #e2e8f0; transition: all 0.2s ease;
+    display: flex; align-items: center; gap: 14px;
+}
+.report-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); transform: translateY(-1px);
+}
+.report-card.l1 { border-left-color: #10b981; }
+.report-card.l2 { border-left-color: #6366f1; }
+.report-card .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; white-space: nowrap;
+    flex-shrink: 0;
+}
+.report-card .badge.l1 { background: #d1fae5; color: #065f46; }
+.report-card .badge.l2 { background: #e0e7ff; color: #3730a3; }
+.report-card .info { flex: 1; min-width: 0; }
+.report-card .info .company {
+    font-size: 15px; font-weight: 600; color: #1e293b;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.report-card .info .company.unknown { color: #94a3b8; font-style: italic; }
+.report-card .info .date { font-size: 12px; color: #94a3b8; margin-top: 2px; }
+.report-card .btn-view {
+    padding: 8px 16px; background: #f1f5f9; color: #475569;
+    border: none; border-radius: 8px; font-size: 13px; font-weight: 500;
+    cursor: pointer; text-decoration: none; transition: all 0.2s;
+    flex-shrink: 0; white-space: nowrap;
+}
+.report-card .btn-view:hover { background: #e2e8f0; color: #1e293b; }
+.report-card .btn-view:active { transform: scale(0.97); }
+
+.empty-state {
+    text-align: center; padding: 60px 20px; color: #94a3b8;
+}
+.empty-state .icon { font-size: 48px; margin-bottom: 12px; }
+.empty-state p { font-size: 14px; }
+
+.footer {
+    text-align: center; padding: 24px; color: #94a3b8; font-size: 12px;
+}
+.footer a { color: #2563eb; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+@media (max-width: 600px) {
+    .report-card { flex-wrap: wrap; gap: 8px; }
+    .report-card .btn-view { width: 100%; text-align: center; }
+    .header .stats { gap: 16px; }
+    .filters { flex-direction: column; align-items: stretch; }
+    .filters input[type="text"] { min-width: auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>思派工业 · 诊断报告总览</h1>
+    <div class="subtitle">精益智能工厂评估报告一览</div>
+    <div class="stats">
+        <div class="stat-item">
+            <div class="num" id="statTotal">15</div>
+            <div class="label">报告总数</div>
+        </div>
+        <div class="stat-item">
+            <div class="num" id="statL1">10</div>
+            <div class="label">免费体检</div>
+        </div>
+        <div class="stat-item">
+            <div class="num" id="statL2">5</div>
+            <div class="label">深度诊断</div>
+        </div>
+        <div class="stat-item">
+            <div class="num" id="statCompanies">11</div>
+            <div class="label">企业数</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="all">📋 全部报告</button>
+        <button class="tab-btn" data-tab="l1">🏭 免费体检</button>
+        <button class="tab-btn" data-tab="l2">💎 深度诊断</button>
+    </div>
+
+    <div class="filters">
+        <span class="filter-label">🔍</span>
+        <input type="text" id="searchBox" placeholder="搜索企业名称..." oninput="render()">
+        <select id="sortSelect" onchange="render()">
+            <option value="date-desc">📅 最新优先</option>
+            <option value="date-asc">📅 最早优先</option>
+            <option value="name">🏢 按企业名</option>
+        </select>
+    </div>
+
+    <div id="reportList"></div>
+</div>
+
+<div class="footer">
+    思派工业技术（深圳）有限公司 &middot;
+    <a href="report_query.html">📱 报告查询</a> &middot;
+    <a href="https://kevinhanmin.github.io/scorer-reports/news/">📰 每日快讯</a>
+</div>
+
+<script>
+const DATA = [
+  {
+    "file": "l2_rec27qzw_20260522_123548.html",
+    "type": "L2深度诊断",
+    "company": "思派工业",
+    "timestamp": "2026-05-22 12:35:48",
+    "dateOnly": "2026-05-22",
+    "rating": "",
+    "companyKey": "rec27qzw"
+  },
+  {
+    "file": "l2_rec27r1O_20260522_123548.html",
+    "type": "L2深度诊断",
+    "company": "测试数据",
+    "timestamp": "2026-05-22 12:35:48",
+    "dateOnly": "2026-05-22",
+    "rating": "",
+    "companyKey": "rec27r1O"
+  },
+  {
+    "file": "l2_recvk7Bw_20260522_123548.html",
+    "type": "L2深度诊断",
+    "company": "未知企业",
+    "timestamp": "2026-05-22 12:35:48",
+    "dateOnly": "2026-05-22",
+    "rating": "",
+    "companyKey": "recvk7Bw"
+  },
+  {
+    "file": "l2_recvk7QY_20260522_123548.html",
+    "type": "L2深度诊断",
+    "company": "未知企业",
+    "timestamp": "2026-05-22 12:35:48",
+    "dateOnly": "2026-05-22",
+    "rating": "",
+    "companyKey": "recvk7QY"
+  },
+  {
+    "file": "l2_recvk810_20260522_123548.html",
+    "type": "L2深度诊断",
+    "company": "API测试记录",
+    "timestamp": "2026-05-22 12:35:48",
+    "dateOnly": "2026-05-22",
+    "rating": "",
+    "companyKey": "recvk810"
+  },
+  {
+    "file": "l2_rec27qzw_20260522_115659.html",
+    "type": "L2深度诊断",
+    "company": "思派工业",
+    "timestamp": "2026-05-22 11:56:59",
+    "dateOnly": "2026-05-22",
+    "rating": "",
+    "companyKey": "rec27qzw"
+  },
+  {
+    "file": "l2_rec27r1O_20260522_115659.html",
+    "type": "L2深度诊断",
+    "company": "测试数据",
+    "timestamp": "2026-05-22 11:56:59",
+    "dateOnly": "2026-05-22",
+    "rating": "",
+    "companyKey": "rec27r1O"
+  },
+  {
+    "file": "l2_recvk7Bw_20260522_115659.html",
+    "type": "L2深度诊断",
+    "company": "未知企业",
+    "timestamp": "2026-05-22 11:56:59",
+    "dateOnly": "2026-05-22",
+    "rating": "",
+    "companyKey": "recvk7Bw"
+  },
+  {
+    "file": "l2_recvk7QY_20260522_115659.html",
+    "type": "L2深度诊断",
+    "company": "未知企业",
+    "timestamp": "2026-05-22 11:56:59",
+    "dateOnly": "2026-05-22",
+    "rating": "",
+    "companyKey": "recvk7QY"
+  },
+  {
+    "file": "l2_recvk810_20260522_115659.html",
+    "type": "L2深度诊断",
+    "company": "API测试记录",
+    "timestamp": "2026-05-22 11:56:59",
+    "dateOnly": "2026-05-22",
+    "rating": "",
+    "companyKey": "recvk810"
+  },
+  {
+    "file": "diagnosis_report_20260511_054614.html",
+    "type": "L1免费体检",
+    "company": "unknown",
+    "timestamp": "2026-05-11 05:46:14",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "diagnosis_report_20260511_054614.html"
+  },
+  {
+    "file": "diagnosis_report_20260511_052110.html",
+    "type": "L1免费体检",
+    "company": "unknown",
+    "timestamp": "2026-05-11 05:21:10",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "diagnosis_report_20260511_052110.html"
+  },
+  {
+    "file": "diagnosis_report_20260511_042302.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 04:23:02",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_034837.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 03:48:37",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_034834.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 03:48:34",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_031841.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 03:18:41",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_031837.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 03:18:37",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_031833.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 03:18:33",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_031330.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 03:13:30",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_031326.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 03:13:26",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_031320.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 03:13:20",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_024509.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 02:45:09",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_024503.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 02:45:03",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_024456.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 02:44:56",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_023843.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 02:38:43",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_023837.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 02:38:37",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_023833.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 02:38:33",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_023217.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 02:32:17",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_020629.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 02:06:29",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_020625.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 02:06:25",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_014004.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 01:40:04",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_012145.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 01:21:45",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_012140.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 01:21:40",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_012137.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 01:21:37",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_012131.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 01:21:31",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_012126.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 01:21:26",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260511_012121.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-11 01:21:21",
+    "dateOnly": "2026-05-11",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260509_080209.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-09 08:02:09",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260509_080205.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-09 08:02:05",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260509_080200.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-09 08:02:00",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260509_080156.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-09 08:01:56",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260509_080151.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-09 08:01:51",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260509_080147.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-09 08:01:47",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260509_063708.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-09 06:37:08",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260509_063704.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-09 06:37:04",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260509_063659.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-09 06:36:59",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260509_063654.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-09 06:36:54",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260509_063645.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-09 06:36:45",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260509_063641.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-09 06:36:41",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260509_061232.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-09 06:12:32",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260509_061227.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-09 06:12:27",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260509_061223.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-09 06:12:23",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260509_061218.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-09 06:12:18",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260509_061214.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-09 06:12:14",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "diagnosis_report_20260509_061209.html",
+    "type": "L1免费体检",
+    "company": "精益智能工厂初步诊断",
+    "timestamp": "2026-05-09 06:12:09",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "精益智能工厂初步诊断"
+  },
+  {
+    "file": "诊断报告_新星科技有限公司_20260509_060031.html",
+    "type": "L1免费体检",
+    "company": "新星科技有限公司",
+    "timestamp": "2026-05-09 06:00:31",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "新星科技有限公司"
+  },
+  {
+    "file": "诊断报告_深圳中策股份_20260509_060026.html",
+    "type": "L1免费体检",
+    "company": "深圳中策股份",
+    "timestamp": "2026-05-09 06:00:26",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "深圳中策股份"
+  },
+  {
+    "file": "诊断报告_农通公司_20260509_060022.html",
+    "type": "L1免费体检",
+    "company": "农通公司",
+    "timestamp": "2026-05-09 06:00:22",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "农通公司"
+  },
+  {
+    "file": "诊断报告_新企公司_20260509_060017.html",
+    "type": "L1免费体检",
+    "company": "新企公司",
+    "timestamp": "2026-05-09 06:00:17",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "新企公司"
+  },
+  {
+    "file": "诊断报告_农通科技_20260509_060013.html",
+    "type": "L1免费体检",
+    "company": "农通科技",
+    "timestamp": "2026-05-09 06:00:13",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "农通科技"
+  },
+  {
+    "file": "诊断报告_思派工业技术有限公司_20260509_060008.html",
+    "type": "L1免费体检",
+    "company": "思派工业技术有限公司",
+    "timestamp": "2026-05-09 06:00:08",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "思派工业技术有限公司"
+  },
+  {
+    "file": "诊断报告_新星科技有限公司_20260509_052009.html",
+    "type": "L1免费体检",
+    "company": "新星科技有限公司",
+    "timestamp": "2026-05-09 05:20:09",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "新星科技有限公司"
+  },
+  {
+    "file": "诊断报告_深圳中策股份_20260509_052006.html",
+    "type": "L1免费体检",
+    "company": "深圳中策股份",
+    "timestamp": "2026-05-09 05:20:06",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "深圳中策股份"
+  },
+  {
+    "file": "诊断报告_农通公司_20260509_052002.html",
+    "type": "L1免费体检",
+    "company": "农通公司",
+    "timestamp": "2026-05-09 05:20:02",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "农通公司"
+  },
+  {
+    "file": "诊断报告_新企公司_20260509_051958.html",
+    "type": "L1免费体检",
+    "company": "新企公司",
+    "timestamp": "2026-05-09 05:19:58",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "新企公司"
+  },
+  {
+    "file": "诊断报告_农通科技_20260509_051954.html",
+    "type": "L1免费体检",
+    "company": "农通科技",
+    "timestamp": "2026-05-09 05:19:54",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "农通科技"
+  },
+  {
+    "file": "诊断报告_思派工业技术有限公司_20260509_051950.html",
+    "type": "L1免费体检",
+    "company": "思派工业技术有限公司",
+    "timestamp": "2026-05-09 05:19:50",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "思派工业技术有限公司"
+  },
+  {
+    "file": "诊断报告_深圳中策股份_20260509_042443.html",
+    "type": "L1免费体检",
+    "company": "深圳中策股份",
+    "timestamp": "2026-05-09 04:24:43",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "深圳中策股份"
+  },
+  {
+    "file": "诊断报告_农通公司_20260509_042440.html",
+    "type": "L1免费体检",
+    "company": "农通公司",
+    "timestamp": "2026-05-09 04:24:40",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "农通公司"
+  },
+  {
+    "file": "诊断报告_新企公司_20260509_042438.html",
+    "type": "L1免费体检",
+    "company": "新企公司",
+    "timestamp": "2026-05-09 04:24:38",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "新企公司"
+  },
+  {
+    "file": "诊断报告_农通科技_20260509_042435.html",
+    "type": "L1免费体检",
+    "company": "农通科技",
+    "timestamp": "2026-05-09 04:24:35",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "农通科技"
+  },
+  {
+    "file": "诊断报告_思派工业技术有限公司_20260509_042433.html",
+    "type": "L1免费体检",
+    "company": "思派工业技术有限公司",
+    "timestamp": "2026-05-09 04:24:33",
+    "dateOnly": "2026-05-09",
+    "rating": "",
+    "companyKey": "思派工业技术有限公司"
+  }
+];
+
+function buildCard(r) {
+    const cls = r.type === 'L1免费体检' ? 'l1' : 'l2';
+    const badge = r.type === 'L1免费体检'
+        ? '<span class="badge l1">🏭 免费体检</span>'
+        : '<span class="badge l2">💎 深度诊断</span>';
+    const isUnk = !r.company || r.company === 'unknown';
+    const cname = isUnk ? '未识别企业' : r.company;
+    const ccls = isUnk ? 'company unknown' : 'company';
+    return `<div class="report-card ${cls}">
+        ${badge}
+        <div class="info">
+            <div class="${ccls}">${cname}</div>
+            <div class="date">📅 ${r.dateOnly}</div>
+        </div>
+        <a class="btn-view" href="${r.file}" target="_blank">📄 查看</a>
+    </div>`;
+}
+
+function render() {
+    const activeTab = document.querySelector('.tab-btn.active');
+    const tab = activeTab ? activeTab.getAttribute('data-tab') : 'all';
+    const q = document.getElementById('searchBox').value.trim().toLowerCase();
+    const sort = document.getElementById('sortSelect').value;
+
+    let filtered = DATA.filter(r => {
+        if (tab === 'l1' && r.type !== 'L1免费体检') return false;
+        if (tab === 'l2' && r.type !== 'L2深度诊断') return false;
+        if (q && !(r.company || '').toLowerCase().includes(q)) return false;
+        return true;
+    });
+
+    // Dedup: keep latest per (type, companyKey, dateOnly)
+    const seen = new Set();
+    const unique = [];
+    for (const r of filtered) {
+        const key = r.type + '|' + (r.companyKey || r.company) + '|' + r.dateOnly;
+        if (!seen.has(key)) { seen.add(key); unique.push(r); }
+    }
+
+    if (sort === 'date-desc') unique.sort((a,b) => b.timestamp.localeCompare(a.timestamp));
+    else if (sort === 'date-asc') unique.sort((a,b) => a.timestamp.localeCompare(b.timestamp));
+    else if (sort === 'name') unique.sort((a,b) => (a.company||'').localeCompare(b.company||''));
+
+    const el = document.getElementById('reportList');
+    if (unique.length === 0) {
+        el.innerHTML = '<div class="empty-state"><div class="icon">🔍</div><p>没有匹配的报告</p></div>';
+        return;
+    }
+
+    if (tab === 'all' && !q) {
+        // Group by date
+        const groups = {};
+        for (const r of unique) {
+            if (!groups[r.dateOnly]) groups[r.dateOnly] = [];
+            groups[r.dateOnly].push(r);
+        }
+        const dates = Object.keys(groups).sort((a,b) => b.localeCompare(a));
+        let html = '';
+        for (const d of dates) {
+            html += `<div class="report-group"><h2>📅 ${d} <span class="count">${groups[d].length} 份</span></h2>`;
+            for (const r of groups[d]) html += buildCard(r);
+            html += '</div>';
+        }
+        el.innerHTML = html;
+    } else {
+        el.innerHTML = unique.map(buildCard).join('');
+    }
+}
+
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        render();
+    });
+});
+
+render();
+</script>
+</body>
+</html>
