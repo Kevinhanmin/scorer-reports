@@ -1,0 +1,62 @@
+name: L2评分师深度诊断报告生成
+
+on:
+  repository_dispatch:
+    types: [feishu-new-record]
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  score-and-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          [REDACTED CREDENTIAL] secrets.GITHUB_TOKEN }}
+
+      - name: 设置Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 运行L2评分师（生成深度诊断报告 + 暂存通知）
+        env:
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_[REDACTED CREDENTIAL] secrets.FEISHU_APP_SECRET }}
+          BITABLE_APP_TOKEN_L2: ${{ secrets.BITABLE_APP_TOKEN_L2 }}
+          TABLE_ID_L2: ${{ secrets.TABLE_ID_L2 }}
+          FOUNDER_OPEN_ID: ${{ secrets.FOUNDER_OPEN_ID }}
+          PAGES_URL: ${{ secrets.PAGES_URL }}
+        run: python l2_scorer_cloud.py || echo "⚠️ L2评分运行有警告，但不影响提交"
+
+      - name: 生成报告索引
+        env:
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_[REDACTED CREDENTIAL] secrets.FEISHU_APP_SECRET }}
+        run: python gen_report_index.py || echo "⚠️ 索引生成有警告"
+
+      - name: 提交报告到仓库
+        run: |
+          git config user.name "L2评分师机器人"
+          git config user.email "l2-scorer@bot.com"
+          git add reports/ gen_report_index.py reports_index.json 2>/dev/null || git add reports/
+          if git diff --staged --quiet; then
+            echo "没有新报告"
+          else
+            git commit -m "📊 L2自动诊断报告 $(date +'%Y-%m-%d %H:%M')"
+            git push
+          fi
+
+      - name: 发送飞书通知（等文件部署后再发）
+        env:
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_[REDACTED CREDENTIAL] secrets.FEISHU_APP_SECRET }}
+          FOUNDER_OPEN_ID: ${{ secrets.FOUNDER_OPEN_ID }}
+        run: |
+          sleep 30  # 等待GitHub Pages部署（约30秒）
+          python l2_scorer_cloud.py --notify || echo "⚠️ L2通知发送有警告"
