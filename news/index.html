@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思派工业 · 每日行业快讯</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f5f7fa; color: #333; min-height: 100vh;
+}
+.header {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+    color: white; padding: 40px 20px 30px; text-align: center;
+}
+.header h1 { font-size: 22px; margin-bottom: 8px; }
+.header p { font-size: 14px; opacity: 0.85; }
+.container { max-width: 640px; margin: 0 auto; padding: 20px 16px; }
+.article-list { display: flex; flex-direction: column; gap: 12px; }
+.article-item {
+    display: flex; align-items: center; gap: 12px;
+    background: white; border-radius: 12px; padding: 16px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-decoration: none; color: #333; transition: transform 0.1s, box-shadow 0.1s;
+}
+.article-item:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+.article-date { 
+    font-size: 13px; color: #2563eb; font-weight: 600; 
+    white-space: nowrap; min-width: 90px;
+}
+.article-summary { font-size: 14px; color: #64748b; flex: 1; overflow: hidden; text-overflow: ellipsis; }
+.article-arrow { font-size: 18px; color: #94a3b8; }
+.cta-box {
+    text-align: center; margin: 24px 0; padding: 20px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 12px; border: 1px solid #bfdbfe;
+}
+.cta-box p { font-size: 14px; color: #475569; margin-bottom: 12px; }
+.cta-box .btn {
+    display: inline-block; padding: 12px 28px; background: #2563eb;
+    color: white; border-radius: 8px; text-decoration: none;
+    font-size: 15px; font-weight: 600;
+}
+.cta-box .btn:hover { background: #1d4ed8; }
+.footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>📰 每日行业快讯</h1>
+    <p>思派工业 · 精益智能工厂领航员</p>
+</div>
+<div class="container">
+    <div class="cta-box">
+        <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
+        <a class="btn" href="../reports/report_query.html">👉 免费工厂体检</a>
+    </div>
+    <div class="article-list">
+        
+        <a href="2026-05-13.html" class="article-item">
+            <div class="article-date">📅 2026-05-13</div>
+            <div class="article-summary">**出品：** 思派精益智能工厂领航员 · 老K聊精益</div>
+            <div class="article-arrow">→</div>
+        </a>
+        <a href="2026-05-11.html" class="article-item">
+            <div class="article-date">📅 2026-05-11</div>
+            <div class="article-summary">**出品：** 思派精益智能工厂领航员 · 老K聊精益</div>
+            <div class="article-arrow">→</div>
+        </a>
+    </div>
+    <div class="footer">
+        <p>思派工业技术（深圳）有限公司</p>
+    </div>
+</div>
+</body>
+</html>
