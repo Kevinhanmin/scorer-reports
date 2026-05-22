@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深度诊断 · 思派工业精益智能工厂</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#f0f4f8;color:#1a2332;min-height:100vh}
+.header{background:linear-gradient(135deg,#1a365d 0%,#2563eb 50%,#3b82f6 100%);color:#fff;padding:40px 20px;text-align:center}
+.header h1{font-size:28px;font-weight:700;margin-bottom:6px}
+.header .subtitle{font-size:14px;opacity:.85;margin-top:6px}
+.header .badge{display:inline-block;background:rgba(255,255,255,.12);padding:4px 16px;border-radius:12px;font-size:11px;margin-bottom:14px}
+.container{max-width:900px;margin:0 auto;padding:24px 16px}
+.card{background:#fff;border-radius:12px;padding:24px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.card h2{font-size:17px;font-weight:700;color:#1a365d;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #eef2f6}
+.card .price{font-size:36px;font-weight:800;color:#2563eb;margin:8px 0}
+.card .price small{font-size:14px;font-weight:400;color:#7e93a8}
+.dim-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-top:10px}
+.dim-item{background:#f8fafc;padding:10px 14px;border-radius:8px;font-size:13px;border-left:3px solid #2563eb}
+.dim-item .dim-name{font-weight:600;color:#1a365d}
+.dim-item .dim-desc{color:#7e93a8;font-size:12px;margin-top:2px}
+.flow{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0;justify-content:center}
+.flow-step{background:#f8fafc;border-radius:10px;padding:14px 18px;text-align:center;flex:1;min-width:120px}
+.flow-step .num{display:inline-block;width:24px;height:24px;line-height:24px;background:#2563eb;color:#fff;border-radius:50%;font-size:12px;font-weight:700;margin-bottom:6px}
+.flow-step .text{font-size:12px;color:#4a5568}
+.btn{display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:600;text-decoration:none;cursor:pointer;transition:transform .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn-secondary{background:linear-gradient(135deg,#f59e0b,#d97706)}
+.price-note{background:#fef3c7;border:1px solid #fde68a;border-radius:8px;padding:12px 16px;margin-top:12px;font-size:13px;color:#92400e}
+.price-note strong{color:#78350f}
+.footer{text-align:center;padding:32px 16px;font-size:11px;color:#94a3b8}
+@media(max-width:600px){
+  .flow{flex-direction:column}
+  .dim-list{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="badge">🔬 深度诊断服务</div>
+  <h1>精益智能工厂深度诊断</h1>
+  <p class="subtitle">从8大维度全面评估您的工厂，精准定位改善方向，量化改善收益</p>
+</div>
+<div class="container">
+
+  <!-- 服务介绍 -->
+  <div class="card">
+    <h2>什么是深度诊断？</h2>
+    <p style="font-size:14px;line-height:1.8;color:#4a5568">
+      基于精益生产与智能工厂的成熟度模型，由思派工业专家团队对您的工厂进行<strong>8大维度、60+项指标</strong>的全面评估。
+      与免费体检的自动评分不同，深度诊断结合<strong>现场勘查+数据采集+专家分析</strong>，输出可落地的改善路径和量化ROI。
+    </p>
+  </div>
+
+  <!-- 价格 -->
+  <div class="card">
+    <h2 style="border-bottom-color:#2563eb">💰 深度诊断定价</h2>
+    <div class="price">¥1,980 <small>起/次</small></div>
+    <p style="font-size:13px;color:#7e93a8">含8大维度完整评估 + 深度诊断报告 + 改善路线图</p>
+    <div class="price-note">
+      📢 <strong>限时优惠：</strong>首次诊断仅需 <strong>¥980</strong>，快速建立您的工厂评估基准数据。
+      诊断费用可在后续咨询服务中抵扣。
+    </div>
+  </div>
+
+  <!-- 8大评估维度 -->
+  <div class="card">
+    <h2>📊 8大评估维度</h2>
+    <div class="dim-list">
+      <div class="dim-item"><div class="dim-name">🏭 设备管理</div><div class="dim-desc">OEE、MTBF、MTTR</div></div>
+      <div class="dim-item"><div class="dim-name">📦 仓储物流</div><div class="dim-desc">库存周转、物料流</div></div>
+      <div class="dim-item"><div class="dim-name">🔧 生产过程</div><div class="dim-desc">节拍、换模、良率</div></div>
+      <div class="dim-item"><div class="dim-name">📋 品质体系</div><div class="dim-desc">质量成本、CPK</div></div>
+      <div class="dim-item"><div class="dim-name">👥 人力绩效</div><div class="dim-desc">人员效率、技能矩阵</div></div>
+      <div class="dim-item"><div class="dim-name">📈 供应链管理</div><div class="dim-desc">交付、供应商管理</div></div>
+      <div class="dim-item"><div class="dim-name">💡 智能制造</div><div class="dim-desc">数字化、自动化</div></div>
+      <div class="dim-item"><div class="dim-name">📊 战略绩效</div><div class="dim-desc">KPI、持续改善</div></div>
+    </div>
+  </div>
+
+  <!-- 服务流程 -->
+  <div class="card">
+    <h2>🔄 服务流程</h2>
+    <div class="flow">
+      <div class="flow-step"><div class="num">1</div><div class="text">提交预约</div></div>
+      <div class="flow-step"><div class="num">2</div><div class="text">需求沟通</div></div>
+      <div class="flow-step"><div class="num">3</div><div class="text">现场诊断</div></div>
+      <div class="flow-step"><div class="num">4</div><div class="text">报告输出</div></div>
+      <div class="flow-step"><div class="num">5</div><div class="text">改善规划</div></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div style="text-align:center;margin-top:24px;margin-bottom:32px">
+    <a href="https://ycntwzzv6rec.feishu.cn/base/JZg8bq0A3aYVU3snPxZcMKmQnid?table=tbl0W8eou1chYGzi&view=vewIXaTItn" class="btn">📋 立即预约深度诊断</a>
+    <p style="margin-top:10px;font-size:12px;color:#94a3b8">或联系创始人 Kevin（微信同号）</p>
+  </div>
+
+  <!-- 常见问题 -->
+  <div class="card">
+    <h2>❓ 常见问题</h2>
+    <div style="margin-bottom:14px">
+      <p style="font-weight:600;font-size:14px;color:#1a365d">Q: 深度诊断和免费体检有什么区别？</p>
+      <p style="font-size:13px;color:#4a5568;margin-top:4px">免费体检是线上自动评分，3分钟出结果；深度诊断需要专家现场勘查，输出更详细的改善路径和投资预算。</p>
+    </div>
+    <div style="margin-bottom:14px">
+      <p style="font-weight:600;font-size:14px;color:#1a365d">Q: 诊断报告多久能出来？</p>
+      <p style="font-size:13px;color:#4a5568;margin-top:4px">现场诊断后3-5个工作日输出完整报告（含评分、改善优先级、ROI估算）。</p>
+    </div>
+    <div>
+      <p style="font-weight:600;font-size:14px;color:#1a365d">Q: 诊断费用可以抵扣后续服务吗？</p>
+      <p style="font-size:13px;color:#4a5568;margin-top:4px">可以。诊断费用在后续咨询服务中全额抵扣。</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  思派工业技术（深圳）有限公司 · 精益智能工厂领航员
+</div>
+</body>
+</html>
