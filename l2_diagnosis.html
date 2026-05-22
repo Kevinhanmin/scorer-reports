@@ -24,12 +24,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 .flow-step{background:#f8fafc;border-radius:10px;padding:14px 18px;text-align:center;flex:1;min-width:120px}
 .flow-step .num{display:inline-block;width:24px;height:24px;line-height:24px;background:#2563eb;color:#fff;border-radius:50%;font-size:12px;font-weight:700;margin-bottom:6px}
 .flow-step .text{font-size:12px;color:#4a5568}
+.member-badge{display:inline-block;background:#fef3c7;color:#92400e;padding:2px 10px;border-radius:10px;font-size:11px;font-weight:600;margin-bottom:8px}
 .btn{display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:600;text-decoration:none;cursor:pointer;transition:transform .15s}
 .btn:hover{transform:translateY(-1px)}
 .btn:active{transform:translateY(0)}
 .btn-secondary{background:linear-gradient(135deg,#f59e0b,#d97706)}
 .price-note{background:#fef3c7;border:1px solid #fde68a;border-radius:8px;padding:12px 16px;margin-top:12px;font-size:13px;color:#92400e}
 .price-note strong{color:#78350f}
+.member-card{background:linear-gradient(135deg,#fefce8,#fff7ed);border:1px solid #fde68a;border-radius:12px;padding:16px;margin-top:12px}
+.member-card h3{font-size:14px;color:#78350f;margin-bottom:8px}
+.member-card ul{list-style:none;padding:0}
+.member-card li{font-size:13px;color:#92400e;padding:4px 0;padding-left:20px;position:relative}
+.member-card li:before{content:"✅";position:absolute;left:0}
 .footer{text-align:center;padding:32px 16px;font-size:11px;color:#94a3b8}
 @media(max-width:600px){
   .flow{flex-direction:column}
@@ -54,14 +60,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
     </p>
   </div>
 
-  <!-- 价格 -->
+  <!-- 价格 + 会员权益 -->
   <div class="card">
     <h2 style="border-bottom-color:#2563eb">💰 深度诊断定价</h2>
-    <div class="price">¥1,980 <small>起/次</small></div>
+    <div class="price">¥980 <small>起/次（首单优惠）</small></div>
     <p style="font-size:13px;color:#7e93a8">含8大维度完整评估 + 深度诊断报告 + 改善路线图</p>
     <div class="price-note">
-      📢 <strong>限时优惠：</strong>首次诊断仅需 <strong>¥980</strong>，快速建立您的工厂评估基准数据。
-      诊断费用可在后续咨询服务中抵扣。
+      📢 <strong>首单特惠：</strong>首次深度诊断仅需 <strong>¥980</strong>，快速建立您的工厂评估基准数据。
+      诊断费用可在后续咨询服务中全额抵扣。
+    </div>
+
+    <div class="member-card">
+      <div class="member-badge">👑 会员专享</div>
+      <h3>成为会员单位，即可解锁：</h3>
+      <ul>
+        <li>深度诊断服务（填写L2问卷启动）</li>
+        <li><strong>智能工厂案例集</strong>（20+行业标杆案例，持续更新）</li>
+        <li>改善路线图与ROI量化分析</li>
+        <li>专属专家顾问对接通道</li>
+      </ul>
     </div>
   </div>
 
@@ -104,6 +121,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
     <div style="margin-bottom:14px">
       <p style="font-weight:600;font-size:14px;color:#1a365d">Q: 深度诊断和免费体检有什么区别？</p>
       <p style="font-size:13px;color:#4a5568;margin-top:4px">免费体检是线上自动评分，3分钟出结果；深度诊断需要专家现场勘查，输出更详细的改善路径和投资预算。</p>
+    </div>
+    <div style="margin-bottom:14px">
+      <p style="font-weight:600;font-size:14px;color:#1a365d">Q: 会员单位如何加入？</p>
+      <p style="font-size:13px;color:#4a5568;margin-top:4px">提交深度诊断预约并完成首单即自动成为会员单位，享受智能工厂案例集查阅权限。</p>
     </div>
     <div style="margin-bottom:14px">
       <p style="font-weight:600;font-size:14px;color:#1a365d">Q: 诊断报告多久能出来？</p>
