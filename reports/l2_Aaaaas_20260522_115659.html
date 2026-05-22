@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>L2精益智能工厂轻量诊断报告 - Aaaaas</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#f0f2f5;color:#1d1d1f;padding:20px;line-height:1.6}
+.c{max-width:800px;margin:0 auto;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.08)}
+.h{background:linear-gradient(135deg,#1e3a5f,#2563eb,#7c3aed);padding:40px 44px 32px;color:#fff;position:relative;overflow:hidden}
+.h::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.04)}
+.h .l{display:inline-block;background:rgba(255,255,255,.12);padding:4px 14px;border-radius:20px;font-size:12px;letter-spacing:.5px;backdrop-filter:blur(4px);margin-bottom:14px;border:1px solid rgba(255,255,255,.08)}
+.h h1{font-size:26px;font-weight:700;letter-spacing:-.5px}
+.h .cname{font-size:16px;opacity:.9;margin-top:10px}
+.h .meta{display:flex;gap:24px;margin-top:12px;font-size:12px;opacity:.65}
+.b{padding:32px 40px 28px}
+.score-card{display:flex;gap:28px;padding:24px 28px;background:linear-gradient(135deg,#f8fafc,#f1f5f9);border-radius:16px;margin-bottom:28px;border:1px solid #e2e8f0}
+.score-big{text-align:center;min-width:100px}
+.score-big .num{font-size:48px;font-weight:800;color:#0f172a;line-height:1}
+.score-big .denom{font-size:14px;color:#94a3b8;margin-top:2px}
+.score-big .grade-badge{display:inline-block;margin-top:8px;padding:3px 14px;border-radius:20px;font-size:13px;font-weight:600;color:#fff;background:#65a30d}
+.score-info{flex:1}
+.score-info .g{font-size:18px;font-weight:700;color:#0f172a}
+.score-info .g .tag{display:inline-block;margin-left:8px;padding:2px 12px;font-size:11px;border-radius:12px;background:#65a30d20;color:#65a30d;font-weight:600}
+.score-info .d{font-size:13px;color:#64748b;margin-top:6px;line-height:1.6}
+.section-title{font-size:15px;font-weight:700;color:#0f172a;margin:24px 0 12px;padding-bottom:8px;border-bottom:2px solid #eef2f6;display:flex;align-items:center;gap:8px}
+.dim-row{display:flex;align-items:center;padding:7px 0;gap:12px}
+.dim-label{width:100px;font-size:13px;color:#334155;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.dim-tag{font-size:9px;padding:1px 8px;border-radius:10px;font-weight:500}
+.dim-tag.优秀{background:#dcfce7;color:#16a34a}
+.dim-tag.良好{background:#ecfccb;color:#65a30d}
+.dim-tag.关注{background:#fef9c3;color:#ca8a04}
+.dim-tag.薄弱{background:#ffedd5;color:#f97316}
+.dim-tag.风险{background:#fef2f2;color:#dc2626}
+.dim-bar-wrap{flex:1;height:10px;background:#f1f5f9;border-radius:5px;overflow:hidden}
+.dim-bar{height:100%;border-radius:5px;transition:width 1s ease;animation:barGrow 1.2s ease-out}
+@keyframes barGrow{from{width:0%}}
+.dim-score{width:36px;font-size:14px;font-weight:700;text-align:right;flex-shrink:0}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px}
+.stat-item{text-align:center;padding:18px 12px;background:#f8fafc;border-radius:12px;border:1px solid #e2e8f0}
+.stat-item .stat-lbl{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.stat-item .stat-val{font-size:22px;font-weight:800}
+.improve-list{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.improve-item{display:flex;gap:14px;padding:16px 18px;background:#fef2f2;border:1px solid #fecaca;border-radius:12px}
+.improve-num{font-size:12px;font-weight:800;color:#dc2626;width:28px;text-align:center;padding-top:2px}
+.improve-info{flex:1}
+.improve-title{font-size:14px;font-weight:700;color:#991b1b}
+.improve-desc{font-size:11px;color:#b91c1c;margin-top:2px;opacity:.8}
+.improve-bar{margin-top:6px;height:4px;background:#fecaca;border-radius:2px;overflow:hidden}
+.improve-bar-fill{height:100%;background:#dc2626;border-radius:2px}
+.improve-action{font-size:11px;color:#991b1b;margin-top:6px;padding:6px 10px;background:#fef2f2;border:1px solid #fecaca;border-radius:6px;line-height:1.5}
+.strength-box{padding:14px 18px;background:#f0fdf4;border:1px solid #86efac;border-radius:12px;font-size:12px;color:#166534;margin-bottom:24px;line-height:1.6}
+.suggestion-box{padding:18px 22px;background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #bfdbfe;border-radius:12px;margin-bottom:24px}
+.suggestion-box .sug-title{font-size:13px;font-weight:700;color:#1e40af;margin-bottom:4px}
+.suggestion-box .sug-text{font-size:12px;color:#1e40af;line-height:1.7}
+.potential-box{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac;border-radius:16px;overflow:hidden;margin-bottom:24px}
+.potential-header{padding:16px 20px;background:#05966914;font-size:15px;font-weight:700;color:#065f46;border-bottom:1px solid #a7f3d0;display:flex;align-items:center;gap:8px}
+.potential-body{padding:16px 20px;font-size:13px;color:#065f46;line-height:1.7}
+.cta{text-align:center;padding:28px 24px;background:linear-gradient(135deg,#1e3a5f,#7c3aed);border-radius:16px;color:#fff;margin-top:20px}
+.cta h3{font-size:17px;font-weight:700;letter-spacing:-.3px}
+.cta p{font-size:13px;opacity:.85;margin:8px 0 16px;line-height:1.6}
+.cta .cta-btn{display:inline-block;padding:12px 32px;background:#2563eb;color:#fff;border-radius:30px;font-size:14px;font-weight:600;text-decoration:none;transition:all .2s;border:1px solid rgba(255,255,255,.15)}
+.footer{text-align:center;padding:18px;font-size:10px;color:#94a3b8;border-top:1px solid #e2e8f0}
+.footer .brand{font-size:11px;font-weight:600;color:#64748b;margin-bottom:2px}
+.disclaimer{font-size:9px;color:#94a3b8;padding:12px 18px;background:#f8fafc;border-radius:8px;margin-top:12px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="c">
+    <div class="h">
+        <div class="l">🔬 L2轻量诊断报告</div>
+        <h1>精益智能工厂 · 深度诊断分析报告</h1>
+        <div class="cname">🏢 Aaaaas</div>
+        <div class="meta"><span>📅 报告日期：2026-05-22</span><span>📋 报告编号：L2-202605221156</span><span>📊 版本：L2-v1.0</span></div>
+    </div>
+    <div class="b">
+        <!-- 综合评分 -->
+        <div class="score-card">
+            <div class="score-big">
+                <div class="num">3.56</div>
+                <div class="denom">/ 5.00</div>
+                <div class="grade-badge">B级 良好</div>
+            </div>
+            <div class="score-info">
+                <div class="g">L2综合诊断评分 · 8维度深度评估<span class="tag">B级 良好</span></div>
+                <div class="d">有精益基础<br><br>👍 贵工厂具备良好的管理基础，多数维度表现平稳，值得肯定！<br><br>💡 方向建议：<br>1️⃣ 针对评分较低维度做专项改善<br>2️⃣ 建议安排L2深度诊断对薄弱环节进行精准评估<br>3️⃣ 建立持续改善机制，避免管理优势下滑</div>
+            </div>
+        </div>
+
+        <!-- 八维诊断评分 -->
+        <div class="section-title">📊 八维深度诊断评分体系</div>
+        
+        <div class="dim-row">
+            <div class="dim-label">生产效率 <span class="dim-tag 关注">关注</span></div>
+            <div class="dim-bar-wrap"><div class="dim-bar" style="width:63%;background:#ca8a04"></div></div>
+            <div class="dim-score" style="color:#ca8a04">3.2</div>
+        </div>
+        <div class="dim-row">
+            <div class="dim-label">库存物流 <span class="dim-tag 关注">关注</span></div>
+            <div class="dim-bar-wrap"><div class="dim-bar" style="width:64%;background:#ca8a04"></div></div>
+            <div class="dim-score" style="color:#ca8a04">3.2</div>
+        </div>
+        <div class="dim-row">
+            <div class="dim-label">人员效率 <span class="dim-tag 关注">关注</span></div>
+            <div class="dim-bar-wrap"><div class="dim-bar" style="width:68%;background:#ca8a04"></div></div>
+            <div class="dim-score" style="color:#ca8a04">3.4</div>
+        </div>
+        <div class="dim-row">
+            <div class="dim-label">质量控制 <span class="dim-tag 良好">良好</span></div>
+            <div class="dim-bar-wrap"><div class="dim-bar" style="width:70%;background:#65a30d"></div></div>
+            <div class="dim-score" style="color:#65a30d">3.5</div>
+        </div>
+        <div class="dim-row">
+            <div class="dim-label">设备管理 <span class="dim-tag 良好">良好</span></div>
+            <div class="dim-bar-wrap"><div class="dim-bar" style="width:72%;background:#65a30d"></div></div>
+            <div class="dim-score" style="color:#65a30d">3.6</div>
+        </div>
+        <div class="dim-row">
+            <div class="dim-label">数字化 <span class="dim-tag 良好">良好</span></div>
+            <div class="dim-bar-wrap"><div class="dim-bar" style="width:76%;background:#65a30d"></div></div>
+            <div class="dim-score" style="color:#65a30d">3.8</div>
+        </div>
+        <div class="dim-row">
+            <div class="dim-label">计划交付 <span class="dim-tag 良好">良好</span></div>
+            <div class="dim-bar-wrap"><div class="dim-bar" style="width:80%;background:#65a30d"></div></div>
+            <div class="dim-score" style="color:#65a30d">4.0</div>
+        </div>
+        <div class="dim-row">
+            <div class="dim-label">现场管理 <span class="dim-tag 良好">良好</span></div>
+            <div class="dim-bar-wrap"><div class="dim-bar" style="width:84%;background:#65a30d"></div></div>
+            <div class="dim-score" style="color:#65a30d">4.2</div>
+        </div>
+
+        <!-- 经济效益分析 -->
+        <div class="section-title">💰 经济效益评估</div>
+        <div class="stat-grid">
+            <div class="stat-item">
+                <div class="stat-lbl">📉 年度预计损失</div>
+                <div class="stat-val" style="color:#dc2626">100-300万元</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-lbl">⚡ 改善空间</div>
+                <div class="stat-val" style="color:#059669">200万元/年</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-lbl">📊 诊断覆盖</div>
+                <div class="stat-val" style="color:#2563eb">8/8 维度</div>
+            </div>
+        </div>
+
+        <!-- 改善潜力 -->
+        <div class="potential-box">
+            <div class="potential-header">
+                <span>🎯</span>
+                <span>您每年可能浪费约 <strong style="font-size:22px;color:#059669;letter-spacing:1px">200万元</strong></span>
+            </div>
+            <div class="potential-body">
+                <p>基于L2轻量诊断评估，贵工厂存在约 <strong>200万元/年</strong> 的改善空间。通过系统精益改善可实现：</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0">
+                    <div style="padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px;border:1px solid #a7f3d0">⬇️ 生产成本降低 <strong>15-25%</strong></div>
+                    <div style="padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px;border:1px solid #a7f3d0">⬆️ 生产效率提升 <strong>20-35%</strong></div>
+                    <div style="padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px;border:1px solid #a7f3d0">📦 库存周转加速 <strong>25-45%</strong></div>
+                    <div style="padding:10px 14px;background:#f0fdf4;border-radius:8px;font-size:13px;border:1px solid #a7f3d0">✅ 产品合格率提高 <strong>8-20%</strong></div>
+                </div>
+                <div style="font-size:12px;color:#059669;margin-top:8px;padding:10px 14px;background:#ecfdf5;border-radius:8px;border:1px solid #a7f3d0">💡 以上为L2轻量诊断估算，实际改善空间需L3现场深度诊断确认。</div>
+            </div>
+        </div>
+
+        <!-- 优势 -->
+        <div class="strength-box"><span class="strength-icon">⭐</span><span class="strength-label">优势维度</span> <strong>现场管理</strong>（4.2分）— 保持此优势并转化为核心竞争力</div>
+
+        <!-- 紧急改善方向 -->
+        <div class="section-title">🔴 优先改善方向（Top 3）</div>
+        <div class="improve-list">
+        <div class="improve-item">
+            <div class="improve-num">01</div>
+            <div class="improve-info">
+                <div class="improve-title">生产效率（3.2分）</div>
+                <div class="improve-desc">设备综合效率(OEE)偏低、产线平衡损失大、瓶颈工序限制产能</div>
+                <div class="improve-bar"><div class="improve-bar-fill" style="width:63%"></div></div>
+                <div class="improve-action">① 测定OEE基线 → ② 消除六大损失 → ③ 建立产线平衡墙</div>
+            </div>
+        </div>
+        <div class="improve-item">
+            <div class="improve-num">02</div>
+            <div class="improve-info">
+                <div class="improve-title">库存物流（3.2分）</div>
+                <div class="improve-desc">库存周转天数长、在制品堆积严重、物料配送效率低</div>
+                <div class="improve-bar"><div class="improve-bar-fill" style="width:64%"></div></div>
+                <div class="improve-action">① ABC分类法优化 → ② 建立拉动式配送(Kanban) → ③ 设置物料超市</div>
+            </div>
+        </div>
+        <div class="improve-item">
+            <div class="improve-num">03</div>
+            <div class="improve-info">
+                <div class="improve-title">人员效率（3.4分）</div>
+                <div class="improve-desc">人员利用率低、标准化作业覆盖不足、技能依赖度高</div>
+                <div class="improve-bar"><div class="improve-bar-fill" style="width:68%"></div></div>
+                <div class="improve-action">① 制定标准作业组合票 → ② 建立岗位技能矩阵 → ③ 推行多能工培训</div>
+            </div>
+        </div></div>
+
+        <!-- 专家建议 -->
+        <div class="suggestion-box">
+            <div class="sug-title">🎯 L2专家诊断建议</div>
+            <div class="sug-text">📈 具备良好的管理基础，改善潜力巨大。建议聚焦薄弱维度（见Top 3改善方向），短期内启动专项改善。</div>
+        </div>
+
+        <!-- 未来方向 -->
+        <div class="section-title">🔮 未来方向评估</div><div style="padding:6px 0;font-size:13px;color:#334155"><strong>🏭 智能工厂规划：</strong>已有初步规划</div><div style="padding:6px 0;font-size:13px;color:#334155"><strong>⚠️ 智能化瓶颈：</strong>缺乏技术人才</div><div style="padding:6px 0;font-size:13px;color:#334155"><strong>🌿 绿色制造认知：</strong>有明确目标和计划</div><div style="padding:6px 0;font-size:13px;color:#334155"><strong>📉 碳排需求：</strong>已安排计划</div><div style="margin-top:8px"><strong style="font-size:12px;color:#64748b">AI应用兴趣：</strong> 工艺参数智能优化, 质量AI视觉检测</div>
+
+        <!-- 行动号召 -->
+        <div class="cta">
+            <h3>📞 需要现场深度诊断（L3）？</h3>
+            <p>以上为L2轻量诊断结果。如需获取针对您工厂的详细改善路线图<br>以及量化的投入产出分析，请联系我们安排L3现场深度诊断。</p>
+            <a class="cta-btn" href="https://kevinhanmin.github.io/scorer-reports/" target="_blank">📋 预约L3现场深度诊断 →</a>
+            <div style="font-size:11px;opacity:.6;margin-top:12px">联系人：Aaaaas · 思派工业技术（深圳）有限公司</div>
+        </div>
+
+        <div class="disclaimer">📌 免责声明：本报告由精益智能工厂L2诊断系统基于问卷数据自动生成，旨在提供深度参考。报告中的评分、损失估算、改善建议等均为基于问卷信息的专业判断，不代表最终诊断结论。如需准确的工厂诊断报告，请联系思派工业技术安排L3现场深度诊断。</div>
+    </div>
+    <div class="footer">
+        <div class="brand">思派工业技术（深圳）有限公司 · 精益智能工厂领航员</div>
+        <div>© 2026 思派工业技术 · L2评分师自动生成 · 诊断编号：L2-202605221156</div>
+    </div>
+</div>
+</body>
+</html>
