@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L3现场诊断 · 思派工业精益智能工厂</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#f0f4f8;color:#1a2332;min-height:100vh}
+.header{background:linear-gradient(135deg,#92400e 0%,#d97706 50%,#f59e0b 100%);color:#fff;padding:40px 20px;text-align:center}
+.header h1{font-size:28px;font-weight:700;margin-bottom:6px}
+.header .subtitle{font-size:14px;opacity:.85;margin-top:6px}
+.header .badge{display:inline-block;background:rgba(255,255,255,.12);padding:4px 16px;border-radius:12px;font-size:11px;margin-bottom:14px}
+.container{max-width:900px;margin:0 auto;padding:24px 16px}
+.card{background:#fff;border-radius:12px;padding:24px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.card h2{font-size:17px;font-weight:700;color:#1a365d;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #eef2f6}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:12px}
+.feature-item{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:16px;text-align:center}
+.feature-item .icon{font-size:28px;margin-bottom:8px}
+.feature-item .f-title{font-weight:700;font-size:14px;color:#92400e;margin-bottom:4px}
+.feature-item .f-desc{font-size:12px;color:#7e93a8;line-height:1.5}
+.flow{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0;justify-content:center}
+.flow-step{background:#fffbeb;border-radius:10px;padding:14px 18px;text-align:center;flex:1;min-width:120px}
+.flow-step .num{display:inline-block;width:24px;height:24px;line-height:24px;background:#d97706;color:#fff;border-radius:50%;font-size:12px;font-weight:700;margin-bottom:6px}
+.flow-step .text{font-size:12px;color:#92400e}
+.btn{display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#d97706,#b45309);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:600;text-decoration:none;cursor:pointer;transition:transform .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn-secondary{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.scope-list{list-style:none;padding:0}
+.scope-list li{font-size:13px;color:#4a5568;padding:8px 0;padding-left:24px;position:relative;border-bottom:1px solid #f0f4f8}
+.scope-list li:last-child{border-bottom:none}
+.scope-list li:before{position:absolute;left:0;font-size:14px}
+.contact-card{background:linear-gradient(135deg,#1a365d,#2563eb);color:#fff;border-radius:12px;padding:24px;text-align:center;margin-top:16px}
+.contact-card h3{font-size:16px;margin-bottom:10px}
+.contact-card p{font-size:13px;opacity:.9;margin:4px 0}
+.contact-card .wechat{font-size:18px;font-weight:700;margin:12px 0}
+.footer{text-align:center;padding:32px 16px;font-size:11px;color:#94a3b8}
+.level-note{font-size:13px;color:#7e93a8;background:#f8fafc;padding:10px 14px;border-radius:8px;margin-top:12px}
+@media(max-width:600px){
+  .flow{flex-direction:column}
+  .feature-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="badge">🏭 L3 · 现场诊断服务</div>
+  <h1>专家亲临现场 · 精准诊断改善</h1>
+  <p class="subtitle">思派工业专家团队入驻工厂，实地勘查+产线评估+团队访谈，输出可落地的改善方案</p>
+</div>
+<div class="container">
+
+  <!-- 服务介绍 -->
+  <div class="card">
+    <h2>什么是L3现场诊断？</h2>
+    <p style="font-size:14px;line-height:1.8;color:#4a5568">
+      L3现场诊断是思派工业技术提供的<strong>最高级别诊断服务</strong>。由资深精益智能工厂专家亲临您的工厂，
+      通过<strong>实地产线勘查、设备现场评估、一线人员访谈、数据实地采集</strong>，对工厂进行全面深入的诊断分析。
+    </p>
+    <p style="font-size:14px;line-height:1.8;color:#4a5568;margin-top:10px">
+      区别于L2线上诊断，L3专家到场的优势在于：能看到书本上写不到的操作细节，能闻到车间真实的管理气息，
+      能和一线工人面对面交流，发现隐藏在报表背后的真实问题。
+    </p>
+    <p class="level-note">
+      💡 <strong>服务层级说明：</strong>
+      <a href="https://kevinhanmin.github.io/scorer-reports/l2_diagnosis.html" style="color:#2563eb">L2线上诊断（¥980起）</a> →
+      <strong>L3现场诊断</strong> →
+      后续改善项目实施
+    </p>
+  </div>
+
+  <!-- 服务范围 -->
+  <div class="card">
+    <h2>🎯 L3现场诊断包含什么？</h2>
+    <ul class="scope-list">
+      <li style="--li-content:'🔍'"><strong>现场勘查</strong> — 专家实地走线，观察产线布局、物料流动、在制品状态</li>
+      <li style="--li-content:'🔧'"><strong>设备评估</strong> — 现场检测关键设备OEE、MTBF、换模时间等核心指标</li>
+      <li style="--li-content:'💬'"><strong>人员访谈</strong> — 与车间主任、班组长、一线操作工面对面交流</li>
+      <li style="--li-content:'📊'"><strong>数据采集</strong> — 现场采集真实生产数据，校正报表偏差</li>
+      <li style="--li-content:'📋'"><strong>8大维度评分</strong> — 综合设备、仓储、生产、品质、人力、供应链、智能制造、战略绩效</li>
+      <li style="--li-content:'📝'"><strong>改善方案</strong> — 输出定制化改善路线图，含优先级排序和ROI估算</li>
+      <li style="--li-content:'👨‍🔧'"><strong>实施辅导</strong> — 改善方案落地阶段的技术支持和辅导</li>
+    </ul>
+  </div>
+
+  <!-- 核心优势 -->
+  <div class="card">
+    <h2>🏆 为什么选择现场诊断？</h2>
+    <div class="feature-grid">
+      <div class="feature-item">
+        <div class="icon">👁️</div>
+        <div class="f-title">眼见为实</div>
+        <div class="f-desc">专家亲临现场，发现数据报表中无法反映的真实问题</div>
+      </div>
+      <div class="feature-item">
+        <div class="icon">🎯</div>
+        <div class="f-title">精准定制</div>
+        <div class="f-desc">针对工厂实际情况定制改善方案，不套模板</div>
+      </div>
+      <div class="feature-item">
+        <div class="icon">🤝</div>
+        <div class="f-title">团队共建</div>
+        <div class="f-desc">与团队现场交流，方案更易落地执行</div>
+      </div>
+      <div class="feature-item">
+        <div class="icon">📈</div>
+        <div class="f-title">持续改善</div>
+        <div class="f-desc">诊断后提供持续的改善辅导支持</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 现场诊断流程 -->
+  <div class="card">
+    <h2>🔄 L3现场诊断流程</h2>
+    <div class="flow">
+      <div class="flow-step"><div class="num">1</div><div class="text">需求沟通</div></div>
+      <div class="flow-step"><div class="num">2</div><div class="text">排期确认</div></div>
+      <div class="flow-step"><div class="num">3</div><div class="text">现场诊断</div></div>
+      <div class="flow-step"><div class="num">4</div><div class="text">分析输出</div></div>
+      <div class="flow-step"><div class="num">5</div><div class="text">改善规划</div></div>
+      <div class="flow-step"><div class="num">6</div><div class="text">实施辅导</div></div>
+    </div>
+  </div>
+
+  <!-- 后续服务 -->
+  <div class="card">
+    <h2>🚀 L3后续·改善项目与线下服务</h2>
+    <p style="font-size:14px;line-height:1.8;color:#4a5568">
+      L3现场诊断完成后，可根据诊断结果量身定制后续线下服务：
+    </p>
+    <div class="feature-grid" style="margin-top:12px">
+      <div class="feature-item">
+        <div class="icon">🛠️</div>
+        <div class="f-title">改善项目实施</div>
+        <div class="f-desc">5S/精益布局/TQM/TPM等专项改善项目全程辅导</div>
+      </div>
+      <div class="feature-item">
+        <div class="icon">🎓</div>
+        <div class="f-title">培训赋能</div>
+        <div class="f-desc">精益生产、智能工厂等定制化培训课程</div>
+      </div>
+      <div class="feature-item">
+        <div class="icon">📐</div>
+        <div class="f-title">产线规划设计</div>
+        <div class="f-desc">新产线布局设计、车间智能化改造方案</div>
+      </div>
+      <div class="feature-item">
+        <div class="icon">🤖</div>
+        <div class="f-title">数字化导入</div>
+        <div class="f-desc">MES/ERP/产线数字化系统选型与实施</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 联系我们 -->
+  <div class="card">
+    <h2>📞 联系我们</h2>
+    <div class="contact-card">
+      <h3>思派工业技术（深圳）有限公司</h3>
+      <p>创始人 Kevin（张工）</p>
+      <p>前比亚迪技术研发 → 工厂管理全链路实战派</p>
+      <div class="wechat">📱 微信同号：联系创始人获取</div>
+      <p style="font-size:12px;opacity:.7">预约L3现场诊断或咨询线下改善项目，请直接联系</p>
+    </div>
+    <div style="text-align:center;margin-top:16px">
+      <p style="font-size:12px;color:#94a3b8">
+        也可先进行 <a href="https://kevinhanmin.github.io/scorer-reports/l2_diagnosis.html" style="color:#2563eb">L2线上诊断（¥980起）</a>，
+        让专家提前了解您的工厂情况
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  思派工业技术（深圳）有限公司 · 精益智能工厂领航员
+</div>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>深度诊断 · 思派工业精益智能工厂</title>
+<title>L2深度诊断 · 思派工业精益智能工厂</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#f0f4f8;color:#1a2332;min-height:100vh}
@@ -11,6 +11,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 .header h1{font-size:28px;font-weight:700;margin-bottom:6px}
 .header .subtitle{font-size:14px;opacity:.85;margin-top:6px}
 .header .badge{display:inline-block;background:rgba(255,255,255,.12);padding:4px 16px;border-radius:12px;font-size:11px;margin-bottom:14px}
+.header .l3-link{display:inline-block;margin-top:12px;padding:8px 18px;background:rgba(255,255,255,.15);border-radius:20px;color:#fff;text-decoration:none;font-size:12px;transition:background .15s}
+.header .l3-link:hover{background:rgba(255,255,255,.25)}
+.header .l3-link:after{content:" →"}
 .container{max-width:900px;margin:0 auto;padding:24px 16px}
 .card{background:#fff;border-radius:12px;padding:24px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
 .card h2{font-size:17px;font-weight:700;color:#1a365d;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #eef2f6}
@@ -36,49 +39,94 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 .member-card ul{list-style:none;padding:0}
 .member-card li{font-size:13px;color:#92400e;padding:4px 0;padding-left:20px;position:relative}
 .member-card li:before{content:"✅";position:absolute;left:0}
+.level-tag{display:inline-block;background:#dbeafe;color:#1e40af;padding:3px 12px;border-radius:6px;font-size:12px;font-weight:600;margin-bottom:8px}
+.level-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.level-compare .l-box{background:#f8fafc;border-radius:10px;padding:16px;border-top:3px solid #2563eb}
+.level-compare .l-box.l3-box{border-top-color:#f59e0b}
+.level-compare .l-box .l-title{font-size:14px;font-weight:700;margin-bottom:8px}
+.level-compare .l-box .l-desc{font-size:12px;color:#4a5568;line-height:1.6}
+.level-compare .l-box .l-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;margin-bottom:6px}
+.level-compare .l-box .l-tag.l2{background:#dbeafe;color:#1e40af}
+.level-compare .l-box .l-tag.l3{background:#fef3c7;color:#92400e}
 .footer{text-align:center;padding:32px 16px;font-size:11px;color:#94a3b8}
 @media(max-width:600px){
   .flow{flex-direction:column}
   .dim-list{grid-template-columns:1fr 1fr}
+  .level-compare{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 <div class="header">
-  <div class="badge">🔬 深度诊断服务</div>
+  <div class="badge">📋 L2 · 线上深度诊断</div>
   <h1>精益智能工厂深度诊断</h1>
-  <p class="subtitle">从8大维度全面评估您的工厂，精准定位改善方向，量化改善收益</p>
+  <p class="subtitle">专家团队线上评估 · 8大维度全面诊断 · 精准定位改善方向</p>
+  <a href="https://kevinhanmin.github.io/scorer-reports/l3_onsite_diagnosis.html" class="l3-link">需要现场诊断？了解L3现场深度服务</a>
 </div>
 <div class="container">
 
   <!-- 服务介绍 -->
   <div class="card">
-    <h2>什么是深度诊断？</h2>
+    <div class="level-tag">L2 层级 · 咨询+线上</div>
+    <h2>什么是L2深度诊断？</h2>
     <p style="font-size:14px;line-height:1.8;color:#4a5568">
       基于精益生产与智能工厂的成熟度模型，由思派工业专家团队对您的工厂进行<strong>8大维度、60+项指标</strong>的全面评估。
-      与免费体检的自动评分不同，深度诊断结合<strong>现场勘查+数据采集+专家分析</strong>，输出可落地的改善路径和量化ROI。
+      与免费体检的自动评分不同，L2深度诊断由专家通过<strong>线上咨询+数据采集+远程分析</strong>，输出可落地的改善路径和量化ROI，<strong>不涉及现场勘查</strong>。
+    </p>
+    <p style="font-size:13px;color:#7e93a8;margin-top:10px;background:#f0f9ff;padding:10px 14px;border-radius:8px">
+      💡 <strong>适用场景：</strong>作为初步深度评估，适合远程协作或非紧急的工厂评估需求。<br>
+      如需专家现场勘测与实地辅导，请预约 <a href="https://kevinhanmin.github.io/scorer-reports/l3_onsite_diagnosis.html" style="color:#2563eb">L3现场诊断服务 →</a>
     </p>
   </div>
 
   <!-- 价格 + 会员权益 -->
   <div class="card">
-    <h2 style="border-bottom-color:#2563eb">💰 深度诊断定价</h2>
+    <h2 style="border-bottom-color:#2563eb">💰 L2深度诊断定价</h2>
     <div class="price">¥980 <small>起/次（首单优惠）</small></div>
     <p style="font-size:13px;color:#7e93a8">含8大维度完整评估 + 深度诊断报告 + 改善路线图</p>
     <div class="price-note">
-      📢 <strong>首单特惠：</strong>首次深度诊断仅需 <strong>¥980</strong>，快速建立您的工厂评估基准数据。
+      📢 <strong>首单特惠：</strong>首次L2深度诊断仅需 <strong>¥980</strong>，快速建立您的工厂评估基准数据。
       诊断费用可在后续咨询服务中全额抵扣。
     </div>
 
     <div class="member-card">
       <div class="member-badge">👑 会员专享</div>
-      <h3>成为会员单位，即可解锁：</h3>
+      <h3>完成L2诊断即成为会员单位，解锁：</h3>
       <ul>
-        <li>深度诊断服务（填写L2问卷启动）</li>
+        <li>深度诊断报告（含8大维度评分与改善建议）</li>
         <li><strong>智能工厂案例集</strong>（20+行业标杆案例，持续更新）</li>
         <li>改善路线图与ROI量化分析</li>
         <li>专属专家顾问对接通道</li>
       </ul>
+    </div>
+  </div>
+
+  <!-- 层级对比 -->
+  <div class="card">
+    <h2>📊 L2 vs L3：如何选择？</h2>
+    <div class="level-compare">
+      <div class="l-box">
+        <div class="l-tag l2">L2 · 线上诊断</div>
+        <div class="l-title">💰 ¥980 起</div>
+        <div class="l-desc">
+          ✅ 线上咨询+数据采集<br>
+          ✅ 专家远程分析评估<br>
+          ✅ 8大维度深度评分<br>
+          ✅ 改善路径与ROI量化<br>
+          ❌ 不含现场勘查
+        </div>
+      </div>
+      <div class="l-box l3-box">
+        <div class="l-tag l3">L3 · 现场诊断</div>
+        <div class="l-title">🏭 专家到场</div>
+        <div class="l-desc">
+          ✅ 专家亲临工厂现场<br>
+          ✅ 实地设备/产线勘查<br>
+          ✅ 一线人员访谈<br>
+          ✅ 现场改善辅导<br>
+          ✅ 后续改善项目实施
+        </div>
+      </div>
     </div>
   </div>
 
@@ -99,19 +147,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 
   <!-- 服务流程 -->
   <div class="card">
-    <h2>🔄 服务流程</h2>
+    <h2>🔄 L2诊断流程</h2>
     <div class="flow">
       <div class="flow-step"><div class="num">1</div><div class="text">提交预约</div></div>
-      <div class="flow-step"><div class="num">2</div><div class="text">需求沟通</div></div>
-      <div class="flow-step"><div class="num">3</div><div class="text">现场诊断</div></div>
-      <div class="flow-step"><div class="num">4</div><div class="text">报告输出</div></div>
-      <div class="flow-step"><div class="num">5</div><div class="text">改善规划</div></div>
+      <div class="flow-step"><div class="num">2</div><div class="text">线上沟通</div></div>
+      <div class="flow-step"><div class="num">3</div><div class="text">数据采集</div></div>
+      <div class="flow-step"><div class="num">4</div><div class="text">远程分析</div></div>
+      <div class="flow-step"><div class="num">5</div><div class="text">报告输出</div></div>
     </div>
   </div>
 
   <!-- CTA -->
   <div style="text-align:center;margin-top:24px;margin-bottom:32px">
-    <a href="https://ycntwzzv6rec.feishu.cn/base/JZg8bq0A3aYVU3snPxZcMKmQnid?table=tbl0W8eou1chYGzi&view=vewIXaTItn" class="btn">📋 立即预约深度诊断</a>
+    <a href="https://ycntwzzv6rec.feishu.cn/base/JZg8bq0A3aYVU3snPxZcMKmQnid?table=tbl0W8eou1chYGzi&view=vewIXaTItn" class="btn">📋 立即预约L2深度诊断</a>
     <p style="margin-top:10px;font-size:12px;color:#94a3b8">或联系创始人 Kevin（微信同号）</p>
   </div>
 
@@ -119,16 +167,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
   <div class="card">
     <h2>❓ 常见问题</h2>
     <div style="margin-bottom:14px">
-      <p style="font-weight:600;font-size:14px;color:#1a365d">Q: 深度诊断和免费体检有什么区别？</p>
-      <p style="font-size:13px;color:#4a5568;margin-top:4px">免费体检是线上自动评分，3分钟出结果；深度诊断需要专家现场勘查，输出更详细的改善路径和投资预算。</p>
+      <p style="font-weight:600;font-size:14px;color:#1a365d">Q: L2深度诊断和免费体检有什么区别？</p>
+      <p style="font-size:13px;color:#4a5568;margin-top:4px">免费体检是线上自动评分，3分钟出结果；L2深度诊断由专家团队进行线上咨询+数据采集+远程分析，输出更详细的改善路径和投资预算。</p>
+    </div>
+    <div style="margin-bottom:14px">
+      <p style="font-weight:600;font-size:14px;color:#1a365d">Q: L2和L3有什么不同？</p>
+      <p style="font-size:13px;color:#4a5568;margin-top:4px">L2为线上咨询式诊断（不含现场勘查），适合远程评估需求；L3为现场诊断，专家亲自到工厂实地勘查产线和设备，适用于需要现场改善辅导的客户。详情见 <a href="https://kevinhanmin.github.io/scorer-reports/l3_onsite_diagnosis.html" style="color:#2563eb">L3现场诊断页面</a>。</p>
     </div>
     <div style="margin-bottom:14px">
       <p style="font-weight:600;font-size:14px;color:#1a365d">Q: 会员单位如何加入？</p>
-      <p style="font-size:13px;color:#4a5568;margin-top:4px">提交深度诊断预约并完成首单即自动成为会员单位，享受智能工厂案例集查阅权限。</p>
+      <p style="font-size:13px;color:#4a5568;margin-top:4px">提交L2深度诊断预约并完成首单即自动成为会员单位，享受智能工厂案例集查阅权限。</p>
     </div>
     <div style="margin-bottom:14px">
       <p style="font-weight:600;font-size:14px;color:#1a365d">Q: 诊断报告多久能出来？</p>
-      <p style="font-size:13px;color:#4a5568;margin-top:4px">现场诊断后3-5个工作日输出完整报告（含评分、改善优先级、ROI估算）。</p>
+      <p style="font-size:13px;color:#4a5568;margin-top:4px">线上诊断后3-5个工作日输出完整报告（含评分、改善优先级、ROI估算）。</p>
     </div>
     <div>
       <p style="font-weight:600;font-size:14px;color:#1a365d">Q: 诊断费用可以抵扣后续服务吗？</p>
