@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思派工业 · 诊断报告查询</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f5f7fa; min-height: 100vh; color: #333;
+}
+.header {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+    color: white; padding: 40px 20px 30px; text-align: center;
+}
+.header h1 { font-size: 22px; margin-bottom: 8px; }
+.header p { font-size: 14px; opacity: 0.85; }
+.container { max-width: 480px; margin: 0 auto; padding: 20px 16px; }
+.search-box {
+    background: white; border-radius: 12px; padding: 24px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 20px;
+}
+.search-box label { 
+    display: block; font-size: 14px; font-weight: 600; 
+    color: #555; margin-bottom: 8px;
+}
+.search-box input {
+    width: 100%; padding: 14px 16px; border: 2px solid #e2e8f0;
+    border-radius: 8px; font-size: 16px; transition: border-color 0.2s;
+    outline: none;
+}
+.search-box input:focus { border-color: #2563eb; }
+.search-box .hint {
+    font-size: 12px; color: #94a3b8; margin-top: 6px;
+}
+.btn-search {
+    width: 100%; padding: 14px; background: #2563eb; color: white;
+    border: none; border-radius: 8px; font-size: 16px; font-weight: 600;
+    cursor: pointer; margin-top: 12px; transition: background 0.2s;
+}
+.btn-search:hover { background: #1d4ed8; }
+.btn-search:disabled { background: #94a3b8; cursor: not-allowed; }
+
+.result-area { display: none; }
+.result-area.visible { display: block; }
+
+.report-card {
+    background: white; border-radius: 12px; padding: 16px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 16px;
+    border-left: 4px solid #2563eb;
+}
+.report-card.l1 { border-left-color: #10b981; }
+.report-card.l2 { border-left-color: #2563eb; }
+.report-card .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 11px; font-weight: 600; margin-bottom: 8px;
+}
+.report-card .badge.l1 { background: #d1fae5; color: #065f46; }
+.report-card .badge.l2 { background: #dbeafe; color: #1e40af; }
+.report-card h3 { font-size: 16px; margin-bottom: 4px; }
+.report-card .meta { font-size: 13px; color: #64748b; margin-bottom: 8px; }
+.report-card .rating {
+    font-size: 14px; font-weight: 600; padding: 4px 0;
+}
+.rating-a { color: #059669; } .rating-b { color: #2563eb; }
+.rating-c { color: #d97706; } .rating-d { color: #dc2626; }
+.report-card .btn-view {
+    display: inline-block; padding: 8px 20px; background: #f1f5f9;
+    color: #333; border-radius: 6px; text-decoration: none;
+    font-size: 13px; font-weight: 500; margin-top: 8px;
+    transition: background 0.2s;
+}
+.report-card .btn-view:hover { background: #e2e8f0; }
+.no-result { 
+    text-align: center; padding: 40px 20px; color: #94a3b8;
+}
+.no-result .icon { font-size: 48px; margin-bottom: 12px; }
+.no-result p { font-size: 14px; }
+.footer {
+    text-align: center; padding: 20px; color: #94a3b8; font-size: 12px;
+}
+.footer a { color: #2563eb; text-decoration: none; }
+.loading { text-align: center; padding: 20px; color: #94a3b8; }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>📋 诊断报告查询</h1>
+    <p>思派工业 · 精益智能工厂诊断系统</p>
+</div>
+
+<div class="container">
+    <div class="search-box">
+        <label>📱 输入手机号查询报告</label>
+        <input type="tel" id="phoneInput" placeholder="请输入填写问卷时留的手机号" maxlength="11" />
+        <div class="hint">仅支持查询您自己公司的诊断报告</div>
+        <button class="btn-search" id="searchBtn" onclick="searchReport()">🔍 查询报告</button>
+    </div>
+
+    <div class="result-area" id="resultArea">
+        <div id="resultContent"></div>
+    </div>
+
+    <div class="footer">
+        <p>思派工业技术（深圳）有限公司</p>
+        <p>有问题？<a href="#">联系我们</a></p>
+    </div>
+</div>
+
+<script>
+// 报告数据（由生成脚本编译）
+const REPORTS = [
+  {
+    "company": "API测试记录",
+    "phones": [],
+    "record_id": "recvk8OAHucV1W",
+    "type": "l2",
+    "rating": "D级 风险",
+    "report_url": "https://kevinhanmin.github.io/scorer-reports/reports/l2_recvk810_20260522_123548.html",
+    "report_date": "2026-05-22"
+  },
+  {
+    "company": "Aaaaas",
+    "phones": [],
+    "record_id": "rec27rrBTq2GC2",
+    "type": "l2",
+    "rating": "B级 良好",
+    "report_url": "https://kevinhanmin.github.io/scorer-reports/reports/l2_rec27r1O_20260522_123548.html",
+    "report_date": "2026-05-22"
+  },
+  {
+    "company": "思派工业",
+    "phones": [],
+    "record_id": "rec27qzwynurH7",
+    "type": "l2",
+    "rating": "C级 注意",
+    "report_url": "https://kevinhanmin.github.io/scorer-reports/reports/l2_rec27qzw_20260522_123548.html",
+    "report_date": "2026-05-22"
+  },
+  {
+    "company": "测试数据",
+    "phones": [],
+    "record_id": "rec27r1OzR2GBZ",
+    "type": "l2",
+    "rating": "B级 良好",
+    "report_url": "https://kevinhanmin.github.io/scorer-reports/reports/l2_rec27r1O_20260522_123548.html",
+    "report_date": "2026-05-22"
+  }
+];
+
+// 手机号映射表（由生成脚本编译，经脱敏处理）
+const PHONE_MAP = {};
+
+function hashPhone(phone) {
+    return 'p_' + btoa(phone).replace(/=/g, '').substring(0, 16);
+}
+
+function searchReport() {
+    const phone = document.getElementById('phoneInput').value.trim();
+    const resultArea = document.getElementById('resultArea');
+    const resultContent = document.getElementById('resultContent');
+    
+    if (!phone || phone.length < 11) {
+        resultArea.classList.add('visible');
+        resultContent.innerHTML = '<div class="no-result"><div class="icon">📱</div><p>请输入完整的11位手机号</p></div>';
+        return;
+    }
+    
+    const phoneHash = hashPhone(phone);
+    
+    // 查找匹配的报告
+    const matched = REPORTS.filter(r => {
+        return r.phones && r.phones.some(p => hashPhone(p) === phoneHash);
+    });
+    
+    if (matched.length === 0) {
+        resultArea.classList.add('visible');
+        resultContent.innerHTML = '<div class="no-result"><div class="icon">🔍</div><p>未找到与该手机号匹配的报告</p><p style="font-size:12px;margin-top:8px">请确认输入的是填问卷时留的手机号</p><p style="font-size:12px;margin-top:4px">如仍未查到，请联系思派工业客服</p></div>';
+        return;
+    }
+    
+    let html = '<div style="margin-bottom:16px;font-size:14px;color:#64748b">找到 <strong>' + matched.length + '</strong> 份报告</div>';
+    
+    matched.sort((a, b) => b.report_date.localeCompare(a.report_date));
+    
+    matched.forEach(r => {
+        const typeClass = r.type === 'l1' ? 'l1' : 'l2';
+        const typeLabel = r.type === 'l1' ? '🏭 免费体检报告' : '💎 深度诊断报告';
+        
+        let ratingClass = '';
+        let ratingLabel = r.rating || '待评级';
+        if (ratingLabel.includes('A')) ratingClass = 'rating-a';
+        else if (ratingLabel.includes('B')) ratingClass = 'rating-b';
+        else if (ratingLabel.includes('C')) ratingClass = 'rating-c';
+        else if (ratingLabel.includes('D')) ratingClass = 'rating-d';
+        
+        html += '<div class="report-card ' + typeClass + '">';
+        html += '<span class="badge ' + typeClass + '">' + typeLabel + '</span>';
+        html += '<h3>' + (r.company || '未命名') + '</h3>';
+        html += '<div class="meta">📅 ' + (r.report_date || '未知') + '</div>';
+        html += '<div class="rating ' + ratingClass + '">' + ratingLabel + '</div>';
+        html += '<a class="btn-view" href="' + r.report_url + '" target="_blank">📄 查看报告</a>';
+        html += '</div>';
+    });
+    
+    resultArea.classList.add('visible');
+    resultContent.innerHTML = html;
+}
+
+// 回车搜索
+document.getElementById('phoneInput').addEventListener('keyup', function(e) {
+    if (e.key === 'Enter') searchReport();
+});
+</script>
+
+</body>
+</html>
