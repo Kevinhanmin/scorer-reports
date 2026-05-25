@@ -162,18 +162,21 @@ def build_report_data():
         report_type = "l1"
         report_url = ""
         
-        if diag_level in ["L2", "l2"]:
-            # L2诊断：使用L2报告URL
-            l2_url = extract_text(fields, "L2_报告URL")
+        # 读取报告URL（L1和L2）
+        l1_url = extract_text(fields, "L1_报告URL")
+        l2_url = extract_text(fields, "L2_报告URL")
+        
+        if l2_url:
+            # L2诊断报告
+            report_type = "l2"
+            report_url = l2_url
             l2_rating = extract_text(fields, "L2_综合评级")
-            if l2_url:
-                report_type = "l2"
-                report_url = l2_url
-                if l2_rating:
-                    rating = l2_rating
-            else:
-                # L1报告URL（找已生成的文件）
-                pass
+            if l2_rating:
+                rating = l2_rating
+        elif l1_url:
+            # L1诊断报告
+            report_url = l1_url
+        # 其他：report_url保持为空，前端显示"报告生成中"
         
         # 只看有手机号或企业名称、且有一定分数的记录
         if not phone and not company:
@@ -228,8 +231,6 @@ def update_report_query_html(reports, html_path="reports/report_query.html"):
     
     # 替换REPORTS数组
     reports_json = json.dumps(reports, ensure_ascii=False, indent=2)
-    # 替换phones为空数组的简洁形式
-    reports_json = reports_json.replace('"phones": []', '"phones": []')
     
     # 找到 REPORTS 和 PHONE_MAP 的占位符并替换
     import re as re_mod

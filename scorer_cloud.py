@@ -513,6 +513,16 @@ def main():
             f.write(html)
         print(f"   📄 报告: {rpath}")
         
+        # 将报告URL写回飞书L1表（供报告查询页使用）
+        pages_url = os.environ.get("PAGES_URL", "")
+        if pages_url:
+            report_url = f"{pages_url}/reports/{os.path.basename(rpath)}"
+        else:
+            report_url = f"https://kevinhanmin.github.io/scorer-reports/reports/{os.path.basename(rpath)}"
+        feishu_api("PUT", f"/bitable/v1/apps/{BITABLE_APP_TOKEN}/tables/{TABLE_ID}/records/{rid}",
+            {"fields": {"L1_报告URL": report_url}})
+        print(f"   🔗 L1_报告URL已写入飞书: {report_url}")
+        
         # 发送通知给创始人（卡片形式）
         # 生成报告URL（暂不发送，等git commit后再发）
         pages_url = os.environ.get("PAGES_URL", "")
