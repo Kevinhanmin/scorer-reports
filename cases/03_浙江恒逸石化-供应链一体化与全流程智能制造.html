@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>浙江恒逸石化——供应链一体化与全流程智能制造</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.8;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 680px; margin: 0 auto; background: #fff; min-height: 100vh; padding: 0 20px; }
+  .header { padding: 32px 0 20px; text-align: center; border-bottom: 1px solid #e8e8e8; }
+  .header .meta { font-size: 13px; color: #999; margin-top: 12px; }
+  .header .meta span { margin: 0 6px; }
+  .header .meta .dot { color: #ddd; }
+  .article-title { font-size: 22px; font-weight: 700; line-height: 1.4; color: #1a1a1a; margin-bottom: 8px; }
+  .article-subtitle { font-size: 15px; color: #666; font-weight: 400; margin-top: 6px; }
+  .content { padding: 24px 0 40px; }
+  .content h2 { font-size: 20px; font-weight: 700; color: #1a1a1a; margin: 36px 0 16px; padding-left: 14px; border-left: 4px solid #2b7bcf; }
+  .content h3 { font-size: 17px; font-weight: 600; color: #2b2b2b; margin: 28px 0 12px; }
+  .content h4 { font-size: 15px; font-weight: 600; color: #444; margin: 20px 0 10px; }
+  .content p { margin: 12px 0; text-align: justify; }
+  .content ul, .content ol { margin: 10px 0 10px 0; padding-left: 22px; }
+  .content li { margin: 6px 0; text-align: justify; }
+  .content .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 16px 0; border: 1px solid #e8e8e8; border-radius: 8px; }
+  .content table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 500px; }
+  .content table th { background: #f0f5fb; color: #333; font-weight: 600; padding: 10px 12px; text-align: left; border-bottom: 2px solid #d9e6f2; white-space: nowrap; }
+  .content table td { padding: 9px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+  .content table tr:last-child td { border-bottom: none; }
+  .content table tr:nth-child(even) td { background: #fafafa; }
+  .content blockquote { margin: 16px 0; padding: 14px 18px; background: #f7f9fc; border-left: 4px solid #2b7bcf; border-radius: 0 6px 6px 0; color: #555; font-size: 14px; line-height: 1.7; }
+  .content blockquote p { margin: 4px 0; }
+  .highlight-box { margin: 16px 0; padding: 16px 18px; background: #f0f7ff; border-radius: 8px; border: 1px solid #d9e6f2; }
+  .highlight-box .label { font-size: 13px; font-weight: 600; color: #2b7bcf; margin-bottom: 4px; }
+  .highlight-box p { margin: 4px 0; font-size: 14px; }
+  .warning-box { margin: 16px 0; padding: 14px 18px; background: #fffbe6; border-radius: 8px; border: 1px solid #ffe58f; font-size: 14px; color: #8c6e00; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .tag { display: inline-block; padding: 4px 12px; background: #edf4ff; color: #2b7bcf; border-radius: 20px; font-size: 13px; font-weight: 500; }
+  .mode-cards { display: flex; flex-direction: column; gap: 12px; margin: 16px 0; }
+  .mode-card { padding: 16px 18px; border-radius: 10px; border: 1px solid #e0e8f0; }
+  .mode-card .card-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .mode-card .card-title .emoji { margin-right: 6px; }
+  .mode-card p { font-size: 14px; color: #555; margin: 4px 0; }
+  .mode-card.brain { background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%); border-color: #b8cce8; }
+  .mode-card.core { background: linear-gradient(135deg, #f5f8f0 0%, #edf4e0 100%); border-color: #c8dbb0; }
+  .mode-card.evolve { background: linear-gradient(135deg, #fef6f0 0%, #fceee0 100%); border-color: #e8d0b8; }
+  .divider { text-align: center; color: #ccc; margin: 32px 0; font-size: 14px; position: relative; }
+  .divider::before, .divider::after { content: ''; position: absolute; top: 50%; width: 40%; height: 1px; background: #e0e0e0; }
+  .divider::before { left: 0; }
+  .divider::after { right: 0; }
+  .footer { padding: 20px 0 32px; border-top: 1px solid #e8e8e8; text-align: center; }
+  .footer p { font-size: 13px; color: #999; margin: 4px 0; line-height: 1.6; }
+  .footer .brand { font-weight: 600; color: #666; }
+  .num-list { list-style: none; padding: 0; }
+  .num-list li { position: relative; padding-left: 32px; margin: 12px 0; min-height: 24px; }
+  .num-list li::before { content: attr(data-num); position: absolute; left: 0; top: 2px; width: 22px; height: 22px; background: #2b7bcf; color: #fff; border-radius: 50%; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #1a1a1a; }
+    .container { background: #1e1e1e; color: #d0d0d0; }
+    .article-title { color: #e0e0e0; }
+    .content h2 { color: #e0e0e0; border-left-color: #4a9eff; }
+    .content h3 { color: #ccc; }
+    .content h4 { color: #aaa; }
+    .content blockquote { background: #2a2a2a; color: #aaa; }
+    .content table th { background: #2a2a2a; color: #ccc; border-bottom-color: #444; }
+    .content table td { border-bottom-color: #333; }
+    .content table tr:nth-child(even) td { background: #252525; }
+    .content .table-wrap { border-color: #333; }
+    .highlight-box { background: #1e2a3a; border-color: #2a4a6a; }
+    .highlight-box .label { color: #6aafff; }
+    .warning-box { background: #2a2a1a; border-color: #5a5a2a; color: #bbaa66; }
+    .tag { background: #2a3a4a; color: #6aafff; }
+    .mode-card.brain { background: linear-gradient(135deg, #1a2a3a 0%, #1e3040 100%); border-color: #2a4a6a; }
+    .mode-card.core { background: linear-gradient(135deg, #1a2a1a 0%, #1e301e 100%); border-color: #2a4a2a; }
+    .mode-card.evolve { background: linear-gradient(135deg, #2a1a1a 0%, #301e1e 100%); border-color: #4a2a2a; }
+    .header { border-bottom-color: #333; }
+    .footer { border-top-color: #333; }
+    .divider::before, .divider::after { background: #444; }
+    .mode-card p { color: #999; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1 class="article-title">浙江恒逸石化——供应链一体化与全流程智能制造</h1>
+  <p class="article-subtitle">国家工信部绿色工厂 · 石化化纤全产业链数字化标杆</p>
+  <div class="meta">
+    <span>🔬 精益智能工厂案例库</span>
+    <span class="dot">·</span>
+    <span>2026年5月22日</span>
+    <span class="dot">·</span>
+    <span>思派工业技术（深圳）有限公司</span>
+  </div>
+  <div class="tag-list" style="justify-content:center; margin-top:14px;">
+    <span class="tag">#石化化纤</span>
+    <span class="tag">#供应链一体化</span>
+    <span class="tag">#全产业链</span>
+    <span class="tag">#阿里云</span>
+    <span class="tag">#绿色工厂</span>
+    <span class="tag">#智能制造</span>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- 导读 -->
+<div class="highlight-box">
+  <div class="label">📖 导读</div>
+  <p>恒逸石化（000703）是国内最大的聚酯全产业链企业之一，也是唯一打通"原油→PX→PTA→聚酯→纺丝→加弹"全产业链的民营石化企业。本文以<strong>供应链一体化</strong>和<strong>全流程智能制造</strong>为主线，全面解析恒逸石化的数字化转型实践。</p>
+</div>
+
+<h2>基本信息</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>项目</th><th>内容</th></tr></thead>
+  <tbody>
+    <tr><td><strong>企业名称</strong></td><td>恒逸石化股份有限公司（股票代码：000703）</td></tr>
+    <tr><td><strong>所属集团</strong></td><td>浙江恒逸集团有限公司</td></tr>
+    <tr><td><strong>行业</strong></td><td>石化化纤 / 聚酯全产业链</td></tr>
+    <tr><td><strong>所在地</strong></td><td>浙江省杭州市（总部），生产基地分布于浙江、江苏、福建、海南及海外（文莱）</td></tr>
+    <tr><td><strong>核心业务</strong></td><td>炼化、PTA、聚酯（涤纶长丝/短纤/瓶片）的全产业链布局</td></tr>
+    <tr><td><strong>上市时间</strong></td><td>1997年（深交所主板）</td></tr>
+    <tr><td><strong>入选认定</strong></td><td>浙江省级智能工厂/数字化车间；国家工信部绿色工厂</td></tr>
+    <tr><td><strong>智能工厂项目</strong></td><td>海宁恒逸100万吨智能化环保功能性纤维项目；恒鸣全流程智能工厂</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>企业背景</h2>
+
+<p>恒逸石化是<strong>浙江恒逸集团</strong>的核心上市子公司，是国内最大的聚酯全产业链企业之一。恒逸集团始创于1974年，前身为萧山衙前公社针织厂，经过50年发展已成为覆盖炼油、化工、化纤全产业链的千亿级民营石化集团。</p>
+
+<p><strong>行业地位：</strong></p>
+<ul>
+  <li>国内聚酯（涤纶长丝、短纤）产能领先企业</li>
+  <li>全球最大的PTA（精对苯二甲酸）生产企业之一</li>
+  <li>唯一打通"原油→PX→PTA→聚酯→纺丝→加弹"全产业链的民营石化企业之一</li>
+  <li>文莱PMB石化项目——中国民营企业海外最大炼化一体化项目（800万吨/年炼油）</li>
+  <li>员工超万人，年营业收入超千亿元</li>
+</ul>
+
+<p><strong>核心业务板块：</strong></p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>板块</th><th>内容</th><th>代表产品</th></tr></thead>
+  <tbody>
+    <tr><td><strong>炼化</strong></td><td>文莱PMB石化项目（海外）</td><td>成品油、芳烃、烯烃</td></tr>
+    <tr><td><strong>PTA</strong></td><td>国内多地PTA生产基地</td><td>精对苯二甲酸（PTA）</td></tr>
+    <tr><td><strong>聚酯</strong></td><td>海宁、绍兴、宿迁等基地</td><td>涤纶长丝、短纤、瓶片</td></tr>
+    <tr><td><strong>差别化纤维</strong></td><td>高附加值差异化产品</td><td>阳离子、吸湿排汗、阻燃等功能性纤维</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>供应链一体化的战略动因</h2>
+
+<h3>行业痛点</h3>
+<p>石化化纤行业面临的核心挑战：</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>痛点</th><th>表现</th></tr></thead>
+  <tbody>
+    <tr><td><strong>原材料价格波动</strong></td><td>PX、MEG等上游原料价格剧烈波动，严重影响盈利能力</td></tr>
+    <tr><td><strong>供应链环节多、链条长</strong></td><td>从原油→炼化→PTA→聚酯→纺丝→织造/染整→服装，环节超过6个</td></tr>
+    <tr><td><strong>信息不对称</strong></td><td>上下游之间信息割裂，导致库存积压或断供风险</td></tr>
+    <tr><td><strong>生产计划粗放</strong></td><td>传统排产依赖人工经验，难以快速响应市场变化</td></tr>
+    <tr><td><strong>能耗与环保压力</strong></td><td>石化行业是重能耗行业，双碳目标倒逼绿色转型</td></tr>
+    <tr><td><strong>质量追溯困难</strong></td><td>从炼化到纺丝全流程质量问题难以精准定位</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>双轮驱动战略选择</h3>
+<p>恒逸石化提出的核心竞争力定位是 <strong>"产业链一体化+数字化智能化"</strong> 双轮驱动：</p>
+
+<div class="mode-cards">
+  <div class="mode-card brain">
+    <div class="card-title"><span class="emoji">🌐</span> [1] 打通全产业链</div>
+    <p>通过文莱炼化项目从源头上掌控原料，实现"一滴油"到"一根丝"的全流程贯通。构建从采购到销售的端到端一体化运营体系，突破石化化纤行业严酷的原料价格波动和中间成本挤压。</p>
+    <p style="margin-top:8px; font-size:13px; color:#888;">→ 文莱炼化 · 全产业链贯通 · 端到端运营</p>
+  </div>
+  <div class="mode-card core">
+    <div class="card-title"><span class="emoji">💻</span> [2] 数字化赋能产业链</div>
+    <p>以供应链一体化信息系统打通采购、生产、仓储、物流、销售全环节，实现流程智能化。与阿里云、中控技术等头部科技企业深度合作，构建数字化企业大脑。</p>
+    <p style="margin-top:8px; font-size:13px; color:#888;">→ 阿里云合作 · 供应链平台 · 流程智能化</p>
+  </div>
+  <div class="mode-card evolve">
+    <div class="card-title"><span class="emoji">⚡</span> [3] 打造差异化竞争力</div>
+    <p>从大宗同质化产品向高附加值、功能性纤维转型，依托数字化实现柔性生产。以绿色化+智能化为双翼，构建难以复制的产业护城河。</p>
+    <p style="margin-top:8px; font-size:13px; color:#888;">→ 功能性纤维 · 柔性生产 · 绿色智能</p>
+  </div>
+</div>
+
+<h2>供应链一体化系统的建设历程</h2>
+
+<h3>建设时间线</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>时间节点</th><th>事件</th></tr></thead>
+  <tbody>
+    <tr><td>2019年</td><td>文莱PMB石化项目一期投产，打通炼化环节上游</td></tr>
+    <tr><td>2020年</td><td>海宁恒逸年产100万吨智能化环保功能性纤维项目启动</td></tr>
+    <tr><td>2021年</td><td>恒逸石化与<strong>阿里云</strong>签署全面合作框架协议，启动数字化转型深度合作</td></tr>
+    <tr><td>2021-2022年</td><td>恒鸣全流程智能工厂建设（MES、WMS、ERP集成）</td></tr>
+    <tr><td>2022年</td><td>海宁恒逸智能工厂投产，被评为浙江省智能工厂/数字化车间</td></tr>
+    <tr><td>2023年</td><td>恒逸集团与<strong>中控技术</strong>签署战略合作协议，探索智能工厂新未来</td></tr>
+    <tr><td>2024年</td><td>持续推进供应链一体化系统建设，打通从采购到销售的全流程数据链路</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>"软"建设——供应链一体化信息系统</h3>
+<p>恒逸石化的供应链一体化系统覆盖从原料采购到成品销售的全流程，核心信息平台架构如下：</p>
+
+<h4>🧩 采购管理数字化</h4>
+<ul>
+  <li><strong>供应商协同平台</strong>：实现与上游原料供应商（PX、MEG等）的订单、交货、质量数据的在线协同</li>
+  <li><strong>智能采购决策</strong>：基于市场行情预测模型，辅助制定采购策略，对冲价格波动风险</li>
+  <li><strong>战略寻源</strong>：通过数据分析评估供应商绩效，优化供应商结构</li>
+</ul>
+
+<h4>🏭 生产执行层（MES）</h4>
+<ul>
+  <li><strong>全流程生产管控</strong>：从PTA到聚酯到纺丝的全流程生产数据在线采集与实时监控</li>
+  <li><strong>工艺参数智能优化</strong>：利用工业大数据分析，优化聚合温度、纺丝速度等关键工艺参数</li>
+  <li><strong>质量在线监测</strong>：纺丝工序配备在线检测设备，实现对纤维纤度、强度、伸长率等指标的实时控制</li>
+  <li><strong>设备健康管理</strong>：关键设备（压缩机、聚合釜、纺丝机）部署传感器，实现预测性维护</li>
+</ul>
+
+<h4>📦 仓储物流（WMS/TMS）</h4>
+<ul>
+  <li><strong>智能仓储</strong>：海宁、绍兴基地部署自动化立体仓库（AS/RS），实现原料、半成品、成品的自动出入库管理</li>
+  <li><strong>AGV自动搬运</strong>：成品丝从纺丝车间到立体仓库的无人化自动搬运</li>
+  <li><strong>智能调度</strong>：运输管理系统（TMS）优化成品配送路线，降低物流成本</li>
+</ul>
+
+<h4>📊 ERP与企业资源管理</h4>
+<ul>
+  <li><strong>SAP/ERP系统</strong>：实现财务、采购、生产、销售的一体化管理</li>
+  <li><strong>数据中台</strong>：打通ERP、MES、WMS、TMS等系统数据，构建统一数据湖</li>
+  <li><strong>BI决策分析</strong>：实时经营分析报表，支撑管理层决策</li>
+</ul>
+
+<h3>"硬"改造——智能工厂物理建设</h3>
+
+<h4>恒鸣全流程智能工厂（e-works案例）</h4>
+<p>恒鸣化纤（恒逸石化旗下工厂）的全流程智能工厂建设是典型代表，核心特征包括：</p>
+<ul>
+  <li><strong>全流程自动化生产线</strong>：从聚酯熔体输送→纺丝→卷绕→检测→包装→入库，实现流程自动化</li>
+  <li><strong>数字孪生车间</strong>：对聚合、纺丝等关键工序建立数字孪生模型，实现虚拟调试与工艺仿真</li>
+  <li><strong>5G+MEC工业专网</strong>：与中国移动合作部署5G企业专网，支撑AGV调度、视频监控、设备数据采集</li>
+  <li><strong>智能包装线</strong>：自动称重、自动打包、自动贴标、自动码垛</li>
+</ul>
+
+<h4>海宁恒逸智能工厂</h4>
+<ul>
+  <li><strong>投资63.6亿元</strong>建设100万吨/年智能化环保功能性纤维项目</li>
+  <li>采用国际先进的熔体直纺技术，搭配全流程自动化装备</li>
+  <li>按照浙江省"未来工厂"标准建设，集成绿色化、智能化、柔性化设计</li>
+</ul>
+
+<h2>关键技术</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>技术领域</th><th>具体应用</th><th>合作方</th></tr></thead>
+  <tbody>
+    <tr><td><strong>5G+工业互联网</strong></td><td>5G企业专网、MEC边缘计算、AGV调度、设备数据采集、视频安防</td><td>中国移动</td></tr>
+    <tr><td><strong>工业大数据</strong></td><td>工艺参数优化、质量预测、设备预警</td><td>阿里云（DataWorks、MaxCompute）</td></tr>
+    <tr><td><strong>人工智能</strong></td><td>外观检测（AI视觉识别涤纶丝/布面瑕疵）、工艺参数智能调优</td><td>阿里云（AI视觉）</td></tr>
+    <tr><td><strong>数字孪生</strong></td><td>聚合/纺丝工序仿真、产线虚拟调试</td><td>中控技术（supOS工业操作系统）</td></tr>
+    <tr><td><strong>工业自动化</strong></td><td>DCS分散控制系统、PLC可编程控制器、机器人码垛/包装</td><td>中控技术、ABB、发那科</td></tr>
+    <tr><td><strong>智能仓储</strong></td><td>AS/RS自动化立体仓库、AGV自动搬运</td><td>国内外仓储系统集成商</td></tr>
+    <tr><td><strong>ERP/MES/WMS</strong></td><td>SAP ERP、MES生产执行系统、WMS仓储管理系统</td><td>SAP、阿里云</td></tr>
+    <tr><td><strong>supOS工业操作系统</strong></td><td>工厂统一数据平台、SCADA监控、设备互联</td><td>中控技术（2023年战略合作）</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>实施效果</h2>
+<div class="warning-box">⚠️ 以下数据均来自公开报道和官方宣传材料，具体数字存在口径差异。</div>
+
+<h3>运营效率提升</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>指标</th><th>提升效果</th><th>数据来源</th></tr></thead>
+  <tbody>
+    <tr><td><strong>生产效率</strong></td><td>全流程自动化率大幅提升，纺丝车间实现"黑灯生产"</td><td>恒逸石化官方报道</td></tr>
+    <tr><td><strong>用工减少</strong></td><td>智能工厂单线用工减少30-50%</td><td>浙江省智能工厂案例汇编</td></tr>
+    <tr><td><strong>能耗降低</strong></td><td>通过工艺参数优化和智能调度，单位产品综合能耗降低约5-10%</td><td>行业交流资料</td></tr>
+    <tr><td><strong>质量提升</strong></td><td>在线检测实现100%全检，不良品率显著下降</td><td>恒逸石化年报/公开信息</td></tr>
+    <tr><td><strong>库存周转</strong></td><td>供应链一体化系统实现产销协同，库存周转天数缩短</td><td>证券研究报告</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>产业链一体化成效</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>指标</th><th>成效</th></tr></thead>
+  <tbody>
+    <tr><td><strong>原料自给率</strong></td><td>文莱炼化项目投产后，PX原料自给率大幅提升</td></tr>
+    <tr><td><strong>毛利率提升</strong></td><td>产业链一体化带来明显的成本优势和抗周期能力</td></tr>
+    <tr><td><strong>产品升级</strong></td><td>差异化产品（功能性纤维）占比持续提升，增强盈利能力</td></tr>
+    <tr><td><strong>抗风险能力</strong></td><td>面对行业周期性波动，一体化布局显著增强抗风险韧性</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>精益实践与数字化的融合</h2>
+<p>恒逸石化在推进数字化转型的同时，将精益理念融入系统设计：</p>
+<ul>
+  <li><strong>标准化作业</strong>：MES系统固化了各个工序的标准操作流程（SOP），减少人为偏差</li>
+  <li><strong>TPM设备管理</strong>：设备传感器实时监控+预测性维护，替代传统"坏了再修"模式</li>
+  <li><strong>看板拉动</strong>：数字化看板取代传统纸质看板，实现车间级、工厂级生产透明化</li>
+  <li><strong>精益物流</strong>：TMS系统优化运输路线、装载方案，降低物流空载率</li>
+  <li><strong>持续改善</strong>：数据分析驱动问题识别，支撑PDCA循环改善</li>
+</ul>
+
+<h2>行业启示</h2>
+
+<div class="highlight-box">
+  <div class="label">💡 五大启示</div>
+  <p><strong>启示一："全产业链一体化"是重化工行业的差异化战略。</strong>恒逸石化的核心竞争力不仅来自数字化本身，更来自<strong>"从原油到一根丝"的产业链贯通</strong>。数字化是打通产业链、实现协同效应的关键手段。对于石化/化工行业而言，单纯的工厂智能化不足以构建护城河，<strong>产业链级的数字化协同</strong>才是真正的壁垒。</p>
+  <p><strong>启示二："先通再智"的务实路线。</strong>恒逸石化的数字化转型遵循了清晰的路径：先实现业务流程的全面线上化和信息贯通（ERP+MES+WMS+TMS基础建设），再逐步引入AI、数字孪生等前沿技术。这一路径减少了"为了智能而智能"的浪费。</p>
+  <p><strong>启示三：与头部科技公司深度合作。</strong>恒逸石化与<strong>阿里云</strong>（云计算、大数据）、<strong>中控技术</strong>（工业操作系统、DCS）等头部技术企业建立了深度战略合作，而非全部自研。这种<strong>"行业know-how+技术平台"</strong>的合作模式，既加速了转型进程，又降低了试错成本。</p>
+  <p><strong>启示四：传统制造向绿色智能的转型标杆。</strong>恒逸石化海宁智能工厂被评为省级绿色工厂与智能工厂，其"绿色+智能"双融合的建设模式，为石化化纤行业的"双碳"目标实现提供了可复制路径。</p>
+  <p><strong>启示五：中小企业借鉴价值。</strong>虽然恒逸石化的规模难以直接复制，但其<strong>"一体化信息平台建设（ERP/MES/WMS打通）→自动化改造→AI与数字孪生"</strong>的阶梯式升级路径，对所有从事化工、化纤、纺织行业的制造业企业都有借鉴意义。</p>
+</div>
+
+<h2>建设特点总结</h2>
+
+<ol class="num-list" style="list-style:none; padding-left:0;">
+  <li data-num="1"><strong>全产业链战略先行：</strong>从"一滴油"到"一根丝"的全流程贯通，构建了难以复制的产业链壁垒</li>
+  <li data-num="2"><strong>数字化集成深度广：</strong>ERP、MES、WMS、TMS、DCS等多系统深度集成，实现全流程数据贯通</li>
+  <li data-num="3"><strong>厂商协同生态构建：</strong>与阿里云、中控技术、中国移动等建立了深度技术合作关系</li>
+  <li data-num="4"><strong>绿色+智能双轮驱动：</strong>与双碳目标结合，同步推进绿色制造与智能制造</li>
+  <li data-num="5"><strong>海外+国内双基地布局：</strong>文莱项目与国内基地形成全球供应链协同</li>
+</ol>
+
+<h2>荣誉认证与行业影响力</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>类别</th><th>荣誉</th></tr></thead>
+  <tbody>
+    <tr><td>🏅 国家级</td><td>国家工信部绿色工厂</td></tr>
+    <tr><td>🏅 省级</td><td>浙江省智能工厂/数字化车间（海宁恒逸）</td></tr>
+    <tr><td>🏅 行业</td><td>中国化纤行业数字化转型领军企业</td></tr>
+    <tr><td>🏅 证券</td><td>深证成指、沪深300成分股</td></tr>
+    <tr><td>🏅 企业</td><td>浙江省雄鹰行动培育企业</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<blockquote>
+📝 <strong>录入时间：</strong> 2026年5月22日<br>
+📝 <strong>信息来源：</strong> 恒逸石化年度报告、浙江省经信厅智能工厂名单、e-works数字化企业网《恒逸石化：打造恒鸣全流程智能工厂》案例报道、证券日报、恒逸集团与中控技术战略合作协议公开报道、搜狐财经《全产业链经营成就行业巨头》、百度百科、中国化纤信息网行业分析报告<br>
+📝 <strong>深入补充时间：</strong> 2026年5月22日（新增：供应链一体化系统架构、精益数字化融合、行业启示）
+</blockquote>
+
+<div class="divider">✦ ✦ ✦</div>
+
+</div>
+
+<div class="footer">
+  <p class="brand">思派工业技术（深圳）有限公司 · 精益智能工厂案例库</p>
+  <p>📝 录入时间：2026年5月22日</p>
+  <p>📝 本文为知识库案例研究，仅供学习参考。数据以各企业官方公布为准。</p>
+  <p style="margin-top:10px; font-size:12px; color:#bbb;">— 思派工业 · 精益智能工厂领航员 —</p>
+</div>
+
+</div>
+</body>
+</html>

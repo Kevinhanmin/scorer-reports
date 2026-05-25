@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>东方电气东方汽轮机——5G智慧叶片工厂与数字化转型</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.8;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    background: #fff;
+    min-height: 100vh;
+    padding: 0 20px;
+  }
+
+  /* Header */
+  .header {
+    padding: 32px 0 20px;
+    text-align: center;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .header .meta {
+    font-size: 13px;
+    color: #999;
+    margin-top: 12px;
+  }
+  .header .meta span { margin: 0 6px; }
+  .header .meta .dot { color: #ddd; }
+
+  /* Title */
+  .article-title {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+  }
+  .article-subtitle {
+    font-size: 15px;
+    color: #666;
+    font-weight: 400;
+    margin-top: 6px;
+  }
+
+  /* Content styles */
+  .content { padding: 24px 0 40px; }
+  .content h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 36px 0 16px;
+    padding-left: 14px;
+    border-left: 4px solid #2b7bcf;
+  }
+  .content h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: #2b2b2b;
+    margin: 28px 0 12px;
+  }
+  .content h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #444;
+    margin: 20px 0 10px;
+  }
+  .content p {
+    margin: 12px 0;
+    text-align: justify;
+  }
+  .content ul, .content ol {
+    margin: 10px 0 10px 0;
+    padding-left: 22px;
+  }
+  .content li {
+    margin: 6px 0;
+    text-align: justify;
+  }
+
+  /* Tables */
+  .content .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 16px 0;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+  }
+  .content table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 500px;
+  }
+  .content table th {
+    background: #f0f5fb;
+    color: #333;
+    font-weight: 600;
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 2px solid #d9e6f2;
+    white-space: nowrap;
+  }
+  .content table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+  .content table tr:last-child td { border-bottom: none; }
+  .content table tr:nth-child(even) td { background: #fafafa; }
+
+  /* Blockquotes */
+  .content blockquote {
+    margin: 16px 0;
+    padding: 14px 18px;
+    background: #f7f9fc;
+    border-left: 4px solid #2b7bcf;
+    border-radius: 0 6px 6px 0;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .content blockquote p { margin: 4px 0; }
+
+  /* Highlight boxes */
+  .highlight-box {
+    margin: 16px 0;
+    padding: 16px 18px;
+    background: #f0f7ff;
+    border-radius: 8px;
+    border: 1px solid #d9e6f2;
+  }
+  .highlight-box .label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #2b7bcf;
+    margin-bottom: 4px;
+  }
+  .highlight-box p { margin: 4px 0; font-size: 14px; }
+
+  .warning-box {
+    margin: 16px 0;
+    padding: 14px 18px;
+    background: #fffbe6;
+    border-radius: 8px;
+    border: 1px solid #ffe58f;
+    font-size: 14px;
+    color: #8c6e00;
+  }
+
+  /* Tag chips */
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #edf4ff;
+    color: #2b7bcf;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  /* Mode card */
+  .mode-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .mode-card {
+    padding: 16px 18px;
+    border-radius: 10px;
+    border: 1px solid #e0e8f0;
+  }
+  .mode-card .card-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .mode-card .card-title .emoji { margin-right: 6px; }
+  .mode-card p { font-size: 14px; color: #555; margin: 4px 0; }
+
+  .mode-card.brain {
+    background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%);
+    border-color: #b8cce8;
+  }
+  .mode-card.core {
+    background: linear-gradient(135deg, #f5f8f0 0%, #edf4e0 100%);
+    border-color: #c8dbb0;
+  }
+  .mode-card.evolve {
+    background: linear-gradient(135deg, #fef6f0 0%, #fceee0 100%);
+    border-color: #e8d0b8;
+  }
+
+  /* Divider */
+  .divider {
+    text-align: center;
+    color: #ccc;
+    margin: 32px 0;
+    font-size: 14px;
+    position: relative;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #e0e0e0;
+  }
+  .divider::before { left: 0; }
+  .divider::after { right: 0; }
+
+  /* Footer */
+  .footer {
+    padding: 20px 0 32px;
+    border-top: 1px solid #e8e8e8;
+    text-align: center;
+  }
+  .footer p {
+    font-size: 13px;
+    color: #999;
+    margin: 4px 0;
+    line-height: 1.6;
+  }
+  .footer .brand {
+    font-weight: 600;
+    color: #666;
+  }
+
+  /* Number badges for lists */
+  .num-list { list-style: none; padding: 0; }
+  .num-list li {
+    position: relative;
+    padding-left: 32px;
+    margin: 12px 0;
+    min-height: 24px;
+  }
+  .num-list li::before {
+    content: attr(data-num);
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 22px;
+    height: 22px;
+    background: #2b7bcf;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body { background: #1a1a1a; }
+    .container { background: #1e1e1e; color: #d0d0d0; }
+    .article-title { color: #e0e0e0; }
+    .content h2 { color: #e0e0e0; border-left-color: #4a9eff; }
+    .content h3 { color: #ccc; }
+    .content h4 { color: #aaa; }
+    .content blockquote { background: #2a2a2a; color: #aaa; }
+    .content table th { background: #2a2a2a; color: #ccc; border-bottom-color: #444; }
+    .content table td { border-bottom-color: #333; }
+    .content table tr:nth-child(even) td { background: #252525; }
+    .content .table-wrap { border-color: #333; }
+    .highlight-box { background: #1e2a3a; border-color: #2a4a6a; }
+    .highlight-box .label { color: #6aafff; }
+    .warning-box { background: #2a2a1a; border-color: #5a5a2a; color: #bbaa66; }
+    .tag { background: #2a3a4a; color: #6aafff; }
+    .mode-card.brain { background: linear-gradient(135deg, #1a2a3a 0%, #1e3040 100%); border-color: #2a4a6a; }
+    .mode-card.core { background: linear-gradient(135deg, #1a2a1a 0%, #1e301e 100%); border-color: #2a4a2a; }
+    .mode-card.evolve { background: linear-gradient(135deg, #2a1a1a 0%, #301e1e 100%); border-color: #4a2a2a; }
+    .header { border-bottom-color: #333; }
+    .footer { border-top-color: #333; }
+    .divider::before, .divider::after { background: #444; }
+    .mode-card p { color: #999; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1 class="article-title">东方电气东方汽轮机——5G智慧叶片工厂与数字化转型</h1>
+  <p class="article-subtitle">2023年国家智能制造示范工厂 · 发电设备制造数字化转型标杆</p>
+  <div class="meta">
+    <span>🔬 精益智能工厂案例库</span>
+    <span class="dot">·</span>
+    <span>2026年5月22日</span>
+    <span class="dot">·</span>
+    <span>思派工业技术（深圳）有限公司</span>
+  </div>
+  <div class="tag-list" style="justify-content:center; margin-top:14px;">
+    <span class="tag">#发电设备</span>
+    <span class="tag">#汽轮机</span>
+    <span class="tag">#5G智慧工厂</span>
+    <span class="tag">#国家智能制造</span>
+    <span class="tag">#数字孪生</span>
+    <span class="tag">#四川制造</span>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- 导读 -->
+<div class="highlight-box">
+  <div class="label">📖 导读</div>
+  <p>东方电气集团东方汽轮机有限公司（简称"东汽"）是中国三大汽轮机生产基地之一。其<strong>叶片数字化车间</strong>是发电设备制造领域数字化转型的标志性工程，于2023年获评<strong>国家智能制造示范工厂</strong>。本文全面解析东汽从传统重工制造到5G智慧工厂的转型升级之路。</p>
+</div>
+
+<!-- 基本信息 -->
+<h2>基本信息</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>项目</th><th>内容</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>企业名称</strong></td><td>东方电气集团东方汽轮机有限公司</td></tr>
+    <tr><td><strong>所属集团</strong></td><td>中国东方电气集团有限公司（上交所：600875，港交所：01072）</td></tr>
+    <tr><td><strong>行业</strong></td><td>发电设备制造 / 汽轮机与燃气轮机</td></tr>
+    <tr><td><strong>所在地</strong></td><td>四川省德阳市</td></tr>
+    <tr><td><strong>成立时间</strong></td><td>1966年（前身为东方汽轮机厂），2006年改制为有限公司</td></tr>
+    <tr><td><strong>核心业务</strong></td><td>汽轮机、燃气轮机、核电站汽轮机、风力发电设备研发与制造</td></tr>
+    <tr><td><strong>行业地位</strong></td><td>中国"三大汽轮机厂"之一（与上海电气、哈尔滨电气并列）</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- 企业背景 -->
+<h2>企业背景</h2>
+
+<p>东方汽轮机始建于1966年，是东方电气集团的核心子公司之一。作为中国发电设备制造的骨干企业，东汽已累计生产各类发电设备超过6亿千瓦，产品覆盖火电、核电、气电、风电等多个领域，远销全球30多个国家和地区。</p>
+
+<p><strong>行业地位：</strong></p>
+<ul>
+  <li>中国三大汽轮机生产基地之一</li>
+  <li>国内最大的电站汽轮机研制企业之一</li>
+  <li>大型核电汽轮机核心制造商</li>
+  <li>燃气轮机国产化重要推动力量</li>
+  <li>全球发电设备市场的重要参与者</li>
+</ul>
+
+<p><strong>核心产品：</strong></p>
+<ul>
+  <li>大型火电汽轮机（600MW-1000MW等级）</li>
+  <li>核电站汽轮机（CPR1000/华龙一号等堆型）</li>
+  <li>燃气轮机</li>
+  <li>工业汽轮机</li>
+</ul>
+
+<!-- 数字化转型的战略动因 -->
+<h2>数字化转型的战略动因</h2>
+
+<h3>行业痛点</h3>
+<p>发电设备制造属于典型的<strong>复杂离散制造</strong>行业，面临着以下核心挑战：</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>痛点</th><th>表现</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>叶片加工精度要求极高</strong></td><td>汽轮机叶片是发电设备最关键的零件之一，其型面精度直接影响机组效率和可靠性，加工精度需达到微米级</td></tr>
+    <tr><td><strong>生产工艺复杂</strong></td><td>叶片从毛坯到成品的工序链条长（锻造/铸造→热处理→粗加工→精加工→抛光→检测），任何环节偏差都会影响质量</td></tr>
+    <tr><td><strong>数据孤岛严重</strong></td><td>设计、工艺、制造、检测各环节数据分散在不同系统中，缺乏贯通</td></tr>
+    <tr><td><strong>设备管理落后</strong></td><td>关键设备（五轴加工中心等）依赖人工巡检和定期保养，非计划停机影响交付</td></tr>
+    <tr><td><strong>人工检测效率低</strong></td><td>传统叶片检测依赖三坐标测量机逐件抽检，耗时长且覆盖有限</td></tr>
+    <tr><td><strong>生产排产粗放</strong></td><td>加工计划以人工经验排产为主，难以应对多品种小批量的柔性需求</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>三步走战略选择</h3>
+<p>东方汽轮机以 <strong>"数字化、智能化、绿色化"</strong> 三轮驱动为目标，确定了从"数字化车间"到"5G智慧工厂"的转型升级路径：</p>
+
+<div class="mode-cards">
+  <div class="mode-card brain">
+    <div class="card-title"><span class="emoji">📊</span> [1] 夯实数字化基础</div>
+    <p>以叶片车间为试点，建立MES生产执行系统，打通设计-工艺-制造数据链。先让数据"通"起来，为后续智能化奠定基础。</p>
+    <p style="margin-top:8px; font-size:13px; color:#888;">→ 数据贯通 · MES试点 · 流程线上化</p>
+  </div>
+  <div class="mode-card core">
+    <div class="card-title"><span class="emoji">📡</span> [2] 引入5G新型基础设施</div>
+    <p>与中国电信合作建设5G企业专网+MEC边缘计算，实现生产数据实时回传、AGV调度、高清视频监控，解决传统工业网络的带宽与实时性瓶颈。</p>
+    <p style="margin-top:8px; font-size:13px; color:#888;">→ 5G专网 · MEC边缘计算 · 实时数据采集</p>
+  </div>
+  <div class="mode-card evolve">
+    <div class="card-title"><span class="emoji">🤖</span> [3] 人工智能+先进制造</div>
+    <p>引入AI视觉质检、数字孪生、预测性维护等前沿技术，实现从"数字化"到"智能化"的跨越，让工厂具备自感知、自决策能力。</p>
+    <p style="margin-top:8px; font-size:13px; color:#888;">→ AI质检 · 数字孪生 · 预测性维护</p>
+  </div>
+</div>
+
+<!-- 核心项目 -->
+<h2>"叶片数字化车间"——核心项目</h2>
+
+<h3>项目概况</h3>
+<p>东方汽轮机<strong>叶片数字化车间</strong>是其智能工厂建设的标志性工程，也是2023年获评国家智能制造示范工厂的核心载体。</p>
+
+<h3>建设时间线</h3>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>时间节点</th><th>事件</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>2018-2019年</td><td>启动数字化转型规划，叶片车间MES系统试点部署</td></tr>
+    <tr><td>2020年</td><td><strong>叶片数字化车间一期</strong>建成投产，实现叶片的数字化加工</td></tr>
+    <tr><td>2021年</td><td>与中国电信等合作启动5G智慧工厂项目</td></tr>
+    <tr><td>2022年</td><td>实现5G全覆盖，数字孪生平台上线运行</td></tr>
+    <tr><td>2023年</td><td>获评<strong>国家智能制造示范工厂</strong>（工信部）</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>关键技术应用</h3>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>技术领域</th><th>具体应用</th><th>合作方</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>5G+工业互联网</strong></td><td>5G企业专网+MEC边缘计算，实现机床实时数据采集、AGV调度、高清视频回传</td><td>中国电信、中国移动</td></tr>
+    <tr><td><strong>数字孪生</strong></td><td>叶片铣削加工过程仿真、刀具磨损预测、加工工艺参数优化</td><td>自研+科研合作</td></tr>
+    <tr><td><strong>人工智能</strong></td><td>叶片表面缺陷AI视觉检测（裂纹、气孔、砂眼等自动识别）</td><td>自研+产学研合作</td></tr>
+    <tr><td><strong>工业大数据</strong></td><td>生产过程数据采集与分析、SPC统计过程控制、设备OEE分析</td><td>自研平台</td></tr>
+    <tr><td><strong>AGV智能物流</strong></td><td>车间内物料自动转运、刀具自动配送</td><td>国内智能物流厂商</td></tr>
+    <tr><td><strong>MES/DNC系统</strong></td><td>数控程序网络传输、生产任务自动下达、工时数据自动采集</td><td>自研+系统集成</td></tr>
+    <tr><td><strong>预测性维护</strong></td><td>主轴振动监测、刀具寿命预测、设备健康管理</td><td>自研</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>建设成效</h3>
+<div class="warning-box">⚠️ 以下数据均来自公开报道和官方宣传材料。</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>指标</th><th>提升效果</th><th>数据来源</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>生产效率</strong></td><td>提升30-40%（叶片车间）</td><td>四川省经信厅智能制造案例</td></tr>
+    <tr><td><strong>产品良率</strong></td><td>关键叶片良品率提升约20%</td><td>东方电气官方宣传</td></tr>
+    <tr><td><strong>能耗降低</strong></td><td>单位产值能耗下降约15%</td><td>工信部智能制造示范工厂申报材料</td></tr>
+    <tr><td><strong>库存周转</strong></td><td>库存周转率提升约30%</td><td>行业交流资料</td></tr>
+    <tr><td><strong>人力节省</strong></td><td>叶片车间操作人员减少约30%</td><td>企业宣传资料</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>精益实践与数字化的融合</h3>
+<ul>
+  <li><strong>标准化作业</strong>：MES系统固化叶片加工作业标准流程，减少人为偏差</li>
+  <li><strong>TPM设备管理</strong>：设备传感器+预测性维护平台，实现从"坏了再修"到"预测性维护"</li>
+  <li><strong>数字化Andon</strong>：加工异常一键呼叫，支持自动记录与根因分析</li>
+  <li><strong>电子看板</strong>：实时显示各工序生产进度、质量数据、设备状态</li>
+  <li><strong>SMED快速换型</strong>：通过DNC系统自动下发换型程序，减少机床调机时间</li>
+</ul>
+
+<!-- 行业启示 -->
+<h2>行业启示</h2>
+
+<div class="highlight-box">
+  <div class="label">💡 四大启示</div>
+  <p><strong>启示一：从"痛点最痛处"下手。</strong>东方汽轮机选择叶片车间作为数字化转型的切入点非常精准——叶片加工是汽轮机制造中技术含量最高、质量要求最严的核心工序。<strong>先攻克核心痛点再带动全面升级</strong>，避免了大而全的盲目投资。</p>
+  <p><strong>启示二："5G+智能工厂"的典型案例。</strong>东方汽轮机的5G智慧工厂项目是国家"5G+工业互联网"典型应用场景之一。其价值不在于5G本身，而在于5G如何解决传统工业网络无法满足的实时性、大带宽和设备互联需求。</p>
+  <p><strong>启示三：传统重工制造企业的数字化转型样板。</strong>作为一家拥有50多年历史的传统制造企业，东方汽轮机在缺少"原生数字化基因"的情况下，通过扎实的基础数字化建设（MES/DNC等）+前沿技术渐进引入（5G/AI/数字孪生），实现了传统工厂向智能工厂的转型升级。</p>
+  <p><strong>启示四：国产替代与自主可控。</strong>东方汽轮机在数字化转型中注重关键装备和系统的国产化，尤其在数控系统、工业软件等方面推进国产替代，契合国家"自主可控"战略。</p>
+</div>
+
+<!-- 行业借鉴意义 -->
+<h2>行业借鉴意义</h2>
+
+<p>东方汽轮机的数字化转型案例对于<strong>大型装备制造企业</strong>具有重要参考价值：</p>
+
+<ul>
+  <li><strong>"先通再智"</strong>的务实路线：先实现数据贯通（MES/DNC），再引入智能化技术（AI/数字孪生）</li>
+  <li><strong>核心工序切入</strong>的策略：从中高端、工艺最复杂的工序开始，示范效应最强</li>
+  <li><strong>5G工业应用的真实场景</strong>：在高精度加工场景下验证5G的网络能力，避免为用而用</li>
+  <li><strong>传统老厂的数字化转型</strong>：在设备存量大、工艺积累深的情况下如何稳步推进智能升级</li>
+</ul>
+
+<!-- 荣誉 -->
+<h2>荣誉认证与行业影响力</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>类别</th><th>荣誉</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>🏅 国家级</td><td><strong>国家智能制造示范工厂</strong>（2023年，工信部）</td></tr>
+    <tr><td>🏅 国家级</td><td>国家"5G+工业互联网"典型应用场景</td></tr>
+    <tr><td>🏅 国家级</td><td>工信部智能制造试点示范项目</td></tr>
+    <tr><td>🏅 省级</td><td><strong>四川省智能制造标杆企业</strong></td></tr>
+    <tr><td>🏅 省级</td><td>四川省数字化转型示范项目</td></tr>
+    <tr><td>🏅 行业</td><td>5G应用创新大赛获奖</td></tr>
+    <tr><td>🏅 行业</td><td>发电设备智能制造行业标杆案例</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- 建设特点总结 -->
+<h2>建设特点总结</h2>
+
+<ol class="num-list" style="list-style:none; padding-left:0;">
+  <li data-num="1"><strong>核心突破：</strong>以叶片数字化车间为切入点，从核心工序突破带动全面升级</li>
+  <li data-num="2"><strong>5G赋能：</strong>5G专网+MEC边缘计算的深度工业应用，实现了传统工业网络的跨越式升级</li>
+  <li data-num="3"><strong>精益+数字融合：</strong>数字化手段落地精益管理（TPM/SMED/看板），不搞"为了数字化而数字化"</li>
+  <li data-num="4"><strong>渐进务实：</strong>从MES/DNC等基础建设起步，逐步引入AI、数字孪生等前沿技术</li>
+  <li data-num="5"><strong>行业示范：</strong>为重工装备制造行业的数字化转型提供了可参考的路线图</li>
+</ol>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<blockquote>📝 <strong>录入时间：</strong> 2026年5月22日<br>
+📝 <strong>信息来源：</strong> 工信部智能制造示范工厂名单、四川省经信厅智能制造案例汇编、东方电气官方网站、中国电信5G+工业互联网案例、中国工业报、四川日报公开报道</blockquote>
+
+<div class="divider">✦ ✦ ✦</div>
+
+</div>
+
+<div class="footer">
+  <p class="brand">思派工业技术（深圳）有限公司 · 精益智能工厂案例库</p>
+  <p>📝 录入时间：2026年5月22日</p>
+  <p>📝 本文为知识库案例研究，仅供学习参考。数据以各企业官方公布为准。</p>
+  <p style="margin-top:10px; font-size:12px; color:#bbb;">— 思派工业 · 精益智能工厂领航员 —</p>
+</div>
+
+</div>
+</body>
+</html>
