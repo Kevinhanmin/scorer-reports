@@ -597,11 +597,7 @@ def main():
 
         print(f"   处理: {company} | 综合{total:.2f} → {rating} | 成熟度:{maturity_raw}")
 
-        # 更新飞书状态——L2表没有「L2_跟进进度」字段，尝试找类似字段
-        # 注意：L2表不写回L2_前缀字段，因为这些已由公式自动计算
-        # 只在有跟进状态字段时更新（暂不写回，避免改坏公式字段）
-
-        # 生成报告（dim_kpi_results=None，因为L2表已有维度分，无需逐KPI分析）
+        # 生成报告
         html = gen_html(company, contact, None, dim_scores, total, rating, rating_desc, future_data)
         ts = datetime.now().strftime('%Y%m%d_%H%M%S')
         safe_name = "".join(c for c in company if c.isascii() and (c.isalnum() or c in " _-_"))[:20] or ""
@@ -617,6 +613,15 @@ def main():
             report_url = f"{pages_url}/reports/{os.path.basename(rpath)}"
         else:
             report_url = f"https://sptechsz.com/reports/{os.path.basename(rpath)}"
+
+        # 写回L2_报告URL到飞书，供报告查询页使用
+        if rid:
+            try:
+                feishu_api("PUT", f"/bitable/v1/apps/{BITABLE_APP_TOKEN}/tables/{TABLE_ID}/records/{rid}",
+                    {"fields": {"L2_报告URL": report_url}})
+                print(f"   🔗 L2_报告URL已写入飞书: {report_url}")
+            except Exception as e:
+                print(f"   ⚠️ 写入L2_报告URL失败: {e}")
 
         founder_open_id = os.environ.get("FOUNDER_OPEN_ID", "ou_654b4ab922a747e21af74eaa4884a914")
         pending_file = "pending_notifications.json"

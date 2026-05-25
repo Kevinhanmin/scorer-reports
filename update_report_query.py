@@ -20,6 +20,8 @@ FEISHU_APP_ID = os.environ.get("FEISHU_APP_ID", "")
 FEISHU_APP_SECRET = os.environ.get("FEISHU_APP_SECRET", "")
 BITABLE_APP_TOKEN = os.environ.get("BITABLE_APP_TOKEN", "VU3hbjRyuabLhAseoK3ckzOzndg")
 TABLE_ID = os.environ.get("TABLE_ID", "tblofr6TCloHk5Zb")
+L2_BITABLE_APP_TOKEN = os.environ.get("L2_BITABLE_APP_TOKEN", "JZg8bq0A3aYVU3snPxZcMKmQnid")
+L2_TABLE_ID = os.environ.get("L2_TABLE_ID", "tbl0W8eou1chYGzi")
 FEISHU_API_BASE = "https://open.feishu.cn/open-apis"
 
 # ===== 飞书API =====
@@ -98,7 +100,7 @@ def get_records(app_token, table_id):
     return records
 
 def build_report_data():
-    """构建完整的报告查询数据"""
+    """构建完整的报告查询数据（L1 + L2）"""
     print("📡 获取飞书L1记录...")
     records = get_records(BITABLE_APP_TOKEN, TABLE_ID)
     print(f"   共 {len(records)} 条记录")
@@ -155,30 +157,22 @@ def build_report_data():
         elif isinstance(st, str) and st:
             submit_time = st[:10] if len(st) >= 10 else st
         
-        # 诊断层级
-        diag_level = extract_text(fields, "诊断层级")
-        
-        # 根据诊断层级决定报告类型和URL
+        # 读取报告URL（L1和L2）
         report_type = "l1"
         report_url = ""
-        
-        # 读取报告URL（L1和L2）
         l1_url = extract_text(fields, "L1_报告URL")
         l2_url = extract_text(fields, "L2_报告URL")
         
         if l2_url:
-            # L2诊断报告
             report_type = "l2"
             report_url = l2_url
             l2_rating = extract_text(fields, "L2_综合评级")
             if l2_rating:
                 rating = l2_rating
         elif l1_url:
-            # L1诊断报告
             report_url = l1_url
-        # 其他：report_url保持为空，前端显示"报告生成中"
         
-        # 只看有手机号或企业名称、且有一定分数的记录
+        # 只看有手机号或企业名称的记录
         if not phone and not company:
             continue
         
@@ -193,6 +187,60 @@ def build_report_data():
         }
         reports.append(report_entry)
     
+    # ===== L2表（独立深度诊断表）=====
+    print("\n📡 获取飞书L2深度诊断表记录...")
+    try:
+        l2_records = get_records(L2_BITABLE_APP_TOKEN, L2_TABLE_ID)
+        print(f"   共 {len(l2_records)} 条记录")
+    except Exception as e:
+        print(f"   ⚠️ 获取L2表失败: {e}")
+        l2_records = []
+    
+    for rec in l2_records:
+        fields = rec.get("fields", {})
+        rid = rec["record_id"]
+        
+        # 提取企业名称
+        company = extract_text(fields, "企业名称") or "未知企业"
+        
+        # 提取手机号
+        phone = None
+        phone_text = extract_text(fields, "联系方式") or ""
+        phone = extract_phone(phone_text)
+        
+        # L2报告URL
+        l2_url = extract_text(fields, "L2_报告URL")
+        
+        # 综合得分、评级
+        total_score = 0.0
+        try:
+            total_raw = fields.get("▶ 综合得分", 0)
+            total_score = float(total_raw)
+        except:
+            pass
+        
+        rating_raw = extract_text(fields, "▶ 评级判定") or ""
+        if not rating_raw:
+            if total_score >= 4.5: rating_raw = "A级 卓越"
+            elif total_score >= 3.5: rating_raw = "B级 良好"
+            elif total_score >= 2.5: rating_raw = "C级 注意"
+            elif total_score >= 0: rating_raw = "D级 风险"
+        
+        # 只保留有URL的记录（有实际报告）
+        if not l2_url:
+            continue
+        
+        report_entry = {
+            "company": company,
+            "phones": [phone] if phone else [],
+            "record_id": rid,
+            "type": "l2",
+            "rating": rating_raw or "待评级",
+            "report_url": l2_url,
+            "report_date": datetime.now().strftime("%Y-%m-%d")
+        }
+        reports.append(report_entry)
+    
     # 去重（按company+phone去重，保留最新）
     seen = set()
     unique_reports = []
@@ -202,7 +250,7 @@ def build_report_data():
             seen.add(key)
             unique_reports.append(r)
     
-    print(f"\n📊 共提取 {len(unique_reports)} 条有效报告数据")
+    print(f"\n📊 共提取 {len(unique_reports)} 条有效报告数据（L1+L2合计）")
     return unique_reports
 
 
