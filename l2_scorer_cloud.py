@@ -5,7 +5,9 @@ L2评分师 · 精益智造轻量诊断 (¥6,800-9,800)
 基于架构师L2方案V6（8大维度 × 45 KPI · 精益浪费映射 · 价值流效率指数）
 自动从飞书多维表格读取L2问卷数据 → 计算评分 → 生成HTML诊断报告
 
-方案A：直接读取飞书已有的8个维度评分字段，加权算总分+生成报告
+| 方案A：直接读取飞书已有的8个维度评分字段，加权算总分+生成报告
+|
+| v2 (2026-05-25): 新增付费状态过滤 —— 只处理「已付费」或「¥1已测试」记录
 """
 
 import os, sys, json, time, math, re
@@ -28,6 +30,10 @@ DIMENSION_WEIGHTS = {
     "库存物流": 0.10, "人员效率": 0.10, "现场管理": 0.10,
     "计划交付": 0.10, "数字化": 0.10,
 }
+
+# ===== 付费状态过滤 =====
+PAYMENT_STATUS_FIELD = "付费状态"
+ALLOWED_PAYMENT_STATUSES = {"¥1已测试", "已付费"}
 
 # ===== 飞书字段映射（维度名 → 飞书评分字段名）=====
 # 修复：飞书L1表格中字段无 L2_ 前缀
@@ -499,7 +505,8 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,A
 
 # ===== 主流程 =====
 def main():
-    print(f"🤖 L2评分师启动 (¥6,800轻量诊断 · 方案A)")
+    print(f"🤖 L2评分师启动 (¥6,800轻量诊断 · 方案A · v2付费过滤)")
+    print(f"   📋 仅处理付费状态为「{', '.join(sorted(ALLOWED_PAYMENT_STATUSES))}」的记录")
     missing = [v for v in ["FEISHU_APP_ID","FEISHU_APP_SECRET"] if not os.environ.get(v)]
     if missing:
         print(f"❌ 缺少环境变量: {missing}")
@@ -524,6 +531,12 @@ def main():
         fields = rec.get("fields",{})
         rid = rec["record_id"]
         company = extract_text(fields, "企业名称") or "未知企业"
+
+        # ===== 付费状态过滤（v2）=====
+        payment_status = extract_text(fields, PAYMENT_STATUS_FIELD) or ""
+        if payment_status not in ALLOWED_PAYMENT_STATUSES:
+            print(f"   ⏭️ {company}: 付费状态为「{payment_status}」，跳过（仅处理{', '.join(sorted(ALLOWED_PAYMENT_STATUSES))}）")
+            continue
 
         # 读取已有公式计算的综合分和评级
         total_raw = fields.get("▶ 综合得分")
@@ -595,7 +608,7 @@ def main():
         # L2表没有「联系人」字段，用企业名作为display
         contact = company
 
-        print(f"   处理: {company} | 综合{total:.2f} → {rating} | 成熟度:{maturity_raw}")
+        print(f"   处理: {company} | 综合{total:.2f} → {rating} | 成熟度:{maturity_raw} | 付费:{payment_status}")
 
         # 生成报告
         html = gen_html(company, contact, None, dim_scores, total, rating, rating_desc, future_data)
