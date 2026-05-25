@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>联系我们 - 思派工业</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f7fa; color: #333; min-height: 100vh; display: flex; flex-direction: column; }
+  .header { background: linear-gradient(135deg, #1a365d 0%, #2563eb 100%); color: white; padding: 40px 20px 30px; text-align: center; }
+  .header h1 { font-size: 22px; margin-bottom: 6px; }
+  .header p { font-size: 14px; opacity: 0.85; }
+  .container { max-width: 480px; margin: -20px auto 0; padding: 0 16px 40px; flex: 1; }
+  .card { background: white; border-radius: 12px; padding: 24px 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 16px; }
+  .card h2 { font-size: 16px; color: #1a365d; margin-bottom: 16px; text-align: center; }
+  .contact-card { background: linear-gradient(135deg, #1a365d, #2563eb); color: #fff; border-radius: 12px; padding: 28px 20px; text-align: center; }
+  .contact-card .company { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  .contact-card .founder { font-size: 14px; opacity: 0.9; margin-bottom: 16px; }
+  .contact-card .qr-wrap { margin: 16px 0; }
+  .contact-card .qr-wrap img { width: 160px; height: auto; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); }
+  .contact-card .qr-label { font-size: 13px; opacity: 0.85; margin-top: 8px; }
+  .contact-card .desc { font-size: 12px; opacity: 0.7; margin-top: 12px; line-height: 1.6; }
+  .info-item { padding: 14px 0; border-bottom: 1px solid #eef2f6; display: flex; align-items: flex-start; gap: 12px; }
+  .info-item:last-child { border-bottom: none; }
+  .info-item .icon { font-size: 20px; width: 28px; text-align: center; flex-shrink: 0; }
+  .info-item .label { font-size: 13px; color: #7e93a8; }
+  .info-item .value { font-size: 14px; color: #1a365d; margin-top: 2px; }
+  .info-item .value a { color: #2563eb; text-decoration: none; }
+  .service-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+  .service-tag { background: #eef2ff; color: #2563eb; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; }
+  .service-tag.special { background: #1a365d; color: #fff; }
+  .footer { text-align: center; padding: 20px; font-size: 11px; color: #94a3b8; }
+  .back-link { display: inline-block; margin-top: 12px; font-size: 13px; color: #2563eb; text-decoration: none; text-align: center; width: 100%; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📞 联系我们</h1>
+  <p>思派工业 · 精益智能工厂领航员</p>
+</div>
+
+<div class="container">
+
+  <!-- 创始人联系卡 -->
+  <div class="card">
+    <h2>👤 创始人直联</h2>
+    <div class="contact-card">
+      <div class="company">思派工业技术（深圳）有限公司</div>
+      <div class="founder">创始人 Kevin</div>
+      <div class="founder" style="font-size:13px;opacity:0.8">前比亚迪技术研发 → 工厂管理全链路实战派</div>
+      <div class="qr-wrap">
+        <img src="./contact_wechat.jpg" alt="扫码添加微信">
+        <div class="qr-label">📱 扫码添加微信</div>
+      </div>
+      <div class="desc">
+        预约现场诊断 · 咨询改善项目 · 定制化培训<br>
+        请直接扫码联系，创始人在线回复
+      </div>
+    </div>
+  </div>
+
+  <!-- 服务范围 -->
+  <div class="card">
+    <h2>🔧 服务范围</h2>
+    <div class="service-list">
+      <span class="service-tag special">免费工厂诊断</span>
+      <span class="service-tag">L2线上深度诊断</span>
+      <span class="service-tag">L3现场诊断</span>
+      <span class="service-tag">精益产线设计</span>
+      <span class="service-tag">5S/TPM推行</span>
+      <span class="service-tag">TQM质量改善</span>
+      <span class="service-tag">MES/ERP选型</span>
+      <span class="service-tag">智能工厂规划</span>
+      <span class="service-tag">定制化培训</span>
+      <span class="service-tag">数字化导入</span>
+    </div>
+  </div>
+
+  <!-- 快速入口 -->
+  <div class="card">
+    <h2>🚀 快速入口</h2>
+    <div class="info-item">
+      <div class="icon">🏭</div>
+      <div>
+        <div class="label">免费工厂诊断</div>
+        <div class="value"><a href="https://ycntwzzv6rec.feishu.cn/share/base/form/shrcnIRICP6tOoaUCIliPhiMm3c">立即开始免费体检 →</a></div>
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="icon">📊</div>
+      <div>
+        <div class="label">查看诊断报告</div>
+        <div class="value"><a href="https://sptechsz.com/reports/report_query.html">输入手机号查询 →</a></div>
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="icon">📐</div>
+      <div>
+        <div class="label">L2线上深度诊断</div>
+        <div class="value"><a href="https://sptechsz.com/l2_diagnosis.html">了解详情（¥980起）→</a></div>
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="icon">📰</div>
+      <div>
+        <div class="label">精益行业快讯</div>
+        <div class="value"><a href="https://sptechsz.com/news/index.html">每日更新 →</a></div>
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="icon">📚</div>
+      <div>
+        <div class="label">改善案例库</div>
+        <div class="value"><a href="https://sptechsz.com/cases/index.html">查看案例 →</a></div>
+      </div>
+    </div>
+  </div>
+
+  <a href="https://sptechsz.com/" class="back-link">← 返回首页</a>
+</div>
+
+<div class="footer">
+  思派工业技术（深圳）有限公司<br>
+  © 2026 精益智能工厂诊断系统
+</div>
+
+</body>
+</html>
