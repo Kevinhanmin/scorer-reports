@@ -79,9 +79,28 @@ body {
 .no-result .icon { font-size: 48px; margin-bottom: 12px; }
 .no-result p { font-size: 14px; }
 .footer {
-    text-align: center; padding: 20px; color: #94a3b8; font-size: 12px;
+    text-align: center; padding: 20px 16px; color: #94a3b8; font-size: 12px;
 }
 .footer a { color: #2563eb; text-decoration: none; }
+.footer .contact-info {
+    background: white; border-radius: 12px; padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 16px;
+    max-width: 360px; margin-left: auto; margin-right: auto;
+}
+.footer .contact-info h4 { 
+    font-size: 15px; color: #333; margin-bottom: 12px; font-weight: 600;
+}
+.footer .contact-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 0; border-bottom: 1px solid #f1f5f9; text-align: left;
+}
+.footer .contact-item:last-child { border-bottom: none; }
+.footer .contact-item .icon { font-size: 20px; flex-shrink: 0; }
+.footer .contact-item .label { font-size: 12px; color: #94a3b8; }
+.footer .contact-item .value { font-size: 14px; color: #2563eb; font-weight: 500; word-break: break-all; }
+.footer .contact-item a { color: #2563eb; text-decoration: none; }
+.footer .contact-item a:hover { text-decoration: underline; }
+.footer .copyright { margin-top: 16px; font-size: 11px; color: #cbd5e1; }
 .loading { text-align: center; padding: 20px; color: #94a3b8; }
 </style>
 </head>
@@ -105,8 +124,30 @@ body {
     </div>
 
     <div class="footer">
-        <p>思派工业技术（深圳）有限公司</p>
-        <p>有问题？<a href="#">联系我们</a></p>
+        <div class="contact-info">
+            <h4>📞 联系我们</h4>
+            <div class="contact-item">
+                <span class="icon">📧</span>
+                <div>
+                    <div class="label">邮箱</div>
+                    <a class="value" href="mailto:sptechsz@163.com">sptechsz@163.com</a>
+                </div>
+            </div>
+            <div class="contact-item">
+                <span class="icon">💬</span>
+                <div>
+                    <div class="label">微信</div>
+                    <span class="value">hm43569907</span>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:6px;font-size:12px;color:#94a3b8">
+                工作时间：周一至周五 9:00-18:00
+            </div>
+        </div>
+        <div class="copyright">
+            <p>思派工业技术（深圳）有限公司</p>
+            <p style="margin-top:4px">© 2026 思派工业 · 精益智能工厂领航员</p>
+        </div>
     </div>
 </div>
 
