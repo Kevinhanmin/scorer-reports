@@ -5,7 +5,7 @@ import json, os, re, sys, urllib.request
 
 FEISHU_APP_ID = os.environ.get("FEISHU_APP_ID", "cli_a9778f2583f81bd4")
 FEISHU_APP_SECRET = os.environ.get("FEISHU_APP_SECRET", "")
-PAGES_BASE = "https://kevinhanmin.github.io/scorer-reports"
+PAGES_BASE = "https://sptechsz.com"
 REPORT_DIR = "reports"
 INDEX_FILE = f"{REPORT_DIR}/reports_index.json"
 

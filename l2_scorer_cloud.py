@@ -482,7 +482,7 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,A
         <div class="cta">
             <h3>📞 需要现场深度诊断（L3）？</h3>
             <p>以上为L2轻量诊断结果。如需获取针对您工厂的详细改善路线图<br>以及量化的投入产出分析，请联系我们安排L3现场深度诊断。</p>
-            <a class="cta-btn" href="https://kevinhanmin.github.io/scorer-reports/" target="_blank">📋 预约L3现场深度诊断 →</a>
+            <a class="cta-btn" href="https://sptechsz.com/" target="_blank">📋 预约L3现场深度诊断 →</a>
             <div style="font-size:11px;opacity:.6;margin-top:12px">联系微信客服 · 思派工业技术（深圳）有限公司</div>
         </div>
 
@@ -616,7 +616,7 @@ def main():
         if pages_url:
             report_url = f"{pages_url}/reports/{os.path.basename(rpath)}"
         else:
-            report_url = f"https://kevinhanmin.github.io/scorer-reports/reports/{os.path.basename(rpath)}"
+            report_url = f"https://sptechsz.com/reports/{os.path.basename(rpath)}"
 
         founder_open_id = os.environ.get("FOUNDER_OPEN_ID", "ou_654b4ab922a747e21af74eaa4884a914")
         pending_file = "pending_notifications.json"

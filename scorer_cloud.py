@@ -441,7 +441,7 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,A
         <div class="cta">
             <h3>📞 想获取详细改善方案？</h3>
             <p>以上为初步免费诊断结果。如需获取针对您工厂的详细改善路线图<br>以及量化的投入产出分析，请联系我们安排深度诊断。</p>
-            <a class="cta-btn" href="https://kevinhanmin.github.io/scorer-reports/" target="_blank">📋 预约专家深度诊断 →</a>
+            <a class="cta-btn" href="https://sptechsz.com/" target="_blank">📋 预约专家深度诊断 →</a>
             <div class="cta-info">联系微信客服 · 思派工业技术（深圳）有限公司</div>
         </div>
 
@@ -518,7 +518,7 @@ def main():
         if pages_url:
             report_url = f"{pages_url}/reports/{os.path.basename(rpath)}"
         else:
-            report_url = f"https://kevinhanmin.github.io/scorer-reports/reports/{os.path.basename(rpath)}"
+            report_url = f"https://sptechsz.com/reports/{os.path.basename(rpath)}"
         feishu_api("PUT", f"/bitable/v1/apps/{BITABLE_APP_TOKEN}/tables/{TABLE_ID}/records/{rid}",
             {"fields": {"L1_报告URL": report_url}})
         print(f"   🔗 L1_报告URL已写入飞书: {report_url}")
@@ -529,7 +529,7 @@ def main():
         if pages_url:
             report_url = f"{pages_url}/reports/{os.path.basename(rpath)}"
         else:
-            report_url = f"https://kevinhanmin.github.io/scorer-reports/reports/{os.path.basename(rpath)}"
+            report_url = f"https://sptechsz.com/reports/{os.path.basename(rpath)}"
         
         # 保存待发送通知到pending文件（避免git commit前就发通知）
         founder_open_id = os.environ.get("FOUNDER_OPEN_ID", "ou_654b4ab922a747e21af74eaa4884a914")
