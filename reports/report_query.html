@@ -72,6 +72,7 @@ body {
     transition: background 0.2s;
 }
 .report-card .btn-view:hover { background: #e2e8f0; }
+.report-card .btn-view.hidden { display: none; }
 .no-result { 
     text-align: center; padding: 40px 20px; color: #94a3b8;
 }
@@ -110,48 +111,90 @@ body {
 </div>
 
 <script>
-// 报告数据（由生成脚本编译）
+// 报告数据（由更新脚本自动编译，请勿手动修改）
 const REPORTS = [
   {
-    "company": "API测试记录",
-    "phones": [],
-    "record_id": "recvk8OAHucV1W",
-    "type": "l2",
-    "rating": "D级 风险",
-    "report_url": "https://kevinhanmin.github.io/scorer-reports/reports/l2_recvk810_20260522_123548.html",
-    "report_date": "2026-05-22"
+    "company": "思派工业技术（深圳）有限公司",
+    "phones": [
+      "18038025582"
+    ],
+    "record_id": "rec27nnMwzQb3M",
+    "type": "l1",
+    "rating": "D级 预警",
+    "report_url": "",
+    "report_date": "2026-05-11"
   },
   {
-    "company": "Aaaaas",
-    "phones": [],
-    "record_id": "rec27rrBTq2GC2",
-    "type": "l2",
+    "company": "农通科技有限公司",
+    "phones": [
+      "18038025582"
+    ],
+    "record_id": "rec27nnNGLhYyd",
+    "type": "l1",
     "rating": "B级 良好",
-    "report_url": "https://kevinhanmin.github.io/scorer-reports/reports/l2_rec27r1O_20260522_123548.html",
-    "report_date": "2026-05-22"
+    "report_url": "",
+    "report_date": "2026-05-11"
   },
   {
-    "company": "思派工业",
+    "company": "深圳市欣捷新科技有限公司",
+    "phones": [
+      "18038025582"
+    ],
+    "record_id": "rec27nobUb8cC8",
+    "type": "l1",
+    "rating": "B级 良好",
+    "report_url": "",
+    "report_date": "2026-05-11"
+  },
+  {
+    "company": "比亚迪汽车有限公司",
+    "phones": [
+      "18038025582"
+    ],
+    "record_id": "rec27nptzLAlXN",
+    "type": "l1",
+    "rating": "B级 良好",
+    "report_url": "",
+    "report_date": "2026-05-11"
+  },
+  {
+    "company": "上汽",
     "phones": [],
-    "record_id": "rec27qzwynurH7",
-    "type": "l2",
+    "record_id": "rec27npVNXocqY",
+    "type": "l1",
+    "rating": "B级 良好",
+    "report_url": "",
+    "report_date": "2026-05-11"
+  },
+  {
+    "company": "测试公司",
+    "phones": [],
+    "record_id": "rec27nq7ZE9owg",
+    "type": "l1",
+    "rating": "B级 良好",
+    "report_url": "",
+    "report_date": "2026-05-11"
+  },
+  {
+    "company": "新测试记录",
+    "phones": [],
+    "record_id": "rec27nqsUIUV2O",
+    "type": "l1",
     "rating": "C级 注意",
-    "report_url": "https://kevinhanmin.github.io/scorer-reports/reports/l2_rec27qzw_20260522_123548.html",
-    "report_date": "2026-05-22"
-  },
-  {
-    "company": "测试数据",
-    "phones": [],
-    "record_id": "rec27r1OzR2GBZ",
-    "type": "l2",
-    "rating": "B级 良好",
-    "report_url": "https://kevinhanmin.github.io/scorer-reports/reports/l2_rec27r1O_20260522_123548.html",
-    "report_date": "2026-05-22"
+    "report_url": "",
+    "report_date": "2026-05-11"
   }
 ];
 
-// 手机号映射表（由生成脚本编译，经脱敏处理）
-const PHONE_MAP = {};
+// 手机号映射表（由更新脚本自动编译，经脱敏处理）
+const PHONE_MAP = {
+  "p_MTgwMzgwMjU1ODI": [
+    "rec27nnMwzQb3M",
+    "rec27nnNGLhYyd",
+    "rec27nobUb8cC8",
+    "rec27nptzLAlXN"
+  ]
+};
 
 function hashPhone(phone) {
     return 'p_' + btoa(phone).replace(/=/g, '').substring(0, 16);
@@ -170,18 +213,42 @@ function searchReport() {
     
     const phoneHash = hashPhone(phone);
     
-    // 查找匹配的报告
-    const matched = REPORTS.filter(r => {
-        return r.phones && r.phones.some(p => hashPhone(p) === phoneHash);
-    });
+    // 方式1：从PHONE_MAP快速查找匹配的记录ID
+    const matchedIds = PHONE_MAP[phoneHash] || [];
     
-    if (matched.length === 0) {
-        resultArea.classList.add('visible');
-        resultContent.innerHTML = '<div class="no-result"><div class="icon">🔍</div><p>未找到与该手机号匹配的报告</p><p style="font-size:12px;margin-top:8px">请确认输入的是填问卷时留的手机号</p><p style="font-size:12px;margin-top:4px">如仍未查到，请联系思派工业客服</p></div>';
+    // 方式2：也检查REPORTS中的phones数组（兼容空映射时回退）
+    if (matchedIds.length === 0) {
+        // 通过REPORTS逐个检查
+        const matched = REPORTS.filter(r => {
+            return r.phones && r.phones.some(p => hashPhone(p) === phoneHash);
+        });
+        
+        if (matched.length === 0) {
+            resultArea.classList.add('visible');
+            resultContent.innerHTML = '<div class="no-result"><div class="icon">🔍</div><p>未找到与该手机号匹配的报告</p><p style="font-size:12px;margin-top:8px">请确认输入的是填问卷时留的手机号</p><p style="font-size:12px;margin-top:4px">如仍未查到，请联系思派工业客服</p></div>';
+            return;
+        }
+        
+        renderReports(matched, resultContent);
         return;
     }
     
-    let html = '<div style="margin-bottom:16px;font-size:14px;color:#64748b">找到 <strong>' + matched.length + '</strong> 份报告</div>';
+    // 通过ID查找完整报告信息
+    const idMap = {};
+    REPORTS.forEach(r => { idMap[r.record_id] = r; });
+    const matched = matchedIds.map(id => idMap[id]).filter(Boolean);
+    
+    if (matched.length === 0) {
+        resultArea.classList.add('visible');
+        resultContent.innerHTML = '<div class="no-result"><div class="icon">🔍</div><p>未找到与该手机号匹配的报告</p><p style="font-size:12px;margin-top:8px">请联系思派工业客服获取帮助</p></div>';
+        return;
+    }
+    
+    renderReports(matched, resultContent);
+}
+
+function renderReports(matched, container) {
+    container.innerHTML = '<div style="margin-bottom:16px;font-size:14px;color:#64748b">找到 <strong>' + matched.length + '</strong> 份报告</div>';
     
     matched.sort((a, b) => b.report_date.localeCompare(a.report_date));
     
@@ -196,22 +263,30 @@ function searchReport() {
         else if (ratingLabel.includes('C')) ratingClass = 'rating-c';
         else if (ratingLabel.includes('D')) ratingClass = 'rating-d';
         
-        html += '<div class="report-card ' + typeClass + '">';
-        html += '<span class="badge ' + typeClass + '">' + typeLabel + '</span>';
-        html += '<h3>' + (r.company || '未命名') + '</h3>';
-        html += '<div class="meta">📅 ' + (r.report_date || '未知') + '</div>';
-        html += '<div class="rating ' + ratingClass + '">' + ratingLabel + '</div>';
-        html += '<a class="btn-view" href="' + r.report_url + '" target="_blank">📄 查看报告</a>';
-        html += '</div>';
+        let hasReport = r.report_url && r.report_url.length > 0;
+        
+        container.innerHTML += '<div class="report-card ' + typeClass + '">';
+        container.innerHTML += '<span class="badge ' + typeClass + '">' + typeLabel + '</span>';
+        container.innerHTML += '<h3>' + (r.company || '未命名') + '</h3>';
+        container.innerHTML += '<div class="meta">📅 ' + (r.report_date || '未知') + '</div>';
+        container.innerHTML += '<div class="rating ' + ratingClass + '">' + ratingLabel + '</div>';
+        if (hasReport) {
+            container.innerHTML += '<a class="btn-view" href="' + r.report_url + '" target="_blank">📄 查看报告</a>';
+        } else {
+            container.innerHTML += '<div style="font-size:12px;color:#94a3b8;margin-top:8px">⏳ 报告生成中，请稍后再查</div>';
+        }
+        container.innerHTML += '</div>';
     });
-    
-    resultArea.classList.add('visible');
-    resultContent.innerHTML = html;
 }
 
 // 回车搜索
 document.getElementById('phoneInput').addEventListener('keyup', function(e) {
     if (e.key === 'Enter') searchReport();
+});
+
+// 自动trim输入
+document.getElementById('phoneInput').addEventListener('input', function(e) {
+    this.value = this.value.replace(/\D/g, '');
 });
 </script>
 
