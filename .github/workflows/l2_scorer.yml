@@ -37,14 +37,23 @@ jobs:
       - name: 生成报告索引
         env:
           FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
-          FEISHU_APP_[REDACTED CREDENTIAL] secrets.FEISHU_APP_SECRET }}
+          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
         run: python gen_report_index.py || echo "⚠️ 索引生成有警告"
+
+      - name: 更新报告查询页（手机号→报告映射）
+        env:
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+          BITABLE_APP_TOKEN: ${{ secrets.BITABLE_APP_TOKEN }}
+          TABLE_ID: ${{ secrets.TABLE_ID }}
+        run: |
+          python update_report_query.py || echo "⚠️ 报告查询页更新有警告"
 
       - name: 提交报告到仓库
         run: |
           git config user.name "L2评分师机器人"
           git config user.email "l2-scorer@bot.com"
-          git add reports/ gen_report_index.py reports_index.json 2>/dev/null || git add reports/
+          git add reports/ report_query.html gen_report_index.py reports_index.json 2>/dev/null || git add reports/ report_query.html
           if git diff --staged --quiet; then
             echo "没有新报告"
           else

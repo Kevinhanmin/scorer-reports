@@ -34,11 +34,20 @@ jobs:
           REPO_URL: ${{ secrets.REPO_URL }}
         run: python scorer_cloud.py || echo "⚠️ 评分运行有警告，但不影响提交"
 
+      - name: 更新报告查询页（手机号→报告映射）
+        env:
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+          BITABLE_APP_TOKEN: ${{ secrets.BITABLE_APP_TOKEN }}
+          TABLE_ID: ${{ secrets.TABLE_ID }}
+        run: |
+          python update_report_query.py || echo "⚠️ 报告查询页更新有警告"
+
       - name: 提交报告到仓库
         run: |
           git config user.name "评分师机器人"
           git config user.email "scorer@bot.com"
-          git add reports/
+          git add reports/ report_query.html
           if git diff --staged --quiet; then
             echo "没有新报告"
           else
