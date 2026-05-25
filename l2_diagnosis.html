@@ -2,11 +2,11 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>L2深度诊断 · 思派工业精益智能工厂</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#f0f4f8;color:#1a2332;min-height:100vh}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#f0f4f8;color:#1a2332;min-height:100vh;padding-bottom:80px}
 .header{background:linear-gradient(135deg,#1a365d 0%,#2563eb 50%,#3b82f6 100%);color:#fff;padding:40px 20px;text-align:center}
 .header h1{font-size:28px;font-weight:700;margin-bottom:6px}
 .header .subtitle{font-size:14px;opacity:.85;margin-top:6px}
@@ -28,10 +28,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 .flow-step .num{display:inline-block;width:24px;height:24px;line-height:24px;background:#2563eb;color:#fff;border-radius:50%;font-size:12px;font-weight:700;margin-bottom:6px}
 .flow-step .text{font-size:12px;color:#4a5568}
 .member-badge{display:inline-block;background:#fef3c7;color:#92400e;padding:2px 10px;border-radius:10px;font-size:11px;font-weight:600;margin-bottom:8px}
-.btn{display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:600;text-decoration:none;cursor:pointer;transition:transform .15s}
-.btn:hover{transform:translateY(-1px)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:600;text-decoration:none;cursor:pointer;transition:all .15s;white-space:nowrap}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,99,235,.3)}
 .btn:active{transform:translateY(0)}
+.btn:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-wxpay{background:linear-gradient(135deg,#07c160,#06ad56);font-size:18px;padding:16px 40px}
+.btn-wxpay:hover{box-shadow:0 4px 12px rgba(7,193,96,.3)}
 .btn-secondary{background:linear-gradient(135deg,#f59e0b,#d97706)}
+.btn-outline{background:transparent;border:2px solid #2563eb;color:#2563eb}
+.btn-outline:hover{background:#eff6ff;transform:none}
 .price-note{background:#fef3c7;border:1px solid #fde68a;border-radius:8px;padding:12px 16px;margin-top:12px;font-size:13px;color:#92400e}
 .price-note strong{color:#78350f}
 .member-card{background:linear-gradient(135deg,#fefce8,#fff7ed);border:1px solid #fde68a;border-radius:12px;padding:16px;margin-top:12px}
@@ -48,6 +53,28 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 .level-compare .l-box .l-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;margin-bottom:6px}
 .level-compare .l-box .l-tag.l2{background:#dbeafe;color:#1e40af}
 .level-compare .l-box .l-tag.l3{background:#fef3c7;color:#92400e}
+.pay-section{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac;border-radius:12px;padding:24px;margin:16px 0;text-align:center}
+.pay-section .pay-icon{font-size:48px;margin-bottom:12px}
+.pay-section .pay-title{font-size:20px;font-weight:700;color:#166534;margin-bottom:6px}
+.pay-section .pay-desc{font-size:14px;color:#15803d;margin-bottom:16px}
+.pay-input-group{display:flex;flex-direction:column;gap:10px;max-width:360px;margin:16px auto}
+.pay-input-group input{padding:12px 16px;border:2px solid #d1d5db;border-radius:8px;font-size:16px;text-align:center;outline:none;transition:border-color .15s}
+.pay-input-group input:focus{border-color:#2563eb}
+.pay-input-group input.error{border-color:#ef4444}
+.pay-input-group .error-text{color:#ef4444;font-size:12px;display:none}
+.status-card{display:none;max-width:400px;margin:16px auto;padding:24px;border-radius:12px;text-align:center;border:2px solid #e5e7eb}
+.status-card .spinner{display:inline-block;width:40px;height:40px;border:4px solid #e5e7eb;border-top-color:#2563eb;border-radius:50%;animation:spin .8s linear infinite;margin-bottom:12px}
+.status-card .success-icon{font-size:56px;margin-bottom:8px}
+.status-card .status-text{font-size:18px;font-weight:600;color:#1a2332;margin-bottom:4px}
+.status-card .status-sub{font-size:13px;color:#7e93a8}
+.status-card.show{display:block}
+.status-card.success{border-color:#86efac}
+.status-card.error{border-color:#fca5a5}
+.status-card.error .spinner{display:none}
+.status-card.success .spinner{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sticky-bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;padding:12px 16px;box-shadow:0 -2px 12px rgba(0,0,0,.08);z-index:100;text-align:center}
+.sticky-bottom .btn-wxpay{width:100%;max-width:400px;justify-content:center}
 .footer{text-align:center;padding:32px 16px;font-size:11px;color:#94a3b8}
 @media(max-width:600px){
   .flow{flex-direction:column}
@@ -73,16 +100,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
         基于精益生产与智能工厂的成熟度模型，由思派工业专家团队对您的工厂进行<strong>8大维度、60+项指标</strong>的全面评估。
         与免费体检的自动评分不同，L2深度诊断由专家通过<strong>线上咨询+数据采集+远程分析</strong>，输出可落地的改善路径和量化ROI，<strong>不涉及现场勘查</strong>。
       </p>
-      <div style="background:#fef3c7;border:1px solid #fde68a;border-radius:8px;padding:12px 16px;margin-top:12px;font-size:13px;color:#92400e">
-        💰 <strong>支付说明：</strong>提交问卷后，创始人与您联系确认诊断意向 → 完成支付（测试期¥1，正式价¥980）→ 系统自动生成深度诊断报告。报告仅对已付费用户生成。
-      </div>
     <p style="font-size:13px;color:#7e93a8;margin-top:10px;background:#f0f9ff;padding:10px 14px;border-radius:8px">
       💡 <strong>适用场景：</strong>作为初步深度评估，适合远程协作或非紧急的工厂评估需求。<br>
       如需专家现场勘测与实地辅导，请预约 <a href="https://sptechsz.com/l3_onsite_diagnosis.html" style="color:#2563eb">L3现场诊断服务 →</a>
     </p>
   </div>
 
-  <!-- 价格 + 会员权益 -->
+  <!-- 价格 + 会员权益 + 微信支付 -->
   <div class="card">
     <h2 style="border-bottom-color:#2563eb">💰 L2深度诊断定价</h2>
     <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:8px 0">
@@ -93,6 +117,33 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
     <div class="price-note">
       🔥 <strong>限期优惠体验价：</strong>即日起至2026年6月30日，首次L2深度诊断体验价仅需 <strong>¥980</strong>（原价¥3,800），快速建立您的工厂评估基准数据。
       诊断费用可在后续咨询服务中全额抵扣。
+    </div>
+
+    <!-- 微信支付交互区 -->
+    <div id="payContainer">
+      <div class="pay-section" id="payForm">
+        <div class="pay-icon">📋</div>
+        <div class="pay-title">已完成L2诊断问卷填写？</div>
+        <div class="pay-desc">填写后可直接支付，系统自动更新状态。如需先填问卷：</div>
+        <a href="https://ycntwzzv6rec.feishu.cn/share/base/form/shrcnzgkudEkQ0WZmP9x7gJjMLc" class="btn btn-outline" style="margin-bottom:16px" target="_blank">📝 先填写问卷</a>
+        <div style="border-top:1px dashed #86efac;margin:16px 0;padding-top:16px">
+          <div class="pay-desc" style="font-weight:600">填写后请输入手机号直接支付</div>
+          <div class="pay-input-group">
+            <input type="tel" id="phoneInput" placeholder="请输入填写问卷时使用的手机号" maxlength="11" inputmode="numeric" pattern="[0-9]*">
+            <div class="error-text" id="phoneError">请输入11位手机号</div>
+          </div>
+          <button class="btn btn-wxpay" id="payBtn" onclick="startPayment()">
+            <span>💚</span> 微信支付 ¥980
+          </button>
+        </div>
+      </div>
+
+      <div class="status-card" id="statusCard">
+        <div class="spinner"></div>
+        <div class="success-icon">✅</div>
+        <div class="status-text" id="statusText">正在跳转微信支付...</div>
+        <div class="status-sub" id="statusSub">请在新页面完成支付</div>
+      </div>
     </div>
 
     <div class="member-card">
@@ -156,8 +207,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
     <h2>🔄 L2诊断流程</h2>
     <div class="flow">
       <div class="flow-step"><div class="num">1</div><div class="text">填写问卷</div></div>
-      <div class="flow-step"><div class="num">2</div><div class="text">线上沟通</div></div>
-      <div class="flow-step"><div class="num">3</div><div class="text">数据采集</div></div>
+      <div class="flow-step"><div class="num">2</div><div class="text">微信支付</div></div>
+      <div class="flow-step"><div class="num">3</div><div class="text">线上沟通</div></div>
       <div class="flow-step"><div class="num">4</div><div class="text">远程分析</div></div>
       <div class="flow-step"><div class="num">5</div><div class="text">报告输出</div></div>
     </div>
@@ -165,7 +216,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 
   <!-- CTA -->
   <div style="text-align:center;margin-top:24px;margin-bottom:32px">
-    <a href="https://ycntwzzv6rec.feishu.cn/share/base/form/shrcnzgkudEkQ0WZmP9x7gJjMLc" class="btn">📋 立即体验L2深度诊断</a>
+    <a href="https://ycntwzzv6rec.feishu.cn/share/base/form/shrcnzgkudEkQ0WZmP9x7gJjMLc" class="btn" target="_blank">📋 填写L2诊断问卷</a>
     <div style="margin-top:10px;display:flex;flex-direction:column;align-items:center;gap:6px">
       <p style="font-size:12px;color:#94a3b8">或扫码添加微信咨询</p>
       <img src="./contact_wechat.jpg" alt="扫码添加微信" style="width:140px;height:auto;border-radius:6px;border:1px solid #eef2f6" />
@@ -178,6 +229,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
     <div style="margin-bottom:14px">
       <p style="font-weight:600;font-size:14px;color:#1a365d">Q: L2深度诊断和免费体检有什么区别？</p>
       <p style="font-size:13px;color:#4a5568;margin-top:4px">免费体检是线上自动评分，3分钟出结果；L2深度诊断由专家团队进行线上咨询+数据采集+远程分析，输出更详细的改善路径和投资预算。</p>
+    </div>
+    <div style="margin-bottom:14px">
+      <p style="font-weight:600;font-size:14px;color:#1a365d">Q: 如何支付？</p>
+      <p style="font-size:13px;color:#4a5568;margin-top:4px">在线直接使用微信支付即可。支付成功后系统自动确认，支持在「我的报告」查询进度。</p>
     </div>
     <div style="margin-bottom:14px">
       <p style="font-weight:600;font-size:14px;color:#1a365d">Q: L2和L3有什么不同？</p>
@@ -198,8 +253,156 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
   </div>
 </div>
 
+<!-- 底部固定支付栏 (移动端) -->
+<div class="sticky-bottom">
+  <button class="btn btn-wxpay" onclick="document.getElementById('payContainer').scrollIntoView({behavior:'smooth'});document.getElementById('phoneInput').focus()">
+    <span>💚</span> 微信支付 ¥980
+  </button>
+</div>
+
 <div class="footer">
   思派工业技术（深圳）有限公司 · 精益智能工厂领航员
 </div>
+
+<script>
+// 微信支付API地址
+const API_BASE = 'https://api.sptechsz.com';
+
+// 支付状态
+let paying = false;
+
+function validatePhone(phone) {
+  return /^1\d{10}$/.test(phone);
+}
+
+function showStatus(type, text, sub) {
+  const card = document.getElementById('statusCard');
+  const form = document.getElementById('payForm');
+  form.style.display = 'none';
+  card.className = 'status-card show ' + type;
+  document.getElementById('statusText').textContent = text;
+  document.getElementById('statusSub').textContent = sub || '';
+}
+
+function showForm() {
+  document.getElementById('payForm').style.display = 'block';
+  document.getElementById('statusCard').className = 'status-card';
+}
+
+function payViaRedirect(phone) {
+  // 生成订单号: L2 + 时间戳 + 随机字符
+  const outTradeNo = 'L2' + Date.now() + Math.random().toString(36).substring(2, 8).toUpperCase();
+
+  showStatus('', '正在创建订单...', '请稍候');
+
+  fetch(API_BASE + '/api/wechat/create_order', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      amount: 98000,
+      description: '思派工业-智能工厂深度诊断评估',
+      out_trade_no: outTradeNo,
+      phone: phone
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (data.success && data.h5_url) {
+      showStatus('', '正在跳转微信支付...', '请在微信内完成支付');
+      // 保存订单号到本地，支付成功后跳回可查询
+      try {
+        sessionStorage.setItem('lastPayOrder', outTradeNo);
+        sessionStorage.setItem('lastPayPhone', phone);
+      } catch(e) {}
+
+      // 如果是微信浏览器，直接跳转H5 URL
+      // 如果是普通浏览器，跳转H5 URL也会唤起微信支付
+      window.location.href = data.h5_url;
+    } else {
+      showStatus('error', '下单失败', data.error || '请稍后重试');
+      setTimeout(showForm, 3000);
+    }
+  })
+  .catch(function(err) {
+    showStatus('error', '网络错误', err.message || '请检查网络后重试');
+    setTimeout(showForm, 3000);
+  });
+}
+
+function startPayment() {
+  if (paying) return;
+
+  var phone = document.getElementById('phoneInput').value.trim();
+  var errorEl = document.getElementById('phoneError');
+
+  if (!validatePhone(phone)) {
+    document.getElementById('phoneInput').className = 'error';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  document.getElementById('phoneInput').className = '';
+  errorEl.style.display = 'none';
+
+  paying = true;
+  document.getElementById('payBtn').disabled = true;
+  document.getElementById('payBtn').innerHTML = '<span>⏳</span> 处理中...';
+
+  payViaRedirect(phone);
+}
+
+// 回车触发支付
+document.getElementById('phoneInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    startPayment();
+  }
+});
+
+// 输入时清除错误状态
+document.getElementById('phoneInput').addEventListener('input', function() {
+  this.className = '';
+  document.getElementById('phoneError').style.display = 'none';
+});
+
+// 检查是否从微信支付跳回（如果sessionStorage有记录）
+try {
+  var lastOrder = sessionStorage.getItem('lastPayOrder');
+  var lastPhone = sessionStorage.getItem('lastPayPhone');
+  if (lastOrder && lastPhone) {
+    // 填充手机号
+    document.getElementById('phoneInput').value = lastPhone;
+    showStatus('', '支付确认中...', '请稍候，正在查询支付结果');
+
+    // 查询订单状态
+    fetch(API_BASE + '/api/wechat/query_order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ out_trade_no: lastOrder })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.success && data.data && data.data.trade_state === 'SUCCESS') {
+        showStatus('success', '✅ 支付成功！', '系统已确认，我们将尽快为您安排诊断服务');
+        try {
+          sessionStorage.removeItem('lastPayOrder');
+          sessionStorage.removeItem('lastPayPhone');
+        } catch(e) {}
+      } else if (data.success && data.data && data.data.trade_state === 'NOTPAY') {
+        showStatus('error', '支付未完成', '订单尚未支付，请重新点击支付');
+        setTimeout(showForm, 2000);
+      } else {
+        // 查询不到说明可能是新订单或已过期
+        showForm();
+      }
+    })
+    .catch(function() {
+      showForm();
+    });
+  }
+} catch(e) {
+  // sessionStorage不可用不影响主流程
+}
+</script>
 </body>
 </html>
