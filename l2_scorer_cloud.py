@@ -483,7 +483,7 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,A
             <h3>📞 需要现场深度诊断（L3）？</h3>
             <p>以上为L2轻量诊断结果。如需获取针对您工厂的详细改善路线图<br>以及量化的投入产出分析，请联系我们安排L3现场深度诊断。</p>
             <a class="cta-btn" href="https://kevinhanmin.github.io/scorer-reports/" target="_blank">📋 预约L3现场深度诊断 →</a>
-            <div style="font-size:11px;opacity:.6;margin-top:12px">联系人：{contact} · 思派工业技术（深圳）有限公司</div>
+            <div style="font-size:11px;opacity:.6;margin-top:12px">联系微信客服 · 思派工业技术（深圳）有限公司</div>
         </div>
 
         <div class="disclaimer">📌 免责声明：本报告由精益智能工厂L2诊断系统基于问卷数据自动生成，旨在提供深度参考。报告中的评分、损失估算、改善建议等均为基于问卷信息的专业判断，不代表最终诊断结论。如需准确的工厂诊断报告，请联系思派工业技术安排L3现场深度诊断。</div>
