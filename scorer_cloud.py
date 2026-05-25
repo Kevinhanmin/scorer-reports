@@ -489,7 +489,14 @@ def main():
         rating, desc, _ = get_rating(total)
         grade, loss_mid, loss_label = get_sales_grade(fields)
         company = extract_text(fields, "Q1. 企业名称（填空题，必填）")
-        contact = extract_text(fields, "Q29.联系人和联系方式（手机号/微信，必填）")
+        contact = extract_text(fields, "Q28.联系人和联系方式（手机号/微信，必填）")
+        # 同时从联系人字段提取手机号，用于报告查询
+        phone_num = ""
+        if contact:
+            import re as _re
+            phones_found = _re.findall(r'1[3-9]\d{9}', contact)
+            if phones_found:
+                phone_num = phones_found[0]
 
         print(f"   处理: {company} | {total:.2f} → {rating} | {loss_label} → {grade}")
 
