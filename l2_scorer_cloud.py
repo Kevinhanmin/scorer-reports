@@ -7,7 +7,8 @@ L2评分师 · 精益智造轻量诊断 (¥6,800-9,800)
 
 | 方案A：直接读取飞书已有的8个维度评分字段，加权算总分+生成报告
 |
-| v2 (2026-05-25): 新增付费状态过滤 —— 只处理「已付费」或「¥1已测试」记录
+|| v2 (2026-05-25): 新增付费状态过滤 —— 只处理「已付费」或「¥1已测试」记录
+|| v3 (2026-05-26): 空付费状态自动填充「待付费」—— 新问卷提交后用户立即能在L2表中看到状态
 """
 
 import os, sys, json, time, math, re
@@ -34,6 +35,9 @@ DIMENSION_WEIGHTS = {
 # ===== 付费状态过滤 =====
 PAYMENT_STATUS_FIELD = "付费状态"
 ALLOWED_PAYMENT_STATUSES = {"¥1已测试", "已付费"}
+
+# 新记录默认付费状态（用于填充空值）
+DEFAULT_PAYMENT_STATUS = "待付费"
 
 # ===== 飞书字段映射（维度名 → 飞书评分字段名）=====
 # 修复：飞书L1表格中字段无 L2_ 前缀
@@ -534,6 +538,15 @@ def main():
 
         # ===== 付费状态过滤（v2）=====
         payment_status = extract_text(fields, PAYMENT_STATUS_FIELD) or ""
+
+        # v3: 空付费状态自动填充「待付费」——新问卷提交后用户能看到状态
+        if not payment_status or payment_status.strip() == "":
+            print(f"   🏷️ {company}: 付费状态为空 → 写入「{DEFAULT_PAYMENT_STATUS}」")
+            feishu_api("PUT", f"/bitable/v1/apps/{BITABLE_APP_TOKEN}/tables/{TABLE_ID}/records/{rid}",
+                {"fields": {PAYMENT_STATUS_FIELD: DEFAULT_PAYMENT_STATUS}})
+            payment_status = DEFAULT_PAYMENT_STATUS
+            continue  # 新记录标记为待付费，跳过评分（等支付后再处理）
+
         if payment_status not in ALLOWED_PAYMENT_STATUSES:
             print(f"   ⏭️ {company}: 付费状态为「{payment_status}」，跳过（仅处理{', '.join(sorted(ALLOWED_PAYMENT_STATUSES))}）")
             continue
