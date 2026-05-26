@@ -110,12 +110,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
   <div class="card">
     <h2 style="border-bottom-color:#2563eb">💰 L2深度诊断定价</h2>
     <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:8px 0">
-      <span style="font-size:24px;font-weight:800;color:#7e93a8;text-decoration:line-through">¥3,800</span>
-      <span class="price">¥980 <small>起/次</small></span>
+      <span style="font-size:24px;font-weight:800;color:#7e93a8;text-decoration:line-through">¥980</span>
+      <span class="price">¥1 <small>起/次</small></span>
     </div>
     <p style="font-size:13px;color:#7e93a8">含8大维度完整评估 + 深度诊断报告 + 改善路线图</p>
     <div class="price-note">
-      🔥 <strong>限期优惠体验价：</strong>即日起至2026年6月30日，首次L2深度诊断体验价仅需 <strong>¥980</strong>（原价¥3,800），快速建立您的工厂评估基准数据。
+      🔥 <strong>测试体验价：</strong>当前为系统测试阶段，体验价仅需 <strong>¥1</strong>（测试完成后恢复原价¥980），快速建立您的工厂评估基准数据。
       诊断费用可在后续咨询服务中全额抵扣。
     </div>
 
@@ -133,7 +133,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
             <div class="error-text" id="phoneError">请输入11位手机号</div>
           </div>
           <button class="btn btn-wxpay" id="payBtn" onclick="startPayment()">
-            <span>💚</span> 微信支付 ¥980
+            <span>💚</span> 微信支付 ¥1
           </button>
         </div>
       </div>
@@ -164,7 +164,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
     <div class="level-compare">
       <div class="l-box">
         <div class="l-tag l2">L2 · 线上诊断</div>
-        <div class="l-title">💰 ¥980 起<small style="font-size:10px;color:#7e93a8;display:block;font-weight:400">原价¥3,800</small></div>
+        <div class="l-title">💰 ¥1 起<small style="font-size:10px;color:#7e93a8;display:block;font-weight:400">原价¥980</small></div>
         <div class="l-desc">
           ✅ 线上咨询+数据采集<br>
           ✅ 专家远程分析评估<br>
@@ -256,7 +256,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 <!-- 底部固定支付栏 (移动端) -->
 <div class="sticky-bottom">
   <button class="btn btn-wxpay" onclick="document.getElementById('payContainer').scrollIntoView({behavior:'smooth'});document.getElementById('phoneInput').focus()">
-    <span>💚</span> 微信支付 ¥980
+    <span>💚</span> 微信支付 ¥1
   </button>
 </div>
 
@@ -299,7 +299,7 @@ function payViaRedirect(phone) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      amount: 98000,
+      amount: 100,
       description: '思派工业-智能工厂深度诊断评估',
       out_trade_no: outTradeNo,
       phone: phone
