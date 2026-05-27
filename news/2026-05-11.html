@@ -5,234 +5,171 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>思派工业 · 每日行业快讯</title>
 <style>
+/* ─── Reset & Base ─── */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #f5f7fa; color: #333;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f0f2f5; color: #1a1a2e; line-height: 1.5;
 }
+
+/* ─── Header (sticky) ─── */
 .header {
-    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
-    color: white; padding: 40px 20px 30px; text-align: center;
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    color: white; padding: 28px 20px 20px; text-align: center;
+    position: sticky; top: 0; z-index: 10;
 }
-.header h1 { font-size: 22px; margin-bottom: 8px; }
-.header p { font-size: 14px; opacity: 0.85; }
-.container { max-width: 720px; margin: 0 auto; padding: 20px 16px; }
-.content {
-    background: white; border-radius: 12px; padding: 24px 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    line-height: 1.8; font-size: 15px;
+.header h1 { font-size: 18px; font-weight: 700; letter-spacing: 1px; }
+.header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+.header .date-badge {
+    display: inline-block; margin-top: 8px; padding: 3px 12px;
+    background: rgba(255,255,255,0.15); border-radius: 20px;
+    font-size: 12px; font-weight: 500;
 }
-.content h2 { font-size: 18px; margin: 24px 0 12px; color: #1e3a5f; }
-.content h3 { font-size: 16px; margin: 16px 0 8px; color: #2563eb; }
-.content p { margin: 8px 0; }
-.content ul { margin: 8px 0 8px 20px; }
-.content li { margin: 4px 0; }
-.content blockquote {
-    border-left: 4px solid #2563eb; padding: 8px 16px;
-    margin: 12px 0; background: #f8fafc; border-radius: 4px;
-    color: #475569;
+
+/* ─── Container ─── */
+.container { max-width: 680px; margin: 0 auto; padding: 12px; }
+
+/* ─── Section Label ─── */
+.section-label {
+    font-size: 14px; font-weight: 700; color: #1e3a5f;
+    padding: 14px 14px 8px; margin-top: 8px;
+    border-bottom: 2px solid #e2e8f0; letter-spacing: 0.5px;
 }
-.content strong { color: #1e293b; }
-.content a { color: #2563eb; text-decoration: none; }
-.content a:hover { text-decoration: underline; }
-.content hr { border: none; border-top: 1px solid #e2e8f0; margin: 20px 0; }
+
+/* ─── News Card (compact) ─── */
+.news-card {
+    background: white; border-radius: 8px; padding: 10px 14px;
+    margin: 6px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.15s;
+    border-left: 3px solid #2563eb;
+}
+.news-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+.card-body {
+    font-size: 13px; color: #334155; line-height: 1.6;
+}
+.card-body strong { color: #0f172a; }
+
+.card-link {
+    display: inline-block; margin-top: 6px; font-size: 11px;
+    color: #2563eb; text-decoration: none; font-weight: 500;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* ─── Text Block (摘要 / 老K点评) ─── */
+.text-block {
+    font-size: 13px; color: #475569; line-height: 1.7;
+    padding: 8px 14px; margin: 4px 0 6px;
+    background: #f8fafc; border-radius: 6px;
+    border-left: 3px solid #f59e0b;
+}
+.text-block strong { color: #1e293b; }
+.text-block a { color: #2563eb; text-decoration: none; }
+.text-block a:hover { text-decoration: underline; }
+
+/* ─── Navigation ─── */
 .nav-links {
-    display: flex; justify-content: space-between; margin: 20px 0;
+    display: flex; justify-content: space-between; margin: 16px 0;
 }
 .nav-links a {
-    padding: 8px 16px; background: white; border-radius: 8px;
-    text-decoration: none; color: #2563eb; font-size: 14px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    padding: 8px 14px; background: white; border-radius: 8px;
+    text-decoration: none; color: #2563eb; font-size: 13px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: background 0.15s;
 }
-.nav-links a:hover { background: #f1f5f9; }
+.nav-links a:hover { background: #eff6ff; }
+
+/* ─── CTA ─── */
 .cta-box {
-    text-align: center; margin: 24px 0; padding: 20px;
+    text-align: center; margin: 16px 0; padding: 16px;
     background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-    border-radius: 12px; border: 1px solid #bfdbfe;
+    border-radius: 10px; border: 1px solid #bfdbfe;
 }
-.cta-box p { font-size: 14px; color: #475569; margin-bottom: 12px; }
+.cta-box p { font-size: 13px; color: #475569; margin-bottom: 10px; }
 .cta-box .btn {
-    display: inline-block; padding: 12px 28px; background: #2563eb;
+    display: inline-block; padding: 10px 24px; background: #2563eb;
     color: white; border-radius: 8px; text-decoration: none;
-    font-size: 15px; font-weight: 600;
+    font-size: 14px; font-weight: 600; transition: background 0.15s;
 }
 .cta-box .btn:hover { background: #1d4ed8; }
+
+/* ─── Footer ─── */
 .footer {
-    text-align: center; padding: 20px; color: #94a3b8; font-size: 12px;
+    text-align: center; padding: 20px 14px; color: #94a3b8; font-size: 11px;
+    border-top: 1px solid #e2e8f0; margin-top: 12px;
 }
 .footer a { color: #2563eb; text-decoration: none; }
-.meta {
-    font-size: 13px; color: #94a3b8; margin-bottom: 20px;
-    text-align: center;
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .container { padding: 8px; }
+    .news-card { padding: 8px 10px; }
+    .section-label { font-size: 13px; padding: 12px 10px 6px; }
+    .card-body { font-size: 12px; }
 }
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
 </style>
 </head>
 <body>
 <div class="header">
     <h1>📰 每日行业快讯</h1>
-    <p>思派工业 · 精益智能工厂领航员</p>
+    <div class="subtitle">思派精益智能工厂领航员</div>
+    <div class="date-badge">2026年05月11日</div>
 </div>
 <div class="container">
-    <div class="meta">📅 2026-05-11  |  📂 行业动态</div>
-    <div class="content">
-<p># 📰 每日行业快讯 | 2026年05月11日</p>
-<br>
-<p><strong>出品：</strong> 思派精益智能工厂领航员 · 老K聊精益</p>
-<p><strong>来源：</strong> 36氪、InfoQ、钛媒体、雷峰网、工信部及地方政府网站</p>
-<br>
-<hr>
-<br>
-<h2>🔥 今日头条</h2>
-<br>
-<blockquote>
-<p><strong>8点1氪丨SK海力士回应“员工人均奖金达610万元”传闻；世界杯中国转播费从3亿美元腰斩到1.5亿；曝三星中国家电部门裁员补偿N+4，还送手机</strong></p>
-<p>今日热点导览 一季度全国结婚登记169.7万对 bosie创始人刘光耀成为Kimi顾问？刘光耀回复“没入职” 英特尔与苹果据悉达成初步协议，将为后者设备制造芯片 业内人士称阿里未参与DeepSeek融资 新华社调查“胖东来为啥总被黑” TOP3大新闻 员工人均奖金达610万人民币？SK海力士回应...</p>
-<p>📎 <a href="https://36kr.com/p/3804132892646919?f=rss" target="_blank">https://36kr.com/p/3804132892646919?f=rss</a> | 来源：36氪</p>
-</blockquote>
-<br>
-<hr>
-<br>
-<h2>📌 政策动态</h2>
-<br>
-<blockquote>
-<p><strong>1.</strong> <a href="https://36kr.com/newsflashes/3804354477858561?f=rss" target="_blank">山西调整住房公积金贷款和提取政策</a></p>
-<p>   5月11日，记者从山西省省级机关住房资金管理中心了解到，为降低购房消费成本、放宽购房提取公积金条件，2026年5月10日起，山西延长个人住房公积金贷款年限，住房公积金贷款期限按整年计算，最长不得超过30年，且贷款到期日不超过借款申请人68周...</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<br>
-<hr>
-<br>
-<h2>🏭 精益·智能·工厂</h2>
-<br>
-<blockquote>
-<p><strong>1.</strong> <a href="https://36kr.com/newsflashes/3804457746603785?f=rss" target="_blank">丰田据悉将在印度新建一家汽车制造工厂</a></p>
-<p>   丰田据悉将在印度新建一家汽车制造工厂。（财联社）</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>2.</strong> <a href="https://36kr.com/newsflashes/3804432955809282?f=rss" target="_blank">消息称先进封测设备采购需求高涨，部分设备交期拉长至1年以上</a></p>
-<p>   据台湾电子时报，封测代工厂商相继宣布加码投资，但产业人士指出，因先进封测设备采购需求超乎预期，订单涌入导致上游供应链出现排队，不仅客户之间形成产能排挤效应，部分设备交期更拉长至1年以上，导致封测厂新产能开出时程被迫延后。（新浪财经）</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>3.</strong> <a href="https://www.tmtpost.com/7982943.html" target="_blank">当「微度假」成为实体商业新趋势，我们该向泰国商场学什么</a></p>
-<p>   国内商业需要给消费者带来「微度假」的体验感，泰国商业地产能带来哪些经验和启发？</p>
-<p>   _来源：钛媒体_</p>
-</blockquote>
-<p>></p>
-<br>
-<hr>
-<br>
-<h2>🤖 智能制造·数字化</h2>
-<br>
-<blockquote>
-<p><strong>1.</strong> <a href="https://36kr.com/p/3804132892646919?f=rss" target="_blank">8点1氪丨SK海力士回应“员工人均奖金达610万元”传闻；世界杯中国转播费从3亿美元腰斩到1.5亿；曝三星中国家电部门裁员补偿N+4，还送手机</a></p>
-<p>   今日热点导览 一季度全国结婚登记169.7万对 bosie创始人刘光耀成为Kimi顾问？刘光耀回复“没入职” 英特尔与苹果据悉达成初步协议，将为后者设备制造芯片 业内人士称阿里未参与DeepSeek融资 新华社调查“胖东来为啥总被黑”...</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>2.</strong> <a href="https://www.leiphone.com/category/industrynews/N9yXIL59MiHx0rYY.html" target="_blank">小雨智造完成数亿元B+轮融资，北汽、复星锐正和建发新兴等产业资本加速集结</a></p>
-<p>   5月9日，通用具身智能科技公司小雨智造宣布完成数亿元 B+...</p>
-<p>   _来源：雷峰网_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>3.</strong> <a href="https://36kr.com/p/3800495686163721?f=rss" target="_blank">「维新宇航」完成数千万元天使+轮融资，7座3吨级eVTOL将于7月进行首飞测试｜36氪首发</a></p>
-<p>   文 | 阿至 36氪获悉， 低空出行产品研制商「维新宇航」已完成数千万元天使+轮融资，本轮融资由策源资本领投、金舵投资跟投， 资金将主要用于加速公司首款主力机型 Vector 5的研发迭代、首飞测试与适航取证进程。...</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>4.</strong> <a href="https://www.infoq.cn/article/OAkOq3ctjYBk1fD5WxJr?utm_source=rss&utm_medium=article" target="_blank">Meta部署统一的AI智能体，实现超大规模环境的自动化性能优化</a></p>
-<p>   点击查看原文></p>
-<p>   _来源：InfoQ_</p>
-</blockquote>
-<p>></p>
-<br>
-<hr>
-<br>
-<h2>💡 工具方法分享</h2>
-<br>
-<blockquote>
-<p><strong>1.</strong> <a href="https://36kr.com/p/3800183520091398?f=rss" target="_blank">卡位黄金价格带，问界M6向下争夺年轻群体｜最前线</a></p>
-<p>   2026年的中国新能源SUV市场正经历着前所未有的内卷。 问界依托华为技术体系，推出了定位更亲民的全新车型 M6，...</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>2.</strong> <a href="https://36kr.com/p/3801398177324550?f=rss" target="_blank">36氪首发 | 航空航天电气系统互联组件方案商获数千万融资，细分赛道市占率第一</a></p>
-<p>   作者 | 乔钰杰 编辑 | 袁斯来 硬氪获悉，青岛北辰航天航天科技有限公司（下称“北辰航天”）近日完成数千万元天使轮融资，由云启资本独家投资。...</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>3.</strong> <a href="https://www.leiphone.com/category/industrynews/qItAp7UT0tLEbVHm.html" target="_blank">「双线实测」Qwen 3.6-Plus，Agentic Coding 已经这么能「扛活儿」了？</a></p>
-<p>   雷峰网讯 你可以从同事.skill 的爆火中看到两种截然不同的时代情绪，其一固然是对 Markdown 文件“大变活人”这一魔幻现实的试探，而反面则是如今对模型能力的评价，已经离不开工作级任务的场景。 “AI...</p>
-<p>   _来源：雷峰网_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>4.</strong> <a href="https://36kr.com/p/3801745491943169?f=rss" target="_blank">融资超亿元、割草机器人公司拿下数亿订单，瞄准庭院具身终端｜硬氪首发</a></p>
-<p>   作者｜黄楠 编辑｜袁斯来...</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<br>
-<hr>
-<br>
-<h2>📊 行业观察</h2>
-<br>
-<blockquote>
-<p><strong>1.</strong> <a href="https://www.leiphone.com/category/zaobao/dRmsojpFSEI4Bdil.html" target="_blank">这有意思吗？奥迪高管炮轰友商：用特调车刷圈速、轮胎/悬挂改过；大裁员、关闭电池等业务！保时捷启动断臂求生；哈啰再回应脚踩青桔美团</a></p>
-<p>   要闻提示 1.上汽奥迪高管炮轰行业乱象：很多品牌用特调车刷圈速，轮胎换过、悬挂改过、软件单独写 2.任正非罕见出镜：华为芯片基础技术研究实验室亮相《新闻联播》 3.大裁员、关闭电池、自行车等业务！中国销量暴跌下，保时捷断臂求生...</p>
-<p>   _来源：雷峰网_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>2.</strong> <a href="https://36kr.com/p/3801348046151428?f=rss" target="_blank">9点1氪丨DeepSeek拟募资最高500亿；“全国销冠”被刑拘，泰康人寿回应；OPPO就母亲节文案致歉</a></p>
-<p>   整理 ｜Kris 今日热点导览 香港拿下世界杯转播权，FIFA与央视谈判仍陷僵局 油价上调，加满一箱92号汽油将多花12.5元 钱江摩托否认“围剿张雪机车” 30条中日航线4月取消全部航班 SpaceX冲刺上市，资本开支飙升数百亿...</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>3.</strong> <a href="https://www.leiphone.com/category/zaobao/R7fA5J26Mw29n7NB.html" target="_blank">外星人真存在？美国公布首批UFO文件，画面曝光；梁文锋自掏200亿领投DeepSeek，V4.1拟6月上新；阶跃星辰将完成近25亿美元融资，冲刺IPO</a></p>
-<p>   要闻提示 1.美国公布首批UFO文件，画面曝光：阿联酋现水母状物体，月球上空光点悬浮 2.梁文锋自掏200亿领投DeepSeek，阿里或出局，V4.1计划6月上新 3.阶跃星辰将完成近25亿美元融资，加速冲刺港股IPO...</p>
-<p>   _来源：雷峰网_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>4.</strong> <a href="https://36kr.com/p/3804282431659779?f=rss" target="_blank">硬氪专访 | 拿到行业最大单笔融资后，余轶南说万里长征才走了第一步</a></p>
-<p>   作者 | 邱晓芬 编辑 | 袁斯来 余轶南似乎是那种总能提前踩中风口的冒险家。...</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<br>
-<hr>
-<br>
-<h2>👨‍🏫 老K点评</h2>
-<br>
-<br>
-<hr>
-<br>
-<blockquote>
-<p><strong>📅 2026年05月11日 | 📤 审核状态：⏳ 待诊断师审核</strong></p>
-</blockquote>
-<p>></p>
-<br>
-<hr>
-<br>
-<br>
-    </div>
+<div class="section-label">🔥 今日头条</div>
+<div class="text-block"><strong>8点1氪丨SK海力士回应“员工人均奖金达610万元”传闻；世界杯中国转播费从3亿美元腰斩到1.5亿；曝三星中国家电部门裁员补偿N+4，还送手机</strong></div>
+<div class="text-block">今日热点导览 一季度全国结婚登记169.7万对 bosie创始人刘光耀成为Kimi顾问？刘光耀回复“没入职” 英特尔与苹果据悉达成初步协议，将为后者设备制造芯片 业内人士称阿里未参与DeepSeek融资 新华社调查“胖东来为啥总被黑” TOP3大新闻 员工人均奖金达610万人民币？SK海力士回应...</div>
+<div class="section-label">📌 政策动态</div>
+<div class="news-card"><div class="card-body">山西调整住房公积金贷款和提取政策</div><a class="card-link" href="https://36kr.com/newsflashes/3804354477858561?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">5月11日，记者从山西省省级机关住房资金管理中心了解到，为降低购房消费成本、放宽购房提取公积金条件，2026年5月10日起，山西延长个人住房公积金贷款年限，住房公积金贷款期限按整年计算，最长不得超过30年，且贷款到期日不超过借款申请人68周...</div>
+<div class="section-label">🏭 精益·智能·工厂</div>
+<div class="news-card"><div class="card-body">丰田据悉将在印度新建一家汽车制造工厂</div><a class="card-link" href="https://36kr.com/newsflashes/3804457746603785?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">丰田据悉将在印度新建一家汽车制造工厂。（财联社）</div>
+<div class="news-card"><div class="card-body">消息称先进封测设备采购需求高涨，部分设备交期拉长至1年以上</div><a class="card-link" href="https://36kr.com/newsflashes/3804432955809282?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">据台湾电子时报，封测代工厂商相继宣布加码投资，但产业人士指出，因先进封测设备采购需求超乎预期，订单涌入导致上游供应链出现排队，不仅客户之间形成产能排挤效应，部分设备交期更拉长至1年以上，导致封测厂新产能开出时程被迫延后。（新浪财经）</div>
+<div class="news-card"><div class="card-body">当「微度假」成为实体商业新趋势，我们该向泰国商场学什么</div><a class="card-link" href="https://www.tmtpost.com/7982943.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">国内商业需要给消费者带来「微度假」的体验感，泰国商业地产能带来哪些经验和启发？</div>
+<div class="section-label">🤖 智能制造·数字化</div>
+<div class="news-card"><div class="card-body">8点1氪丨SK海力士回应“员工人均奖金达610万元”传闻；世界杯中国转播费从3亿美元腰斩到1.5亿；曝三星中国家电部门裁员补偿N+4，还送手机</div><a class="card-link" href="https://36kr.com/p/3804132892646919?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">今日热点导览 一季度全国结婚登记169.7万对 bosie创始人刘光耀成为Kimi顾问？刘光耀回复“没入职” 英特尔与苹果据悉达成初步协议，将为后者设备制造芯片 业内人士称阿里未参与DeepSeek融资 新华社调查“胖东来为啥总被黑”...</div>
+<div class="news-card"><div class="card-body">小雨智造完成数亿元B+轮融资，北汽、复星锐正和建发新兴等产业资本加速集结</div><a class="card-link" href="https://www.leiphone.com/category/industrynews/N9yXIL59MiHx0rYY.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">5月9日，通用具身智能科技公司小雨智造宣布完成数亿元 B+...</div>
+<div class="news-card"><div class="card-body">「维新宇航」完成数千万元天使+轮融资，7座3吨级eVTOL将于7月进行首飞测试｜36氪首发</div><a class="card-link" href="https://36kr.com/p/3800495686163721?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">文 | 阿至 36氪获悉， 低空出行产品研制商「维新宇航」已完成数千万元天使+轮融资，本轮融资由策源资本领投、金舵投资跟投， 资金将主要用于加速公司首款主力机型 Vector 5的研发迭代、首飞测试与适航取证进程。...</div>
+<div class="news-card"><div class="card-body">Meta部署统一的AI智能体，实现超大规模环境的自动化性能优化</div><a class="card-link" href="https://www.infoq.cn/article/OAkOq3ctjYBk1fD5WxJr?utm_source=rss&utm_medium=article" target="_blank">阅读原文 →</a></div>
+<div class="text-block">点击查看原文></div>
+<div class="section-label">💡 工具方法分享</div>
+<div class="news-card"><div class="card-body">卡位黄金价格带，问界M6向下争夺年轻群体｜最前线</div><a class="card-link" href="https://36kr.com/p/3800183520091398?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">2026年的中国新能源SUV市场正经历着前所未有的内卷。 问界依托华为技术体系，推出了定位更亲民的全新车型 M6，...</div>
+<div class="news-card"><div class="card-body">36氪首发 | 航空航天电气系统互联组件方案商获数千万融资，细分赛道市占率第一</div><a class="card-link" href="https://36kr.com/p/3801398177324550?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">作者 | 乔钰杰 编辑 | 袁斯来 硬氪获悉，青岛北辰航天航天科技有限公司（下称“北辰航天”）近日完成数千万元天使轮融资，由云启资本独家投资。...</div>
+<div class="news-card"><div class="card-body">「双线实测」Qwen 3.6-Plus，Agentic Coding 已经这么能「扛活儿」了？</div><a class="card-link" href="https://www.leiphone.com/category/industrynews/qItAp7UT0tLEbVHm.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">雷峰网讯 你可以从同事.skill 的爆火中看到两种截然不同的时代情绪，其一固然是对 Markdown 文件“大变活人”这一魔幻现实的试探，而反面则是如今对模型能力的评价，已经离不开工作级任务的场景。 “AI...</div>
+<div class="news-card"><div class="card-body">融资超亿元、割草机器人公司拿下数亿订单，瞄准庭院具身终端｜硬氪首发</div><a class="card-link" href="https://36kr.com/p/3801745491943169?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">作者｜黄楠 编辑｜袁斯来...</div>
+<div class="section-label">📊 行业观察</div>
+<div class="news-card"><div class="card-body">这有意思吗？奥迪高管炮轰友商：用特调车刷圈速、轮胎/悬挂改过；大裁员、关闭电池等业务！保时捷启动断臂求生；哈啰再回应脚踩青桔美团</div><a class="card-link" href="https://www.leiphone.com/category/zaobao/dRmsojpFSEI4Bdil.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">要闻提示 1.上汽奥迪高管炮轰行业乱象：很多品牌用特调车刷圈速，轮胎换过、悬挂改过、软件单独写 2.任正非罕见出镜：华为芯片基础技术研究实验室亮相《新闻联播》 3.大裁员、关闭电池、自行车等业务！中国销量暴跌下，保时捷断臂求生...</div>
+<div class="news-card"><div class="card-body">9点1氪丨DeepSeek拟募资最高500亿；“全国销冠”被刑拘，泰康人寿回应；OPPO就母亲节文案致歉</div><a class="card-link" href="https://36kr.com/p/3801348046151428?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">整理 ｜Kris 今日热点导览 香港拿下世界杯转播权，FIFA与央视谈判仍陷僵局 油价上调，加满一箱92号汽油将多花12.5元 钱江摩托否认“围剿张雪机车” 30条中日航线4月取消全部航班 SpaceX冲刺上市，资本开支飙升数百亿...</div>
+<div class="news-card"><div class="card-body">外星人真存在？美国公布首批UFO文件，画面曝光；梁文锋自掏200亿领投DeepSeek，V4.1拟6月上新；阶跃星辰将完成近25亿美元融资，冲刺IPO</div><a class="card-link" href="https://www.leiphone.com/category/zaobao/R7fA5J26Mw29n7NB.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">要闻提示 1.美国公布首批UFO文件，画面曝光：阿联酋现水母状物体，月球上空光点悬浮 2.梁文锋自掏200亿领投DeepSeek，阿里或出局，V4.1计划6月上新 3.阶跃星辰将完成近25亿美元融资，加速冲刺港股IPO...</div>
+<div class="news-card"><div class="card-body">硬氪专访 | 拿到行业最大单笔融资后，余轶南说万里长征才走了第一步</div><a class="card-link" href="https://36kr.com/p/3804282431659779?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">作者 | 邱晓芬 编辑 | 袁斯来 余轶南似乎是那种总能提前踩中风口的冒险家。...</div>
+<div class="section-label">👨‍🏫 老K点评</div>
+<div class="text-block">今日内容由内容师自动采集生成。请诊断师审核技术准确性后发布。</div>
+<div class="text-block">本快讯由内容师自动采集生成，技术细节请诊断师审核后发布。</div>
+<p class="card-body">_自动生成于 2026-05-11 13:54 | 工具：思派内容师 · 每日行业快讯_</p>
     <div class="cta-box">
         <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
         <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
     </div>
     <div class="nav-links">
-        <a href="2026-05-13.html">← 上一篇</a>
+        <a href="2026-05-13.html">← 上期</a>
         <span></span>
     </div>
     <div class="footer">

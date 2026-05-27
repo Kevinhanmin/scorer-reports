@@ -7,49 +7,49 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #f5f7fa; color: #333; min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f0f2f5; color: #1a1a2e; min-height: 100vh;
 }
 .header {
-    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
-    color: white; padding: 40px 20px 30px; text-align: center;
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    color: white; padding: 32px 20px 24px; text-align: center;
 }
-.header h1 { font-size: 22px; margin-bottom: 8px; }
-.header p { font-size: 14px; opacity: 0.85; }
-.container { max-width: 640px; margin: 0 auto; padding: 20px 16px; }
-.article-list { display: flex; flex-direction: column; gap: 12px; }
+.header h1 { font-size: 20px; font-weight: 700; letter-spacing: 1px; }
+.header p { font-size: 13px; opacity: 0.7; margin-top: 4px; }
+.container { max-width: 600px; margin: 0 auto; padding: 16px; }
+.article-list { display: flex; flex-direction: column; gap: 8px; }
 .article-item {
-    display: flex; align-items: center; gap: 12px;
-    background: white; border-radius: 12px; padding: 16px 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    text-decoration: none; color: #333; transition: transform 0.1s, box-shadow 0.1s;
+    display: flex; align-items: center; gap: 10px;
+    background: white; border-radius: 10px; padding: 12px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06); text-decoration: none; color: #333;
+    transition: transform 0.1s, box-shadow 0.1s;
 }
-.article-item:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
-.article-date { 
-    font-size: 13px; color: #2563eb; font-weight: 600; 
-    white-space: nowrap; min-width: 90px;
+.article-item:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
+.article-date {
+    font-size: 12px; color: #2563eb; font-weight: 600;
+    white-space: nowrap; min-width: 80px;
 }
-.article-summary { font-size: 14px; color: #64748b; flex: 1; overflow: hidden; text-overflow: ellipsis; }
-.article-arrow { font-size: 18px; color: #94a3b8; }
+.article-summary { font-size: 13px; color: #64748b; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.article-arrow { font-size: 16px; color: #94a3b8; }
 .cta-box {
-    text-align: center; margin: 24px 0; padding: 20px;
+    text-align: center; margin: 16px 0; padding: 16px;
     background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-    border-radius: 12px; border: 1px solid #bfdbfe;
+    border-radius: 10px; border: 1px solid #bfdbfe;
 }
-.cta-box p { font-size: 14px; color: #475569; margin-bottom: 12px; }
+.cta-box p { font-size: 13px; color: #475569; margin-bottom: 10px; }
 .cta-box .btn {
-    display: inline-block; padding: 12px 28px; background: #2563eb;
+    display: inline-block; padding: 10px 24px; background: #2563eb;
     color: white; border-radius: 8px; text-decoration: none;
-    font-size: 15px; font-weight: 600;
+    font-size: 14px; font-weight: 600;
 }
 .cta-box .btn:hover { background: #1d4ed8; }
-.footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 12px; }
+.footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 11px; }
 </style>
 </head>
 <body>
 <div class="header">
     <h1>📰 每日行业快讯</h1>
-    <p>思派工业 · 精益智能工厂领航员</p>
+    <p>思派精益智能工厂领航员</p>
 </div>
 <div class="container">
     <div class="cta-box">
@@ -59,7 +59,22 @@ body {
     <div class="article-list">
                 <a href="2026-05-27.html" class="article-item">
             <div class="article-date">📅 2026-05-27</div>
-            <div class="article-summary">出品： 思派精益智能工厂领航员 · 老K聊精益</div>
+            <div class="article-summary">机器人启蒙，需要一所能“犯错”的幼儿园</div>
+            <div class="article-arrow">→</div>
+        </a>
+        <a href="2026-05-26.html" class="article-item">
+            <div class="article-date">📅 2026-05-26</div>
+            <div class="article-summary">十年出货超10万台，越疆以全栈自研与数据闭环布局具身智能</div>
+            <div class="article-arrow">→</div>
+        </a>
+        <a href="2026-05-13.html" class="article-item">
+            <div class="article-date">📅 2026-05-13</div>
+            <div class="article-summary">智能体规范落地、人形机器人量产、数字孪生API化</div>
+            <div class="article-arrow">→</div>
+        </a>
+        <a href="2026-05-11.html" class="article-item">
+            <div class="article-date">📅 2026-05-11</div>
+            <div class="article-summary">8点1氪丨SK海力士回应“员工人均奖金达610万元”传闻；世界杯中国转播费从3亿美元腰斩到1.5亿；曝三星中国家电部门裁员补偿N+4，还送手机</div>
             <div class="article-arrow">→</div>
         </a>
     </div>

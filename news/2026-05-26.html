@@ -5,259 +5,180 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>思派工业 · 每日行业快讯</title>
 <style>
+/* ─── Reset & Base ─── */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #f5f7fa; color: #333;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f0f2f5; color: #1a1a2e; line-height: 1.5;
 }
+
+/* ─── Header (sticky) ─── */
 .header {
-    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
-    color: white; padding: 40px 20px 30px; text-align: center;
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    color: white; padding: 28px 20px 20px; text-align: center;
+    position: sticky; top: 0; z-index: 10;
 }
-.header h1 { font-size: 22px; margin-bottom: 8px; }
-.header p { font-size: 14px; opacity: 0.85; }
-.container { max-width: 720px; margin: 0 auto; padding: 20px 16px; }
-.content {
-    background: white; border-radius: 12px; padding: 24px 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    line-height: 1.8; font-size: 15px;
+.header h1 { font-size: 18px; font-weight: 700; letter-spacing: 1px; }
+.header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+.header .date-badge {
+    display: inline-block; margin-top: 8px; padding: 3px 12px;
+    background: rgba(255,255,255,0.15); border-radius: 20px;
+    font-size: 12px; font-weight: 500;
 }
-.content h2 { font-size: 18px; margin: 24px 0 12px; color: #1e3a5f; }
-.content h3 { font-size: 16px; margin: 16px 0 8px; color: #2563eb; }
-.content p { margin: 8px 0; }
-.content ul { margin: 8px 0 8px 20px; }
-.content li { margin: 4px 0; }
-.content blockquote {
-    border-left: 4px solid #2563eb; padding: 8px 16px;
-    margin: 12px 0; background: #f8fafc; border-radius: 4px;
-    color: #475569;
+
+/* ─── Container ─── */
+.container { max-width: 680px; margin: 0 auto; padding: 12px; }
+
+/* ─── Section Label ─── */
+.section-label {
+    font-size: 14px; font-weight: 700; color: #1e3a5f;
+    padding: 14px 14px 8px; margin-top: 8px;
+    border-bottom: 2px solid #e2e8f0; letter-spacing: 0.5px;
 }
-.content strong { color: #1e293b; }
-.content a { color: #2563eb; text-decoration: none; }
-.content a:hover { text-decoration: underline; }
-.content hr { border: none; border-top: 1px solid #e2e8f0; margin: 20px 0; }
+
+/* ─── News Card (compact) ─── */
+.news-card {
+    background: white; border-radius: 8px; padding: 10px 14px;
+    margin: 6px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.15s;
+    border-left: 3px solid #2563eb;
+}
+.news-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+.card-body {
+    font-size: 13px; color: #334155; line-height: 1.6;
+}
+.card-body strong { color: #0f172a; }
+
+.card-link {
+    display: inline-block; margin-top: 6px; font-size: 11px;
+    color: #2563eb; text-decoration: none; font-weight: 500;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* ─── Text Block (摘要 / 老K点评) ─── */
+.text-block {
+    font-size: 13px; color: #475569; line-height: 1.7;
+    padding: 8px 14px; margin: 4px 0 6px;
+    background: #f8fafc; border-radius: 6px;
+    border-left: 3px solid #f59e0b;
+}
+.text-block strong { color: #1e293b; }
+.text-block a { color: #2563eb; text-decoration: none; }
+.text-block a:hover { text-decoration: underline; }
+
+/* ─── Navigation ─── */
 .nav-links {
-    display: flex; justify-content: space-between; margin: 20px 0;
+    display: flex; justify-content: space-between; margin: 16px 0;
 }
 .nav-links a {
-    padding: 8px 16px; background: white; border-radius: 8px;
-    text-decoration: none; color: #2563eb; font-size: 14px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    padding: 8px 14px; background: white; border-radius: 8px;
+    text-decoration: none; color: #2563eb; font-size: 13px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: background 0.15s;
 }
-.nav-links a:hover { background: #f1f5f9; }
+.nav-links a:hover { background: #eff6ff; }
+
+/* ─── CTA ─── */
 .cta-box {
-    text-align: center; margin: 24px 0; padding: 20px;
+    text-align: center; margin: 16px 0; padding: 16px;
     background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-    border-radius: 12px; border: 1px solid #bfdbfe;
+    border-radius: 10px; border: 1px solid #bfdbfe;
 }
-.cta-box p { font-size: 14px; color: #475569; margin-bottom: 12px; }
+.cta-box p { font-size: 13px; color: #475569; margin-bottom: 10px; }
 .cta-box .btn {
-    display: inline-block; padding: 12px 28px; background: #2563eb;
+    display: inline-block; padding: 10px 24px; background: #2563eb;
     color: white; border-radius: 8px; text-decoration: none;
-    font-size: 15px; font-weight: 600;
+    font-size: 14px; font-weight: 600; transition: background 0.15s;
 }
 .cta-box .btn:hover { background: #1d4ed8; }
+
+/* ─── Footer ─── */
 .footer {
-    text-align: center; padding: 20px; color: #94a3b8; font-size: 12px;
+    text-align: center; padding: 20px 14px; color: #94a3b8; font-size: 11px;
+    border-top: 1px solid #e2e8f0; margin-top: 12px;
 }
 .footer a { color: #2563eb; text-decoration: none; }
-.meta {
-    font-size: 13px; color: #94a3b8; margin-bottom: 20px;
-    text-align: center;
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .container { padding: 8px; }
+    .news-card { padding: 8px 10px; }
+    .section-label { font-size: 13px; padding: 12px 10px 6px; }
+    .card-body { font-size: 12px; }
 }
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
 </style>
 </head>
 <body>
 <div class="header">
     <h1>📰 每日行业快讯</h1>
-    <p>思派工业 · 精益智能工厂领航员</p>
+    <div class="subtitle">思派精益智能工厂领航员</div>
+    <div class="date-badge">2026年05月26日</div>
 </div>
 <div class="container">
-    <div class="meta">📅 2026-05-26  |  📂 行业动态</div>
-    <div class="content">
-<p># 📰 每日行业快讯 | 2026年05月26日</p>
-<br>
-<p><strong>出品：</strong> 思派精益智能工厂领航员 · 老K聊精益</p>
-<p><strong>来源：</strong> 36氪、InfoQ、钛媒体、雷峰网、工信部及地方政府网站</p>
-<br>
-<hr>
-<br>
-<h2>🔥 今日头条</h2>
-<br>
-<blockquote>
-<p><strong>十年出货超10万台，越疆以全栈自研与数据闭环布局具身智能</strong></p>
-<p>5月22日，越疆机器人在广东省具身智能训练场举办“2026越疆工业具身智能生态伙伴研讨会”。作为粤港澳大湾区制造业核心引擎，广东拥有汽车、新能源、3C电子等国家级产业集群，越疆将研讨会设在此地，旨在与客户、伙伴面对面，推动具身智能在真实产线上落地运行。此次活动的成功举办，正是越疆构建以客户为中心、以场景为驱动的具身智能生态的体现。...</p>
-<p>📎 <a href="https://www.leiphone.com/category/industrynews/SgRj0865rXHmoVwv.html" target="_blank">https://www.leiphone.com/category/industrynews/SgRj0865rXHmoVwv.html</a> | 来源：雷峰网</p>
-</blockquote>
-<br>
-<hr>
-<br>
-<h2>📌 政策动态</h2>
-<br>
-<blockquote>
-<p><strong>1.</strong> <a href="https://36kr.com/newsflashes/3825522462904960?f=rss" target="_blank">商务部：将吸引更多跨国公司将研发和高端制造环节放在中国</a></p>
-<p>   国新办就2026年跨国公司领导人青岛峰会有关情况举行发布会，商务部副部长鄢东表示，将优化投向结构，激活外资“新动能”。商务部出台并施行了2025年版《鼓励外商投资产业目录》，净增加了205条鼓励类目录，重点是在先进制造、现代服务、高新技术、...</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>2.</strong> <a href="https://www.tmtpost.com/8002011.html" target="_blank">3万、半年、注销：2026年，第一批“一人公司”老板已经退场</a></p>
-<p>   “如果没有任何补贴、没有任何课程可卖、也没有投资人看上你，你的 AI 一人公司，还能靠什么活下来？”</p>
-<p>   _来源：钛媒体_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>3.</strong> <a href="https://36kr.com/newsflashes/3825522105144192?f=rss" target="_blank">商务部：将实施好鼓励外资企业境内再投资系列政策</a></p>
-<p>   国新办就2026年跨国公司领导人青岛峰会有关情况举行发布会，商务部副部长鄢东表示，加强全周期服务，打造营商环境“新标杆”。我们将实施好鼓励外资企业境内再投资系列政策，全面落实外资企业国民待遇，一视同仁支持外资企业参与提振消费、政府采购、招投...</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>4.</strong> <a href="https://36kr.com/newsflashes/3825510512185987?f=rss" target="_blank">广州5月以来房地产市场活跃度不断提升</a></p>
-<p>   5月26日，广州市召开《关于进一步促进房地产市场平稳健康发展的实施意见》系列配套文件新闻发布会。广州市政府副秘书长黄光烈介绍，4月30日，广州市出台《关于进一步促进房地产市场平稳健康发展的实施意见》（即“穗八条”），随着政策效应持续释放，市...</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<br>
-<hr>
-<br>
-<h2>🏭 精益·智能·工厂</h2>
-<br>
-<blockquote>
-<p><strong>1.</strong> <a href="https://www.leiphone.com/category/industrynews/SgRj0865rXHmoVwv.html" target="_blank">十年出货超10万台，越疆以全栈自研与数据闭环布局具身智能</a></p>
-<p>   5月22日，越疆机器人在广东省具身智能训练场举办“2026越疆工业具身智能生态伙伴研讨会”。作为粤港澳大湾区制造业核心引擎，广东拥有汽车、新能源、3C电子等国家级产业集群，越疆将研讨会设在此地，旨在与客户、伙伴面对面，推动具身智能在真实产线...</p>
-<p>   _来源：雷峰网_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>2.</strong> <a href="https://36kr.com/p/3825527430025856?f=rss" target="_blank">36氪首发 | 国家级产业基金出手，桥田智能获亿元融资</a></p>
-<p>   硬氪获悉，上海桥田智能设备有限公司（下称“桥田智能”）已完成A+轮亿元级融资，由国家工业母机产业投资基金独家投资。资金将用于高端产能扩建、核心技术研发迭代及全球化市场布局。...</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>3.</strong> <a href="https://www.leiphone.com/category/ai/aBSRTXyAOqvn84ow.html" target="_blank">港中文李鸿升团队论文 MindVLA-U1：VLA 不再输给 VA，语言真正进入自动驾驶决策</a></p>
-<p>   MindVLA-U1：统一视觉语言动作架构，实现理解后规划。 作者丨郑佳美 编辑丨马晓宁 在自动驾驶进入大模型时代之后，行业正在从传统的“感知、预测、规划、控制”模块化流水线，逐步转向端到端智能系统。 过去，VA...</p>
-<p>   _来源：雷峰网_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>4.</strong> <a href="https://www.leiphone.com/category/zaobao/rI3FI7Vjq0Fmv1XA.html" target="_blank">小鹏副总裁：小鹏可能是唯一欢迎特斯拉FSD入华的车企；有员工喊出「学三星罢工」！曝台积电Q1净利大增58%反降薪；DeepSeek一月内宕机三次</a></p>
-<p>   要闻提示 1.小鹏副总裁：小鹏可能是唯一欢迎特斯拉FSD入华的车企 2.揭秘长安汽车内幕交易案：5名员工利用内幕消息获利400余万，被罚1669万 3.腾讯多个事业群试点取消组长，调整人员架构...</p>
-<p>   _来源：雷峰网_</p>
-</blockquote>
-<p>></p>
-<br>
-<hr>
-<br>
-<h2>🤖 智能制造·数字化</h2>
-<br>
-<blockquote>
-<p><strong>1.</strong> <a href="https://www.leiphone.com/category/zaobao/qFYlp8Q5YFJ9KJRc.html" target="_blank">Manus创始人计划融资10亿美元回购公司；曝知名招聘平台主动申请破产；特斯拉官宣：监督版FSD登陆中国！</a></p>
-<p>   要闻提示 1.CEO曾称大厂高薪惯坏了年轻人！招聘平台“拉勾网”被曝主动申请破产 2.Manus创始人计划融资10亿美元回购公司 3.山姆超市，突然被曝！网友：像在吃自助餐 4.特斯拉官宣：监督版FSD登陆中国！...</p>
-<p>   _来源：雷峰网_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>2.</strong> <a href="https://36kr.com/p/3823033729061253?f=rss" target="_blank">两部 AI 剧集闯入戛纳，水母智能要做 AI 内容工业化的破局者｜项目报道</a></p>
-<p>   5月8日，第79届戛纳国际电影节內 Fantastic Pavilion 单元公布竖屏剧展演名单。 由水母智能旗下中国AI影视公司水母映画出品的竖屏剧集《摸金之天机入梦》（英文名：The Golden Tomb...</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>3.</strong> <a href="https://www.tmtpost.com/8001535.html" target="_blank">特斯拉FSD入华背后，Momenta、元戎启行们“抢时间”</a></p>
-<p>   独立智驾供应商的“窗口期”还剩多久？</p>
-<p>   _来源：钛媒体_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>4.</strong> <a href="https://36kr.com/newsflashes/3825512712802944?f=rss" target="_blank">商务部：将完善跨境服务贸易负面清单管理制度，有序扩大电信等服务业领域自主开放</a></p>
-<p>   国新办就2026年跨国公司领导人青岛峰会有关情况举行发布会，商务部副部长鄢东表示，“十五五”时期，商务部将继续坚定不移推进高水平对外开放，积极塑造吸引外资新优势，支持外资企业投资中国、深耕中国。深化服务业开放，拓宽外资“新空间”。随着我国制...</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<br>
-<hr>
-<br>
-<h2>💡 工具方法分享</h2>
-<br>
-<blockquote>
-<p><strong>1.</strong> <a href="https://www.leiphone.com/category/robot/c3WgJgUydmWpEoWz.html" target="_blank">独家丨前美团外卖技术负责人入局餐饮具身模型，「元节智能」获千万级种子轮融资</a></p>
-<p>   雷峰网独家获悉，具身智能初创公司「元节智能（AtomBite.AI）」已于近期完成千万级种子轮融资。本轮由英诺科创基金领投，水木清华校友种子基金、知名投资人个人跟投。据悉，本轮融资将主要用于餐饮场景具身世界模型研发、核心产品打磨及落地。...</p>
-<p>   _来源：雷峰网_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>2.</strong> <a href="https://www.leiphone.com/category/weiwu/SE0UCzo94OXxs9aG.html" target="_blank">安克消噪耳机搭载AI音频芯片Thus™ A1，获吉尼斯“最清晰通话”认证</a></p>
-<p>   2026年5月22日，安克创新在深圳总部举办新品发布会，正式发布安克消噪耳机Liberty 5 Pro Max与Liberty 5 Pro，并宣布两款产品获得 “全球通话最清晰的无线蓝牙耳机”...</p>
-<p>   _来源：雷峰网_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>3.</strong> <a href="https://www.leiphone.com/category/robot/ZRsFD3aS5OQIyJNz.html" target="_blank">数字华夏发布新一代人形机器人“星行侠P2”，加速机器人场景落地</a></p>
-<p>   5 月 23 日，数字华夏在深圳文博会期间举办新品发布会，发布 新一代人形机器人“星行侠P2” 、 场景大脑 RoboEase ，以及 面向康养场景的健康监护方案 RoboCare 。现场，数字华夏与深开鸿等数十家企业签署了战略合作协议。...</p>
-<p>   _来源：雷峰网_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>4.</strong> <a href="https://www.leiphone.com/category/chips/gAjsNSvozgcw55bE.html" target="_blank">把18A塞进主流轻薄本，英特尔「WildCat Lake」想让人人用上AI PC</a></p>
-<p>   AI浪潮正在加速席卷和重塑PC产业格局。 自2023年英特尔为AI PC定调、首次集成 “CPU+GPU+NPU” XPU架构以来，AI PC的边界被不断扩展。 以这一赛道的开创者英特尔为例，产品迭代路径证明了“AI...</p>
-<p>   _来源：雷峰网_</p>
-</blockquote>
-<p>></p>
-<br>
-<hr>
-<br>
-<h2>📊 行业观察</h2>
-<br>
-<blockquote>
-<p><strong>1.</strong> <a href="https://36kr.com/p/3825357879497346?f=rss" target="_blank">8点1氪丨胖东来投资65亿的“梦之城”开工；“稚晖君”彭志辉正式出任上纬新材董事长；“死了么”App改名“在么在么”</a></p>
-<p>   今日热点导览 美媒：美伊已就全面开放霍尔木兹海峡达成一致 拉勾网及创始人被限消 宇树科技6月1日科创板IPO上会，一季度扣非净利润同比下降52.55% 1瓶水蜜桃只有0.01克水蜜桃汁，康师傅被指蹭奉化水蜜桃玩文字游戏...</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>2.</strong> <a href="https://www.leiphone.com/category/transportation/L6O9UWixGsEDAikX.html" target="_blank">何小鹏的赌局：GX狂降12万，换一场不能输的冲高</a></p>
-<p>   在理想L9 LIvis之后，小鹏GX的最终定价也大幅跳水，从近40万的预售价降至27万的起售价，“9系的产品，8系的价格”，小鹏产品矩阵负责人吴安飞概括。...</p>
-<p>   _来源：雷峰网_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>3.</strong> <a href="https://36kr.com/p/3824244844859525?f=rss" target="_blank">对话云鲸CEO张峻彬：理解人性，告别天真</a></p>
-<p>   作者 | 黄楠 编辑 | 袁斯来 36岁时，云鲸CEO张峻彬意识到，自己不能再只做一个温和的人。...</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p><strong>4.</strong> <a href="https://36kr.com/p/3824601267196037?f=rss" target="_blank">消除“罪证”：给写作去除“AI味”的不完全手册（2026版）</a></p>
-<p>   图源：公众号「有三思 U Sense」 做个测试。读一下这段话： “熊猫是最可爱的动物，它最爱吃竹子，样子最憨态可掬，是世界上最珍贵的宝藏。” 如果你笑了，或者皱了眉，很明显，你的 “鉴AI雷达” 已经觉醒。...</p>
-<p>   _来源：36氪_</p>
-</blockquote>
-<p>></p>
-<br>
-<hr>
-<br>
-<h2>👨‍🏫 老K点评</h2>
-<br>
-<br>
-<hr>
-<br>
-<blockquote>
-<p><strong>📅 2026年05月26日 | 📤 审核状态：⏳ 待诊断师审核</strong></p>
-</blockquote>
-<p>></p>
-<br>
-<hr>
-<br>
-<br>
-    </div>
+<div class="section-label">🔥 今日头条</div>
+<div class="text-block"><strong>十年出货超10万台，越疆以全栈自研与数据闭环布局具身智能</strong></div>
+<div class="text-block">5月22日，越疆机器人在广东省具身智能训练场举办“2026越疆工业具身智能生态伙伴研讨会”。作为粤港澳大湾区制造业核心引擎，广东拥有汽车、新能源、3C电子等国家级产业集群，越疆将研讨会设在此地，旨在与客户、伙伴面对面，推动具身智能在真实产线上落地运行。此次活动的成功举办，正是越疆构建以客户为中心、以场景为驱动的具身智能生态的体现。...</div>
+<div class="section-label">📌 政策动态</div>
+<div class="news-card"><div class="card-body">商务部：将吸引更多跨国公司将研发和高端制造环节放在中国</div><a class="card-link" href="https://36kr.com/newsflashes/3825522462904960?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">国新办就2026年跨国公司领导人青岛峰会有关情况举行发布会，商务部副部长鄢东表示，将优化投向结构，激活外资“新动能”。商务部出台并施行了2025年版《鼓励外商投资产业目录》，净增加了205条鼓励类目录，重点是在先进制造、现代服务、高新技术、...</div>
+<div class="news-card"><div class="card-body">3万、半年、注销：2026年，第一批“一人公司”老板已经退场</div><a class="card-link" href="https://www.tmtpost.com/8002011.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">“如果没有任何补贴、没有任何课程可卖、也没有投资人看上你，你的 AI 一人公司，还能靠什么活下来？”</div>
+<div class="news-card"><div class="card-body">商务部：将实施好鼓励外资企业境内再投资系列政策</div><a class="card-link" href="https://36kr.com/newsflashes/3825522105144192?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">国新办就2026年跨国公司领导人青岛峰会有关情况举行发布会，商务部副部长鄢东表示，加强全周期服务，打造营商环境“新标杆”。我们将实施好鼓励外资企业境内再投资系列政策，全面落实外资企业国民待遇，一视同仁支持外资企业参与提振消费、政府采购、招投...</div>
+<div class="news-card"><div class="card-body">广州5月以来房地产市场活跃度不断提升</div><a class="card-link" href="https://36kr.com/newsflashes/3825510512185987?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">5月26日，广州市召开《关于进一步促进房地产市场平稳健康发展的实施意见》系列配套文件新闻发布会。广州市政府副秘书长黄光烈介绍，4月30日，广州市出台《关于进一步促进房地产市场平稳健康发展的实施意见》（即“穗八条”），随着政策效应持续释放，市...</div>
+<div class="section-label">🏭 精益·智能·工厂</div>
+<div class="news-card"><div class="card-body">十年出货超10万台，越疆以全栈自研与数据闭环布局具身智能</div><a class="card-link" href="https://www.leiphone.com/category/industrynews/SgRj0865rXHmoVwv.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">5月22日，越疆机器人在广东省具身智能训练场举办“2026越疆工业具身智能生态伙伴研讨会”。作为粤港澳大湾区制造业核心引擎，广东拥有汽车、新能源、3C电子等国家级产业集群，越疆将研讨会设在此地，旨在与客户、伙伴面对面，推动具身智能在真实产线...</div>
+<div class="news-card"><div class="card-body">36氪首发 | 国家级产业基金出手，桥田智能获亿元融资</div><a class="card-link" href="https://36kr.com/p/3825527430025856?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">硬氪获悉，上海桥田智能设备有限公司（下称“桥田智能”）已完成A+轮亿元级融资，由国家工业母机产业投资基金独家投资。资金将用于高端产能扩建、核心技术研发迭代及全球化市场布局。...</div>
+<div class="news-card"><div class="card-body">港中文李鸿升团队论文 MindVLA-U1：VLA 不再输给 VA，语言真正进入自动驾驶决策</div><a class="card-link" href="https://www.leiphone.com/category/ai/aBSRTXyAOqvn84ow.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">MindVLA-U1：统一视觉语言动作架构，实现理解后规划。 作者丨郑佳美 编辑丨马晓宁 在自动驾驶进入大模型时代之后，行业正在从传统的“感知、预测、规划、控制”模块化流水线，逐步转向端到端智能系统。 过去，VA...</div>
+<div class="news-card"><div class="card-body">小鹏副总裁：小鹏可能是唯一欢迎特斯拉FSD入华的车企；有员工喊出「学三星罢工」！曝台积电Q1净利大增58%反降薪；DeepSeek一月内宕机三次</div><a class="card-link" href="https://www.leiphone.com/category/zaobao/rI3FI7Vjq0Fmv1XA.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">要闻提示 1.小鹏副总裁：小鹏可能是唯一欢迎特斯拉FSD入华的车企 2.揭秘长安汽车内幕交易案：5名员工利用内幕消息获利400余万，被罚1669万 3.腾讯多个事业群试点取消组长，调整人员架构...</div>
+<div class="section-label">🤖 智能制造·数字化</div>
+<div class="news-card"><div class="card-body">Manus创始人计划融资10亿美元回购公司；曝知名招聘平台主动申请破产；特斯拉官宣：监督版FSD登陆中国！</div><a class="card-link" href="https://www.leiphone.com/category/zaobao/qFYlp8Q5YFJ9KJRc.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">要闻提示 1.CEO曾称大厂高薪惯坏了年轻人！招聘平台“拉勾网”被曝主动申请破产 2.Manus创始人计划融资10亿美元回购公司 3.山姆超市，突然被曝！网友：像在吃自助餐 4.特斯拉官宣：监督版FSD登陆中国！...</div>
+<div class="news-card"><div class="card-body">两部 AI 剧集闯入戛纳，水母智能要做 AI 内容工业化的破局者｜项目报道</div><a class="card-link" href="https://36kr.com/p/3823033729061253?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">5月8日，第79届戛纳国际电影节內 Fantastic Pavilion 单元公布竖屏剧展演名单。 由水母智能旗下中国AI影视公司水母映画出品的竖屏剧集《摸金之天机入梦》（英文名：The Golden Tomb...</div>
+<div class="news-card"><div class="card-body">特斯拉FSD入华背后，Momenta、元戎启行们“抢时间”</div><a class="card-link" href="https://www.tmtpost.com/8001535.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">独立智驾供应商的“窗口期”还剩多久？</div>
+<div class="news-card"><div class="card-body">商务部：将完善跨境服务贸易负面清单管理制度，有序扩大电信等服务业领域自主开放</div><a class="card-link" href="https://36kr.com/newsflashes/3825512712802944?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">国新办就2026年跨国公司领导人青岛峰会有关情况举行发布会，商务部副部长鄢东表示，“十五五”时期，商务部将继续坚定不移推进高水平对外开放，积极塑造吸引外资新优势，支持外资企业投资中国、深耕中国。深化服务业开放，拓宽外资“新空间”。随着我国制...</div>
+<div class="section-label">💡 工具方法分享</div>
+<div class="news-card"><div class="card-body">独家丨前美团外卖技术负责人入局餐饮具身模型，「元节智能」获千万级种子轮融资</div><a class="card-link" href="https://www.leiphone.com/category/robot/c3WgJgUydmWpEoWz.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">雷峰网独家获悉，具身智能初创公司「元节智能（AtomBite.AI）」已于近期完成千万级种子轮融资。本轮由英诺科创基金领投，水木清华校友种子基金、知名投资人个人跟投。据悉，本轮融资将主要用于餐饮场景具身世界模型研发、核心产品打磨及落地。...</div>
+<div class="news-card"><div class="card-body">安克消噪耳机搭载AI音频芯片Thus™ A1，获吉尼斯“最清晰通话”认证</div><a class="card-link" href="https://www.leiphone.com/category/weiwu/SE0UCzo94OXxs9aG.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">2026年5月22日，安克创新在深圳总部举办新品发布会，正式发布安克消噪耳机Liberty 5 Pro Max与Liberty 5 Pro，并宣布两款产品获得 “全球通话最清晰的无线蓝牙耳机”...</div>
+<div class="news-card"><div class="card-body">数字华夏发布新一代人形机器人“星行侠P2”，加速机器人场景落地</div><a class="card-link" href="https://www.leiphone.com/category/robot/ZRsFD3aS5OQIyJNz.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">5 月 23 日，数字华夏在深圳文博会期间举办新品发布会，发布 新一代人形机器人“星行侠P2” 、 场景大脑 RoboEase ，以及 面向康养场景的健康监护方案 RoboCare 。现场，数字华夏与深开鸿等数十家企业签署了战略合作协议。...</div>
+<div class="news-card"><div class="card-body">把18A塞进主流轻薄本，英特尔「WildCat Lake」想让人人用上AI PC</div><a class="card-link" href="https://www.leiphone.com/category/chips/gAjsNSvozgcw55bE.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">AI浪潮正在加速席卷和重塑PC产业格局。 自2023年英特尔为AI PC定调、首次集成 “CPU+GPU+NPU” XPU架构以来，AI PC的边界被不断扩展。 以这一赛道的开创者英特尔为例，产品迭代路径证明了“AI...</div>
+<div class="section-label">📊 行业观察</div>
+<div class="news-card"><div class="card-body">8点1氪丨胖东来投资65亿的“梦之城”开工；“稚晖君”彭志辉正式出任上纬新材董事长；“死了么”App改名“在么在么”</div><a class="card-link" href="https://36kr.com/p/3825357879497346?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">今日热点导览 美媒：美伊已就全面开放霍尔木兹海峡达成一致 拉勾网及创始人被限消 宇树科技6月1日科创板IPO上会，一季度扣非净利润同比下降52.55% 1瓶水蜜桃只有0.01克水蜜桃汁，康师傅被指蹭奉化水蜜桃玩文字游戏...</div>
+<div class="news-card"><div class="card-body">何小鹏的赌局：GX狂降12万，换一场不能输的冲高</div><a class="card-link" href="https://www.leiphone.com/category/transportation/L6O9UWixGsEDAikX.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">在理想L9 LIvis之后，小鹏GX的最终定价也大幅跳水，从近40万的预售价降至27万的起售价，“9系的产品，8系的价格”，小鹏产品矩阵负责人吴安飞概括。...</div>
+<div class="news-card"><div class="card-body">对话云鲸CEO张峻彬：理解人性，告别天真</div><a class="card-link" href="https://36kr.com/p/3824244844859525?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">作者 | 黄楠 编辑 | 袁斯来 36岁时，云鲸CEO张峻彬意识到，自己不能再只做一个温和的人。...</div>
+<div class="news-card"><div class="card-body">消除“罪证”：给写作去除“AI味”的不完全手册（2026版）</div><a class="card-link" href="https://36kr.com/p/3824601267196037?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">图源：公众号「有三思 U Sense」 做个测试。读一下这段话： “熊猫是最可爱的动物，它最爱吃竹子，样子最憨态可掬，是世界上最珍贵的宝藏。” 如果你笑了，或者皱了眉，很明显，你的 “鉴AI雷达” 已经觉醒。...</div>
+<div class="section-label">👨‍🏫 老K点评</div>
+<div class="text-block">今日内容由内容师自动采集生成。请诊断师审核技术准确性后发布。</div>
+<div class="text-block">本快讯由内容师自动采集生成，技术细节请诊断师审核后发布。</div>
+<p class="card-body">_自动生成于 2026-05-26 11:28 | 工具：思派内容师 · 每日行业快讯_</p>
     <div class="cta-box">
         <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
         <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
     </div>
     <div class="nav-links">
-        <a href="index.html">← 返回列表</a>
-        <a href="2026-05-13.html">下一篇 →</a>
+        <a href="2026-05-27.html">← 上期</a>
+        <a href="2026-05-13.html">下期 →</a>
     </div>
     <div class="footer">
         <p>思派工业技术（深圳）有限公司</p>
