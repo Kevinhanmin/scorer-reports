@@ -36,6 +36,12 @@ body {
     border-bottom: 2px solid #e2e8f0; letter-spacing: 0.5px;
 }
 
+/* 老K点评节标题特殊色 */
+.laok-label {
+    color: #d97706;
+    border-bottom-color: #fde68a;
+}
+
 /* ─── News Card (compact) ─── */
 .news-card {
     background: white; border-radius: 8px; padding: 10px 14px;
@@ -56,16 +62,46 @@ body {
 }
 .card-link:hover { text-decoration: underline; }
 
-/* ─── Text Block (摘要 / 老K点评) ─── */
+/* ─── Text Block (摘要, 提示) ─── */
 .text-block {
     font-size: 13px; color: #475569; line-height: 1.7;
     padding: 8px 14px; margin: 4px 0 6px;
     background: #f8fafc; border-radius: 6px;
     border-left: 3px solid #f59e0b;
 }
-.text-block strong { color: #1e293b; }
 .text-block a { color: #2563eb; text-decoration: none; }
 .text-block a:hover { text-decoration: underline; }
+
+/* ─── Source link (📎) ─── */
+.source-link {
+    font-size: 11px; color: #94a3b8; padding: 2px 14px;
+    margin: 0 0 6px; word-break: break-all;
+}
+.source-link a { color: #64748b; text-decoration: none; }
+.source-link a:hover { color: #2563eb; }
+
+/* ─── 老K点评块 ─── */
+.laok-block {
+    font-size: 14px; color: #92400e; line-height: 1.7;
+    padding: 12px 16px; margin: 6px 0;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-radius: 8px; border-left: 4px solid #f59e0b;
+    font-weight: 500;
+}
+
+/* ─── CTA Block ─── */
+.cta-block {
+    text-align: center; margin: 12px 0; padding: 12px 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-link {
+    font-size: 14px; margin: 4px 0;
+}
+.cta-link a {
+    color: #2563eb; text-decoration: none; font-weight: 600;
+}
+.cta-link a:hover { text-decoration: underline; }
 
 /* ─── Navigation ─── */
 .nav-links {
@@ -79,7 +115,7 @@ body {
 }
 .nav-links a:hover { background: #eff6ff; }
 
-/* ─── CTA ─── */
+/* ─── CTA Banner ─── */
 .cta-box {
     text-align: center; margin: 16px 0; padding: 16px;
     background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
@@ -106,6 +142,7 @@ body {
     .news-card { padding: 8px 10px; }
     .section-label { font-size: 13px; padding: 12px 10px 6px; }
     .card-body { font-size: 12px; }
+    .laok-block { font-size: 13px; padding: 10px 12px; }
 }
 
 /* ─── Scrollbar ─── */
@@ -121,42 +158,33 @@ body {
 </div>
 <div class="container">
 <div class="section-label">🔥 今日头条</div>
-<div class="text-block"><strong>机器人启蒙，需要一所能“犯错”的幼儿园</strong></div>
-<div class="text-block">2024年，强化学习奠基人理查德·萨顿与他的导师安德鲁·巴托共同获得了图灵奖。 这个奖项来得不算早。过去三十年，萨顿的理论支撑了AlphaGo、ChatGPT等系统的进化，但他三十年前写下的理论，直到今天才被具身智能行业真正理解： 智能体要从试错中学习，要从真实经验里进化。...</div>
-<div class="section-label">📌 政策动态</div>
-<div class="news-card"><div class="card-body">调查：韩国央行周四料将按兵不动</div><a class="card-link" href="https://36kr.com/newsflashes/3826957842568072?f=rss" target="_blank">阅读原文 →</a></div>
-<div class="text-block">韩国央行在周四的利率制定会议上可能按兵不动。接受媒体调查的25位经济学家中，有24位预计韩国央行将连续第八次会议将其政策利率维持在2.50%不变。（新浪财经）</div>
-<div class="section-label">🏭 精益·智能·工厂</div>
-<div class="news-card"><div class="card-body">港中文李鸿升团队论文 MindVLA-U1：VLA 不再输给 VA，语言真正进入自动驾驶决策</div><a class="card-link" href="https://www.leiphone.com/category/ai/aBSRTXyAOqvn84ow.html" target="_blank">阅读原文 →</a></div>
-<div class="text-block">MindVLA-U1：统一视觉语言动作架构，实现理解后规划。 作者丨郑佳美 编辑丨马晓宁 在自动驾驶进入大模型时代之后，行业正在从传统的“感知、预测、规划、控制”模块化流水线，逐步转向端到端智能系统。 过去，VA...</div>
-<div class="news-card"><div class="card-body">小鹏副总裁：小鹏可能是唯一欢迎特斯拉FSD入华的车企；有员工喊出「学三星罢工」！曝台积电Q1净利大增58%反降薪；DeepSeek一月内宕机三次</div><a class="card-link" href="https://www.leiphone.com/category/zaobao/rI3FI7Vjq0Fmv1XA.html" target="_blank">阅读原文 →</a></div>
-<div class="text-block">要闻提示 1.小鹏副总裁：小鹏可能是唯一欢迎特斯拉FSD入华的车企 2.揭秘长安汽车内幕交易案：5名员工利用内幕消息获利400余万，被罚1669万 3.腾讯多个事业群试点取消组长，调整人员架构...</div>
+<div class="text-block"><strong>百亿估值背后，普渡机器人以全球化商业实战练就具身智能「最强大脑」</strong></div>
+<div class="text-block">上个月刚刚完成近10亿元新一轮融资、跻身 百亿估值独角兽俱乐部 的普渡机器人，日前重磅发布两大核心技术：具身智能基座大模型PuduFM 1.0和通用具身智能体平台PuduAgent。 两项技术发布，直指普渡深耕已久的顶层具身技术战略 —— “一脑多形” 。...</div>
+<p class="source-link">🔗 <a href="https://www.leiphone.com/category/robot/lNgOlmwWqgnBTY2t.html" target="_blank">https://www.leiphone.com/category/robot/lNgOlmwWqgnBTY2t.html</a></p>
+<div class="section-label">📌 国内政策</div>
+<div class="news-card"><div class="card-body">我国将加快研究推进人工智能健康发展综合性立法、低空经济立法等</div><a class="card-link" href="https://36kr.com/newsflashes/3826943472947847?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">国务院新闻办公室举行“开局起步‘十五五’”系列主题新闻发布会，介绍“推进全面依法治国”有关情况。发布会上，司法部副部长武增介绍了近年来政府立法在保障经济社会高质量发展、推进中国式现代化方面开展的工作。“十四五”期间，国务院提请全国人大常委会...</div>
+<div class="news-card"><div class="card-body">上海：到2030年，服务业增加值达6万亿元左右</div><a class="card-link" href="https://36kr.com/newsflashes/3827004091372167?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">36氪获悉，上海市人民政府发布关于推进服务业扩能提质的实施意见。其中提出，到2030年，服务业高质量发展取得显著成效，服务业增加值达6万亿元左右，服务进出口额突破3000亿美元。培育一批具有全球竞争力的服务业领军企业，打造一批特色鲜明的服务...</div>
+<div class="news-card"><div class="card-body">最高法：研究制定涉AI案件和数据产权司法保护规范性文件</div><a class="card-link" href="https://36kr.com/newsflashes/3826929999434370?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">今天，国务院新闻办公室举行“开局起步‘十五五’”系列主题新闻发布会，介绍“推进全面依法治国”有关情况。发布会上，最高人民法院审判委员会副部级专职委员、二级大法官刘贵祥表示，人民法院将坚持“两个毫不动摇”，贯彻落实民营经济促进法，依法平等保护...</div>
+<div class="news-card"><div class="card-body">上海：强化绿色能源服务，完善推广绿电直连、绿电交易、绿电证书交易</div><a class="card-link" href="https://36kr.com/newsflashes/3827004395885443?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">36氪获悉，上海市人民政府发布关于推进服务业扩能提质的实施意见。其中提出，加大智能绿色产品供给，引导智能算力中心、数据中心等数字基础设施绿色化建设运行。强化绿色能源服务，完善推广绿电直连、绿电交易、绿电证书交易，促进绿电消费，鼓励优先使用绿...</div>
+<div class="section-label">🚀 技术前沿</div>
+<div class="news-card"><div class="card-body">百亿估值背后，普渡机器人以全球化商业实战练就具身智能「最强大脑」</div><a class="card-link" href="https://www.leiphone.com/category/robot/lNgOlmwWqgnBTY2t.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">上个月刚刚完成近10亿元新一轮融资、跻身 百亿估值独角兽俱乐部 的普渡机器人，日前重磅发布两大核心技术：具身智能基座大模型PuduFM 1.0和通用具身智能体平台PuduAgent。 两项技术发布，直指普渡深耕已久的顶层具身技术战略 ——...</div>
 <div class="news-card"><div class="card-body">前两天，我们在亦庄听到了AI最真实的声音｜2026 AI Partner大会金句实录</div><a class="card-link" href="https://36kr.com/p/3826932509364869?f=rss" target="_blank">阅读原文 →</a></div>
 <div class="text-block">当大模型API调用成本一年内骤降超过80%，百万Token仅需几分钱时，产业竞争便不再纠结于技术指标的高低，而是回归到最朴素的价值衡量——能否在实际场景中降本增效。行业的聚光灯，从实验室的榜单，转向了真实的生产线、医院诊室、物流仓库和城市管...</div>
-<div class="news-card"><div class="card-body">36氪企业全情报｜更懂股民的舆情数据工具，好用又省心</div><a class="card-link" href="https://36kr.com/p/3826003757437573?f=rss" target="_blank">阅读原文 →</a></div>
-<div class="text-block">炒股的朋友都有同感：现在信息太多太杂，消息慢一步、判断错一步，都可能影响操作。刷新闻、翻研报、逛股吧，花了大把时间，还是抓不住重点、分不清真假，越看越乱。 好消息是 —— 36氪企业全情报小程序新版本正式上线啦...</div>
-<div class="section-label">🤖 智能制造·数字化</div>
-<div class="news-card"><div class="card-body">三星正计划在越南建设一座投资15亿美元的存储芯片测试工厂</div><a class="card-link" href="https://36kr.com/newsflashes/3826918985224838?f=rss" target="_blank">阅读原文 →</a></div>
-<div class="text-block">据报道，三星正计划在越南建设一座投资15亿美元的存储芯片测试工厂，测试工厂将于2027年11月投入运营。（财联社）</div>
-<div class="section-label">💡 工具方法分享</div>
 <div class="news-card"><div class="card-body">机器人启蒙，需要一所能“犯错”的幼儿园</div><a class="card-link" href="https://36kr.com/p/3825969453699970?f=rss" target="_blank">阅读原文 →</a></div>
 <div class="text-block">2024年，强化学习奠基人理查德·萨顿与他的导师安德鲁·巴托共同获得了图灵奖。 这个奖项来得不算早。过去三十年，萨顿的理论支撑了AlphaGo、ChatGPT等系统的进化，但他三十年前写下的理论，直到今天才被具身智能行业真正理解：...</div>
-<div class="news-card"><div class="card-body">氪星晚报｜我国人形机器人全球市场占比超八成；三星电子将从下月开始允许员工使用外部AI模型；知情人士：字节跳动本月向Seed员工开放“豆包股”认购权</div><a class="card-link" href="https://36kr.com/p/3825928694846085?f=rss" target="_blank">阅读原文 →</a></div>
-<div class="text-block">大公司： 知情人士：字节跳动本月向Seed员工开放“豆包股”认购权...</div>
-<div class="news-card"><div class="card-body">这次登顶 RoboChallenge 的，终于是「能干活」的机器人了</div><a class="card-link" href="https://www.leiphone.com/category/robot/nliPbsEbL1wvaA9S.html" target="_blank">阅读原文 →</a></div>
-<div class="text-block">RoboChallenge夺冠只是开始，落地才是真正的“大考”。 作者丨高景辉 编辑丨马晓宁...</div>
-<div class="news-card"><div class="card-body">摩尔线程描绘了更大的蓝图：从全功能GPU到Agent全场景落地</div><a class="card-link" href="https://www.leiphone.com/category/chips/HjyAOXhxHNvIRMKN.html" target="_blank">阅读原文 →</a></div>
-<div class="text-block">算力荒的焦虑已无需渲染。...</div>
-<div class="section-label">📊 行业观察</div>
-<div class="news-card"><div class="card-body">8点1氪丨商品标签陷性暗示争议，盒马致歉并下架整改；段永平谈王宁：商业理解能力比乔布斯还强；海底捞全国门店谢绝顾客携带宠物进店用餐</div><a class="card-link" href="https://36kr.com/p/3826779946930822?f=rss" target="_blank">阅读原文 →</a></div>
-<div class="text-block">今日热点导览 三体公司原CEO许垚被执行死刑，投毒致使其老板林奇中毒身亡 算力租赁，遭传闻突袭，上市公司回应 胖东来成立文化娱乐公司 双汇子公司猪肉被曝抗生素超标37倍，公司回应超标原因...</div>
-<div class="news-card"><div class="card-body">乌沙村往事：你所不知道的OPPO</div><a class="card-link" href="https://www.leiphone.com/category/weiwu/hnsoByg9NttCx7Jd.html" target="_blank">阅读原文 →</a></div>
-<div class="text-block">2006年9月的一个上午，OPPO创始人陈明永从东莞长安镇来到了深圳华强北，正准备调研市场，探索新的产品方向，手机正是他的目标之一。...</div>
-<div class="news-card"><div class="card-body">经过华为、传音、拓竹历练，95后打造AI母婴界特斯拉｜36氪首发</div><a class="card-link" href="https://36kr.com/p/3826922264286083?f=rss" target="_blank">阅读原文 →</a></div>
-<div class="text-block">作者 | 张子怡 编辑 | 袁斯来 硬氪获悉，AI母婴智能硬件品牌珂迪Coddie（以下简称“Coddie”）完成天使轮融资，融资金额数千万元，由钟鼎资本投资，向阳资本担任独家财务顾问。...</div>
-<div class="news-card"><div class="card-body">硅谷AI一线观察：一人花掉50万美金Token背后的大厂焦虑</div><a class="card-link" href="https://36kr.com/p/3826390617870984?f=rss" target="_blank">阅读原文 →</a></div>
-<div class="text-block">文｜周鑫雨 邓咏仪 编辑｜张雨忻 硅谷持续了两个多月的Token-Maxxing（Token军备竞赛）焦虑，在Meta以一种戏谑的方式按下了休止符。...</div>
-<div class="section-label">👨‍🏫 老K点评</div>
+<div class="news-card"><div class="card-body">简智机器人与蚂蚁灵波达成战略合作，以人本范式革新具身智能模型进化</div><a class="card-link" href="https://www.leiphone.com/category/industrynews/SAVEtosZom2jQ670.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">5月26日，简智新创（北京）机器人科技有限公司与上海蚂蚁灵波科技有限公司达成深度战略合作，双方将聚焦“人类数据驱动模型认知进化”的全新技术路径，突破传统本体绑定、场景泛化薄弱的行业瓶颈，在具身模型训练逻辑与通用智能进化路径上实现重要技术创新...</div>
+<div class="news-card"><div class="card-body">NBBOSS发布AI决策机器人，瞄准企业决策场景</div><a class="card-link" href="https://36kr.com/newsflashes/3826958517113731?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">5月26日，NBBOSS发布全球首款专为老板设计的AI决策机器人R1。R1采用“智能基座+可分离机身”双形态设计，实现了AI对商业决策的实时介入与主动参与。创始人童楚格表示：“目前市面上的AI工具，让员工变成了超人，却把老板变成了路人。”R...</div>
+<div class="section-label laok-label">👨‍🏫 老K点评</div>
+<div class="laok-block">💡 从今天的资讯来看，4条政策和6条技术前沿传递了同一个信号：2026年是国家智能制造全面提速的元年。你的工厂准备好了吗？如果在推行精益中遇到落地难题，不妨来一次免费体检，3分钟定位问题。</div>
+<div class="laok-block">💡 🔗 <strong>🔍 免费工厂体检 → 立即诊断</strong></div>
+<div class="laok-block">💡 💬 <strong>📱 关注公众号「思派工业——精益智能工厂领航员」</strong> 每日获取最新行业洞察</div>
     <div class="cta-box">
         <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
         <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
