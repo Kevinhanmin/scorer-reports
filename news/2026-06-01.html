@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>思派工业 · 每日行业快讯</title>
+<style>
+/* ─── Reset & Base ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f5f6f8; color: #1d1d1f; line-height: 1.6;
+}
+
+/* ─── Top Nav Bar ─── */
+.top-bar {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff; border-bottom: 1px solid #e5e5e5;
+    padding: 0 16px; height: 48px;
+    display: flex; align-items: center; gap: 10px;
+}
+.top-bar a {
+    font-size: 14px; color: #1d1d1f; text-decoration: none;
+    padding: 4px 8px; border-radius: 6px; font-weight: 500;
+}
+.top-bar a:hover { background: #f0f0f0; }
+.top-bar .back-arrow { font-size: 18px; color: #007aff; margin-right: 4px; }
+.top-bar .title-area { flex: 1; font-size: 15px; font-weight: 600; color: #1d1d1f; }
+
+/* ─── Date Header ─── */
+.date-header {
+    padding: 12px 16px 6px;
+}
+.date-header .date-main {
+    font-size: 20px; font-weight: 700; color: #1d1d1f;
+}
+.date-header .date-sub {
+    font-size: 12px; color: #8e8e93; margin-top: 1px;
+}
+.date-header .tag-line {
+    display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap;
+}
+.tag {
+    display: inline-block; font-size: 11px; padding: 2px 8px;
+    border-radius: 10px; font-weight: 500;
+}
+.tag-policy { background: #e8f0fe; color: #1967d2; }
+.tag-tech { background: #fce8e6; color: #c5221f; }
+.tag-case { background: #e6f4ea; color: #137333; }
+
+/* ─── Container ─── */
+.container { max-width: 680px; margin: 0 auto; padding: 0 16px 20px; }
+
+/* ─── Headline Block ─── */
+.headline-card {
+    background: #fff; border-radius: 12px; padding: 16px;
+    margin: 8px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    border: 1px solid #e8e8ed;
+}
+.headline-tag {
+    font-size: 11px; color: #007aff; font-weight: 600;
+    margin-bottom: 6px;
+}
+.headline-title {
+    font-size: 17px; font-weight: 700; color: #1d1d1f;
+    line-height: 1.4;
+}
+.headline-summary {
+    font-size: 14px; color: #636366; margin-top: 8px;
+    line-height: 1.6;
+}
+.headline-link {
+    display: inline-block; margin-top: 8px; font-size: 13px;
+    color: #007aff; text-decoration: none; font-weight: 500;
+}
+.headline-link:hover { text-decoration: underline; }
+
+/* ─── Section Title ─── */
+.section-title {
+    font-size: 15px; font-weight: 700; color: #1d1d1f;
+    padding: 16px 0 8px; display: flex; align-items: center; gap: 6px;
+}
+.section-title .dot {
+    display: inline-block; width: 4px; height: 16px; border-radius: 2px;
+}
+.dot-policy { background: #1967d2; }
+.dot-tech { background: #c5221f; }
+.dot-case { background: #137333; }
+.dot-laok { background: #f59e0b; }
+
+/* ─── News Item ─── */
+.news-item {
+    background: #fff; border-radius: 10px; padding: 14px 16px;
+    margin: 4px 0;
+    border: 1px solid #f0f0f2;
+}
+.news-item:hover { border-color: #c7c7cc; }
+.news-item .item-source {
+    font-size: 11px; color: #8e8e93; margin-bottom: 4px;
+}
+.news-item .item-title {
+    font-size: 15px; font-weight: 600; color: #1d1d1f;
+    line-height: 1.4;
+}
+.news-item .item-summary {
+    font-size: 13px; color: #8e8e93; margin-top: 4px;
+    line-height: 1.5;
+}
+.news-item .item-link {
+    display: inline-block; margin-top: 6px; font-size: 12px;
+    color: #007aff; text-decoration: none; font-weight: 500;
+}
+.news-item .item-link:hover { color: #0056b3; }
+
+/* ─── 老K点评 ─── */
+.laok-card {
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-radius: 12px; padding: 16px; margin: 8px 0;
+    border: 1px solid #fde68a;
+}
+.laok-card .laok-icon {
+    font-size: 14px; font-weight: 700; color: #92400e;
+    margin-bottom: 8px;
+}
+.laok-card .laok-text {
+    font-size: 14px; color: #78350f; line-height: 1.7;
+}
+.laok-card .laok-text strong { color: #92400e; }
+
+/* ─── CTA Box ─── */
+.cta-card {
+    text-align: center; margin: 16px 0; padding: 20px 16px;
+    background: linear-gradient(135deg, #f0f4ff 0%, #dce8ff 100%);
+    border-radius: 14px; border: 1px solid #b3cfff;
+}
+.cta-card .cta-icon { font-size: 24px; margin-bottom: 8px; }
+.cta-card .cta-text {
+    font-size: 15px; color: #1d1d1f; font-weight: 500;
+    margin-bottom: 12px; line-height: 1.5;
+}
+.cta-card .cta-btn {
+    display: inline-block; padding: 12px 28px;
+    background: #007aff; color: white; border-radius: 24px;
+    text-decoration: none; font-size: 15px; font-weight: 600;
+    transition: opacity 0.15s; letter-spacing: 0.3px;
+}
+.cta-card .cta-btn:hover { opacity: 0.85; }
+
+/* ─── Footer ─── */
+.footer {
+    text-align: center; padding: 24px 16px 32px;
+    color: #8e8e93; font-size: 12px; line-height: 1.6;
+    border-top: 1px solid #e8e8ed; margin-top: 8px;
+}
+.footer a { color: #007aff; text-decoration: none; }
+
+/* ─── Navigation ─── */
+.nav-row {
+    display: flex; justify-content: space-between; margin: 12px 0;
+    gap: 8px;
+}
+.nav-row a {
+    flex: 1; text-align: center; padding: 10px 14px;
+    background: #fff; border-radius: 10px; text-decoration: none;
+    font-size: 14px; color: #007aff; font-weight: 500;
+    border: 1px solid #e8e8ed;
+    transition: background 0.15s;
+}
+.nav-row a:hover { background: #f0f4ff; border-color: #b3cfff; }
+.nav-row .nav-disabled {
+    flex: 1; text-align: center; padding: 10px 14px; border-radius: 10px;
+    font-size: 14px; color: #c7c7cc; background: #fff;
+    border: 1px solid #f0f0f2;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .container { padding: 0 12px 16px; }
+    .date-header .date-main { font-size: 18px; }
+    .headline-title { font-size: 16px; }
+    .news-item .item-title { font-size: 14px; }
+    .news-item { padding: 12px 14px; }
+    .headline-card { padding: 14px; }
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+    <a href="index.html"><span class="back-arrow">←</span> 快讯</a>
+    <div class="title-area">2026年06月01日</div>
+</div>
+<div class="container">
+    <div class="date-header">
+        <div class="date-main">2026年06月01日</div>
+        <div class="tag-line">
+            
+        </div>
+    </div>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>2026年6月1日（周一）</strong> | 思派精益智能工厂领航员</p>
+<div class="section-title"><span class="dot "></span>📋 本期聚焦：工信部推进智能工厂梯度培育，四等级分级体系加速落地</div>
+<div class="item-summary" style="padding:0 0 8px 0;font-size:13px;color:#8e8e93;">据工信部消息，2025年底已启动<strong>智能工厂梯度培育</strong>体系，将工厂分为<strong>基础级→先进级→卓越级→领航级</strong>四个梯队。这一体系与GB/T 39116-2020《智能制造能力成熟度模型》的5级评估对接，标志着<strong>中国智能工厂建设从"各自探索"进入"对标提升"阶段</strong>。对中小企业而言，达标"基础级"就可获得技改补贴资格——这不再是可选项，而是必答题。</div>
+<p style="font-size:13px;color:#636366;padding:4px 0;">📎 工信部官网</p>
+<div class="section-title"><span class="dot dot-policy"></span>📋 政策·标准动向</div>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>1、GB/T 39116-2020 智能制造能力成熟度模型——5级评估体系</strong>。该标准将企业智能制造能力分为<strong>规划级→规范级→集成级→优化级→引领级</strong>五个等级，涵盖<strong>人员、技术、资源、制造</strong>四大要素、20个关键能力域。<strong>截至2026年5月，全国已有超3万家企业完成自评估</strong>。评估核心指标包括：设备联网率（目标≥<strong>85%</strong>）、关键工序数控化率（目标≥<strong>70%</strong>）、生产数据自动采集率（目标≥<strong>90%</strong>）。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">📎 国家标准全文公开平台</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>2、智能工厂梯度培育：2025年底启动，四等级分级。</strong>工信部将智能工厂分为基础级→先进级→卓越级→领航级。<strong>领航级工厂</strong>需达到成熟度五级（引领级），全国首批仅10家通过评估。<strong>关键信号：</strong> 各省后续的<strong>补贴力度将与工厂等级直接挂钩</strong>，等级越高，补贴越多。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">📎 中国电子技术标准化研究院</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>3、统计局：5月制造业PMI为50.0%。</strong>环比下降0.3个百分点；非制造业商务活动指数为50.1%，环比上升0.7个百分点。<strong>装备制造业PMI为51.2%</strong>，高技术制造业PMI为50.8%，均高于整体，显示产业升级方向未变。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>4、《求是》杂志：发表重要文章《前瞻布局和发展未来产业》。</strong>强调培育<strong>新质生产力</strong>，在量子科技、生物制造等领域聚焦发力，培育<strong>专精特新、单项冠军、独角兽企业</strong>。政策信号——<strong>中小企业专精特新路线的红利将持续加码</strong>。</p>
+<div class="section-title"><span class="dot dot-policy"></span>📋 各地政策·补贴红利</div>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>1、多地技改专项贷：设备更新年利率低至2%。</strong>广东、江苏、浙江推出技改贴息贷款，对采购工业机器人、数控设备、在线检测装备的企业给予<strong>财政贴息</strong>，单企最高<strong>2000万元</strong>，利率低至2%。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>2、上海：智能工厂建设项目最高补贴2000万元。</strong>对列入国家级智能制造示范工厂的<strong>额外奖励200万元</strong>。项目投资额≥500万元，需有明确的数字化转型方案。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">📎 上海市经信委</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>3、深圳：2026年智能制造试点示范项目最高资助1000万元。</strong>重点支持<strong>5G+工业互联网、AI质检、数字孪生</strong>方向。申报截止2026年7月31日。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>4、杭州：智能化改造补助设备投资额15%-20%，单个项目最高3000万元。</strong>获评省级"未来工厂"的<strong>一次性奖励100万元</strong>。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>5、苏州：购买智能装备和工业软件可获10%-15%补贴，年度最高500万元。</strong>国家级智能制造示范企业奖励<strong>200万元</strong>。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>6、安徽：对获评国家级智能制造示范工厂的企业给予</strong>一次性300万元**奖励。同时实施"智能制造诊断进千企"行动，政府出资为企业提供免费数字化诊断。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>7、山东：智能化技改项目最高补助2000万元。</strong>入选省级"智能工厂"奖励<strong>50万元</strong>。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">📎 山东省工信厅</p>
+<div class="section-title"><span class="dot dot-case"></span>📋 领航级工厂·灯塔案例</div>
+<div class="item-summary" style="padding:0 0 8px 0;font-size:13px;color:#8e8e93;"><strong>以下案例综合自思派案例库及36氪、钛媒体等网络公开报道</strong></div>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>1、联想武汉灯塔工厂——沉浸式探访，人机协同新范式。</strong>联想武汉产业基地是WEF认证的全球灯塔工厂，也是联想集团在全球最大、最先进的PC及智能设备生产基地。工厂部署了自研的<strong>智能排产系统（LAPS）+AI质检+MES一体化平台</strong>，实现排产效率提升<strong>30%</strong>，产品不良率降低<strong>20%</strong>，交付周期缩短<strong>15%</strong>。<strong>核心经验：自研系统和统一数据底座比买一堆孤立系统更有效。</strong></p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">📎 36氪报道</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>2、美的厨热芜湖工厂——全球首个厨热行业灯塔工厂。</strong>3年累计数字化投入超<strong>15亿元</strong>，<strong>5G专网+MEC边缘云</strong>落地30余项应用，<strong>云化PLC</strong>改造后换型时间缩短<strong>50%</strong>，产线柔性提升<strong>30%</strong>。美的集团已拥有<strong>5座WEF全球灯塔工厂</strong>，是拥有灯塔工厂数量最多的中国企业之一。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">📎 思派案例库</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>3、海辰储能重庆基地——全球储能电池行业首个灯塔工厂。</strong>AI+数字孪生贯穿全工序，超<strong>10万个数据采集点</strong>实时监控，每天产生<strong>30TB+生产数据</strong>。制程不良率降低<strong>60%</strong>，生产节拍提升<strong>40%</strong>。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">📎 思派案例库</p>
+<div class="section-title"><span class="dot "></span>📋 工业AI与智能体</div>
+<div class="item-summary" style="padding:0 0 8px 0;font-size:13px;color:#8e8e93;"><strong>以下信息综合自36氪、雷峰网、InfoQ等RSS源实时采集</strong></div>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>1、"智能体江湖2026上半年：亢奋并焦虑着"——36氪深度报道。</strong>2026年上半年，AI智能体进入<strong>大规模实战阶段</strong>，制造业是最活跃的落地场景之一。搜索、自动化调度、设备故障诊断、工艺优化成为智能体渗透最快的四大方向。<strong>核心观点：</strong> "旧地图作废，新范式登场"——工业智能体正在从POC走向规模化部署。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">📎 36氪深度</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>2、华为「盘古工业Agent」落地汽车焊接检测，准确率98.3%。</strong>在边缘端部署轻量化大模型，实现<strong>数据不出厂区</strong>的实时推理。焊点缺陷识别准确率<strong>98.3%</strong>，单点检测时间<<strong>200ms</strong>，完全替代人工目检。<strong>这是工业智能体从"演示"到"产线"的关键跨越。</strong></p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>3、阿里云「通义工业大模型」落地宝武集团：故障诊断准确率92%。</strong>系统接入<strong>3000+设备传感器</strong>，实现故障预测+根因分析+维修建议闭环。计划外停机减少<strong>35%</strong>，年节省维护成本预估超<strong>千万元</strong>。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>4、欣旺达：自研AI智能调优系统，调优时间缩短66%，CPK提升29%。</strong>在<strong>50+产线</strong>落地，调优工程师人力需求降低<strong>60%</strong>。对多品种、小批量制造企业极具借鉴价值。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">📎 思派案例库</p>
+<div class="section-title"><span class="dot dot-case"></span>📋 数字化·信息化案例</div>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>1、浙江双环传动——新能源汽车齿轮未来工厂的数字化底座。</strong>全球最大乘用车齿轮供应商之一。建设全流程数字化产线，引入<strong>在线SPC+全尺寸检测</strong>后，齿轮加工精度CPK从<strong>1.0提升至1.67</strong>，废品率从<strong>2.3%降至0.5%</strong>，人均产出提升<strong>120%</strong>。<strong>关键原则：信息化要从"数据采得到"开始，连不上设备的信息化是空中楼阁。</strong></p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">📎 思派案例库</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>2、玫德集团——从传统铸造到科德智能的蜕变。</strong>自建<strong>科德智能</strong>子公司对外输出方案。产线部署MES+机器人+视觉检测后，人员减少<strong>40%</strong>，不良率从<strong>3.5%降至0.8%</strong>，能耗降低<strong>18%</strong>。<strong>经验：数字化转型要从"痛点最大的工序"切入，不要一开始追求全厂覆盖。</strong></p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">📎 思派案例库</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>3、东方电气东方汽轮机——5G智慧叶片工厂（国家智能制造示范工厂）。</strong>叶片加工精度达<strong>微米级</strong>，5G专网+数字孪生+视觉检测实现叶片全生命周期追溯。在线检测覆盖率<strong>100%</strong>，不良品率下降<strong>42%</strong>，生产效率提升<strong>35%</strong>。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">📎 思派案例库</p>
+<div class="section-title"><span class="dot dot-case"></span>📋 精益生产案例</div>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>1、浙江某注塑厂：5S+IoT，投入10万半年回本。</strong>加装IoT传感器+OEE看板系统，6个月后设备故障率降<strong>40%</strong>，MTBF从120h→<strong>280h</strong>，年维护成本降<strong>25万元</strong>。<strong>核心：先用5S把现场管好，再用IoT把数据"看见"，改善就有了方向。</strong></p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>2、浙江正德制动器：搬迁新厂房是精益规划的黄金窗口。</strong>老K团队正在为这家汽车零部件企业规划新工厂。<strong>观点：</strong> 工厂搬迁是<strong>千载难逢的系统性规划窗口期</strong>，迁入前做好VSM价值流图分析+产线平衡+物流规划，可避免后续<strong>80%的布局浪费</strong>。精益规划前置比事后整改<strong>节省5-10倍成本</strong>。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>3、联想灯塔工厂的实践：人机协同而非"无人化"。</strong>联想武汉厂的人机协同模式值得学习——<strong>不是用机器完全替代人，而是让机器做机器擅长的（重复/高精度），让人做人擅长的（判断/决策）</strong>。排产效率提升30%，同时员工满意度提升。</p>
+<div class="section-title"><span class="dot "></span>📋 智能工业装备·自动化</div>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>1、协作机器人价格"腰斩"：中小企业自动化门槛大幅降低。</strong>发那科、优傲等厂商2026年新品负载10-20kg，精度±0.02mm，<strong>价格比2023年下降约30%</strong>。汽车零部件装配、锂电PACK线等场景可直接部署。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>2、AI视觉检测装备：Transformer架构实现5000件/分钟检测速度。</strong>海康机器人2026年新品在半导体封装检测中准确率<strong>99.97%</strong>，<strong>完全替代人工目检</strong>。<strong>中小企业可以"租用检测服务"模式降低门槛，不必一次性购买。</strong></p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>3、至强6+ 288核芯片：制造业边缘AI部署成本有望降低60%以上。</strong>288核CPU可同时运行500个Agent实例，推理延迟毫秒级。边缘AI质检、预测性维护不再必须依赖GPU。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>4、科大讯飞：AI虚拟人交互平台通过国家级评测。</strong>国内首个通过GB/T 46483—2025全量功能测试的客服型虚拟数字人平台。<strong>工业场景应用：</strong> 设备巡检、培训指导等已开始试用虚拟人技术。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">📎 科大讯飞官方消息</p>
+<div class="section-title"><span class="dot "></span>📋 行业数据速览</div>
+<p style="font-size:13px;color:#636366;padding:4px 0;">| 指标 | 数据 | 同比/环比 |</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">|:-----|:----|:---------|</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">| 5月制造业PMI | 50.0% | -0.3pct（环比） |</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">| 装备制造业PMI | 51.2% | +0.5pct（环比） |</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">| 汽车经销商库存预警指数 | 57.9% | -4.2pct（环比） |</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">| 全球灯塔工厂中国占比 | >30%（60+家全球第一） | — |</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">| COMEX黄金 | $4,569.90/盎司 | +0.83% |</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">| WTI原油 | $87.36/桶 | -9.94%（周） |</p>
+<div class="section-title"><span class="dot "></span>📋 老K视角</div>
+<div class="item-summary" style="padding:0 0 8px 0;font-size:13px;color:#8e8e93;">💡 今天的信息量很大，三个关键提炼：</div>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>1️⃣ 标准来了，对标提升就是现在</strong></p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">智能工厂梯度培育体系+GB/T 39116成熟度评估，意味着<strong>每个工厂的智能化水平都可以"打分"了</strong>。建议各位对照标准自评一下：</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">- <strong>你的设备联网率达到了85%吗？</strong></p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">- <strong>关键工序数控化率到了70%吗？</strong></p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">- <strong>如果答案是否定的——先补课，再谈智能。</strong></p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>2️⃣ 2026补贴力度空前，但窗口期不等人</strong></p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">从上海3000万到深圳1000万到安徽300万，各地补贴力度前所未有。<strong>但贴息贷款有名额限制，示范工厂有申报截止（深圳7月31日）</strong>。有计划做技改的朋友，三季度前必须行动。</p>
+<p style="font-size:13px;color:#636366;padding:4px 0;"><strong>3️⃣ 智能体的工业落地：从"演示"到"产线"</strong></p>
+<p style="font-size:13px;color:#636366;padding:4px 0;">华为盘古Agent在焊接线上做到98.3%的准确率、阿里大模型在宝钢做到92%故障诊断准确率、欣旺达AI调优缩短66%的时间——<strong>工业智能体不再是PPT概念，已经真正跑在生产线上。</strong></p>
+<div class="item-summary" style="padding:0 0 8px 0;font-size:13px;color:#8e8e93;">📧 业务咨询：sptechsz@163.com</div>
+<p style="font-size:13px;color:#636366;padding:4px 0;">*本期信息来源：36氪、雷峰网、InfoQ、钛媒体RSS实时采集 | 思派案例库 | 各地政府公开政策 | 整理于 2026-06-01 23:50 | 思派精益智能工厂领航员*</p>
+    <div class="cta-card">
+        <div class="cta-icon">🏭</div>
+        <div class="cta-text">您的工厂每年隐性浪费可能高达百万？<br>免费体检 3 分钟出报告</div>
+        <a class="cta-btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
+    </div>
+    <div class="nav-row">
+        <a href="index.html">← 返回列表</a>
+        <a href="2026-05-31.html">下期 →</a>
+    </div>
+    <div class="footer">
+        <p>思派工业技术（深圳）有限公司</p>
+        <p style="margin-top:4px;">📱 关注公众号「思派精益智能工厂领航员」</p>
+    </div>
+</div>
+</body>
+</html>
