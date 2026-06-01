@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>海辰储能——储能电池灯塔工厂</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.8;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 680px; margin: 0 auto; background: #fff; min-height: 100vh; padding: 0 20px; }
+  .header { padding: 32px 0 20px; text-align: center; border-bottom: 1px solid #e8e8e8; }
+  .header .meta { font-size: 13px; color: #999; margin-top: 12px; }
+  .header .meta span { margin: 0 6px; }
+  .header .meta .dot { color: #ddd; }
+  .article-title { font-size: 22px; font-weight: 700; line-height: 1.4; color: #1a1a1a; margin-bottom: 8px; }
+  .article-subtitle { font-size: 15px; color: #666; font-weight: 400; margin-top: 6px; }
+  .content { padding: 24px 0 40px; }
+  .content h2 { font-size: 20px; font-weight: 700; color: #1a1a1a; margin: 36px 0 16px; padding-left: 14px; border-left: 4px solid #2b7bcf; }
+  .content h3 { font-size: 17px; font-weight: 600; color: #2b2b2b; margin: 28px 0 12px; }
+  .content h4 { font-size: 15px; font-weight: 600; color: #444; margin: 20px 0 10px; }
+  .content p { margin: 12px 0; text-align: justify; }
+  .content ul, .content ol { margin: 10px 0 10px 0; padding-left: 22px; }
+  .content li { margin: 6px 0; text-align: justify; }
+  .content .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 16px 0; border: 1px solid #e8e8e8; border-radius: 8px; }
+  .content table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 500px; }
+  .content table th { background: #f0f5fb; color: #333; font-weight: 600; padding: 10px 12px; text-align: left; border-bottom: 2px solid #d9e6f2; white-space: nowrap; }
+  .content table td { padding: 9px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+  .content table tr:last-child td { border-bottom: none; }
+  .content table tr:nth-child(even) td { background: #fafafa; }
+  .content blockquote { margin: 16px 0; padding: 14px 18px; background: #f7f9fc; border-left: 4px solid #2b7bcf; border-radius: 0 6px 6px 0; color: #555; font-size: 14px; line-height: 1.7; }
+  .content blockquote p { margin: 4px 0; }
+  .highlight-box { margin: 16px 0; padding: 16px 18px; background: #f0f7ff; border-radius: 8px; border: 1px solid #d9e6f2; }
+  .highlight-box .label { font-size: 13px; font-weight: 600; color: #2b7bcf; margin-bottom: 4px; }
+  .highlight-box p { margin: 4px 0; font-size: 14px; }
+  .warning-box { margin: 16px 0; padding: 14px 18px; background: #fffbe6; border-radius: 8px; border: 1px solid #ffe58f; font-size: 14px; color: #8c6e00; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .tag { display: inline-block; padding: 4px 12px; background: #edf4ff; color: #2b7bcf; border-radius: 20px; font-size: 13px; font-weight: 500; }
+  .mode-cards { display: flex; flex-direction: column; gap: 12px; margin: 16px 0; }
+  .mode-card { padding: 16px 18px; border-radius: 10px; border: 1px solid #e0e8f0; }
+  .mode-card .card-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .mode-card .card-title .emoji { margin-right: 6px; }
+  .mode-card p { font-size: 14px; color: #555; margin: 4px 0; }
+  .mode-card.brain { background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%); border-color: #b8cce8; }
+  .mode-card.core { background: linear-gradient(135deg, #f5f8f0 0%, #edf4e0 100%); border-color: #c8dbb0; }
+  .mode-card.evolve { background: linear-gradient(135deg, #fef6f0 0%, #fceee0 100%); border-color: #e8d0b8; }
+  .divider { text-align: center; color: #ccc; margin: 32px 0; font-size: 14px; position: relative; }
+  .divider::before, .divider::after { content: ''; position: absolute; top: 50%; width: 40%; height: 1px; background: #e0e0e0; }
+  .divider::before { left: 0; }
+  .divider::after { right: 0; }
+  .footer { padding: 20px 0 32px; border-top: 1px solid #e8e8e8; text-align: center; }
+  .footer p { font-size: 13px; color: #999; margin: 4px 0; line-height: 1.6; }
+  .footer .brand { font-weight: 600; color: #666; }
+  .num-list { list-style: none; padding: 0; }
+  .num-list li { position: relative; padding-left: 32px; margin: 12px 0; min-height: 24px; }
+  .num-list li::before { content: attr(data-num); position: absolute; left: 0; top: 2px; width: 22px; height: 22px; background: #2b7bcf; color: #fff; border-radius: 50%; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #1a1a1a; }
+    .container { background: #1e1e1e; color: #d0d0d0; }
+    .article-title { color: #e0e0e0; }
+    .content h2 { color: #e0e0e0; border-left-color: #4a9eff; }
+    .content h3 { color: #ccc; }
+    .content h4 { color: #aaa; }
+    .content blockquote { background: #2a2a2a; color: #aaa; }
+    .content table th { background: #2a2a2a; color: #ccc; border-bottom-color: #444; }
+    .content table td { border-bottom-color: #333; }
+    .content table tr:nth-child(even) td { background: #252525; }
+    .content .table-wrap { border-color: #333; }
+    .highlight-box { background: #1e2a3a; border-color: #2a4a6a; }
+    .highlight-box .label { color: #6aafff; }
+    .warning-box { background: #2a2a1a; border-color: #5a5a2a; color: #bbaa66; }
+    .tag { background: #2a3a4a; color: #6aafff; }
+    .mode-card.brain { background: linear-gradient(135deg, #1a2a3a 0%, #1e3040 100%); border-color: #2a4a6a; }
+    .mode-card.core { background: linear-gradient(135deg, #1a2a1a 0%, #1e301e 100%); border-color: #2a4a2a; }
+    .mode-card.evolve { background: linear-gradient(135deg, #2a1a1a 0%, #301e1e 100%); border-color: #4a2a2a; }
+    .header { border-bottom-color: #333; }
+    .footer { border-top-color: #333; }
+    .divider::before, .divider::after { background: #444; }
+    .mode-card p { color: #999; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1 class="article-title">海辰储能——储能电池灯塔工厂</h1>
+  <p class="article-subtitle">AI+数字孪生贯穿全工序 · 全球储能电池首个灯塔工厂</p>
+  <div class="meta">
+    <span>🔬 精益智能工厂案例库</span>
+    <span class="dot">·</span>
+    <span>2026年5月27日</span>
+    <span class="dot">·</span>
+    <span>思派工业技术（深圳）有限公司</span>
+  </div>
+  <div class="tag-list" style="justify-content:center; margin-top:14px;">
+    <span class="tag">#储能电池</span>
+    <span class="tag">#灯塔工厂</span>
+    <span class="tag">#AI+数字孪生</span>
+    <span class="tag">#海辰储能</span>
+    <span class="tag">#智能工厂</span>
+    <span class="tag">#新能源</span>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- 导读 -->
+<div class="highlight-box">
+  <div class="label">📖 导读</div>
+  <p>海辰储能科技股份有限公司（Hithium）是储能电池领域的创新领军企业，其重庆基地于2025年入选世界经济论坛（WEF）全球灯塔工厂，成为<strong>全球储能电池行业首个灯塔工厂</strong>。该基地以<strong>AI+数字孪生</strong>贯穿涂布、辊压、分切、卷绕、化成等核心工序，实现了优品率97.6%、单位成本降低37%的突破性成效，代表了储能电池制造智能化的最高水平。本文将从企业背景、灯塔工厂建设、技术亮点、实施成效等维度全面解析海辰储能重庆基地的智能制造实践。</p>
+</div>
+
+<h2>基本信息</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>项目</th><th>内容</th></tr></thead>
+  <tbody>
+    <tr><td><strong>企业名称</strong></td><td>海辰储能科技股份有限公司（Hithium Energy Storage Technology Co., Ltd.）</td></tr>
+    <tr><td><strong>行业</strong></td><td>储能电池 / 新能源储能系统</td></tr>
+    <tr><td><strong>所在地</strong></td><td>福建省厦门市（总部），生产基地分布于厦门、重庆、河北雄安等地</td></tr>
+    <tr><td><strong>成立时间</strong></td><td>2019年</td></tr>
+    <tr><td><strong>核心业务</strong></td><td>储能电池电芯、模组、电池包及储能系统的研发、生产和销售</td></tr>
+    <tr><td><strong>行业地位</strong></td><td>中国储能电池出货量前三，全球储能电池头部企业</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>企业背景</h2>
+<p>海辰储能成立于2019年，总部位于福建省厦门市，是一家专注于储能电池研发、制造与系统集成的科技创新企业。公司以<strong>磷酸铁锂（LFP）储能电池</strong>为核心产品，服务于电力储能、工商业储能、户用储能等全球市场。成立短短数年，海辰储能凭借强大的技术实力和快速扩张的产能，迅速跻身中国储能电池出货量前三强，成为全球储能电池领域的"现象级"企业。</p>
+
+<p><strong>行业地位：</strong></p>
+<ul>
+  <li>中国储能电池出货量前三企业</li>
+  <li>全球储能电池市占率前列</li>
+  <li>全球储能电池行业首个入选世界经济论坛灯塔工厂的企业</li>
+  <li>国家高新技术企业</li>
+  <li>储能行业领军企业</li>
+</ul>
+
+<p><strong>核心产品：</strong></p>
+<ul>
+  <li>280Ah大容量储能电芯（行业主流标准尺寸）</li>
+  <li>300Ah+长寿命储能电芯（新一代产品）</li>
+  <li>液冷储能电池系统</li>
+  <li>风冷储能电池系统</li>
+  <li>工商业储能一体柜</li>
+  <li>电力储能集装箱系统</li>
+</ul>
+
+<h2>全球灯塔工厂——重庆基地</h2>
+
+<h3>基地概况</h3>
+<p>海辰储能重庆基地位于重庆市铜梁区，是其西南地区核心生产基地，也是入选WEF全球灯塔工厂的标杆工厂。该基地于2023年开始投产，规划产能40GWh，主要生产大容量储能电芯和储能系统产品。</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>项目</th><th>内容</th></tr></thead>
+  <tbody>
+    <tr><td><strong>所在地</strong></td><td>重庆市铜梁区</td></tr>
+    <tr><td><strong>投产时间</strong></td><td>2023年</td></tr>
+    <tr><td><strong>规划产能</strong></td><td>40GWh</td></tr>
+    <tr><td><strong>基地定位</strong></td><td>西南核心生产基地 + 智能制造标杆工厂</td></tr>
+    <tr><td><strong>核心产品</strong></td><td>280Ah/300Ah+大容量储能电芯、储能系统</td></tr>
+    <tr><td><strong>入选荣誉</strong></td><td>2025年世界经济论坛（WEF）全球灯塔工厂</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>AI+数字孪生：贯穿全工序的智能体系</h2>
+
+<p>海辰储能重庆灯塔工厂的核心特征是以<strong>AI+数字孪生</strong>技术贯穿从涂布到化成的全制造流程，构建了虚实融合、数据驱动的智能生产体系。以下是关键技术应用：</p>
+
+<div class="mode-cards">
+  <div class="mode-card brain">
+    <div class="card-title"><span class="emoji">🧠</span> 数字孪生——全流程虚拟工厂</div>
+    <p>建立完整的虚拟工厂模型，实时映射物理生产线的每一个设备、每一道工序。通过高精度数字孪生平台，实现了产线运行状态的实时仿真、工艺参数的在线优化、以及异常工况的快速诊断。</p>
+    <p style="margin-top:8px; font-size:13px; color:#888;">→ 实时映射 · 在线仿真 · 工艺优化</p>
+  </div>
+  <div class="mode-card core">
+    <div class="card-title"><span class="emoji">🔍</span> AI视觉检测——涂布工序智能化</div>
+    <p>在涂布工序部署AI视觉检测系统，通过深度学习算法对极片表面缺陷（针孔、划痕、金属异物、涂布不均匀等）进行毫秒级实时识别，缺陷自动标记并触发剔除机制，从源头保证极片质量。</p>
+    <p style="margin-top:8px; font-size:13px; color:#888;">→ 深度学习 · 毫秒级检测 · 自动剔除</p>
+  </div>
+  <div class="mode-card evolve">
+    <div class="card-title"><span class="emoji">🔄</span> 智能调度——基于仿真的柔性排产</div>
+    <p>基于数字孪生仿真引擎，结合订单需求、设备状态、物料库存等多维数据，实现产线的智能调度与柔性排产。当订单变化或设备异常时，系统自动重新优化排产方案，减少产线切换时间。</p>
+    <p style="margin-top:8px; font-size:13px; color:#888;">→ 智能排产 · 实时优化 · 柔性响应</p>
+  </div>
+  <div class="mode-card brain">
+    <div class="card-title"><span class="emoji">⚠️</span> 设备预测性维护</div>
+    <p>关键设备（涂布机、辊压机、分切机、卷绕机等）部署大量传感器，实时采集振动、温度、电流等状态参数。AI算法基于历史数据训练预测模型，提前识别设备异常趋势，实现预测性维护，大幅降低非计划停机。</p>
+    <p style="margin-top:8px; font-size:13px; color:#888;">→ 状态监测 · 故障预测 · 减少停机</p>
+  </div>
+</div>
+
+<h3>AI+数字孪生覆盖的全工序链路</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>工序</th><th>AI+数字孪生应用</th><th>价值</th></tr></thead>
+  <tbody>
+    <tr><td><strong>涂布</strong></td><td>AI视觉在线检测涂布缺陷（面密度、边缘效应）；数字孪生模拟涂布工艺参数</td><td>涂布缺陷实时剔除，减少材料浪费</td></tr>
+    <tr><td><strong>辊压</strong></td><td>数字孪生优化辊压压力和间隙参数；AI监控极片厚度一致性</td><td>极片厚度精度提升，批次一致性改善</td></tr>
+    <tr><td><strong>分切</strong></td><td>AI视觉检测分切毛刺和边缘缺陷；数字孪生模拟分切刀具寿命</td><td>减少毛刺风险，刀具寿命延长</td></tr>
+    <tr><td><strong>卷绕</strong></td><td>数字孪生优化卷绕张力和对齐度；AI实时监控卷绕过程参数</td><td>卷绕对齐度提升，短路风险降低</td></tr>
+    <tr><td><strong>组装</strong></td><td>AI视觉检测壳体和极耳焊接质量</td><td>焊接缺陷自动识别，良率提升</td></tr>
+    <tr><td><strong>化成</strong></td><td>数字孪生模拟化成工艺曲线；AI分析化成数据预测电芯品质</td><td>化成参数优化，电芯一致性提升</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>关键成效指标</h2>
+
+<div class="warning-box">⚠️ 以下数据来自世界经济论坛官方公告及海辰储能公开披露资料。</div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>指标</th><th>成效</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td><strong>优品率</strong></td><td><strong>97.6%</strong></td><td>综合优品率达到行业领先水平</td></tr>
+    <tr><td><strong>单位成本降低</strong></td><td><strong>37%</strong></td><td>通过智能化生产实现全链条成本优化</td></tr>
+    <tr><td><strong>能源消耗</strong></td><td>降低约20%</td><td>智能能源管理系统实现精细化能耗管控</td></tr>
+    <tr><td><strong>产品缺陷率</strong></td><td>大幅下降</td><td>AI质检贯穿全工序，从源头减少缺陷</td></tr>
+    <tr><td><strong>生产效率</strong></td><td>显著提升</td><td>智能排产+自动化率提升，综合OEE持续提高</td></tr>
+    <tr><td><strong>非计划停机</strong></td><td>大幅减少</td><td>预测性维护降低关键设备非计划停线</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>数字化系统架构</h2>
+
+<p>海辰储能重庆工厂构建了从设备层到决策层的完整数字化体系：</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>层级</th><th>系统/平台</th><th>功能</th></tr></thead>
+  <tbody>
+    <tr><td><strong>决策层</strong></td><td>数字孪生平台 + 工业大脑</td><td>全厂仿真、AI决策辅助、运营优化</td></tr>
+    <tr><td><strong>执行层</strong></td><td>MES（制造执行系统）</td><td>生产调度、质量追溯、物料管理</td></tr>
+    <tr><td><strong>物流层</strong></td><td>WMS + AGV调度系统</td><td>智能仓储、自动搬运、物料拉动</td></tr>
+    <tr><td><strong>设备层</strong></td><td>SCADA + IIoT平台</td><td>设备联网、数据采集、状态监控</td></tr>
+    <tr><td><strong>品质层</strong></td><td>AI质检系统 + SPC</td><td>在线检测、统计过程控制</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>品质管控体系</h2>
+
+<ul>
+  <li><strong>全工序AI质检</strong>：涂布、辊压、分切、卷绕等核心工序均部署AI视觉检测，实现从极片到电芯的全链路品质管控</li>
+  <li><strong>SPC统计过程控制</strong>：关键工艺参数实施统计过程控制，实时监控过程稳定性，异常自动预警</li>
+  <li><strong>数字孪生模拟</strong>：通过数字孪生平台对工艺参数进行仿真优化，减少试错成本</li>
+  <li><strong>全流程追溯</strong>：每支电芯拥有唯一追溯码，可追溯至原材料批次、产线工位、工艺参数</li>
+  <li><strong>洁净车间控制</strong>：全车间高洁净标准，控制金属异物微短路风险</li>
+</ul>
+
+<h2>行业启示</h2>
+
+<div class="highlight-box">
+  <div class="label">💡 关键启示</div>
+  <p><strong>启示一：AI+数字孪生是储能电池制造的必由之路。</strong>海辰储能用实践证明了AI与数字孪生技术在储能电池制造中的巨大价值。从涂布到化成的全工序数据驱动，让质量提升和成本降低不再是"二选一"的取舍，而是可以同步实现的目标。</p>
+  <p><strong>启示二：初创企业的后发优势——新工厂即灯塔工厂。</strong>海辰储能成立于2019年，相比宁德时代、比亚迪等巨头是"后来者"，但其重庆基地从设计之初就按灯塔工厂标准规划，以"高起点、智能化"的方式实现弯道超车。这启示中小企业：新建工厂应从一开始就进行数字化顶层设计，而非事后补课。</p>
+  <p><strong>启示三：储能电池制造的降本核心在于良率。</strong>储能电池行业的竞争本质是度电成本的竞争。海辰储能的案例清晰表明：优品率每提升一个百分点，成本结构都会发生质变。提升良率不是品控部门的事，而是从工艺设计、设备选型、数字系统三方面协同发力的系统工程。</p>
+</div>
+
+<h2>荣誉认证与行业影响力</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>类别</th><th>荣誉</th></tr></thead>
+  <tbody>
+    <tr><td>🏅 国际</td><td><strong>世界经济论坛（WEF）全球灯塔工厂</strong>（重庆基地，2025）</td></tr>
+    <tr><td>🏅 国家级</td><td><strong>国家高新技术企业</strong></td></tr>
+    <tr><td>🏅 行业</td><td>中国储能电池出货量前三强</td></tr>
+    <tr><td>🏅 行业</td><td>全球储能电池头部企业</td></tr>
+    <tr><td>🏅 行业</td><td>储能行业创新领军企业</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>建设特点总结</h2>
+
+<ol class="num-list" style="list-style:none; padding-left:0;">
+  <li data-num="1"><strong>AI+数字孪生全流程覆盖：</strong>从涂布到化成，AI视觉检测与数字孪生仿真贯穿六大核心工序，实现虚实融合的智能生产体系</li>
+  <li data-num="2"><strong>高端灯塔标准顶层设计：</strong>新工厂从设计之初即按WEF灯塔工厂标准规划，以数字化顶层设计指导产线建设和系统部署</li>
+  <li data-num="3"><strong>数据驱动的极致良率：</strong>以优品率97.6%为目标，通过AI在线检测+SPC统计控制+数字孪生优化，构建三位一体的品质保障体系</li>
+  <li data-num="4"><strong>全链路成本优化：</strong>单位成本降低37%的成效来源于智能化排产减少等待、预测性维护降低停机、AI质检减少返工、数字孪生优化工艺参数等多维度降本措施</li>
+  <li data-num="5"><strong>快速扩张能力：</strong>以重庆灯塔工厂为模板，形成可复制的建厂标准，支撑海辰储能产能从厦门、重庆向全国乃至全球快速拓展</li>
+</ol>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<blockquote>📝 <strong>录入时间：</strong> 2026年5月27日<br>
+📝 <strong>信息来源：</strong> 世界经济论坛（WEF）灯塔工厂官方公告、海辰储能官方发布、行业公开报道
+</blockquote>
+
+<div class="divider">✦ ✦ ✦</div>
+
+</div>
+
+
+<!-- CTA引流区块 -->
+<div class="cta-section" style="
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    border-radius: 12px;
+    padding: 24px 20px;
+    margin: 24px 16px 16px;
+    text-align: center;
+    color: #fff;
+">
+    <div style="font-size: 20px; font-weight: 700; margin-bottom: 6px;">
+        📊 您的工厂水平如何？
+    </div>
+    <p style="font-size: 13px; line-height: 1.7; margin-bottom: 14px; opacity: 0.9;">
+        这些标杆企业并非一蹴而就。花3分钟做一次免费体检，<br>
+        看看贵厂与行业标杆的差距。<strong>8大维度评分 → 3分钟出报告</strong>
+    </p>
+    <a href="https://kevinhanmin.github.io/scorer-reports/reports/report_query.html"
+       style="
+           display: inline-block;
+           padding: 12px 32px;
+           background: #fff;
+           color: #2563eb;
+           text-decoration: none;
+           border-radius: 8px;
+           font-size: 15px;
+           font-weight: 600;
+           margin-bottom: 10px;
+       ">
+       🔍 免费工厂体检
+    </a>
+    <div style="font-size: 11px; opacity: 0.7;">
+        或扫码关注公众号 → 菜单「免费体检」
+    </div>
+</div>
+<div class="cta-section" style="
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 0 16px 24px;
+    text-align: center;
+">
+    <p style="font-size: 14px; color: #475569; margin-bottom: 10px;">
+        💡 思派工业为您提供<span style="color:#2563eb;font-weight:600;">精益智能工厂</span>一站式服务
+    </p>
+    <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">
+        免费诊断 → 深度评估 → 改善方案 → 落地辅导
+    </p>
+    <a href="https://kevinhanmin.github.io/scorer-reports/news/index.html"
+       style="
+           display: inline-block;
+           padding: 8px 20px;
+           background: transparent;
+           color: #2563eb;
+           text-decoration: none;
+           border: 1px solid #2563eb;
+           border-radius: 6px;
+           font-size: 13px;
+       ">
+       📰 查看每日行业快讯 →
+    </a>
+</div>
+
+<div class="footer">
+  <p class="brand">思派工业技术（深圳）有限公司 · 精益智能工厂案例库</p>
+  <p>📝 录入时间：2026年5月27日</p>
+  <p>📝 本文为知识库案例研究，仅供学习参考。数据以各企业官方公布为准。</p>
+  <p style="margin-top:10px; font-size:12px; color:#bbb;">— 思派工业 · 精益智能工厂领航员 —</p>
+</div>
+
+</div>
+</body>
+</html>
