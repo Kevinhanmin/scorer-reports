@@ -2,84 +2,48 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>思派工业 · 每日行业快讯</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
-    background: #f5f6f8; color: #1d1d1f;
+    background: #f0f2f5; color: #1a1a2e; min-height: 100vh;
 }
 .header {
-    background: #fff; border-bottom: 1px solid #e5e5e5;
-    padding: 16px; text-align: center;
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    color: white; padding: 32px 20px 24px; text-align: center;
 }
-.header h1 { font-size: 18px; font-weight: 700; }
-.header p { font-size: 12px; color: #8e8e93; margin-top: 2px; }
-.stats-bar {
-    font-size: 11px; color: #8e8e93; padding: 8px 16px;
-    text-align: center; background: #fafafa;
-    border-bottom: 1px solid #f0f0f2;
+.header h1 { font-size: 20px; font-weight: 700; letter-spacing: 1px; }
+.header p { font-size: 13px; opacity: 0.7; margin-top: 4px; }
+.container { max-width: 600px; margin: 0 auto; padding: 16px; }
+.article-list { display: flex; flex-direction: column; gap: 8px; }
+.article-item {
+    display: flex; align-items: center; gap: 10px;
+    background: white; border-radius: 10px; padding: 12px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06); text-decoration: none; color: #333;
+    transition: transform 0.1s, box-shadow 0.1s;
 }
-.container { max-width: 600px; margin: 0 auto; padding: 8px 16px 20px; }
-.issue-list { display: flex; flex-direction: column; gap: 4px; }
-.issue-item {
-    display: flex; align-items: flex-start; gap: 12px;
-    background: #fff; border-radius: 10px; padding: 14px 16px;
-    text-decoration: none; color: #1d1d1f;
-    border: 1px solid #f0f0f2;
-    transition: border-color 0.15s;
+.article-item:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
+.article-date {
+    font-size: 12px; color: #2563eb; font-weight: 600;
+    white-space: nowrap; min-width: 80px;
 }
-.issue-item:hover { border-color: #c7c7cc; }
-.issue-date { 
-    font-size: 13px; font-weight: 600; color: #007aff;
-    min-width: 76px; white-space: nowrap; padding-top: 1px;
+.article-summary { font-size: 13px; color: #64748b; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.article-arrow { font-size: 16px; color: #94a3b8; }
+.cta-box {
+    text-align: center; margin: 16px 0; padding: 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
 }
-.issue-content { flex: 1; min-width: 0; }
-.issue-title {
-    font-size: 14px; font-weight: 500; color: #1d1d1f;
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+.cta-box p { font-size: 13px; color: #475569; margin-bottom: 10px; }
+.cta-box .btn {
+    display: inline-block; padding: 10px 24px; background: #2563eb;
+    color: white; border-radius: 8px; text-decoration: none;
+    font-size: 14px; font-weight: 600;
 }
-.issue-summary {
-    font-size: 12px; color: #8e8e93; margin-top: 2px;
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-.issue-tags {
-    display: flex; gap: 4px; margin-top: 4px; flex-wrap: wrap;
-}
-.tag {
-    display: inline-block; font-size: 10px; padding: 1px 6px;
-    border-radius: 8px; font-weight: 500;
-}
-.tag-policy { background: #e8f0fe; color: #1967d2; }
-.tag-tech { background: #fce8e6; color: #c5221f; }
-.tag-case { background: #e6f4ea; color: #137333; }
-.issue-arrow { font-size: 16px; color: #c7c7cc; padding-top: 2px; }
-.cta-card {
-    text-align: center; margin: 16px 0; padding: 20px 16px;
-    background: linear-gradient(135deg, #f0f4ff 0%, #dce8ff 100%);
-    border-radius: 14px; border: 1px solid #b3cfff;
-}
-.cta-card p { font-size: 14px; color: #1d1d1f; font-weight: 500; margin-bottom: 10px; }
-.cta-card .btn {
-    display: inline-block; padding: 12px 28px; background: #007aff;
-    color: white; border-radius: 24px; text-decoration: none;
-    font-size: 15px; font-weight: 600;
-}
-.cta-card .btn:hover { opacity: 0.85; }
-.mp-card {
-    display: flex; align-items: center; gap: 12px;
-    background: #fff; border-radius: 12px; padding: 12px 16px;
-    margin: 12px 0; border: 1px solid #f0f0f2;
-}
-.mp-text { flex: 1; }
-.mp-title { font-size: 14px; font-weight: 600; color: #1d1d1f; margin-bottom: 2px; }
-.mp-desc { font-size: 12px; color: #8e8e93; line-height: 1.5; }
-.footer { text-align: center; padding: 20px 16px; color: #8e8e93; font-size: 11px; }
-@media (max-width: 480px) {
-    .container { padding: 6px 12px 16px; }
-    .issue-item { padding: 12px 14px; }
-}
+.cta-box .btn:hover { background: #1d4ed8; }
+.footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 11px; }
 </style>
 </head>
 <body>
@@ -87,100 +51,21 @@ body {
     <h1>📰 每日行业快讯</h1>
     <p>思派精益智能工厂领航员</p>
 </div>
-<div class="stats-bar">共 9 期 · 每日上午更新</div>
 <div class="container">
-    <div class="cta-card">
-        <p>🏭 免费工厂体检 3 分钟出报告</p>
-        <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 立即体检</a>
+    <div class="cta-box">
+        <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
+        <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
     </div>
-    <div class="mp-card">
-        <img src="qrcode_mp.jpg" alt="公众号" style="width:80px;height:80px;border-radius:6px;">
-        <div class="mp-text">
-            <div class="mp-title">📱 关注公众号</div>
-            <div class="mp-desc">每日快讯 · 免费体检 · 深度诊断</div>
-        </div>
-    </div>
-    <div class="issue-list">
-                <a href="2026-06-08.html" class="issue-item">
-            <div class="issue-date">2026-06-08</div>
-            <div class="issue-content">
-                <div class="issue-title">NTU 曹子昂教授团队：破解 3D 标注成本难题，只需一张图片丨CVPR 2026</div>
-                <div class="issue-summary">NTU 曹子昂教授团队：破解 3D 标注成本难题，只需一张图片丨CVPR 2026</div>
-                <div class="issue-tags"><span class="tag tag-policy">📌</span><span class="tag tag-tech">🚀</span><span class="tag tag-case">🏭</span></div>
-            </div>
-            <div class="issue-arrow">→</div>
+    <div class="article-list">
+                <a href="2026-06-09.html" class="article-item">
+            <div class="article-date">📅 2026-06-09</div>
+            <div class="article-summary">ICRA 2026上的灵巧手们，到底有多“卷”？</div>
+            <div class="article-arrow">→</div>
         </a>
-        <a href="2026-06-07.html" class="issue-item">
-            <div class="issue-date">2026-06-07</div>
-            <div class="issue-content">
-                <div class="issue-title">NTU 曹子昂教授团队：破解 3D 标注成本难题，只需一张图片丨CVPR 2026</div>
-                <div class="issue-summary">NTU 曹子昂教授团队：破解 3D 标注成本难题，只需一张图片丨CVPR 2026</div>
-                <div class="issue-tags"><span class="tag tag-tech">🚀</span><span class="tag tag-case">🏭</span></div>
-            </div>
-            <div class="issue-arrow">→</div>
-        </a>
-        <a href="2026-06-06.html" class="issue-item">
-            <div class="issue-date">2026-06-06</div>
-            <div class="issue-content">
-                <div class="issue-title">NTU 曹子昂教授团队：破解 3D 标注成本难题，只需一张图片丨CVPR 2026</div>
-                <div class="issue-summary">NTU 曹子昂教授团队：破解 3D 标注成本难题，只需一张图片丨CVPR 2026</div>
-                <div class="issue-tags"><span class="tag tag-tech">🚀</span><span class="tag tag-case">🏭</span></div>
-            </div>
-            <div class="issue-arrow">→</div>
-        </a>
-        <a href="2026-06-05.html" class="issue-item">
-            <div class="issue-date">2026-06-05</div>
-            <div class="issue-content">
-                <div class="issue-title">UT Austin朱玉可：人形机器人的数据困局怎么破？答案藏在「数据海绵」里 ｜ICRA 2026</div>
-                <div class="issue-summary">UT Austin朱玉可：人形机器人的数据困局怎么破？答案藏在「数据海绵」里 ｜ICRA 2026</div>
-                <div class="issue-tags"><span class="tag tag-policy">📌</span><span class="tag tag-tech">🚀</span></div>
-            </div>
-            <div class="issue-arrow">→</div>
-        </a>
-        <a href="2026-06-04.html" class="issue-item">
-            <div class="issue-date">2026-06-04</div>
-            <div class="issue-content">
-                <div class="issue-title">对话桥介数物尚阳星：机器人运动能力，远远没有被解决</div>
-                <div class="issue-summary">对话桥介数物尚阳星：机器人运动能力，远远没有被解决</div>
-                <div class="issue-tags"><span class="tag tag-policy">📌</span><span class="tag tag-tech">🚀</span><span class="tag tag-case">🏭</span></div>
-            </div>
-            <div class="issue-arrow">→</div>
-        </a>
-        <a href="2026-06-03.html" class="issue-item">
-            <div class="issue-date">2026-06-03</div>
-            <div class="issue-content">
-                <div class="issue-title">“优化管线”决胜，“数据筛选”筑基：从ICRA 2026看世界模型的技术发展趋势</div>
-                <div class="issue-summary">“优化管线”决胜，“数据筛选”筑基：从ICRA 2026看世界模型的技术发展趋势</div>
-                <div class="issue-tags"><span class="tag tag-policy">📌</span><span class="tag tag-tech">🚀</span><span class="tag tag-case">🏭</span></div>
-            </div>
-            <div class="issue-arrow">→</div>
-        </a>
-        <a href="2026-06-02.html" class="issue-item">
-            <div class="issue-date">2026-06-02</div>
-            <div class="issue-content">
-                <div class="issue-title">Edge AI Daily 早报（6月2日）</div>
-                <div class="issue-summary">Edge AI Daily 早报（6月2日）</div>
-                <div class="issue-tags"><span class="tag tag-policy">📌</span><span class="tag tag-tech">🚀</span><span class="tag tag-case">🏭</span></div>
-            </div>
-            <div class="issue-arrow">→</div>
-        </a>
-        <a href="2026-06-01.html" class="issue-item">
-            <div class="issue-date">2026-06-01</div>
-            <div class="issue-content">
-                <div class="issue-title">36氪首发 | 服务富士康，半年营收超两千万的机器人解决方案商完成天使轮融资</div>
-                <div class="issue-summary">36氪首发 | 服务富士康，半年营收超两千万的机器人解决方案商完成天使轮融资</div>
-                <div class="issue-tags"><span class="tag tag-policy">📌</span><span class="tag tag-tech">🚀</span></div>
-            </div>
-            <div class="issue-arrow">→</div>
-        </a>
-        <a href="2026-05-31.html" class="issue-item">
-            <div class="issue-date">2026-05-31</div>
-            <div class="issue-content">
-                <div class="issue-title">36氪首发 | 服务富士康，半年营收超两千万的机器人解决方案商完成天使轮融资</div>
-                <div class="issue-summary">36氪首发 | 服务富士康，半年营收超两千万的机器人解决方案商完成天使轮融资</div>
-                <div class="issue-tags"><span class="tag tag-policy">📌</span><span class="tag tag-tech">🚀</span><span class="tag tag-case">🏭</span></div>
-            </div>
-            <div class="issue-arrow">→</div>
+        <a href="2026-05-29.html" class="article-item">
+            <div class="article-date">📅 2026-05-29</div>
+            <div class="article-summary">ICRA 2026 | 神经衰减机制提升灵巧手精细抓握：双阶段深度预测学习TaSA框架，插入任务成功率翻倍</div>
+            <div class="article-arrow">→</div>
         </a>
     </div>
     <div class="footer">
