@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思派工业 · 每日行业快讯</title>
+<style>
+/* ─── Reset & Base ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f0f2f5; color: #1a1a2e; line-height: 1.5;
+}
+
+/* ─── Header (sticky) ─── */
+.header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    color: white; padding: 28px 20px 20px; text-align: center;
+    position: sticky; top: 0; z-index: 10;
+}
+.header h1 { font-size: 18px; font-weight: 700; letter-spacing: 1px; }
+.header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+.header .date-badge {
+    display: inline-block; margin-top: 8px; padding: 3px 12px;
+    background: rgba(255,255,255,0.15); border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+}
+
+/* ─── Container ─── */
+.container { max-width: 680px; margin: 0 auto; padding: 12px; }
+
+/* ─── Section Label ─── */
+.section-label {
+    font-size: 14px; font-weight: 700; color: #1e3a5f;
+    padding: 14px 14px 8px; margin-top: 8px;
+    border-bottom: 2px solid #e2e8f0; letter-spacing: 0.5px;
+}
+
+/* 老K视角节标题特殊色 */
+.laok-label {
+    color: #d97706;
+    border-bottom-color: #fde68a;
+}
+
+/* ─── News Card (compact) ─── */
+.news-card {
+    background: white; border-radius: 8px; padding: 10px 14px;
+    margin: 6px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.15s;
+    border-left: 3px solid #2563eb;
+}
+.news-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+.card-body {
+    font-size: 13px; color: #334155; line-height: 1.6;
+}
+.card-body strong { color: #0f172a; }
+
+.card-link {
+    display: inline-block; margin-top: 6px; font-size: 11px;
+    color: #2563eb; text-decoration: none; font-weight: 500;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* ─── Text Block (摘要, 提示) ─── */
+.text-block {
+    font-size: 13px; color: #475569; line-height: 1.7;
+    padding: 8px 14px; margin: 4px 0 6px;
+    background: #f8fafc; border-radius: 6px;
+    border-left: 3px solid #f59e0b;
+}
+.text-block a { color: #2563eb; text-decoration: none; }
+.text-block a:hover { text-decoration: underline; }
+
+/* ─── Source link (📎) ─── */
+.source-link {
+    font-size: 11px; color: #94a3b8; padding: 2px 14px;
+    margin: 0 0 6px; word-break: break-all;
+}
+.source-link a { color: #64748b; text-decoration: none; }
+.source-link a:hover { color: #2563eb; }
+
+/* ─── 老K视角块 ─── */
+.laok-block {
+    font-size: 14px; color: #92400e; line-height: 1.7;
+    padding: 12px 16px; margin: 6px 0;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-radius: 8px; border-left: 4px solid #f59e0b;
+    font-weight: 500;
+}
+
+/* ─── CTA Block ─── */
+.cta-block {
+    text-align: center; margin: 12px 0; padding: 12px 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-link {
+    font-size: 14px; margin: 4px 0;
+}
+.cta-link a {
+    color: #2563eb; text-decoration: none; font-weight: 600;
+}
+.cta-link a:hover { text-decoration: underline; }
+
+/* ─── Navigation ─── */
+.nav-links {
+    display: flex; justify-content: space-between; margin: 16px 0;
+}
+.nav-links a {
+    padding: 8px 14px; background: white; border-radius: 8px;
+    text-decoration: none; color: #2563eb; font-size: 13px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: background 0.15s;
+}
+.nav-links a:hover { background: #eff6ff; }
+
+/* ─── CTA Banner ─── */
+.cta-box {
+    text-align: center; margin: 16px 0; padding: 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-box p { font-size: 13px; color: #475569; margin-bottom: 10px; }
+.cta-box .btn {
+    display: inline-block; padding: 10px 24px; background: #2563eb;
+    color: white; border-radius: 8px; text-decoration: none;
+    font-size: 14px; font-weight: 600; transition: background 0.15s;
+}
+.cta-box .btn:hover { background: #1d4ed8; }
+
+/* ─── Footer ─── */
+.footer {
+    text-align: center; padding: 20px 14px; color: #94a3b8; font-size: 11px;
+    border-top: 1px solid #e2e8f0; margin-top: 12px;
+}
+.footer a { color: #2563eb; text-decoration: none; }
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .container { padding: 8px; }
+    .news-card { padding: 8px 10px; }
+    .section-label { font-size: 13px; padding: 12px 10px 6px; }
+    .card-body { font-size: 12px; }
+    .laok-block { font-size: 13px; padding: 10px 12px; }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>📰 每日行业快讯</h1>
+    <div class="subtitle">思派精益智能工厂领航员</div>
+    <div class="date-badge">2026年06月11日</div>
+</div>
+<div class="container">
+<div class="section-label">🔥 今日头条</div>
+<div class="text-block"><strong>工信部×国资委启动具身智能实景实训专项行动。</strong>工信部与国资委联合启动2026年度人形机器人与具身智能实景实训专项行动，目标年底形成百个高价值场景、万台级落地能力，央企及十省市率先参与。</div>
+<div class="section-label">📌 政策动态</div>
+<p class="card-body"><strong>1、智能制造工程实施指南将出。</strong>工信部明确制定出台指南，将AI应用纳入领航/卓越级智能工厂评定标准，迭代梯度培育体系，推动制造业智能化升级从试点走向规模化。</p>
+<p class="card-body"><strong>2、"AI+信息通信"三年实施意见印发。</strong>工信部发布2026—2028年文件，推动工业网络+行业大模型+工业智能体融合，面向中小企业提供套餐式AI服务，降低智能化门槛。</p>
+<div class="section-label">🚀 技术前沿</div>
+<p class="card-body"><strong>1、银河通用×宁德时代：人形机器人电芯产线自主搬运。</strong>人形机器人在宁德时代电芯产线实现真实环境下的自主搬运任务，完成率100%，标志着具身智能在动力电池核心工序取得实质性突破。</p>
+<p class="card-body"><strong>2、车企部署提速：杰克科技订购2000台缝制用机器人。</strong>杰克科技订2000台缝制用人形机器人投入产线；极氪工厂博特勒人形机器人进入系统性上岗测试阶段。车企正成为人形机器人规模部署的第一梯队。</p>
+<div class="section-label">🏭 标杆案例</div>
+<p class="card-body"><strong>1、WEF公布AI MINDS入选企业。</strong>通威太阳能成都公司（i光溯系统）与海信日立黄岛工厂凭借AI全流程赋能入选"AI应用之星"，为制造企业AI落地提供可参考范本。</p>
+<p class="card-body"><strong>2、美的泰国灯塔工厂——家电行业首座海外灯塔。</strong>集成13个智能体、72项AI方案，订单周期缩短43%。标志着中国制造企业的AI系统化落地能力已具备全球输出水平。</p>
+<p class="card-body"><strong>3、索菲丝"脑眼手"协同打磨系统。</strong>AI工业打磨系统合格率>98%，启动灯塔工厂计划并与具身智能方向结合，展现AI在精密加工领域的应用潜力。</p>
+<div class="section-label laok-label">👨‍🏫 老K视角</div>
+<p class="card-body">### 三个值得关注的信号</p>
+<p class="card-body">1️⃣ <strong>政策组合拳密集落地</strong> — 从具身实训到智能制造指南，工信部一周内连出多份政策文件，顶层设计正加速转化为执行层行动。央企+十省市的专项模式值得持续跟踪。</p>
+<p class="card-body">2️⃣ <strong>具身智能从"演示"进入"产线"</strong> — 从宁德时代电芯搬运到极氪系统性上岗，人形机器人的真实产线部署正从单点验证走向规模化复制。2026年可能是具身智能工业落地的拐点之年。</p>
+<p class="card-body">3️⃣ <strong>AI智能体的工业系统化</strong> — 美的海外灯塔集成13个智能体、海信/通威凭AI全流程入选，说明AI在制造领域的价值已不是单点工具，而是系统级能力。对于中小企业而言，"套餐式AI服务"的政策导向是值得抓住的窗口。</p>
+<p class="card-body">⚠️ <strong>老K提醒：</strong>政策密集期往往意味着窗口期有限。建议关注智能制造工程实施指南的细则出台，提前对标领航/卓越级标准，争取政策红利。</p>
+<div class="cta-block"><div class="cta-link">🔍 <a href="https://sptechsz.com/reports/report_query.html">免费工厂体检 → 3分钟出报告</a></div></div>
+    <div class="cta-box">
+        <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
+        <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">← 返回列表</a>
+        <a href="2026-06-10.html">下期 →</a>
+    </div>
+    <div class="footer">
+        <p>思派工业技术（深圳）有限公司</p>
+        <p>📱 关注公众号「思派工业——精益智能工厂领航员」</p>
+    </div>
+</div>
+</body>
+</html>
