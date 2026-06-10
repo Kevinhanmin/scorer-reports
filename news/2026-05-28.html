@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思派工业 · 每日行业快讯</title>
+<style>
+/* ─── Reset & Base ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f0f2f5; color: #1a1a2e; line-height: 1.5;
+}
+
+/* ─── Header (sticky) ─── */
+.header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    color: white; padding: 28px 20px 20px; text-align: center;
+    position: sticky; top: 0; z-index: 10;
+}
+.header h1 { font-size: 18px; font-weight: 700; letter-spacing: 1px; }
+.header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+.header .date-badge {
+    display: inline-block; margin-top: 8px; padding: 3px 12px;
+    background: rgba(255,255,255,0.15); border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+}
+
+/* ─── Container ─── */
+.container { max-width: 680px; margin: 0 auto; padding: 12px; }
+
+/* ─── Section Label ─── */
+.section-label {
+    font-size: 14px; font-weight: 700; color: #1e3a5f;
+    padding: 14px 14px 8px; margin-top: 8px;
+    border-bottom: 2px solid #e2e8f0; letter-spacing: 0.5px;
+}
+
+/* 老K点评节标题特殊色 */
+.laok-label {
+    color: #d97706;
+    border-bottom-color: #fde68a;
+}
+
+/* ─── News Card (compact) ─── */
+.news-card {
+    background: white; border-radius: 8px; padding: 10px 14px;
+    margin: 6px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.15s;
+    border-left: 3px solid #2563eb;
+}
+.news-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+.card-body {
+    font-size: 13px; color: #334155; line-height: 1.6;
+}
+.card-body strong { color: #0f172a; }
+
+.card-link {
+    display: inline-block; margin-top: 6px; font-size: 11px;
+    color: #2563eb; text-decoration: none; font-weight: 500;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* ─── Text Block (摘要, 提示) ─── */
+.text-block {
+    font-size: 13px; color: #475569; line-height: 1.7;
+    padding: 8px 14px; margin: 4px 0 6px;
+    background: #f8fafc; border-radius: 6px;
+    border-left: 3px solid #f59e0b;
+}
+.text-block a { color: #2563eb; text-decoration: none; }
+.text-block a:hover { text-decoration: underline; }
+
+/* ─── Source link (📎) ─── */
+.source-link {
+    font-size: 11px; color: #94a3b8; padding: 2px 14px;
+    margin: 0 0 6px; word-break: break-all;
+}
+.source-link a { color: #64748b; text-decoration: none; }
+.source-link a:hover { color: #2563eb; }
+
+/* ─── 老K点评块 ─── */
+.laok-block {
+    font-size: 14px; color: #92400e; line-height: 1.7;
+    padding: 12px 16px; margin: 6px 0;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-radius: 8px; border-left: 4px solid #f59e0b;
+    font-weight: 500;
+}
+
+/* ─── CTA Block ─── */
+.cta-block {
+    text-align: center; margin: 12px 0; padding: 12px 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-link {
+    font-size: 14px; margin: 4px 0;
+}
+.cta-link a {
+    color: #2563eb; text-decoration: none; font-weight: 600;
+}
+.cta-link a:hover { text-decoration: underline; }
+
+/* ─── Navigation ─── */
+.nav-links {
+    display: flex; justify-content: space-between; margin: 16px 0;
+}
+.nav-links a {
+    padding: 8px 14px; background: white; border-radius: 8px;
+    text-decoration: none; color: #2563eb; font-size: 13px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: background 0.15s;
+}
+.nav-links a:hover { background: #eff6ff; }
+
+/* ─── CTA Banner ─── */
+.cta-box {
+    text-align: center; margin: 16px 0; padding: 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-box p { font-size: 13px; color: #475569; margin-bottom: 10px; }
+.cta-box .btn {
+    display: inline-block; padding: 10px 24px; background: #2563eb;
+    color: white; border-radius: 8px; text-decoration: none;
+    font-size: 14px; font-weight: 600; transition: background 0.15s;
+}
+.cta-box .btn:hover { background: #1d4ed8; }
+
+/* ─── Footer ─── */
+.footer {
+    text-align: center; padding: 20px 14px; color: #94a3b8; font-size: 11px;
+    border-top: 1px solid #e2e8f0; margin-top: 12px;
+}
+.footer a { color: #2563eb; text-decoration: none; }
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .container { padding: 8px; }
+    .news-card { padding: 8px 10px; }
+    .section-label { font-size: 13px; padding: 12px 10px 6px; }
+    .card-body { font-size: 12px; }
+    .laok-block { font-size: 13px; padding: 10px 12px; }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>📰 每日行业快讯</h1>
+    <div class="subtitle">思派精益智能工厂领航员</div>
+    <div class="date-badge">2026年05月28日</div>
+</div>
+<div class="container">
+<div class="section-label">🔥 今日头条</div>
+<div class="text-block"><strong>ICRA 2026｜北京大学董豪团队Imagine2Act：让机器人“先想象、再动手”，攻克精细家务难题</strong></div>
+<p class="source-link">🔗 <a href="https://www.leiphone.com/category/robot/PKWgXrnCrdFguoH2.html" target="_blank">https://www.leiphone.com/category/robot/PKWgXrnCrdFguoH2.html</a></p>
+<div class="section-label">🚀 技术前沿</div>
+<div class="news-card"><div class="card-body">ICRA 2026｜北京大学董豪团队Imagine2Act：让机器人“先想象、再动手”，攻克精细家务难题</div><a class="card-link" href="https://www.leiphone.com/category/robot/PKWgXrnCrdFguoH2.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">来源：公众号“北京大学前沿计算研究中心” 原文链接：  论⽂地址：</div>
+<div class="news-card"><div class="card-body">百亿估值背后，普渡机器人以全球化商业实战练就具身智能「最强大脑」</div><a class="card-link" href="https://www.leiphone.com/category/robot/lNgOlmwWqgnBTY2t.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">上个月刚刚完成近10亿元新一轮融资、跻身 百亿估值独角兽俱乐部 的普渡机器人，日前重磅发布两大核心技术：具身智能基座大模型PuduFM 1.0和通用具身智能体平台PuduAgent。 两项技术发布，直指普渡深耕已久的顶层具身技术战略 ——...</div>
+<div class="news-card"><div class="card-body">前两天，我们在亦庄听到了AI最真实的声音｜2026 AI Partner大会金句实录</div><a class="card-link" href="https://36kr.com/p/3826932509364869?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">当大模型API调用成本一年内骤降超过80%，百万Token仅需几分钱时，产业竞争便不再纠结于技术指标的高低，而是回归到最朴素的价值衡量——能否在实际场景中降本增效。行业的聚光灯，从实验室的榜单，转向了真实的生产线、医院诊室、物流仓库和城市管...</div>
+<div class="news-card"><div class="card-body">ICRA 2026 | 用于消化道微创活检的仿生剪纸胶囊机器人</div><a class="card-link" href="https://www.leiphone.com/category/robot/5jG7fvCatwnWBiXV.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">来源：公众号“labrn” 原文链接： 香港中文大学任洪亮教授团队论文《用于消化道微创活检的仿生剪纸胶囊机器人》被机器人领域顶会 IEEE...</div>
+<div class="news-card"><div class="card-body">ICRA 2026 | EndoDDC：扩散模型赋能稀疏到稠密深度重建</div><a class="card-link" href="https://www.leiphone.com/category/robot/Za9QbzbFSiyEsgaL.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">来源：公众号“labren” 原文链接： 香港中文大学 任洪亮 教授团队...</div>
+<div class="section-label">🏭 标杆案例</div>
+<div class="news-card"><div class="card-body">第三代元PLUS 11.99万元起正式上市，全系搭载第二代刀片电池及闪充技术</div><a class="card-link" href="https://www.leiphone.com/category/transportation/re09I9TYjjuRsjGc.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">5月21日，比亚迪第三代元PLUS正式上市，官方指导价 11.99万-14.99万 。新车定位元力智趣闪充SUV， 凭借 全能产品力 契合 元气青年、年轻家庭与科技实用派的 多元 出行需求 ， 以全球车品质与年轻姿态 解锁高品质...</div>
+<div class="section-label laok-label">👨‍🏫 老K点评</div>
+<div class="laok-block">💡 💡 今天的技术前沿集中在6条——大厂已经在批量落地，但他们的路径不一定适合中小企业。</div>
+<p class="card-body">💬 对大多数工厂来说，最迫切的问题不是「上什么AI」，而是「现场管理还没做到位，上系统也是白搭」。</p>
+<p class="card-body">🔗 想知道你的工厂距离数字化还有多远？免费体检从5S/标准化/产线平衡等根基出发，告诉你真正的起点。 → 🔍 免费工厂体检：https://sptechsz.com/reports/report_query.html</p>
+<div class="cta-block"><div class="cta-link">🔍 <a href="https://sptechsz.com/reports/report_query.html">免费工厂体检 → 3分钟出报告</a></div></div>
+<div class="cta-block"><div class="cta-link">💬 关注公众号「思派工业——精益智能工厂领航员」</div></div>
+    <div class="cta-box">
+        <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
+        <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">← 返回列表</a>
+        <a href="2026-05-27.html">下期 →</a>
+    </div>
+    <div class="footer">
+        <p>思派工业技术（深圳）有限公司</p>
+        <p>📱 关注公众号「思派工业——精益智能工厂领航员」</p>
+    </div>
+</div>
+</body>
+</html>

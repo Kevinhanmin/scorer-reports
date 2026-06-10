@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>{{企业名称}}——{{案例副标题}}</title>
+<style>
+  /* ===== 思派工业 · 精益智能工厂案例库 标准化模板 ===== */
+  /* 使用说明：复制此文件，替换 {{}} 内的变量即可 */
+  /* 可用元素：mode-cards / num-list / highlight-box / warning-box / table-wrap / divider */
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.8;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 680px; margin: 0 auto; background: #fff; min-height: 100vh; padding: 0 20px; }
+
+  /* ===== Header ===== */
+  .header { padding: 32px 0 20px; text-align: center; border-bottom: 1px solid #e8e8e8; }
+  .header .meta { font-size: 13px; color: #999; margin-top: 12px; }
+  .header .meta span { margin: 0 6px; }
+  .header .meta .dot { color: #ddd; }
+  .article-title { font-size: 22px; font-weight: 700; line-height: 1.4; color: #1a1a1a; margin-bottom: 8px; }
+  .article-subtitle { font-size: 15px; color: #666; font-weight: 400; margin-top: 6px; }
+
+  /* ===== Content ===== */
+  .content { padding: 24px 0 40px; }
+  .content h2 { font-size: 20px; font-weight: 700; color: #1a1a1a; margin: 36px 0 16px; padding-left: 14px; border-left: 4px solid #2b7bcf; }
+  .content h3 { font-size: 17px; font-weight: 600; color: #2b2b2b; margin: 28px 0 12px; }
+  .content h4 { font-size: 15px; font-weight: 600; color: #444; margin: 20px 0 10px; }
+  .content p { margin: 12px 0; text-align: justify; }
+  .content ul, .content ol { margin: 10px 0 10px 0; padding-left: 22px; }
+  .content li { margin: 6px 0; text-align: justify; }
+
+  /* ===== Tables ===== */
+  .content .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 16px 0; border: 1px solid #e8e8e8; border-radius: 8px; }
+  .content table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 500px; }
+  .content table th { background: #f0f5fb; color: #333; font-weight: 600; padding: 10px 12px; text-align: left; border-bottom: 2px solid #d9e6f2; white-space: nowrap; }
+  .content table td { padding: 9px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+  .content table tr:last-child td { border-bottom: none; }
+  .content table tr:nth-child(even) td { background: #fafafa; }
+
+  /* ===== Blockquotes ===== */
+  .content blockquote { margin: 16px 0; padding: 14px 18px; background: #f7f9fc; border-left: 4px solid #2b7bcf; border-radius: 0 6px 6px 0; color: #555; font-size: 14px; line-height: 1.7; }
+  .content blockquote p { margin: 4px 0; }
+
+  /* ===== Highlight Box (蓝色信息框) ===== */
+  .highlight-box { margin: 16px 0; padding: 16px 18px; background: #f0f7ff; border-radius: 8px; border: 1px solid #d9e6f2; }
+  .highlight-box .label { font-size: 13px; font-weight: 600; color: #2b7bcf; margin-bottom: 4px; }
+  .highlight-box p { margin: 4px 0; font-size: 14px; }
+  /* 用于：导读、行业地位、行业启示、核心启示 */
+
+  /* ===== Warning Box (黄色警告框) ===== */
+  .warning-box { margin: 16px 0; padding: 14px 18px; background: #fffbe6; border-radius: 8px; border: 1px solid #ffe58f; font-size: 14px; color: #8c6e00; }
+  /* 用于：数据免责声明 */
+
+  /* ===== Tag Chips ===== */
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .tag { display: inline-block; padding: 4px 12px; background: #edf4ff; color: #2b7bcf; border-radius: 20px; font-size: 13px; font-weight: 500; }
+
+  /* ===== Mode Cards (渐变色卡片，3种类型) ===== */
+  .mode-cards { display: flex; flex-direction: column; gap: 12px; margin: 16px 0; }
+  .mode-card { padding: 16px 18px; border-radius: 10px; border: 1px solid #e0e8f0; }
+  .mode-card .card-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .mode-card .card-title .emoji { margin-right: 6px; }
+  .mode-card p { font-size: 14px; color: #555; margin: 4px 0; }
+  .mode-card.brain { background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%); border-color: #b8cce8; }
+  .mode-card.core { background: linear-gradient(135deg, #f5f8f0 0%, #edf4e0 100%); border-color: #c8dbb0; }
+  .mode-card.evolve { background: linear-gradient(135deg, #fef6f0 0%, #fceee0 100%); border-color: #e8d0b8; }
+  /* 用法示例：
+     <div class="mode-card brain">     — 蓝色调（用于"平台/大脑/系统"类）
+     <div class="mode-card core">      — 绿色调（用于"制造/生产/核心业务"类）
+     <div class="mode-card evolve">    — 橙色调（用于"创新/进化/发展"类）
+  */
+
+  /* ===== Number Badge List (蓝色圆形编号列表) ===== */
+  .num-list { list-style: none; padding: 0; }
+  .num-list li { position: relative; padding-left: 32px; margin: 12px 0; min-height: 24px; }
+  .num-list li::before { content: attr(data-num); position: absolute; left: 0; top: 2px; width: 22px; height: 22px; background: #2b7bcf; color: #fff; border-radius: 50%; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+  /* 用于：建设特点总结、关键启示等需要编号的列表 */
+
+  /* ===== Divider ===== */
+  .divider { text-align: center; color: #ccc; margin: 32px 0; font-size: 14px; position: relative; }
+  .divider::before, .divider::after { content: ''; position: absolute; top: 50%; width: 40%; height: 1px; background: #e0e0e0; }
+  .divider::before { left: 0; }
+  .divider::after { right: 0; }
+
+  /* ===== Footer ===== */
+  .footer { padding: 20px 0 32px; border-top: 1px solid #e8e8e8; text-align: center; }
+  .footer p { font-size: 13px; color: #999; margin: 4px 0; line-height: 1.6; }
+  .footer .brand { font-weight: 600; color: #666; }
+
+  /* ===== Dark Mode ===== */
+  @media (prefers-color-scheme: dark) {
+    body { background: #1a1a1a; }
+    .container { background: #1e1e1e; color: #d0d0d0; }
+    .article-title { color: #e0e0e0; }
+    .content h2 { color: #e0e0e0; border-left-color: #4a9eff; }
+    .content h3 { color: #ccc; }
+    .content h4 { color: #aaa; }
+    .content blockquote { background: #2a2a2a; color: #aaa; }
+    .content table th { background: #2a2a2a; color: #ccc; border-bottom-color: #444; }
+    .content table td { border-bottom-color: #333; }
+    .content table tr:nth-child(even) td { background: #252525; }
+    .content .table-wrap { border-color: #333; }
+    .highlight-box { background: #1e2a3a; border-color: #2a4a6a; }
+    .highlight-box .label { color: #6aafff; }
+    .warning-box { background: #2a2a1a; border-color: #5a5a2a; color: #bbaa66; }
+    .tag { background: #2a3a4a; color: #6aafff; }
+    .mode-card.brain { background: linear-gradient(135deg, #1a2a3a 0%, #1e3040 100%); border-color: #2a4a6a; }
+    .mode-card.core { background: linear-gradient(135deg, #1a2a1a 0%, #1e301e 100%); border-color: #2a4a2a; }
+    .mode-card.evolve { background: linear-gradient(135deg, #2a1a1a 0%, #301e1e 100%); border-color: #4a2a2a; }
+    .header { border-bottom-color: #333; }
+    .footer { border-top-color: #333; }
+    .divider::before, .divider::after { background: #444; }
+    .mode-card p { color: #999; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1 class="article-title">{{企业名称}}——{{案例副标题}}</h1>
+  <p class="article-subtitle">{{一句话定位}}</p>
+  <div class="meta">
+    <span>🔬 精益智能工厂案例库</span>
+    <span class="dot">·</span>
+    <span>{{录入日期}}</span>
+    <span class="dot">·</span>
+    <span>思派工业技术（深圳）有限公司</span>
+  </div>
+  <div class="tag-list" style="justify-content:center; margin-top:14px;">
+    {{#tags}}
+    <span class="tag">#{{tag}}</span>
+    {{/tags}}
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ======== 导读 ======== -->
+<div class="highlight-box">
+  <div class="label">📖 导读</div>
+  <p>{{导读内容}}</p>
+</div>
+
+<!-- ======== 基本信息 ======== -->
+<h2>基本信息</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>项目</th><th>内容</th></tr></thead>
+  <tbody>
+    {{#基本信息}}
+    <tr><td><strong>{{项目}}</strong></td><td>{{内容}}</td></tr>
+    {{/基本信息}}
+  </tbody>
+</table>
+</div>
+
+<!-- ======== 企业背景 ======== -->
+<h2>企业背景</h2>
+<p>{{企业背景段落}}</p>
+
+<p><strong>行业地位：</strong></p>
+<ul>
+  {{#行业地位}}
+  <li>{{内容}}</li>
+  {{/行业地位}}
+</ul>
+
+<p><strong>核心产品：</strong></p>
+<ul>
+  {{#核心产品}}
+  <li>{{产品}}</li>
+  {{/核心产品}}
+</ul>
+
+<!-- ======== ------ 核心内容区域（按需定制）------ ======== -->
+<!-- 
+  以下元素按需使用：
+
+  1. mode-cards（卡片布局，3种颜色）
+     <div class="mode-cards">
+       <div class="mode-card brain">
+         <div class="card-title"><span class="emoji">🧠</span> [1] 卡片标题</div>
+         <p>卡片描述</p>
+         <p style="margin-top:8px; font-size:13px; color:#888;">→ 关键词 · 关键词</p>
+       </div>
+       <div class="mode-card core">
+         <div class="card-title"><span class="emoji">🔧</span> [2] 卡片标题</div>
+         <p>卡片描述</p>
+       </div>
+       <div class="mode-card evolve">
+         <div class="card-title"><span class="emoji">🔄</span> [3] 卡片标题</div>
+         <p>卡片描述</p>
+       </div>
+     </div>
+
+  2. num-list（编号列表）
+     <ol class="num-list" style="list-style:none; padding-left:0;">
+       <li data-num="1"><strong>标题：</strong>描述内容</li>
+       <li data-num="2"><strong>标题：</strong>描述内容</li>
+     </ol>
+
+  3. highlight-box（蓝色信息框）
+     <div class="highlight-box">
+       <div class="label">💡 关键启示</div>
+       <p>内容...</p>
+     </div>
+
+  4. warning-box（黄色警告框）
+     <div class="warning-box">⚠️ 免责声明</div>
+
+  5. divider（分隔线）
+     <div class="divider">✦ ✦ ✦</div>
+-->
+
+<!-- ======== 建设特点总结 ======== -->
+<h2>建设特点总结</h2>
+
+<ol class="num-list" style="list-style:none; padding-left:0;">
+  <li data-num="1"><strong>{{特点1标题}}：</strong>{{特点1描述}}</li>
+  <li data-num="2"><strong>{{特点2标题}}：</strong>{{特点2描述}}</li>
+  <li data-num="3"><strong>{{特点3标题}}：</strong>{{特点3描述}}</li>
+  <li data-num="4"><strong>{{特点4标题}}：</strong>{{特点4描述}}</li>
+  <li data-num="5"><strong>{{特点5标题}}：</strong>{{特点5描述}}</li>
+</ol>
+
+<!-- ======== 行业启示 ======== -->
+<h2>行业启示</h2>
+
+<div class="highlight-box">
+  <div class="label">💡 关键启示</div>
+  {{#行业启示}}
+  <p><strong>启示{{序号}}：{{标题}}。</strong>{{描述}}</p>
+  {{/行业启示}}
+</div>
+
+<!-- ======== 荣誉认证 ======== -->
+<h2>荣誉认证与行业影响力</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>类别</th><th>荣誉</th></tr></thead>
+  <tbody>
+    {{#荣誉}}
+    <tr><td>🏅 {{类别}}</td><td>{{荣誉名称}}</td></tr>
+    {{/荣誉}}
+  </tbody>
+</table>
+</div>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<blockquote>
+📝 <strong>录入时间：</strong> {{录入日期}}<br>
+📝 <strong>信息来源：</strong> {{信息来源}}
+</blockquote>
+
+<div class="divider">✦ ✦ ✦</div>
+
+</div>
+
+<!-- ===== CTA: 案例→引流转化（KEV-47 内容师设计） ===== -->
+<div class="cta-section" style="
+    margin: 28px 14px 20px;
+    padding: 20px 18px;
+    background: linear-gradient(135deg, #eef2ff 0%, #dbeafe 100%);
+    border-radius: 12px;
+    border: 1px solid #bfdbfe;
+    text-align: center;
+">
+    <div style="font-size: 14px; font-weight: 700; color: #1e3a5f; margin-bottom: 8px;">
+        📊 您的工厂水平如何？
+    </div>
+    <p style="font-size: 13px; color: #475569; line-height: 1.7; margin-bottom: 14px;">
+        这些标杆企业并非一蹴而就。花3分钟做一次免费体检，<br>
+        看看贵厂与行业标杆的差距。<strong>8大维度评分 → 3分钟出报告</strong>
+    </p>
+    <a href="https://sptechsz.com/reports/report_query.html"
+       style="
+           display: inline-block;
+           padding: 12px 32px;
+           background: #2563eb;
+           color: white;
+           text-decoration: none;
+           border-radius: 8px;
+           font-size: 15px;
+           font-weight: 600;
+           transition: background 0.2s;
+           margin-bottom: 12px;
+       "
+       onmouseover="this.style.background='#1d4ed8'"
+       onmouseout="this.style.background='#2563eb'">
+       🔍 免费工厂体检
+    </a>
+    <div style="font-size: 11px; color: #94a3b8; margin-top: 6px;">
+        或扫码关注公众号 → 菜单「免费体检」
+    </div>
+</div>
+
+<div class="footer">
+  <p class="brand">思派工业技术（深圳）有限公司 · 精益智能工厂案例库</p>
+  <p>📝 录入时间：{{录入日期}}</p>
+  <p>📝 本文为知识库案例研究，仅供学习参考。数据以各企业官方公布为准。</p>
+  <p style="margin-top:10px; font-size:12px; color:#bbb;">— 思派工业 · 精益智能工厂领航员 —</p>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思派工业 · 每日行业快讯</title>
+<style>
+/* ─── Reset & Base ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f0f2f5; color: #1a1a2e; line-height: 1.5;
+}
+
+/* ─── Header (sticky) ─── */
+.header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    color: white; padding: 28px 20px 20px; text-align: center;
+    position: sticky; top: 0; z-index: 10;
+}
+.header h1 { font-size: 18px; font-weight: 700; letter-spacing: 1px; }
+.header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+.header .date-badge {
+    display: inline-block; margin-top: 8px; padding: 3px 12px;
+    background: rgba(255,255,255,0.15); border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+}
+
+/* ─── Container ─── */
+.container { max-width: 680px; margin: 0 auto; padding: 12px; }
+
+/* ─── Section Label ─── */
+.section-label {
+    font-size: 14px; font-weight: 700; color: #1e3a5f;
+    padding: 14px 14px 8px; margin-top: 8px;
+    border-bottom: 2px solid #e2e8f0; letter-spacing: 0.5px;
+}
+
+/* 老K点评节标题特殊色 */
+.laok-label {
+    color: #d97706;
+    border-bottom-color: #fde68a;
+}
+
+/* ─── News Card (compact) ─── */
+.news-card {
+    background: white; border-radius: 8px; padding: 10px 14px;
+    margin: 6px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.15s;
+    border-left: 3px solid #2563eb;
+}
+.news-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+.card-body {
+    font-size: 13px; color: #334155; line-height: 1.6;
+}
+.card-body strong { color: #0f172a; }
+
+.card-link {
+    display: inline-block; margin-top: 6px; font-size: 11px;
+    color: #2563eb; text-decoration: none; font-weight: 500;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* ─── Text Block (摘要, 提示) ─── */
+.text-block {
+    font-size: 13px; color: #475569; line-height: 1.7;
+    padding: 8px 14px; margin: 4px 0 6px;
+    background: #f8fafc; border-radius: 6px;
+    border-left: 3px solid #f59e0b;
+}
+.text-block a { color: #2563eb; text-decoration: none; }
+.text-block a:hover { text-decoration: underline; }
+
+/* ─── Source link (📎) ─── */
+.source-link {
+    font-size: 11px; color: #94a3b8; padding: 2px 14px;
+    margin: 0 0 6px; word-break: break-all;
+}
+.source-link a { color: #64748b; text-decoration: none; }
+.source-link a:hover { color: #2563eb; }
+
+/* ─── 老K点评块 ─── */
+.laok-block {
+    font-size: 14px; color: #92400e; line-height: 1.7;
+    padding: 12px 16px; margin: 6px 0;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-radius: 8px; border-left: 4px solid #f59e0b;
+    font-weight: 500;
+}
+
+/* ─── CTA Block ─── */
+.cta-block {
+    text-align: center; margin: 12px 0; padding: 12px 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-link {
+    font-size: 14px; margin: 4px 0;
+}
+.cta-link a {
+    color: #2563eb; text-decoration: none; font-weight: 600;
+}
+.cta-link a:hover { text-decoration: underline; }
+
+/* ─── Navigation ─── */
+.nav-links {
+    display: flex; justify-content: space-between; margin: 16px 0;
+}
+.nav-links a {
+    padding: 8px 14px; background: white; border-radius: 8px;
+    text-decoration: none; color: #2563eb; font-size: 13px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: background 0.15s;
+}
+.nav-links a:hover { background: #eff6ff; }
+
+/* ─── CTA Banner ─── */
+.cta-box {
+    text-align: center; margin: 16px 0; padding: 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-box p { font-size: 13px; color: #475569; margin-bottom: 10px; }
+.cta-box .btn {
+    display: inline-block; padding: 10px 24px; background: #2563eb;
+    color: white; border-radius: 8px; text-decoration: none;
+    font-size: 14px; font-weight: 600; transition: background 0.15s;
+}
+.cta-box .btn:hover { background: #1d4ed8; }
+
+/* ─── Footer ─── */
+.footer {
+    text-align: center; padding: 20px 14px; color: #94a3b8; font-size: 11px;
+    border-top: 1px solid #e2e8f0; margin-top: 12px;
+}
+.footer a { color: #2563eb; text-decoration: none; }
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .container { padding: 8px; }
+    .news-card { padding: 8px 10px; }
+    .section-label { font-size: 13px; padding: 12px 10px 6px; }
+    .card-body { font-size: 12px; }
+    .laok-block { font-size: 13px; padding: 10px 12px; }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>📰 每日行业快讯</h1>
+    <div class="subtitle">思派精益智能工厂领航员</div>
+    <div class="date-badge">2026年05月27日</div>
+</div>
+<div class="container">
+<div class="section-label">🔥 今日头条</div>
+<div class="text-block"><strong>百亿估值背后，普渡机器人以全球化商业实战练就具身智能「最强大脑」</strong></div>
+<div class="text-block">上个月刚刚完成近10亿元新一轮融资、跻身 百亿估值独角兽俱乐部 的普渡机器人，日前重磅发布两大核心技术：具身智能基座大模型PuduFM 1.0和通用具身智能体平台PuduAgent。 两项技术发布，直指普渡深耕已久的顶层具身技术战略 —— “一脑多形” 。...</div>
+<p class="source-link">🔗 <a href="https://www.leiphone.com/category/robot/lNgOlmwWqgnBTY2t.html" target="_blank">https://www.leiphone.com/category/robot/lNgOlmwWqgnBTY2t.html</a></p>
+<div class="section-label">📌 国内政策</div>
+<div class="news-card"><div class="card-body">我国将加快研究推进人工智能健康发展综合性立法、低空经济立法等</div><a class="card-link" href="https://36kr.com/newsflashes/3826943472947847?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">国务院新闻办公室举行“开局起步‘十五五’”系列主题新闻发布会，介绍“推进全面依法治国”有关情况。发布会上，司法部副部长武增介绍了近年来政府立法在保障经济社会高质量发展、推进中国式现代化方面开展的工作。“十四五”期间，国务院提请全国人大常委会...</div>
+<div class="news-card"><div class="card-body">上海：到2030年，服务业增加值达6万亿元左右</div><a class="card-link" href="https://36kr.com/newsflashes/3827004091372167?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">36氪获悉，上海市人民政府发布关于推进服务业扩能提质的实施意见。其中提出，到2030年，服务业高质量发展取得显著成效，服务业增加值达6万亿元左右，服务进出口额突破3000亿美元。培育一批具有全球竞争力的服务业领军企业，打造一批特色鲜明的服务...</div>
+<div class="news-card"><div class="card-body">最高法：研究制定涉AI案件和数据产权司法保护规范性文件</div><a class="card-link" href="https://36kr.com/newsflashes/3826929999434370?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">今天，国务院新闻办公室举行“开局起步‘十五五’”系列主题新闻发布会，介绍“推进全面依法治国”有关情况。发布会上，最高人民法院审判委员会副部级专职委员、二级大法官刘贵祥表示，人民法院将坚持“两个毫不动摇”，贯彻落实民营经济促进法，依法平等保护...</div>
+<div class="news-card"><div class="card-body">上海：强化绿色能源服务，完善推广绿电直连、绿电交易、绿电证书交易</div><a class="card-link" href="https://36kr.com/newsflashes/3827004395885443?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">36氪获悉，上海市人民政府发布关于推进服务业扩能提质的实施意见。其中提出，加大智能绿色产品供给，引导智能算力中心、数据中心等数字基础设施绿色化建设运行。强化绿色能源服务，完善推广绿电直连、绿电交易、绿电证书交易，促进绿电消费，鼓励优先使用绿...</div>
+<div class="section-label">🚀 技术前沿</div>
+<div class="news-card"><div class="card-body">百亿估值背后，普渡机器人以全球化商业实战练就具身智能「最强大脑」</div><a class="card-link" href="https://www.leiphone.com/category/robot/lNgOlmwWqgnBTY2t.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">上个月刚刚完成近10亿元新一轮融资、跻身 百亿估值独角兽俱乐部 的普渡机器人，日前重磅发布两大核心技术：具身智能基座大模型PuduFM 1.0和通用具身智能体平台PuduAgent。 两项技术发布，直指普渡深耕已久的顶层具身技术战略 ——...</div>
+<div class="news-card"><div class="card-body">前两天，我们在亦庄听到了AI最真实的声音｜2026 AI Partner大会金句实录</div><a class="card-link" href="https://36kr.com/p/3826932509364869?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">当大模型API调用成本一年内骤降超过80%，百万Token仅需几分钱时，产业竞争便不再纠结于技术指标的高低，而是回归到最朴素的价值衡量——能否在实际场景中降本增效。行业的聚光灯，从实验室的榜单，转向了真实的生产线、医院诊室、物流仓库和城市管...</div>
+<div class="news-card"><div class="card-body">机器人启蒙，需要一所能“犯错”的幼儿园</div><a class="card-link" href="https://36kr.com/p/3825969453699970?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">2024年，强化学习奠基人理查德·萨顿与他的导师安德鲁·巴托共同获得了图灵奖。 这个奖项来得不算早。过去三十年，萨顿的理论支撑了AlphaGo、ChatGPT等系统的进化，但他三十年前写下的理论，直到今天才被具身智能行业真正理解：...</div>
+<div class="news-card"><div class="card-body">简智机器人与蚂蚁灵波达成战略合作，以人本范式革新具身智能模型进化</div><a class="card-link" href="https://www.leiphone.com/category/industrynews/SAVEtosZom2jQ670.html" target="_blank">阅读原文 →</a></div>
+<div class="text-block">5月26日，简智新创（北京）机器人科技有限公司与上海蚂蚁灵波科技有限公司达成深度战略合作，双方将聚焦“人类数据驱动模型认知进化”的全新技术路径，突破传统本体绑定、场景泛化薄弱的行业瓶颈，在具身模型训练逻辑与通用智能进化路径上实现重要技术创新...</div>
+<div class="news-card"><div class="card-body">NBBOSS发布AI决策机器人，瞄准企业决策场景</div><a class="card-link" href="https://36kr.com/newsflashes/3826958517113731?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="text-block">5月26日，NBBOSS发布全球首款专为老板设计的AI决策机器人R1。R1采用“智能基座+可分离机身”双形态设计，实现了AI对商业决策的实时介入与主动参与。创始人童楚格表示：“目前市面上的AI工具，让员工变成了超人，却把老板变成了路人。”R...</div>
+<div class="section-label laok-label">👨‍🏫 老K点评</div>
+<div class="laok-block">💡 从今天的资讯来看，4条政策和6条技术前沿传递了同一个信号：2026年是国家智能制造全面提速的元年。你的工厂准备好了吗？如果在推行精益中遇到落地难题，不妨来一次免费体检，3分钟定位问题。</div>
+<div class="cta-block"><div class="cta-link">🔍 <a href="https://sptechsz.com/reports/report_query.html">免费工厂体检 → 3分钟出报告</a></div></div>
+<div class="cta-block"><div class="cta-link">💬 关注公众号「思派工业——精益智能工厂领航员」</div></div>
+    <div class="cta-box">
+        <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
+        <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">← 返回列表</a>
+        <a href="2026-05-26.html">下期 →</a>
+    </div>
+    <div class="footer">
+        <p>思派工业技术（深圳）有限公司</p>
+        <p>📱 关注公众号「思派工业——精益智能工厂领航员」</p>
+    </div>
+</div>
+</body>
+</html>

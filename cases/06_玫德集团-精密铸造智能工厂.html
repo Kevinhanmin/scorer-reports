@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>玫德集团——精密铸造智能工厂与数字化转型</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.8;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 680px; margin: 0 auto; background: #fff; min-height: 100vh; padding: 0 20px; }
+  .header { padding: 32px 0 20px; text-align: center; border-bottom: 1px solid #e8e8e8; }
+  .header .meta { font-size: 13px; color: #999; margin-top: 12px; }
+  .header .meta span { margin: 0 6px; }
+  .header .meta .dot { color: #ddd; }
+  .article-title { font-size: 22px; font-weight: 700; line-height: 1.4; color: #1a1a1a; margin-bottom: 8px; }
+  .article-subtitle { font-size: 15px; color: #666; font-weight: 400; margin-top: 6px; }
+  .content { padding: 24px 0 40px; }
+  .content h2 { font-size: 20px; font-weight: 700; color: #1a1a1a; margin: 36px 0 16px; padding-left: 14px; border-left: 4px solid #2b7bcf; }
+  .content h3 { font-size: 17px; font-weight: 600; color: #2b2b2b; margin: 28px 0 12px; }
+  .content h4 { font-size: 15px; font-weight: 600; color: #444; margin: 20px 0 10px; }
+  .content p { margin: 12px 0; text-align: justify; }
+  .content ul, .content ol { margin: 10px 0 10px 0; padding-left: 22px; }
+  .content li { margin: 6px 0; text-align: justify; }
+  .content .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 16px 0; border: 1px solid #e8e8e8; border-radius: 8px; }
+  .content table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 500px; }
+  .content table th { background: #f0f5fb; color: #333; font-weight: 600; padding: 10px 12px; text-align: left; border-bottom: 2px solid #d9e6f2; white-space: nowrap; }
+  .content table td { padding: 9px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+  .content table tr:last-child td { border-bottom: none; }
+  .content table tr:nth-child(even) td { background: #fafafa; }
+  .content blockquote { margin: 16px 0; padding: 14px 18px; background: #f7f9fc; border-left: 4px solid #2b7bcf; border-radius: 0 6px 6px 0; color: #555; font-size: 14px; line-height: 1.7; }
+  .content blockquote p { margin: 4px 0; }
+  .highlight-box { margin: 16px 0; padding: 16px 18px; background: #f0f7ff; border-radius: 8px; border: 1px solid #d9e6f2; }
+  .highlight-box .label { font-size: 13px; font-weight: 600; color: #2b7bcf; margin-bottom: 4px; }
+  .highlight-box p { margin: 4px 0; font-size: 14px; }
+  .warning-box { margin: 16px 0; padding: 14px 18px; background: #fffbe6; border-radius: 8px; border: 1px solid #ffe58f; font-size: 14px; color: #8c6e00; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .tag { display: inline-block; padding: 4px 12px; background: #edf4ff; color: #2b7bcf; border-radius: 20px; font-size: 13px; font-weight: 500; }
+  .mode-cards { display: flex; flex-direction: column; gap: 12px; margin: 16px 0; }
+  .mode-card { padding: 16px 18px; border-radius: 10px; border: 1px solid #e0e8f0; }
+  .mode-card .card-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .mode-card .card-title .emoji { margin-right: 6px; }
+  .mode-card p { font-size: 14px; color: #555; margin: 4px 0; }
+  .mode-card.brain { background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%); border-color: #b8cce8; }
+  .mode-card.core { background: linear-gradient(135deg, #f5f8f0 0%, #edf4e0 100%); border-color: #c8dbb0; }
+  .mode-card.evolve { background: linear-gradient(135deg, #fef6f0 0%, #fceee0 100%); border-color: #e8d0b8; }
+  .divider { text-align: center; color: #ccc; margin: 32px 0; font-size: 14px; position: relative; }
+  .divider::before, .divider::after { content: ''; position: absolute; top: 50%; width: 40%; height: 1px; background: #e0e0e0; }
+  .divider::before { left: 0; }
+  .divider::after { right: 0; }
+  .footer { padding: 20px 0 32px; border-top: 1px solid #e8e8e8; text-align: center; }
+  .footer p { font-size: 13px; color: #999; margin: 4px 0; line-height: 1.6; }
+  .footer .brand { font-weight: 600; color: #666; }
+  .num-list { list-style: none; padding: 0; }
+  .num-list li { position: relative; padding-left: 32px; margin: 12px 0; min-height: 24px; }
+  .num-list li::before { content: attr(data-num); position: absolute; left: 0; top: 2px; width: 22px; height: 22px; background: #2b7bcf; color: #fff; border-radius: 50%; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #1a1a1a; }
+    .container { background: #1e1e1e; color: #d0d0d0; }
+    .article-title { color: #e0e0e0; }
+    .content h2 { color: #e0e0e0; border-left-color: #4a9eff; }
+    .content h3 { color: #ccc; }
+    .content h4 { color: #aaa; }
+    .content blockquote { background: #2a2a2a; color: #aaa; }
+    .content table th { background: #2a2a2a; color: #ccc; border-bottom-color: #444; }
+    .content table td { border-bottom-color: #333; }
+    .content table tr:nth-child(even) td { background: #252525; }
+    .content .table-wrap { border-color: #333; }
+    .highlight-box { background: #1e2a3a; border-color: #2a4a6a; }
+    .highlight-box .label { color: #6aafff; }
+    .warning-box { background: #2a2a1a; border-color: #5a5a2a; color: #bbaa66; }
+    .tag { background: #2a3a4a; color: #6aafff; }
+    .mode-card.brain { background: linear-gradient(135deg, #1a2a3a 0%, #1e3040 100%); border-color: #2a4a6a; }
+    .mode-card.core { background: linear-gradient(135deg, #1a2a1a 0%, #1e301e 100%); border-color: #2a4a2a; }
+    .mode-card.evolve { background: linear-gradient(135deg, #2a1a1a 0%, #301e1e 100%); border-color: #4a2a2a; }
+    .header { border-bottom-color: #333; }
+    .footer { border-top-color: #333; }
+    .divider::before, .divider::after { background: #444; }
+    .mode-card p { color: #999; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1 class="article-title">玫德集团——精密铸造智能工厂与数字化转型</h1>
+  <p class="article-subtitle">2023年国家智能制造示范工厂 · 从传统铸造到智能制造的转型典范</p>
+  <div class="meta">
+    <span>🔬 精益智能工厂案例库</span>
+    <span class="dot">·</span>
+    <span>2026年5月22日</span>
+    <span class="dot">·</span>
+    <span>思派工业技术（深圳）有限公司</span>
+  </div>
+  <div class="tag-list" style="justify-content:center; margin-top:14px;">
+    <span class="tag">#铸造</span>
+    <span class="tag">#智能制造</span>
+    <span class="tag">#国家示范工厂</span>
+    <span class="tag">#绿色工厂</span>
+    <span class="tag">#数字化转型</span>
+    <span class="tag">#山东制造</span>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- 导读 -->
+<div class="highlight-box">
+  <div class="label">📖 导读</div>
+  <p>玫德集团，1961年从一家地方玛钢厂起步，60余年后成为全球管道连接件制造龙头。这家"老厂"走出了一条独一无二的智能化转型道路——从<strong>机器换人</strong>起步，到<strong>自动化铸造产线</strong>，再到<strong>数字化工厂</strong>，最终获评<strong>国家智能制造示范工厂</strong>（2023年）。本文全面剖析玫德集团从传统铸造到智能制造的转型升级历程。</p>
+</div>
+
+<h2>基本信息</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>项目</th><th>内容</th></tr></thead>
+  <tbody>
+    <tr><td><strong>企业名称</strong></td><td>玫德集团有限公司</td></tr>
+    <tr><td><strong>业内简称</strong></td><td>玫德集团 / Metalo Manufacturing</td></tr>
+    <tr><td><strong>行业</strong></td><td>铸造/管道连接件制造（金属制品业）</td></tr>
+    <tr><td><strong>所在地</strong></td><td>山东省济南市平阴县（总部），生产基地分布于山东济南、临沂、泰安及海外（越南）</td></tr>
+    <tr><td><strong>成立时间</strong></td><td>1961年（前身为平阴玛钢厂），2010年改制为玫德集团</td></tr>
+    <tr><td><strong>规模</strong></td><td>全球员工约12,000人，年营收超200亿元</td></tr>
+    <tr><td><strong>核心业务</strong></td><td>可锻铸铁管件、沟槽管件、阀门、钢管、不锈钢管件、抗震支吊架等流体输送系统解决方案</td></tr>
+    <tr><td><strong>行业地位</strong></td><td>中国铸造行业综合百强企业（连续多年前5）</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>企业背景</h2>
+
+<p>玫德集团始创于1961年，前身是平阴县玛钢厂。经过60余年的发展，玫德集团已成为全球最大的管道连接件制造商之一，产品出口全球130多个国家和地区。集团旗下拥有<strong>科德智能科技有限公司</strong>（子公司），专门对外输出智能制造整体解决方案。</p>
+
+<p><strong>行业地位：</strong></p>
+<ul>
+  <li>全球管道连接件制造领先企业</li>
+  <li>中国玛钢管件行业龙头企业（市场占有率超过30%）</li>
+  <li>中国铸造行业综合百强企业（前5名）</li>
+  <li>中国制造业企业500强</li>
+  <li>国家高新技术企业</li>
+  <li>国家知识产权优势企业</li>
+</ul>
+
+<p><strong>核心产品：</strong></p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>产品品类</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>可锻铸铁管件</td><td>螺纹连接管件（弯头、三通、活接等），GB/ANSI/BS/DIN等标准</td></tr>
+    <tr><td>沟槽管件</td><td>消防管道用沟槽连接件</td></tr>
+    <tr><td>阀门</td><td>闸阀、截止阀、蝶阀、球阀、止回阀等</td></tr>
+    <tr><td>钢管及不锈钢管件</td><td>焊接钢管、不锈钢卡压式管件</td></tr>
+    <tr><td>抗震支吊架</td><td>建筑机电工程抗震系统</td></tr>
+    <tr><td>解决方案</td><td>科德智能——智能制造整体解决方案</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>智能工厂建设的战略动因</h2>
+
+<h3>行业痛点</h3>
+<p>铸造行业是典型的<strong>高能耗、高劳动强度</strong>的传统制造业，面临以下核心挑战：</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>痛点</th><th>表现</th></tr></thead>
+  <tbody>
+    <tr><td><strong>劳动强度大</strong></td><td>铸造产线高温、高粉尘、高噪声，年轻人不愿意进铸造厂</td></tr>
+    <tr><td><strong>工序链条长</strong></td><td>制芯→造型→熔炼→浇注→清理→打磨→镀锌→机加工→检测→包装，每道工序都影响最终质量</td></tr>
+    <tr><td><strong>质量一致性差</strong></td><td>铸造工艺参数波动影响铸件质量，传统靠人工经验控制</td></tr>
+    <tr><td><strong>能耗高</strong></td><td>铸造是重能耗行业，中频炉熔化铁水耗费大量电能</td></tr>
+    <tr><td><strong>安全风险</strong></td><td>高温铁水/熔炼/浇注环节存在烫伤、爆炸等安全风险</td></tr>
+    <tr><td><strong>环保压力</strong></td><td>粉尘、VOCs、废砂等污染物排放监管日趋严格</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>四步渐进战略选择</h3>
+<p>玫德集团以 <strong>"机器换人→自动化产线→数字化工厂→智能制造"</strong> 的四步渐进的路径推进转型升级：</p>
+
+<div class="mode-cards">
+  <div class="mode-card brain">
+    <div class="card-title"><span class="emoji">🤖</span> [1] 机器换人（2015年起）</div>
+    <p>在大吨位搬运、打磨、包装等工序批量引入工业机器人（FANUC/ABB），率先解决最恶劣工况的"招工难"问题。</p>
+    <p style="margin-top:8px; font-size:13px; color:#888;">→ FANUC/ABB机器人 · 搬运/打磨/包装</p>
+  </div>
+  <div class="mode-card core">
+    <div class="card-title"><span class="emoji">🏗️</span> [2] 自动化铸造产线（2017年起）</div>
+    <p>引进丹麦DISA等国际先进造型线，实现浇注自动化；配套自动浇注机+自动取件机器人，铸造产线自动化率超90%。</p>
+    <p style="margin-top:8px; font-size:13px; color:#888;">→ DISA造型线 · 自动浇注 · 自动化率>90%</p>
+  </div>
+  <div class="mode-card evolve">
+    <div class="card-title"><span class="emoji">📊</span> [3] 数字化工厂（2019年起）</div>
+    <p>成立科德智能，将内部经验产品化；MES/WMS/ERP全面集成，推进全流程数字化。工业互联网平台连接设备超5000台。</p>
+    <p style="margin-top:8px; font-size:13px; color:#888;">→ 科德智能 · MES/WMS/ERP · 5000+设备互联</p>
+  </div>
+  <div class="mode-card brain">
+    <div class="card-title"><span class="emoji">🧠</span> [4] 智能制造（2020年起）</div>
+    <p>AI视觉检测铸件缺陷、数字孪生车间仿真、能效管理系统等智能化技术全面部署。2023年获评国家智能制造示范工厂。</p>
+    <p style="margin-top:8px; font-size:13px; color:#888;">→ AI质检 · 数字孪生 · 国家示范</p>
+  </div>
+</div>
+
+<h2>智能工厂建设</h2>
+
+<h3>平阴工厂——国家智能制造示范工厂</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>项目</th><th>内容</th></tr></thead>
+  <tbody>
+    <tr><td><strong>工厂定位</strong></td><td>集团总部基地、核心生产基地</td></tr>
+    <tr><td><strong>认证</strong></td><td>2023年<strong>国家智能制造示范工厂</strong>（工信部）</td></tr>
+    <tr><td><strong>产线配置</strong></td><td>丹麦DISA垂直分型无箱射压造型线、日本新东水平分型线等</td></tr>
+    <tr><td><strong>自动化率</strong></td><td>铸造产线自动化率超90%</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>临沂工厂——绿色智能铸造基地</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>项目</th><th>内容</th></tr></thead>
+  <tbody>
+    <tr><td><strong>定位</strong></td><td>山东省现代优势产业集群+人工智能标杆项目</td></tr>
+    <tr><td><strong>特点</strong></td><td>全新建设的智能铸造工厂，从设计阶段即按智能化标准规划</td></tr>
+    <tr><td><strong>绿色制造</strong></td><td>配套余热回收、废砂再生、VOCs治理系统</td></tr>
+    <tr><td><strong>智能化水平</strong></td><td>全面部署MES/WMS、工业互联网平台、AI质检</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>关键技术应用</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>技术领域</th><th>具体应用</th><th>技术合作方</th></tr></thead>
+  <tbody>
+    <tr><td><strong>全自动铸造线</strong></td><td>丹麦DISA造型线+自动浇注机+自动取件机器人</td><td>丹麦DISA、自研</td></tr>
+    <tr><td><strong>工业互联网平台</strong></td><td>自主开发"玫德工业互联网平台"，连接设备超5000台</td><td>自研（科德智能）</td></tr>
+    <tr><td><strong>MES/WMS/ERP一体化</strong></td><td>生产执行、智能仓储、企业资源计划三系统集成，实现全流程数据贯通</td><td>自研+系统集成商</td></tr>
+    <tr><td><strong>AI视觉检测</strong></td><td>铸件外观缺陷（砂眼、气孔、缩松等）自动识别，替代人工目检</td><td>自研算法</td></tr>
+    <tr><td><strong>机器人应用</strong></td><td>FANUC/ABB机器人批量应用于打磨去毛刺、码垛、上下料等工序</td><td>发那科、ABB</td></tr>
+    <tr><td><strong>数字孪生</strong></td><td>车间级数字孪生，生产流程仿真与优化</td><td>自研+合作</td></tr>
+    <tr><td><strong>能效管理系统</strong></td><td>能耗实时监控与优化，从电、水、气到分车间能耗精细化管理</td><td>自研平台</td></tr>
+    <tr><td><strong>智能仓储</strong></td><td>自动化立体仓库（AS/RS），AGV自动搬运</td><td>国内仓储系统集成商</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>科德智能——智能制造解决方案输出</h3>
+<p>2019年成立的科德智能科技有限公司是玫德集团智能制造能力的对外输出平台：</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>服务能力</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td><strong>智能工厂整体规划</strong></td><td>从工艺布局→产线设计→系统集成→运维服务</td></tr>
+    <tr><td><strong>自动化产线集成</strong></td><td>铸造自动化、打磨自动化、包装自动化</td></tr>
+    <tr><td><strong>工业互联网平台</strong></td><td>基于玫德自研平台的企业级工业互联网</td></tr>
+    <tr><td><strong>MES/WMS实施</strong></td><td>生产执行系统和智能仓储系统</td></tr>
+    <tr><td><strong>AI质检方案</strong></td><td>机器视觉检测、AOI自动光学检测</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>建设成效</h2>
+<div class="warning-box">⚠️ 以下数据来自公开报道和官方宣传材料。</div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>指标</th><th>提升效果</th><th>数据来源</th></tr></thead>
+  <tbody>
+    <tr><td><strong>生产效率</strong></td><td>提升30-50%（智能铸造产线比传统产线）</td><td>山东省智能制造案例汇编</td></tr>
+    <tr><td><strong>产品不良率</strong></td><td>从行业平均2%降至0.5%以下</td><td>企业宣传资料</td></tr>
+    <tr><td><strong>人力节省</strong></td><td>单条铸造产线操作人员从80人减至15-20人</td><td>工信部智能制造示范工厂材料</td></tr>
+    <tr><td><strong>能耗降低</strong></td><td>单位产品综合能耗降低20%以上</td><td>工信部绿色工厂评价报告</td></tr>
+    <tr><td><strong>库存周转率</strong></td><td>提升约40%</td><td>企业公开数据</td></tr>
+    <tr><td><strong>年产能</strong></td><td>管件超100万吨，阀门超50万台</td><td>企业官网</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>精益实践与数字化的融合</h2>
+<ul>
+  <li><strong>TPM全员生产维护</strong>：核心设备（造型机、熔炼炉）实时监控运行状态，预测性维护减少非计划停机</li>
+  <li><strong>标准化作业</strong>：从熔炼到铸件清理的每道工序SOP在MES系统中固化执行</li>
+  <li><strong>看板拉动</strong>：数字化看板取代传统纸质看板，实时显示铸造线产量、良品率、设备OEE</li>
+  <li><strong>TQM全面质量管理</strong>：SPC统计过程控制+AI视觉检测替代人工目检，实现铸件质量从抽检到全检的跨越</li>
+  <li><strong>VSM价值流分析</strong>：在智能工厂规划阶段即使用价值流图识别浪费环节</li>
+  <li><strong>JIT准时制生产</strong>：MES+LES（物流执行系统）协同，实现物料按需拉动配送</li>
+</ul>
+
+<h2>行业差异化与创新亮点</h2>
+
+<h3>1. "老厂改造"的典型样本</h3>
+<p>玫德集团是1961年成立的传统铸造企业，并非"新建智能工厂"，而是在存量厂房、存量设备的基础上逐步推进智能化改造。这种"老厂改造"模式对新旧动能转换期间的传统制造企业极具参考价值。</p>
+
+<h3>2. 从"制造"到"制造+服务"的转型</h3>
+<p>通过科德智能子公司的设立，玫德集团将智能制造经验产品化对外输出，完成了从单纯的管道产品制造商，到"产品+智能制造解决方案服务商"的转型升级。</p>
+
+<h3>3. 铸造行业数字化转型的先行者</h3>
+<p>在全球铸造行业中，玫德集团的智能化改造属于较早的一批。铸造行业因其高温、高粉尘、高噪声的恶劣环境，数字化转型难度远高于精密加工行业。玫德集团在该领域的突破具有示范意义。</p>
+
+<h3>4. 绿色+智能的双融合</h3>
+<p>玫德集团不仅是智能制造示范工厂，也是国家级绿色工厂。其智能工厂建设中同步考虑了废砂再生、余热回收、VOCs治理等环保要素，实现了绿色制造与智能制造的协同推进。</p>
+
+<h2>行业启示</h2>
+
+<div class="highlight-box">
+  <div class="label">💡 四大启示</div>
+  <p><strong>启示一：传统铸造行业完全可以实现智能化。</strong>玫德集团的实践证明了铸造行业（尤其是高能耗、高粉尘、重体力劳动的铸造行业）可以也必须要走智能化转型道路。智能铸造不仅是"减人"，更是"提质"。</p>
+  <p><strong>启示二："机器换人"是最直接的起点。</strong>对于劳动密集型的铸造行业，从最恶劣的工序（浇注、打磨）开始"机器换人"，不仅能快速看到效益，而且能解决招工难的现实问题。</p>
+  <p><strong>启示三：数字化要"由浅入深"。</strong>玫德集团没有一步到位建设"无人工厂"，而是分阶段推进：先做单个工序的自动化（机器换人）→再做产线级数字化（MES/WMS）→再做工厂级智能化（工业互联网、AI质检）。这个路径对中小企业最具参考意义。</p>
+  <p><strong>启示四：对外输出能力是第二次转型。</strong>将内部实践产品化对外输出（科德智能），是制造业企业数字化转型的高级阶段——从"买家"变成"卖家"，从制造转型为"制造+服务"。</p>
+</div>
+
+<h2>荣誉认证</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>类别</th><th>荣誉</th></tr></thead>
+  <tbody>
+    <tr><td>🏅 国家级</td><td><strong>国家智能制造示范工厂</strong>（2023年，工信部）</td></tr>
+    <tr><td>🏅 国家级</td><td><strong>国家绿色工厂</strong>（工信部绿色制造名单）</td></tr>
+    <tr><td>🏅 国家级</td><td><strong>国家高新技术企业</strong></td></tr>
+    <tr><td>🏅 国家级</td><td>国家知识产权优势企业</td></tr>
+    <tr><td>🏅 国家级</td><td>两化融合管理体系AAA级评定</td></tr>
+    <tr><td>🏅 省级</td><td><strong>山东省智能制造标杆企业</strong>（2020年）</td></tr>
+    <tr><td>🏅 省级</td><td>山东省"现代优势产业集群+人工智能"标杆项目（临沂工厂）</td></tr>
+    <tr><td>🏅 省级</td><td>山东省"未来工厂"培育名单（2023年）</td></tr>
+    <tr><td>🏅 行业</td><td>中国制造业企业500强</td></tr>
+    <tr><td>🏅 行业</td><td>中国铸造行业综合百强企业（前5名）</td></tr>
+    <tr><td>🏅 行业</td><td>中国轻工业百强企业</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>建设特点总结</h2>
+
+<ol class="num-list" style="list-style:none; padding-left:0;">
+  <li data-num="1"><strong>"老厂改造"典范：</strong>从60多年历史的老铸造厂逐步推进智能化改造</li>
+  <li data-num="2"><strong>四步渐进路径：</strong>机器换人→自动化产线→数字化工厂→智能制造</li>
+  <li data-num="3"><strong>科德智能价值延伸：</strong>将内部经验产品化对外输出，从制造向"制造+服务"转型</li>
+  <li data-num="4"><strong>绿色+智能双融合：</strong>智能制造与绿色制造同步推进，节能改造与智能化同步</li>
+  <li data-num="5"><strong>铸造行业数字化转型先行者：</strong>为全球铸造行业提供了可复制的智能化路线图</li>
+</ol>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<blockquote>📝 <strong>录入时间：</strong> 2026年5月22日<br>
+📝 <strong>信息来源：</strong> 工信部智能制造示范工厂揭榜单位公示、工信部绿色制造名单、山东省工信厅智能工厂名单、玫德集团官方网站、科德智能官方网站、中国铸造协会行业分析报告、中国工业报/山东日报公开报道</blockquote>
+
+<div class="divider">✦ ✦ ✦</div>
+
+</div>
+
+<div class="footer">
+  <p class="brand">思派工业技术（深圳）有限公司 · 精益智能工厂案例库</p>
+  <p>📝 录入时间：2026年5月22日</p>
+  <p>📝 本文为知识库案例研究，仅供学习参考。数据以各企业官方公布为准。</p>
+  <p style="margin-top:10px; font-size:12px; color:#bbb;">— 思派工业 · 精益智能工厂领航员 —</p>
+</div>
+
+</div>
+</body>
+</html>

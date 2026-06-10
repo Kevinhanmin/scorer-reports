@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>思派工业 · 每日行业快讯</title>
+<style>
+/* ─── Reset & Base ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f5f6f8; color: #1d1d1f; line-height: 1.6;
+}
+
+/* ─── Top Nav Bar ─── */
+.top-bar {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff; border-bottom: 1px solid #e5e5e5;
+    padding: 0 16px; height: 48px;
+    display: flex; align-items: center; gap: 10px;
+}
+.top-bar a {
+    font-size: 14px; color: #1d1d1f; text-decoration: none;
+    padding: 4px 8px; border-radius: 6px; font-weight: 500;
+}
+.top-bar a:hover { background: #f0f0f0; }
+.top-bar .back-arrow { font-size: 18px; color: #007aff; margin-right: 4px; }
+.top-bar .title-area { flex: 1; font-size: 15px; font-weight: 600; color: #1d1d1f; }
+
+/* ─── Date Header ─── */
+.date-header {
+    padding: 12px 16px 6px;
+}
+.date-header .date-main {
+    font-size: 20px; font-weight: 700; color: #1d1d1f;
+}
+.date-header .date-sub {
+    font-size: 12px; color: #8e8e93; margin-top: 1px;
+}
+.date-header .tag-line {
+    display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap;
+}
+.tag {
+    display: inline-block; font-size: 11px; padding: 2px 8px;
+    border-radius: 10px; font-weight: 500;
+}
+.tag-policy { background: #e8f0fe; color: #1967d2; }
+.tag-tech { background: #fce8e6; color: #c5221f; }
+.tag-case { background: #e6f4ea; color: #137333; }
+
+/* ─── Container ─── */
+.container { max-width: 680px; margin: 0 auto; padding: 0 16px 20px; }
+
+/* ─── Headline Block ─── */
+.headline-card {
+    background: #fff; border-radius: 12px; padding: 16px;
+    margin: 8px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    border: 1px solid #e8e8ed;
+}
+.headline-tag {
+    font-size: 11px; color: #007aff; font-weight: 600;
+    margin-bottom: 6px;
+}
+.headline-title {
+    font-size: 17px; font-weight: 700; color: #1d1d1f;
+    line-height: 1.4;
+}
+.headline-summary {
+    font-size: 14px; color: #636366; margin-top: 8px;
+    line-height: 1.6;
+}
+.headline-link {
+    display: inline-block; margin-top: 8px; font-size: 13px;
+    color: #007aff; text-decoration: none; font-weight: 500;
+}
+.headline-link:hover { text-decoration: underline; }
+
+/* ─── Section Title ─── */
+.section-title {
+    font-size: 15px; font-weight: 700; color: #1d1d1f;
+    padding: 16px 0 8px; display: flex; align-items: center; gap: 6px;
+}
+.section-title .dot {
+    display: inline-block; width: 4px; height: 16px; border-radius: 2px;
+}
+.dot-policy { background: #1967d2; }
+.dot-tech { background: #c5221f; }
+.dot-case { background: #137333; }
+.dot-laok { background: #f59e0b; }
+
+/* ─── News Item ─── */
+.news-item {
+    background: #fff; border-radius: 10px; padding: 14px 16px;
+    margin: 4px 0;
+    border: 1px solid #f0f0f2;
+}
+.news-item:hover { border-color: #c7c7cc; }
+.news-item .item-source {
+    font-size: 11px; color: #8e8e93; margin-bottom: 4px;
+}
+.news-item .item-title {
+    font-size: 15px; font-weight: 600; color: #1d1d1f;
+    line-height: 1.4;
+}
+.news-item .item-summary {
+    font-size: 13px; color: #8e8e93; margin-top: 4px;
+    line-height: 1.5;
+}
+.news-item .item-link {
+    display: inline-block; margin-top: 6px; font-size: 12px;
+    color: #007aff; text-decoration: none; font-weight: 500;
+}
+.news-item .item-link:hover { color: #0056b3; }
+
+/* ─── 老K点评 ─── */
+.laok-card {
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-radius: 12px; padding: 16px; margin: 8px 0;
+    border: 1px solid #fde68a;
+}
+.laok-card .laok-icon {
+    font-size: 14px; font-weight: 700; color: #92400e;
+    margin-bottom: 8px;
+}
+.laok-card .laok-text {
+    font-size: 14px; color: #78350f; line-height: 1.7;
+}
+.laok-card .laok-text strong { color: #92400e; }
+
+/* ─── CTA Box ─── */
+.cta-card {
+    text-align: center; margin: 16px 0; padding: 20px 16px;
+    background: linear-gradient(135deg, #f0f4ff 0%, #dce8ff 100%);
+    border-radius: 14px; border: 1px solid #b3cfff;
+}
+.cta-card .cta-icon { font-size: 24px; margin-bottom: 8px; }
+.cta-card .cta-text {
+    font-size: 15px; color: #1d1d1f; font-weight: 500;
+    margin-bottom: 12px; line-height: 1.5;
+}
+.cta-card .cta-btn {
+    display: inline-block; padding: 12px 28px;
+    background: #007aff; color: white; border-radius: 24px;
+    text-decoration: none; font-size: 15px; font-weight: 600;
+    transition: opacity 0.15s; letter-spacing: 0.3px;
+}
+.cta-card .cta-btn:hover { opacity: 0.85; }
+
+/* ─── Footer ─── */
+.footer {
+    text-align: center; padding: 24px 16px 32px;
+    color: #8e8e93; font-size: 12px; line-height: 1.6;
+    border-top: 1px solid #e8e8ed; margin-top: 8px;
+}
+.footer a { color: #007aff; text-decoration: none; }
+
+/* ─── 公众号引导卡 ─── */
+.mp-card {
+    display: flex; align-items: center; gap: 14px;
+    background: #fff; border-radius: 12px; padding: 14px 16px;
+    margin: 12px 0; border: 1px solid #e8e8ed;
+}
+.mp-text { flex: 1; }
+.mp-title {
+    font-size: 14px; font-weight: 600; color: #1d1d1f;
+    margin-bottom: 4px;
+}
+.mp-desc {
+    font-size: 12px; color: #8e8e93; line-height: 1.5;
+}
+
+/* ─── Navigation ─── */
+.nav-row {
+    display: flex; justify-content: space-between; margin: 12px 0;
+    gap: 8px;
+}
+.nav-row a {
+    flex: 1; text-align: center; padding: 10px 14px;
+    background: #fff; border-radius: 10px; text-decoration: none;
+    font-size: 14px; color: #007aff; font-weight: 500;
+    border: 1px solid #e8e8ed;
+    transition: background 0.15s;
+}
+.nav-row a:hover { background: #f0f4ff; border-color: #b3cfff; }
+.nav-row .nav-disabled {
+    flex: 1; text-align: center; padding: 10px 14px; border-radius: 10px;
+    font-size: 14px; color: #c7c7cc; background: #fff;
+    border: 1px solid #f0f0f2;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .container { padding: 0 12px 16px; }
+    .date-header .date-main { font-size: 18px; }
+    .headline-title { font-size: 16px; }
+    .news-item .item-title { font-size: 14px; }
+    .news-item { padding: 12px 14px; }
+    .headline-card { padding: 14px; }
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+    <a href="index.html"><span class="back-arrow">←</span> 快讯</a>
+    <div class="title-area">2026年06月07日</div>
+</div>
+<div class="container">
+    <div class="date-header">
+        <div class="date-main">2026年06月07日</div>
+        <div class="tag-line">
+            <span class="tag tag-tech">🚀 技术 5</span><span class="tag tag-case">🏭 案例 1</span>
+        </div>
+    </div>
+<div class="headline-card"><div class="headline-tag">🔥 今日头条</div><div class="headline-title"><strong>NTU 曹子昂教授团队：破解 3D 标注成本难题，只需一张图片丨CVPR 2026</strong></div></div>
+<div class="headline-card"><div class="headline-tag">🔥 今日头条</div><div class="headline-title">PhysX-Anythingt：可从一张照片自动生成可用于机器人训练的物理 3D资产。 作者丨 郑佳美、樊天骄 编辑丨郑佳美 在生成式 AI 进入 3D 内容生产之后，行业最先解决的是“看起来像不像”的问题： 一个模型能不能从文字或图片生成外观完整、纹理逼真、形状合理的 3D 物体。 但随着机器人、具身智能、数字孪生、AR / VR...</div></div>
+<p class="source-link">🔗 <a href="https://www.leiphone.com/category/ai/gOCTM6K2fNwaBttQ.html" target="_blank">https://www.leiphone.com/category/ai/gOCTM6K2fNwaBttQ.html</a></p>
+<div class="section-title"><span class="dot dot-tech"></span>🚀 技术前沿</div>
+<div class="news-item"><div class="item-title">NTU 曹子昂教授团队：破解 3D 标注成本难题，只需一张图片丨CVPR 2026</div><a class="item-link" href="https://www.leiphone.com/category/ai/gOCTM6K2fNwaBttQ.html" target="_blank">阅读原文 →</a></div>
+<div class="item-summary" style="padding:0 0 8px 0;font-size:13px;color:#8e8e93;">PhysX-Anythingt：可从一张照片自动生成可用于机器人训练的物理 3D资产。 作者丨 郑佳美、樊天骄 编辑丨郑佳美 在生成式 AI 进入 3D 内容生产之后，行业最先解决的是“看起来像不像”的问题：...</div>
+<div class="news-item"><div class="item-title">银河通用创始人王鹤：具身智能正迈向专属的「AlphaGo时刻」与「ChatGPT时刻」 | ICRA 2026</div><a class="item-link" href="https://www.leiphone.com/category/robot/DZhbEoMS7u3gvJIO.html" target="_blank">阅读原文 →</a></div>
+<div class="item-summary" style="padding:0 0 8px 0;font-size:13px;color:#8e8e93;">具身智能正在敲开AGI的大门，全面引爆属于通用机器人的第四次工业革命。 作者丨岑 峰 编辑丨马晓宁 2026年6月3日，国际机器人与自动化会议（ICRA...</div>
+<div class="news-item"><div class="item-title">波恩大学 Maren Bennewitz 教授：让机器人在遮挡世界中主动获取信息 | ICRA 2026</div><a class="item-link" href="https://www.leiphone.com/category/ai/Y65BpmoLEhUaqnNS.html" target="_blank">阅读原文 →</a></div>
+<div class="item-summary" style="padding:0 0 8px 0;font-size:13px;color:#8e8e93;">机器人不能只会“看见”。 作者丨郑佳美 编辑丨马晓宁 2026 年 6 月 4 日，在 ICRA 2026 “Robot perception and spatial AI” Keynote Session 上，波恩大学教授 Maren...</div>
+<div class="news-item"><div class="item-title">上海人工智能实验室领军科学家胡侠确认出席AICon上海站，分享书安智能体操作系统的实践与思考</div><a class="item-link" href="https://www.infoq.cn/article/ztM2hNuC8cfwT6FT7cGb?utm_source=rss&utm_medium=article" target="_blank">阅读原文 →</a></div>
+<div class="news-item"><div class="item-title">Coding 能力，正在颠覆大模型的估值逻辑</div><a class="item-link" href="https://www.leiphone.com/category/industrynews/bwyozCVtFIOJynck.html" target="_blank">阅读原文 →</a></div>
+<div class="item-summary" style="padding:0 0 8px 0;font-size:13px;color:#8e8e93;">大模型赛道的估值逻辑，正在被一个变量粗暴重构。 它不是参数，不是月活，不是多模态，是你能不能做好Coding。 把四家中国大模型公司的数据拉出来，这条线清晰得不需要统计检验： Coding 能力突出的 DeepSeek 正在洽谈国内 AI...</div>
+<div class="section-title"><span class="dot dot-case"></span>🏭 标杆案例</div>
+<div class="news-item"><div class="item-title">中国入境游距离「世界第一」还有多远？</div><a class="item-link" href="https://36kr.com/p/3840001908361472?f=rss" target="_blank">阅读原文 →</a></div>
+<div class="item-summary" style="padding:0 0 8px 0;font-size:13px;color:#8e8e93;">“曾有外国友人让我推荐中国的最佳旅行目的地，我的回答是：你应该看看中国的山。”...</div>
+<div class="section-title"><span class="dot dot-laok"></span>👨‍🏫 老K点评</div>
+    <div class="cta-card">
+        <div class="cta-icon">🏭</div>
+        <div class="cta-text">您的工厂每年隐性浪费可能高达百万？<br>免费体检 3 分钟出报告</div>
+        <a class="cta-btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
+    </div>
+    <div class="mp-card">
+        <div class="mp-qr">
+            <img src="qrcode_mp.jpg" alt="公众号二维码" style="width:120px;height:120px;border-radius:8px;">
+        </div>
+        <div class="mp-text">
+            <div class="mp-title">📱 长按识别关注公众号</div>
+            <div class="mp-desc">每日行业快讯 · 免费体检 · 深度诊断<br>思派精益智能工厂领航员</div>
+        </div>
+    </div>
+    <div class="nav-row">
+        <a href="2026-06-08.html">← 上期</a>
+        <a href="2026-06-06.html">下期 →</a>
+    </div>
+    <div class="footer">
+        <p style="margin-top:4px;">📱 关注公众号「思派精益智能工厂领航员」</p>
+    </div>
+</div>
+</body>
+</html>
