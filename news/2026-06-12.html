@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思派工业 · 每日行业快讯</title>
+<style>
+/* ─── Reset & Base ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f0f2f5; color: #1a1a2e; line-height: 1.5;
+}
+
+/* ─── Header (sticky) ─── */
+.header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    color: white; padding: 28px 20px 20px; text-align: center;
+    position: sticky; top: 0; z-index: 10;
+}
+.header h1 { font-size: 18px; font-weight: 700; letter-spacing: 1px; }
+.header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+.header .date-badge {
+    display: inline-block; margin-top: 8px; padding: 3px 12px;
+    background: rgba(255,255,255,0.15); border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+}
+
+/* ─── Container ─── */
+.container { max-width: 680px; margin: 0 auto; padding: 12px; }
+
+/* ─── Section Label ─── */
+.section-label {
+    font-size: 14px; font-weight: 700; color: #1e3a5f;
+    padding: 14px 14px 8px; margin-top: 8px;
+    border-bottom: 2px solid #e2e8f0; letter-spacing: 0.5px;
+}
+
+/* 老K视角节标题特殊色 */
+.laok-label {
+    color: #d97706;
+    border-bottom-color: #fde68a;
+}
+
+/* ─── News Card (compact) ─── */
+.news-card {
+    background: white; border-radius: 8px; padding: 10px 14px;
+    margin: 6px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.15s;
+    border-left: 3px solid #2563eb;
+}
+.news-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+.card-body {
+    font-size: 13px; color: #334155; line-height: 1.6;
+}
+.card-body strong { color: #0f172a; }
+
+.card-link {
+    display: inline-block; margin-top: 6px; font-size: 11px;
+    color: #2563eb; text-decoration: none; font-weight: 500;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* ─── Text Block (摘要, 提示) ─── */
+.text-block {
+    font-size: 13px; color: #475569; line-height: 1.7;
+    padding: 8px 14px; margin: 4px 0 6px;
+    background: #f8fafc; border-radius: 6px;
+    border-left: 3px solid #f59e0b;
+}
+.text-block a { color: #2563eb; text-decoration: none; }
+.text-block a:hover { text-decoration: underline; }
+
+/* ─── Source link (📎) ─── */
+.source-link {
+    font-size: 11px; color: #94a3b8; padding: 2px 14px;
+    margin: 0 0 6px; word-break: break-all;
+}
+.source-link a { color: #64748b; text-decoration: none; }
+.source-link a:hover { color: #2563eb; }
+
+/* ─── 老K视角块 ─── */
+.laok-block {
+    font-size: 14px; color: #92400e; line-height: 1.7;
+    padding: 12px 16px; margin: 6px 0;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-radius: 8px; border-left: 4px solid #f59e0b;
+    font-weight: 500;
+}
+
+/* ─── CTA Block ─── */
+.cta-block {
+    text-align: center; margin: 12px 0; padding: 12px 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-link {
+    font-size: 14px; margin: 4px 0;
+}
+.cta-link a {
+    color: #2563eb; text-decoration: none; font-weight: 600;
+}
+.cta-link a:hover { text-decoration: underline; }
+
+/* ─── Navigation ─── */
+.nav-links {
+    display: flex; justify-content: space-between; margin: 16px 0;
+}
+.nav-links a {
+    padding: 8px 14px; background: white; border-radius: 8px;
+    text-decoration: none; color: #2563eb; font-size: 13px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: background 0.15s;
+}
+.nav-links a:hover { background: #eff6ff; }
+
+/* ─── CTA Banner ─── */
+.cta-box {
+    text-align: center; margin: 16px 0; padding: 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-box p { font-size: 13px; color: #475569; margin-bottom: 10px; }
+.cta-box .btn {
+    display: inline-block; padding: 10px 24px; background: #2563eb;
+    color: white; border-radius: 8px; text-decoration: none;
+    font-size: 14px; font-weight: 600; transition: background 0.15s;
+}
+.cta-box .btn:hover { background: #1d4ed8; }
+
+/* ─── Footer ─── */
+.footer {
+    text-align: center; padding: 20px 14px; color: #94a3b8; font-size: 11px;
+    border-top: 1px solid #e2e8f0; margin-top: 12px;
+}
+.footer a { color: #2563eb; text-decoration: none; }
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .container { padding: 8px; }
+    .news-card { padding: 8px 10px; }
+    .section-label { font-size: 13px; padding: 12px 10px 6px; }
+    .card-body { font-size: 12px; }
+    .laok-block { font-size: 13px; padding: 10px 12px; }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>📰 每日行业快讯</h1>
+    <div class="subtitle">思派精益智能工厂领航员</div>
+    <div class="date-badge">2026年06月12日</div>
+</div>
+<div class="container">
+<p class="card-body">2026年06月12日（周五） | 思派精益智能工厂领航员</p>
+<div class="section-label">📋 本期聚焦</div>
+<div class="text-block">大公司： 瑞斯康达：董事长李月杰因个人原因辞职，选举韩猛为新任董事长 36氪获悉，瑞斯康达公告，董事长李月杰因个人原因辞职，自2026年6月9日起生效。公司第六届董事会第十二次会议选举韩猛为新任董事长，任期至第六届董事会届满。韩猛自2025年7月起代行董事长及法定代表人职责，公司法定代表人变更为韩猛，相关工商变更登记手续正在办理中。韩猛持有公司股份45000股，占总股本的0.01%。 Meta与安巴尼旗下的信实集团合作，在印度建设人工智能数据中心 Facebook母公司Meta 周三表示，已与印度亿万富翁穆克什·安巴尼旗下的信实工业集团 达成合作，将在印度共建一座人工智能数据中心。声明称，信实</div>
+<div class="section-label">📋 政策·标准动向</div>
+<p class="card-body">1、电池厂赚辛苦钱的叙事，已经翻篇了。作者 | 马诗晴编辑 | 李雨晨2026年大湾区车展，有独立展台亮相的动力电池厂商仅有两家——中创新航与国轩高科。今年前4个月，这两家企业动力电池装车量仅相差0.14Gwh，装车量占比仅有0.08%微弱差距，紧随宁德时代和比亚迪之后，分别位列行业第三、四名。此次亮相，两家电池巨头出现在同一舞台：华为鸿蒙智行“巨鲸电池平台”。作为战略合作伙伴，它们全面接入华为“五界”车型（问界、智界、享界、尊界、尚界）供应链。值得一提的是，华为不直接采购电池，而是划定了一条极高的标准线，电池企业若想加入生态，必须协同研发达到这条基准线之上。在这场行业第三争夺战中，谁能更扎根于华</p>
+<p class="card-body">2、阿莫迪：AI该被严管，标准该按我家基准定。</p>
+<div class="section-label">📋 领航级工厂·灯塔案例</div>
+<p class="card-body">1、“豆包汽车”，赛力斯真正操盘一个新品牌的开始。</p>
+<div class="section-label">📋 工业AI与智能体</div>
+<p class="card-body">1、大公司： 瑞斯康达：董事长李月杰因个人原因辞职，选举韩猛为新任董事长 36氪获悉，瑞斯康达公告，董事长李月杰因个人原因辞职，自2026年6月9日起生效。公司第六届董事会第十二次会议选举韩猛为新任董事长，任期至第六届董事会届满。韩猛自2025年7月起代行董事长及法定代表人职责，公司法定代表人变更为韩猛，相关工商变更登记手续正在办理中。韩猛持有公司股份45000股，占总股本的0.01%。 Meta与安巴尼旗下的信实集团合作，在印度建设人工智能数据中心 Facebook母公司Meta 周三表示，已与印度亿万富翁穆克什·安巴尼旗下的信实工业集团 达成合作，将在印度共建一座人工智能数据中心。声明称，信实</p>
+<p class="card-body">2、KKR集团、科威特投资局、英伟达与维斯特拉公司联手成立赫利克斯数字基础设施公司，这家新企业旨在为大型人工智能云服务商提供配套基础设施。KKR于周四表示，赫利克斯将 “统筹满足大型云服务商在数据中心、电力、网络连接及相关领域的各类需求”。目前该公司已获得超100亿美元长期资金承诺。创始轮资金到位后，赫利克斯将继续吸纳其他机构投资者。英伟达将助力部署适配其DSX人工智能工厂的基础设施，能源企业维斯特拉则负责电力供应。（新浪财经）</p>
+<p class="card-body">3、孙春阳曾先后在九号、Momenta就职。作者丨姚单编辑丨刘伟雷峰网·鲸犀独家获悉，前九号机器人负责人孙春阳已开启创业，成立公司「妙趣科技」，瞄准AI家庭影像赛道。目前，其核心团队已经组建完成。孙春阳毕业于美国卡内基梅隆大学（CMU）机器人专业，拥有机器人、自动驾驶领域的多年从业经验。在创业之前，孙春阳曾担任Momenta高级产品总监，后加入九号机器人，负责机器人相关业务。在过去多年里，其经历了机器人与智能产品从0到1的产品定义阶段，以及后续规模化落地过程。这种能力积累，也成为其此次创业的重要基础。，孙春阳的创业方向将从家庭影像场景切入，探索Home Agent方向。近年来，家庭影像市场正</p>
+<p class="card-body">4、“智能体AI已经到来。”NVIDIA创始人兼CEO黄仁勋在近期的GTC 2026台北演讲中宣告。一个新的共识正在形成：个人和企业都将拥有自己的智能体，社会生产力将被重塑。&nbsp;面对这场浪潮，如何让智能体安全部署、高效运行并持续创造价值？作为NVIDIA的合作伙伴，奥尼给出了具体的落地答案。&nbsp;&nbsp;6月9日，奥尼集中发布多项重磅成果，从硬件底座、操作系统、算力网络到开放生态，为智能体规模化落地提供一条全新的实践路径。&nbsp;&nbsp;端侧Agent操作系统：奥尼AI Agent OS 1.0全球首发&nbsp;PC时代，Windows定义了个人计算的入口；移动时代，i</p>
+<div class="section-label">📋 精益生产案例</div>
+<p class="card-body">1、高端工业激光装备制造商——中微精仪科技（深圳）有限公司（下称“中微精仪”）近期已完成数千万元天使+轮融资，由创维投资独家投资。资金将主要用于市场拓展、产能提升及新产品开发。 中微精仪成立于2024年11月，专注于碳化硅晶锭激光剥离、金刚石激光剥离、水导激光精密加工等高端工业激光装备的研发与制造。公司创始人陈景煜为澳大利亚新南威尔士大学研究员，长期从事特种芯片集成开发；首席科学家孙洪波则为中国科学院院士、清华大学教授，是非线性激光超精密制造领域的先驱。 与市面上多数激光设备公司不同，中微精仪定位为激光精密加工技术平台，覆盖从机理研究、工艺开发到工程化落地的全链</p>
+<div class="section-label">📋 智能工业装备·自动化</div>
+<p class="card-body">1、核心营收一年跌去八成，毛利率转负，三孚新科连续四年亏损拐点待考</p>
+<div class="section-label laok-label">👨‍🏫 老K视角</div>
+<p class="card-body">1️⃣ 政策密集落地——本周工信部连出多份政策文件，顶层设计加速转化为执行层行动。建议关注实施细则的出台，提前对标标准。</p>
+<p class="card-body">2️⃣ AI从演示进入产线——工业智能体在焊接、故障诊断等场景的准确率已达98%以上。关注从哪个工序切入收益最大，而非要不要上AI。</p>
+<p class="card-body">3️⃣ 灯塔经验正在普惠化——头部企业的数字化经验通过自建子公司对外输出，中小企业不必自建，可借力平台方案。</p>
+<p class="card-body">4️⃣ 2026窗口期的三层叠加——政策端最高3000万补贴，技术端边缘AI成本降60%，需求端客户要求越来越高。今年不动，明年后悔。</p>
+<div class="laok-block">💡 老K提醒：地基（5S、标准化、OEE数据）不稳，上再多系统也是空中楼阁。</div>
+<p class="card-body">2026-06-12</p>
+    <div class="cta-box">
+        <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
+        <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">← 返回列表</a>
+        <a href="2026-06-11.html">下期 →</a>
+    </div>
+    <div class="footer">
+        <p>思派工业技术（深圳）有限公司</p>
+        <p>📱 关注公众号「思派工业——精益智能工厂领航员」</p>
+    </div>
+</div>
+</body>
+</html>
