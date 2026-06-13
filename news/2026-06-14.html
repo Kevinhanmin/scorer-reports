@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思派工业 · 每日行业快讯</title>
+<style>
+/* ─── Reset & Base ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f0f2f5; color: #1a1a2e; line-height: 1.5;
+}
+
+/* ─── Header (sticky) ─── */
+.header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    color: white; padding: 28px 20px 20px; text-align: center;
+    position: sticky; top: 0; z-index: 10;
+}
+.header h1 { font-size: 18px; font-weight: 700; letter-spacing: 1px; }
+.header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+.header .date-badge {
+    display: inline-block; margin-top: 8px; padding: 3px 12px;
+    background: rgba(255,255,255,0.15); border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+}
+
+/* ─── Container ─── */
+.container { max-width: 680px; margin: 0 auto; padding: 12px; }
+
+/* ─── Section Label ─── */
+.section-label {
+    font-size: 14px; font-weight: 700; color: #1e3a5f;
+    padding: 14px 14px 8px; margin-top: 8px;
+    border-bottom: 2px solid #e2e8f0; letter-spacing: 0.5px;
+}
+
+/* 老K视角节标题特殊色 */
+.laok-label {
+    color: #d97706;
+    border-bottom-color: #fde68a;
+}
+
+/* ─── News Card (compact) ─── */
+.news-card {
+    background: white; border-radius: 8px; padding: 10px 14px;
+    margin: 6px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.15s;
+    border-left: 3px solid #2563eb;
+}
+.news-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+.card-body {
+    font-size: 13px; color: #334155; line-height: 1.6;
+}
+.card-body strong { color: #0f172a; }
+
+.card-link {
+    display: inline-block; margin-top: 6px; font-size: 11px;
+    color: #2563eb; text-decoration: none; font-weight: 500;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* ─── Text Block (摘要, 提示) ─── */
+.text-block {
+    font-size: 13px; color: #475569; line-height: 1.7;
+    padding: 8px 14px; margin: 4px 0 6px;
+    background: #f8fafc; border-radius: 6px;
+    border-left: 3px solid #f59e0b;
+}
+.text-block a { color: #2563eb; text-decoration: none; }
+.text-block a:hover { text-decoration: underline; }
+
+/* ─── Source link (📎) ─── */
+.source-link {
+    font-size: 11px; color: #94a3b8; padding: 2px 14px;
+    margin: 0 0 6px; word-break: break-all;
+}
+.source-link a { color: #64748b; text-decoration: none; }
+.source-link a:hover { color: #2563eb; }
+
+/* ─── 老K视角块 ─── */
+.laok-block {
+    font-size: 14px; color: #92400e; line-height: 1.7;
+    padding: 12px 16px; margin: 6px 0;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-radius: 8px; border-left: 4px solid #f59e0b;
+    font-weight: 500;
+}
+
+/* ─── CTA Block ─── */
+.cta-block {
+    text-align: center; margin: 12px 0; padding: 12px 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-link {
+    font-size: 14px; margin: 4px 0;
+}
+.cta-link a {
+    color: #2563eb; text-decoration: none; font-weight: 600;
+}
+.cta-link a:hover { text-decoration: underline; }
+
+/* ─── Navigation ─── */
+.nav-links {
+    display: flex; justify-content: space-between; margin: 16px 0;
+}
+.nav-links a {
+    padding: 8px 14px; background: white; border-radius: 8px;
+    text-decoration: none; color: #2563eb; font-size: 13px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: background 0.15s;
+}
+.nav-links a:hover { background: #eff6ff; }
+
+/* ─── CTA Banner ─── */
+.cta-box {
+    text-align: center; margin: 16px 0; padding: 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-box p { font-size: 13px; color: #475569; margin-bottom: 10px; }
+.cta-box .btn {
+    display: inline-block; padding: 10px 24px; background: #2563eb;
+    color: white; border-radius: 8px; text-decoration: none;
+    font-size: 14px; font-weight: 600; transition: background 0.15s;
+}
+.cta-box .btn:hover { background: #1d4ed8; }
+
+/* ─── Footer ─── */
+.footer {
+    text-align: center; padding: 20px 14px; color: #94a3b8; font-size: 11px;
+    border-top: 1px solid #e2e8f0; margin-top: 12px;
+}
+.footer a { color: #2563eb; text-decoration: none; }
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .container { padding: 8px; }
+    .news-card { padding: 8px 10px; }
+    .section-label { font-size: 13px; padding: 12px 10px 6px; }
+    .card-body { font-size: 12px; }
+    .laok-block { font-size: 13px; padding: 10px 12px; }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>📰 每日行业快讯</h1>
+    <div class="subtitle">思派精益智能工厂领航员</div>
+    <div class="date-badge">2026年06月14日</div>
+</div>
+<div class="container">
+<p class="card-body">2026年06月14日（周日） | 思派精益智能工厂领航员</p>
+<div class="section-label">📋 本期聚焦</div>
+<div class="text-block">OpenAI首席执行官山姆·奥特曼因个人原因推迟访韩计划。奥特曼原定于14日至15日访韩，会见三星电子、Kakao、NAVER等企业负责人。 Alphabet旗下自动驾驶公司Waymo将推出30美元月费会员计划 当地时间6月11日，Alphabet旗下自动驾驶公司Waymo宣布，将推出仅限受邀用户参与的Waymo Premier30美元月费会员计划，会员可享受优先接送、每次行程10%的乘车返现（以乘车积分形式返还）、在新城市优先体验Waymo服务以及每月最多五次免费取消行程等权益。Waymo表示，最初将通过应用程序和电子邮件向美国旧金山</div>
+<div class="section-label">📋 政策·标准动向</div>
+<p class="card-body">1、汽车工业发展历史中，无论是早期的通用、丰田，还是当下的比亚迪，都以极高的自制比例赢得竞争主导权。现在，零跑也通过自研自制完成规模进阶。一年多前，零跑在湖州布局了一个50万平方米超级五电工厂，涵盖电池、电驱等五大核心零部件全链路自制。这不仅是全球面积最大、整合度最高的超级五电工厂，也是行业中唯一单品牌超级零部件工厂集群。&nbsp;一个零跑负责人告诉我们，之所以选择在湖州设立零部件工厂，一是有当地政府的政策扶持；二是湖州本身地理位置优越，交通便利，能够覆盖安徽等市场供应。超级五电工厂的建立，成为零跑自主零部件体系内的有利补充。目前，零跑已形成17个超级零部件工厂，电池、域控、车灯的年产值可达到1</p>
+<p class="card-body">2、为指导金融信息服务机构开展数据分类分级和重要数据识别工作，提升金融信息服务数据安全水平，依据《中华人民共和国网络安全法》、《中华人民共和国数据安全法》、《中华人民共和国个人信息保护法》、《网络数服务管理规定》等法律法规规章和政策规定，国家互联网信息办公室、中国人民银行、国家金融监督管理总局、中国证券监督管理委员会、国家统计局、国家外汇管理局制定了《金融信息服务数据分类分级指南》。</p>
+<p class="card-body">3、，近日，深圳市讯灵智能技术科技有限公司与腾讯云计算（北京）有限责任公司正式签署战略合作协议。双方将围绕技术底座共建、AI营销一体化方案、智能办公协同、行业生态与标准建设四大领域展开深度协作。</p>
+<p class="card-body">4、智能已经学会了很多事。它会推理，会生成，会在海量信息里迅速找到方向。屏幕之内，一切都在加速。可屏幕之外，支撑现实世界运转的任务，仍然必须有人到场，必须有人判断，必须有人行动。所以今年，ATEC向一个更接近未来的问题，发出追问：如果智能的下一步，不再只是理解世界，而是开始进入世界，开始承担任务——那么，我们该对它抱有怎样的期待？或者说，如果用一场赛事去回应我们的期待，这场赛事应该长什么样子？我们将用一个视频，讲述ATEC2026命题的思考 一、ATEC2026希望回答的，是机器人如何作为一个完整系统成立现实中的任务不会被拆成若干完美步骤，也不会在一个动作完成之后，再给出下一步的标准答案，移动、感</p>
+<div class="section-label">📋 领航级工厂·灯塔案例</div>
+<p class="card-body">1、中科电墨近日完成数千万元Pre-A轮融资，由西安龙鼎投资独家投资。本轮融资将主要用于车规级电致变色产线建设、核心材料研发迭代以及汽车领域市场拓展。 伴随新能源汽车向智能化、舒适化方向升级，汽车玻璃正从传统结构件逐步演变为集隔热、防晒、隐私保护和交互体验于一体的功能件。尤其是全景天幕快速普及后，调光玻璃开始成为车企提升产品差异化的重要配置之一。 目前市场主流调光技术主要包括PDLC（液晶调光）、SPD（悬浮粒子调光）以及EC（电致变色）三种路线。PDLC和SPD主要依靠光散射实现遮蔽效果，普遍存在雾度较高、隔热能力有限、驱动电压较高等问题。而电致变色技术则通过材料发生氧化还原反应，实现</p>
+<p class="card-body">2、武汉宏海科技的创始人周宏，至今还记得2019年初到泰国时的情景。“选址、买地、报批、招工，每一步都是难关，一张合规文件就能卡上一个月。”这位在中国摸爬滚打多年的制造业老手，第一次感受到什么叫“两眼一抹黑”。他以为出海就是把国内的图纸、设备、产线，照搬过去即可。但现实很快给了他答案：搬得动的是设备，搬不动的是土壤。宏海科技的故事不是孤例。过去十年，数以千计的中国制造企业踏上出海之路，试图把产能搬到东南亚、南亚、甚至更远的非洲和东欧。但大多数人的遭遇惊人地相似——供应链断了、品质失控了、员工跑了、合规文件堆成了山。热闹的出海潮背后，是一场关于“能力”而非“产能”的隐形战争。告别产能外溢时代，为何“</p>
+<p class="card-body">3、近日，大晓机器人开悟世界模型（Kairos）同时在 RoboTwin 2.0、LIBERO-Plus、WorldModelBench Robot、DreamGen等全球针对世界模型视频生成和状态预测的权威具身智能评测中均实现第一，超越 Cosmos3、PI、MotuBrain、being-H0.7、Abot、Fast-WAM、Wan2.2等全球主流世界模型 。凭借首创的原生统一世界模型架构——“多模态理解—生成—预测”一体化架构，实现了从具身视频生成、任务指令追随、泛化能力到场景鲁棒性的全维度领先，并向全行业开源。&nbsp;针对行业普遍基于视频生成模型做后训练所固有的物理缺失、因果匮乏与推理</p>
+<div class="section-label">📋 工业AI与智能体</div>
+<p class="card-body">1、OpenAI首席执行官山姆·奥特曼因个人原因推迟访韩计划。奥特曼原定于14日至15日访韩，会见三星电子、Kakao、NAVER等企业负责人。 Alphabet旗下自动驾驶公司Waymo将推出30美元月费会员计划 当地时间6月11日，Alphabet旗下自动驾驶公司Waymo宣布，将推出仅限受邀用户参与的Waymo Premier30美元月费会员计划，会员可享受优先接送、每次行程10%的乘车返现（以乘车积分形式返还）、在新城市优先体验Waymo服务以及每月最多五次免费取消行程等权益。Waymo表示，最初将通过应用程序和电子邮件向美国旧金山</p>
+<p class="card-body">2、近日，上交所发布公告，将于 2026 年 6 月 15 日召开上市审核会议，审议燧原科技科创板首次公开发行申请，这家国内 AI 算力芯片企业正式迎来上市关键节点。&nbsp;燧原科技自成立以来始终深耕算力芯片领域，历经八年发展，已成为国内专注云端AI芯片自主研发的领军企业。2023-2025 年，燧原科技营业收入从 3.01 亿元增长至 9.90 亿元，三年营收复合增长率达到 81.32%，增长势头十分强劲。结合现有在手订单与产品交付计划，公司预判 2026 年上半年营收将同比大幅上涨，半年营收有望追平 2025 年全年水平。&nbsp;盈利层面同样呈现向好态势。2023至2025三年间公司净</p>
+<p class="card-body">3、MiniMax半年蒸发了2400亿港元。 年初上市的时候,它还是港股最靓的仔。</p>
+<p class="card-body">4、要闻提示1.微软中国Azure研发遭“一锅端”：超200人受影响，最高补偿N+72.钉钉官宣换帅：无招卸任CEO，92年技术极客陈宇森接任3.智界称法拉利前首席设计师加盟，法拉利高管质疑：设计师姓甚名谁？4.李书福卸任极氪董事长5.曾经落地近90万的神车！路虎揽胜极光L跌至17.98万6.曝字节豆包手机硬件负责人林夕离职7.OpenAI拟大幅降价，与Anthropic展开用户争夺8.SpaceX上市造富：4000名员工晋升百万富翁今日头条微软中国Azure研发遭“一锅端”：超200人受影响，最高补偿N+76月11日消息，近日，微软中国Azure研发团队“一锅端”的消息在科技圈炸开。6月5日，微</p>
+<div class="section-label">📋 智能工业装备·自动化</div>
+<p class="card-body">1、HDC 2026期间，鸿蒙生态商业化峰会公布最新数据：搭载HarmonyOS 6的终端设备已达6600万台，鸿蒙注册开发者数量达1100万。依托鸿蒙生态的商业化土壤，鲸鸿动能通过数据科学、全域分发及聚合SDK等核心能力，助力开发者和合作伙伴实现可持续增长。鲸鸿动能已接入全球第三方媒体10.7万+，2025年广告主数增长200%。</p>
+<p class="card-body">2、【中国，东莞，2026年6月12日】在华为开发者大会2026（HDC 2026）上，华为宣布HarmonyOS 7 Developer Beta正式发布，鸿蒙生态在应用创新、能力共建等方面的繁盛图景也集中亮相。目前，搭载HarmonyOS 6的终端设备数量突破6600万台，自去年发布以来，用户满意度提升了20个百分点，注册开发者超1100万，华为应用市场可获取应用与服务超40万款，应用日均下载量已超2亿次，鸿蒙生态已驶入高速增长的快车道。大会期间，华为常务董事、产品投资评审委员会主任、终端BG董事长余承东强调：“我们一直秉承伙伴和开发者优先原则，不设限、不争利、不停步，持续投入，长期共赢。鸿蒙</p>
+<div class="section-label laok-label">👨‍🏫 老K视角</div>
+<p class="card-body">1️⃣ 政策密集落地——本周工信部连出多份政策文件，顶层设计加速转化为执行层行动。建议关注实施细则的出台，提前对标标准。</p>
+<p class="card-body">2️⃣ AI从演示进入产线——工业智能体在焊接、故障诊断等场景的准确率已达98%以上。关注从哪个工序切入收益最大，而非要不要上AI。</p>
+<p class="card-body">3️⃣ 灯塔经验正在普惠化——头部企业的数字化经验通过自建子公司对外输出，中小企业不必自建，可借力平台方案。</p>
+<p class="card-body">4️⃣ 2026窗口期的三层叠加——政策端最高3000万补贴，技术端边缘AI成本降60%，需求端客户要求越来越高。今年不动，明年后悔。</p>
+<div class="laok-block">💡 老K提醒：地基（5S、标准化、OEE数据）不稳，上再多系统也是空中楼阁。</div>
+<p class="card-body">2026-06-14</p>
+    <div class="cta-box">
+        <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
+        <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">← 返回列表</a>
+        <a href="2026-06-13.html">下期 →</a>
+    </div>
+    <div class="footer">
+        <p>思派工业技术（深圳）有限公司</p>
+        <p>📱 关注公众号「思派工业——精益智能工厂领航员」</p>
+    </div>
+</div>
+</body>
+</html>
