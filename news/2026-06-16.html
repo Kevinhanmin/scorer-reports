@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思派工业 · 每日行业快讯</title>
+<style>
+/* ─── Reset & Base ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f0f2f5; color: #1a1a2e; line-height: 1.5;
+}
+
+/* ─── Header (sticky) ─── */
+.header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    color: white; padding: 28px 20px 20px; text-align: center;
+    position: sticky; top: 0; z-index: 10;
+}
+.header h1 { font-size: 18px; font-weight: 700; letter-spacing: 1px; }
+.header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+.header .date-badge {
+    display: inline-block; margin-top: 8px; padding: 3px 12px;
+    background: rgba(255,255,255,0.15); border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+}
+
+/* ─── Container ─── */
+.container { max-width: 680px; margin: 0 auto; padding: 12px; }
+
+/* ─── Section Label ─── */
+.section-label {
+    font-size: 14px; font-weight: 700; color: #1e3a5f;
+    padding: 14px 14px 8px; margin-top: 8px;
+    border-bottom: 2px solid #e2e8f0; letter-spacing: 0.5px;
+}
+
+/* 老K视角节标题特殊色 */
+.laok-label {
+    color: #d97706;
+    border-bottom-color: #fde68a;
+}
+
+/* ─── News Card (compact) ─── */
+.news-card {
+    background: white; border-radius: 8px; padding: 10px 14px;
+    margin: 6px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.15s;
+    border-left: 3px solid #2563eb;
+}
+.news-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+.card-body {
+    font-size: 13px; color: #334155; line-height: 1.6;
+}
+.card-body strong { color: #0f172a; }
+
+.card-link {
+    display: inline-block; margin-top: 6px; font-size: 11px;
+    color: #2563eb; text-decoration: none; font-weight: 500;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* ─── Text Block (摘要, 提示) ─── */
+.text-block {
+    font-size: 13px; color: #475569; line-height: 1.7;
+    padding: 8px 14px; margin: 4px 0 6px;
+    background: #f8fafc; border-radius: 6px;
+    border-left: 3px solid #f59e0b;
+}
+.text-block a { color: #2563eb; text-decoration: none; }
+.text-block a:hover { text-decoration: underline; }
+
+/* ─── Source link (📎) ─── */
+.source-link {
+    font-size: 11px; color: #94a3b8; padding: 2px 14px;
+    margin: 0 0 6px; word-break: break-all;
+}
+.source-link a { color: #64748b; text-decoration: none; }
+.source-link a:hover { color: #2563eb; }
+
+/* ─── 老K视角块 ─── */
+.laok-block {
+    font-size: 14px; color: #92400e; line-height: 1.7;
+    padding: 12px 16px; margin: 6px 0;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-radius: 8px; border-left: 4px solid #f59e0b;
+    font-weight: 500;
+}
+
+/* ─── CTA Block ─── */
+.cta-block {
+    text-align: center; margin: 12px 0; padding: 12px 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-link {
+    font-size: 14px; margin: 4px 0;
+}
+.cta-link a {
+    color: #2563eb; text-decoration: none; font-weight: 600;
+}
+.cta-link a:hover { text-decoration: underline; }
+
+/* ─── Navigation ─── */
+.nav-links {
+    display: flex; justify-content: space-between; margin: 16px 0;
+}
+.nav-links a {
+    padding: 8px 14px; background: white; border-radius: 8px;
+    text-decoration: none; color: #2563eb; font-size: 13px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: background 0.15s;
+}
+.nav-links a:hover { background: #eff6ff; }
+
+/* ─── CTA Banner ─── */
+.cta-box {
+    text-align: center; margin: 16px 0; padding: 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-box p { font-size: 13px; color: #475569; margin-bottom: 10px; }
+.cta-box .btn {
+    display: inline-block; padding: 10px 24px; background: #2563eb;
+    color: white; border-radius: 8px; text-decoration: none;
+    font-size: 14px; font-weight: 600; transition: background 0.15s;
+}
+.cta-box .btn:hover { background: #1d4ed8; }
+
+/* ─── Footer ─── */
+.footer {
+    text-align: center; padding: 20px 14px; color: #94a3b8; font-size: 11px;
+    border-top: 1px solid #e2e8f0; margin-top: 12px;
+}
+.footer a { color: #2563eb; text-decoration: none; }
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .container { padding: 8px; }
+    .news-card { padding: 8px 10px; }
+    .section-label { font-size: 13px; padding: 12px 10px 6px; }
+    .card-body { font-size: 12px; }
+    .laok-block { font-size: 13px; padding: 10px 12px; }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>📰 每日行业快讯</h1>
+    <div class="subtitle">思派精益智能工厂领航员</div>
+    <div class="date-badge">2026年06月16日</div>
+</div>
+<div class="container">
+<p class="card-body">2026年06月16日（周二） | 思派精益智能工厂领航员</p>
+<div class="section-label">📋 本期聚焦</div>
+<div class="text-block">6月15日，健康AI应用&quot;蚂蚁阿福&quot;宣布“拍皮肤”功能升级：可识别皮肤病种类从50种增至100多种，覆盖99%的线上就医常见皮肤问题。同时，阿福还上线了“医生把关”这一新服务：用户获得阿福的解答后，可选择邀请三甲医院的医生对阿福的分析结果进行复核并补充意见。这也是国内首个落地&quot;AI问答+医生把关&quot;协作模式的AI应用，为AI与医生的合作提供了可行路径，打开了“AI+医生”赛道的想象空间。&nbsp;&nbsp;阿福的测试数据显示，15%的用户会选择“医生把关”，阿福分析结果与医生把关的一致率超过90%。&nbsp;阿福回答后“医生把关”，15%的用户会用这</div>
+<div class="section-label">📋 政策·标准动向</div>
+<p class="card-body">1、汽车工业发展历史中，无论是早期的通用、丰田，还是当下的比亚迪，都以极高的自制比例赢得竞争主导权。现在，零跑也通过自研自制完成规模进阶。一年多前，零跑在湖州布局了一个50万平方米超级五电工厂，涵盖电池、电驱等五大核心零部件全链路自制。这不仅是全球面积最大、整合度最高的超级五电工厂，也是行业中唯一单品牌超级零部件工厂集群。&nbsp;一个零跑负责人告诉我们，之所以选择在湖州设立零部件工厂，一是有当地政府的政策扶持；二是湖州本身地理位置优越，交通便利，能够覆盖安徽等市场供应。超级五电工厂的建立，成为零跑自主零部件体系内的有利补充。目前，零跑已形成17个超级零部件工厂，电池、域控、车灯的年产值可达到1</p>
+<p class="card-body">2、电子布100%涨价背后，真正的瓶颈不是织机，是配方</p>
+<p class="card-body">3、近日，百度文心正式发布新一代OCR模型PP-OCRv6，一次性推出Tiny、Small、Medium三档模型，支持&nbsp;50&nbsp;多种语言，覆盖浏览器端、嵌入式设备到服务器等主流场景。公开结果显示，PP-OCRv6再次刷新OCR领域评测纪录，综合性能位居全球第一。其中，PP-OCRv6 Tiny的尺寸仅1.5MB，可直接部署于本地浏览器环境，单图预测最快仅需&nbsp;97&nbsp;毫秒。用户数据无需上传云端即可完成OCR处理，在保障隐私安全的同时，大幅降低部署门槛。有开发者评价，PP-OCRv6可能是全球唯一可在浏览器环境运行的高精度OCR模型，为&nbsp;Agent&nbs</p>
+<div class="section-label">📋 领航级工厂·灯塔案例</div>
+<p class="card-body">1、蔚来宣布科技行政旗舰SUV——蔚来ES9正式上市。ES9行政豪华版售价498,000元起，采用BaaS电池租用方式购买，售价390,000元起；行政签名版售价558,000元起，采用BaaS电池租用方式购买，售价 450,000元起；地平线特别版售价628,000元起，采用BaaS电池租用方式购买，售价520,000元起。蔚来ES9将于5月28日起正式开启交付。&nbsp;科技行政旗舰SUV蔚来ES9正式上市科技行政旗舰SUV蔚来ES9版型与价格&nbsp;即日起至2026年7月31日（含）前锁单并购买蔚来ES9的用户，将享受以下权益：5年免费全域领航辅助 NOP+使用权、飞航行政五件套和ES</p>
+<p class="card-body">2、武汉宏海科技的创始人周宏，至今还记得2019年初到泰国时的情景。“选址、买地、报批、招工，每一步都是难关，一张合规文件就能卡上一个月。”这位在中国摸爬滚打多年的制造业老手，第一次感受到什么叫“两眼一抹黑”。他以为出海就是把国内的图纸、设备、产线，照搬过去即可。但现实很快给了他答案：搬得动的是设备，搬不动的是土壤。宏海科技的故事不是孤例。过去十年，数以千计的中国制造企业踏上出海之路，试图把产能搬到东南亚、南亚、甚至更远的非洲和东欧。但大多数人的遭遇惊人地相似——供应链断了、品质失控了、员工跑了、合规文件堆成了山。热闹的出海潮背后，是一场关于“能力”而非“产能”的隐形战争。告别产能外溢时代，为何“</p>
+<div class="section-label">📋 工业AI与智能体</div>
+<p class="card-body">1、6月15日，健康AI应用&quot;蚂蚁阿福&quot;宣布“拍皮肤”功能升级：可识别皮肤病种类从50种增至100多种，覆盖99%的线上就医常见皮肤问题。同时，阿福还上线了“医生把关”这一新服务：用户获得阿福的解答后，可选择邀请三甲医院的医生对阿福的分析结果进行复核并补充意见。这也是国内首个落地&quot;AI问答+医生把关&quot;协作模式的AI应用，为AI与医生的合作提供了可行路径，打开了“AI+医生”赛道的想象空间。&nbsp;&nbsp;阿福的测试数据显示，15%的用户会选择“医生把关”，阿福分析结果与医生把关的一致率超过90%。&nbsp;阿福回答后“医生把关”，15%的用户会用这</p>
+<p class="card-body">2、支付宝宣布，旗下政务AI助手“晓政”累计服务次数突破1亿次。截至目前，“晓政”服务已覆盖16000项服务事项，成功落地助力70余家部委及省级政务机构，业务场景全面覆盖公积金、人社、公安、不动产等民生领域。 小雨智造与地瓜机器人正式宣布达成战略合作 36氪获悉，6月12日，小雨智造与地瓜机器人正式宣布达成战略合作，双方将围绕“工业具身大脑+端侧大算力”展开深度协同，推动具身智能技术从实验室走向工业产线，共同打造面向工业制造的高性能软硬一体化解决方案，助力智能制造迈向新阶段。 小红书或已准备好本月在香港提交IPO申请据透露，小红书科</p>
+<p class="card-body">3、海洋具身智能公司「世航智能」完成A轮融资，融资金额超过10亿元，这也是目前全球海洋机器人领域规模最大的单轮融资。本轮融资由两家芯片公司「摩尔线程」和「昆仑芯」的产业投资方上河动量基金、新加坡国有投资平台Vertex Growth 、上市公司大洋电机等资方出资。 另外，金沙江创投也在本轮追加投资，这已是其创始人朱啸虎第五轮投资「世航智能」，祥峰中国、华映资本、长石资本等老股东亦全部超额跟投。 「世航智能」创始人兼CEO陈晓博为1989年出生的哈尔滨工程大学校友，长期深耕水下机器人领域，在28岁时获得国防科技进步</p>
+<p class="card-body">4、普惠小微贷款考核指标重大调整；深圳：警惕以投资RWA名义从事非法活动；香港金管局成立代币化债券专家小组；重庆银行原行长退休近3年被查；超1023亿元，五大上市险企“现金红包”密集到账；支付宝内测"超级"App；京东发布智能体自主支付协议A2P2；原华融证券4000万股股份流拍；新疆银行换帅；印尼“先买后付”业务即将进入专门监管时代；万事达卡全面支持AI自主支付与稳定币结算。</p>
+<div class="section-label">📋 智能工业装备·自动化</div>
+<p class="card-body">1、【中国，东莞，2026年6月12日】在华为开发者大会2026（HDC 2026）上，华为宣布HarmonyOS 7 Developer Beta正式发布，鸿蒙生态在应用创新、能力共建等方面的繁盛图景也集中亮相。目前，搭载HarmonyOS 6的终端设备数量突破6600万台，自去年发布以来，用户满意度提升了20个百分点，注册开发者超1100万，华为应用市场可获取应用与服务超40万款，应用日均下载量已超2亿次，鸿蒙生态已驶入高速增长的快车道。大会期间，华为常务董事、产品投资评审委员会主任、终端BG董事长余承东强调：“我们一直秉承伙伴和开发者优先原则，不设限、不争利、不停步，持续投入，长期共赢。鸿蒙</p>
+<p class="card-body">2、在手机影像能力不断逼近专业设备的今天，一个问题变得越来越尖锐：独立影像设备，还有存在的必要吗？ 6月15日，大疆正式发布 Osmo Pocket 4P，将这台口袋云台相机推向更专业的创作场景。作为 Pocket 系列的新一代旗舰产品，Pocket 4P 定位为“装进口袋里的电影机”，搭载双摄系统、17级动态范围与 D-Log 2 专业色彩曲线，试图在口袋级设备中进一步容纳专业影像能力。 Pocket 4P 以&nbsp;3799元起售，多平台预订量持续走高。 对于一个原本被视为“手机影像补充”的品类来说，这种热度本身就提出了一个新的问题：当手机已经足够强，为什么仍然有越来越多人愿意为一台独立影</p>
+<div class="section-label laok-label">👨‍🏫 老K视角</div>
+<p class="card-body">1️⃣ 政策密集落地——本周工信部连出多份政策文件，顶层设计加速转化为执行层行动。建议关注实施细则的出台，提前对标标准。</p>
+<p class="card-body">2️⃣ AI从演示进入产线——工业智能体在焊接、故障诊断等场景的准确率已达98%以上。关注从哪个工序切入收益最大，而非要不要上AI。</p>
+<p class="card-body">3️⃣ 灯塔经验正在普惠化——头部企业的数字化经验通过自建子公司对外输出，中小企业不必自建，可借力平台方案。</p>
+<p class="card-body">4️⃣ 2026窗口期的三层叠加——政策端最高3000万补贴，技术端边缘AI成本降60%，需求端客户要求越来越高。今年不动，明年后悔。</p>
+<div class="laok-block">💡 老K提醒：地基（5S、标准化、OEE数据）不稳，上再多系统也是空中楼阁。</div>
+<p class="card-body">2026-06-16</p>
+    <div class="cta-box">
+        <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
+        <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">← 返回列表</a>
+        <a href="2026-06-15.html">下期 →</a>
+    </div>
+    <div class="footer">
+        <p>思派工业技术（深圳）有限公司</p>
+        <p>📱 关注公众号「思派工业——精益智能工厂领航员」</p>
+    </div>
+</div>
+</body>
+</html>
