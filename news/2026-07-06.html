@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思派工业 · 每日行业快讯</title>
+<style>
+/* ─── Reset & Base ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f0f2f5; color: #1a1a2e; line-height: 1.5;
+}
+
+/* ─── Header (sticky) ─── */
+.header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    color: white; padding: 28px 20px 20px; text-align: center;
+    position: sticky; top: 0; z-index: 10;
+}
+.header h1 { font-size: 20px; font-weight: 700; letter-spacing: 1px; }
+.header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+.header .date-badge {
+    display: inline-block; margin-top: 8px; padding: 3px 12px;
+    background: rgba(255,255,255,0.15); border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+}
+
+/* ─── Container ─── */
+.container { max-width: 680px; margin: 0 auto; padding: 12px; }
+
+/* ─── Section Label ─── */
+.section-label {
+    font-size: 17px; font-weight: 700; color: #1e3a5f;
+    padding: 14px 14px 8px; margin-top: 8px;
+    border-bottom: 2px solid #e2e8f0; letter-spacing: 0.5px;
+}
+
+/* 老K视角节标题特殊色 */
+.laok-label {
+    color: #d97706;
+    border-bottom-color: #fde68a;
+}
+
+/* ─── News Card (compact) ─── */
+.news-card {
+    background: white; border-radius: 8px; padding: 10px 14px;
+    margin: 6px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.15s;
+    border-left: 3px solid #2563eb;
+}
+.news-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+.card-body {
+    font-size: 16px; color: #334155; line-height: 1.8;
+}
+.card-body strong { color: #0f172a; }
+
+.card-link {
+    display: inline-block; margin-top: 6px; font-size: 11px;
+    color: #2563eb; text-decoration: none; font-weight: 500;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* ─── Text Block (摘要, 提示) ─── */
+.text-block {
+    font-size: 15px; color: #475569; line-height: 1.8;
+    padding: 8px 14px; margin: 4px 0 6px;
+    background: #f8fafc; border-radius: 6px;
+    border-left: 3px solid #f59e0b;
+}
+.text-block a { color: #2563eb; text-decoration: none; }
+.text-block a:hover { text-decoration: underline; }
+
+/* ─── Source link (📎) ─── */
+.source-link {
+    font-size: 11px; color: #94a3b8; padding: 2px 14px;
+    margin: 0 0 6px; word-break: break-all;
+}
+.source-link a { color: #64748b; text-decoration: none; }
+.source-link a:hover { color: #2563eb; }
+
+/* ─── 老K视角块 ─── */
+.laok-block {
+    font-size: 16px; color: #92400e; line-height: 1.8;
+    padding: 12px 16px; margin: 6px 0;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-radius: 8px; border-left: 4px solid #f59e0b;
+    font-weight: 500;
+}
+
+/* ─── CTA Block ─── */
+.cta-block {
+    text-align: center; margin: 12px 0; padding: 12px 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-link {
+    font-size: 14px; margin: 4px 0;
+}
+.cta-link a {
+    color: #2563eb; text-decoration: none; font-weight: 600;
+}
+.cta-link a:hover { text-decoration: underline; }
+
+/* ─── Navigation ─── */
+.nav-links {
+    display: flex; justify-content: space-between; margin: 16px 0;
+}
+.nav-links a {
+    padding: 8px 14px; background: white; border-radius: 8px;
+    text-decoration: none; color: #2563eb; font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: background 0.15s;
+}
+.nav-links a:hover { background: #eff6ff; }
+
+/* ─── CTA Banner ─── */
+.cta-box {
+    text-align: center; margin: 16px 0; padding: 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-box p { font-size: 15px; color: #475569; margin-bottom: 10px; }
+.cta-box .btn {
+    display: inline-block; padding: 10px 24px; background: #2563eb;
+    color: white; border-radius: 8px; text-decoration: none;
+    font-size: 16px; font-weight: 600; transition: background 0.15s;
+}
+.cta-box .btn:hover { background: #1d4ed8; }
+
+/* ─── Footer ─── */
+.footer {
+    text-align: center; padding: 20px 14px; color: #94a3b8; font-size: 11px;
+    border-top: 1px solid #e2e8f0; margin-top: 12px;
+}
+.footer a { color: #2563eb; text-decoration: none; }
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .container { padding: 8px; }
+    .news-card { padding: 8px 10px; }
+    .section-label { font-size: 15px; padding: 12px 10px 6px; }
+    .card-body { font-size: 15px; }
+    .laok-block { font-size: 15px; padding: 10px 12px; }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>📰 每日行业快讯</h1>
+    <div class="subtitle">思派精益智能工厂领航员</div>
+    <div class="date-badge">2026年07月06日</div>
+</div>
+<div class="container">
+<p class="card-body">2026年07月06日 | 思派精益智能工厂领航员</p>
+<div class="section-label">🔥 今日头条</div>
+<p class="card-body">1. <strong>工业和信息化部等八部门印发《关于推动工业互联网高质量发展的实施意见》的通知</strong></p>
+<p class="card-body">工信部等八部门联合印发《关于推动工业互联网高质量发展的实施意见》，旨在加快工业互联网规模化应用，推动制造业数字化转型。该意见明确了到2028年建成一批5G全连接工厂、培育100家以上工业互联网平台等目标。</p>
+<p class="card-body">2. <strong>华工科技复杂曲面六轴激光加工装备入选工信部工业母机创新产品典型案例</strong></p>
+<p class="card-body">华工科技复杂曲面六轴激光加工装备成功入选工信部《2026年度工业母机创新产品典型案例名单》，该装备在复杂曲面加工领域实现技术突破。这为机加工企业提供了高端装备选型参考。</p>
+<p class="card-body">3. <strong>光象科技累计完成数亿元天使轮融资，布局物理原生基座模型</strong></p>
+<p class="card-body">具身智能公司光象科技宣布完成累计数亿元天使轮融资，资金将重点投入物理原生基座模型的研发迭代，并推进具身智能机器人在工业场景的落地。该公司由清华车辆学院师兄弟创立，已与汽车产业深度合作。</p>
+<div class="section-label">📌 政策动态</div>
+<p class="card-body">1、工业和信息化部等八部门印发《关于推动工业互联网高质量发展的实施意见》的通知</p>
+<p class="card-body">工信部等八部门联合印发《关于推动工业互联网高质量发展的实施意见》，提出到2028年建成一批5G全连接工厂、培育100家以上工业互联网平台等目标。该意见为制造业企业数字化转型提供了政策指引和方向。</p>
+<p class="card-body">🔗 http://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_5f76aa6e3a4745d2bd96ee0010ec8459.html</p>
+<p class="card-body">2、三部门关于组织实施2026年首台（套）重大技术装备保险补偿政策的通知</p>
+<p class="card-body">工信部、财政部、金融监管总局联合发布2026年首台（套）重大技术装备保险补偿政策，对符合条件的重大技术装备给予保险费用补贴。该政策可降低企业采购高端装备的风险和成本。</p>
+<p class="card-body">🔗 http://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_fefca99ac5934ebd905b2232e417e317.html</p>
+<p class="card-body">3、两部门关于印发2023年度智能制造系统解决方案“揭榜挂帅”验收通过项目名单的通知</p>
+<p class="card-body">工信部、市场监管总局公布2023年度智能制造系统解决方案“揭榜挂帅”验收通过项目名单，一批智能制造解决方案通过验收。这为机加工企业选择成熟的智能制造方案提供了参考。</p>
+<p class="card-body">🔗 http://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_de501c2c215f4a9fb64d17dafc56fb8b.html</p>
+<p class="card-body">4、两部委关于开展农业领域机器人典型应用场景遴选工作的通知</p>
+<p class="card-body">工信部、农业农村部联合开展农业领域机器人典型应用场景遴选工作，旨在推广机器人技术在农业领域的应用。虽然主要面向农业，但机器人技术对机加工企业也有借鉴意义。</p>
+<p class="card-body">🔗 http://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_750f6bdfb49e49188136c7bcb3b65dc7.html</p>
+<div class="section-label">🚀 技术前沿</div>
+<p class="card-body">1、光象科技累计完成数亿元天使轮融资，布局物理原生基座模型</p>
+<p class="card-body">具身智能公司光象科技完成数亿元天使轮融资，资金将用于物理原生基座模型研发和工业场景机器人落地。该公司由清华团队创立，已与汽车产业合作，展示了工业AI机器人的最新进展。</p>
+<p class="card-body">🔗 https://36kr.com/p/3882364132077577?f=rss</p>
+<p class="card-body">2、华工科技复杂曲面六轴激光加工装备入选工信部工业母机创新产品典型案例</p>
+<p class="card-body">华工科技复杂曲面六轴激光加工装备入选工信部工业母机创新产品典型案例，该装备在复杂曲面加工领域实现技术突破，为机加工企业提供了高端激光加工装备的选型参考。</p>
+<p class="card-body">🔗 https://36kr.com/newsflashes/3882330361590022?f=rss</p>
+<p class="card-body">3、李飞飞署名具身新论文：Sim2Real烧不起，Real2Sim量大管饱</p>
+<p class="card-body">李飞飞团队提出Real2Sim方法，通过一段视频即可生成无限训练场景，降低机器人仿真到现实迁移的成本。该方法有望加速工业机器人训练效率，减少真实环境部署风险。</p>
+<p class="card-body">🔗 https://www.qbitai.com/2026/07/443066.html</p>
+<p class="card-body">4、对话傲鲨创始人徐振华：当科幻机甲成为户外装备，外骨骼如何重新定义人机关系？</p>
+<p class="card-body">傲鲨智能推出VIATRIX增程动力外骨骼机器人，已应用于户外徒步等场景。外骨骼技术可辅助工人搬运重物，减少工伤风险，在工厂产线有潜在应用价值。</p>
+<p class="card-body">🔗 https://36kr.com/p/3880770270425089?f=rss</p>
+<div class="section-label">🏭 标杆案例</div>
+<p class="card-body">1、贝斯特：人形机器人业务仍处样品阶段</p>
+<p class="card-body">贝斯特公告称，其人形机器人零部件业务仍在样品阶段，2026年上半年相关样品实现营收22.30万元，占公司营收比重约0.03%。该案例提醒机加工企业谨慎对待人形机器人热，避免盲目投入。</p>
+<p class="card-body">🔗 https://36kr.com/newsflashes/3882472808787977?f=rss</p>
+<p class="card-body">2、鸿海：6月销售额8218亿元台币 同比增长52.1％</p>
+<p class="card-body">鸿海6月销售额8218亿元台币，同比增长52.1%，AI机架需求持续增长。鸿海作为全球最大电子代工厂，其业绩增长反映了AI硬件制造的强劲需求，对机加工企业有供应链参考意义。</p>
+<p class="card-body">🔗 https://36kr.com/newsflashes/3882465728442628?f=rss</p>
+<p class="card-body">3、比亚迪6月销量超40万，年内销量记录再度刷新</p>
+<p class="card-body">比亚迪6月销量超40万辆，再创年内新高。新能源汽车持续热销，带动上游零部件需求，机加工企业可关注汽车零部件订单增长机会。</p>
+<p class="card-body">🔗 https://www.qbitai.com/2026/07/442517.html</p>
+<p class="card-body">4、理想组织再动刀：去中间环节，整车和智驾产品回归研发</p>
+<p class="card-body">理想汽车进行组织架构调整，将产品部部分职能拆分并入研发部门，以提升决策效率。该案例显示车企正通过组织变革加速智能化，机加工企业应关注客户需求变化。</p>
+<p class="card-body">🔗 https://36kr.com/p/3877919172047111?f=rss</p>
+<div class="section-label laok-label">👨‍🏫 老K视角</div>
+<p class="card-body">#</p>
+<p class="card-body">1. <strong>工业互联网政策来了，别等！</strong> 八部门联合发文推动工业互联网高质量发展，目标到2028年建成一批5G全连接工厂。咱们机加工厂现在就该评估一下，自己的设备联网率有多少？数据采集做到哪一步了？别等政策补贴都发完了才动手，早接入早受益。</p>
+<p class="card-body">2. <strong>人形机器人别跟风，先看贝斯特的教训。</strong> 贝斯特公告说人形机器人业务上半年只卖了22万，占比0.03%，还停留在样品阶段。这给咱们提了个醒：别被概念忽悠，先把手头的自动化改造做好，比如用六轴机器人做上下料、打磨，这些成熟技术回报更稳。</p>
+<p class="card-body">3. <strong>激光加工装备有补贴，赶紧申报。</strong> 华工科技的复杂曲面六轴激光加工装备入选了工信部典型案例，而且今年首台套保险补偿政策也出来了。如果你们厂有高精度加工需求，买这类装备能拿保险补贴，降低试错成本，值得研究。</p>
+<p class="card-body">4. <strong>汽车行业景气度高，盯紧比亚迪和鸿海。</strong> 比亚迪月销40万，鸿海营收增长52%，都是AI和新能源带动的。咱们做汽配的，要抓住这波红利，但也要注意客户组织变革（比如理想）带来的供应链调整，提前布局。</p>
+<div class="laok-block">💡 提醒：今天没有直接针对机加工的技改补贴政策，但工业互联网和首台套政策都跟咱们相关，建议安排专人跟进地方实施细则。</div>
+<p class="card-body">2026年07月06日</p>
+    <div class="cta-box">
+        <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
+        <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">← 返回列表</a>
+        <a href="2026-07-03.html">下期 →</a>
+    </div>
+    <div class="footer">
+        <p>思派工业技术（深圳）有限公司</p>
+        <p>📱 关注公众号「思派工业——精益智能工厂领航员」</p>
+    </div>
+</div>
+</body>
+</html>
