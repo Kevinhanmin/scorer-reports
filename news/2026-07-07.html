@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思派工业 · 每日行业快讯</title>
+<style>
+/* ─── Reset & Base ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f0f2f5; color: #1a1a2e; line-height: 1.5;
+}
+
+/* ─── Header (sticky) ─── */
+.header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    color: white; padding: 28px 20px 20px; text-align: center;
+    position: sticky; top: 0; z-index: 10;
+}
+.header h1 { font-size: 20px; font-weight: 700; letter-spacing: 1px; }
+.header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+.header .date-badge {
+    display: inline-block; margin-top: 8px; padding: 3px 12px;
+    background: rgba(255,255,255,0.15); border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+}
+
+/* ─── Container ─── */
+.container { max-width: 680px; margin: 0 auto; padding: 12px; }
+
+/* ─── Section Label ─── */
+.section-label {
+    font-size: 17px; font-weight: 700; color: #1e3a5f;
+    padding: 14px 14px 8px; margin-top: 8px;
+    border-bottom: 2px solid #e2e8f0; letter-spacing: 0.5px;
+}
+
+/* 老K视角节标题特殊色 */
+.laok-label {
+    color: #d97706;
+    border-bottom-color: #fde68a;
+}
+
+/* ─── News Card (compact) ─── */
+.news-card {
+    background: white; border-radius: 8px; padding: 10px 14px;
+    margin: 6px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.15s;
+    border-left: 3px solid #2563eb;
+}
+.news-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+.card-body {
+    font-size: 16px; color: #334155; line-height: 1.8;
+}
+.card-body strong { color: #0f172a; }
+
+.card-link {
+    display: inline-block; margin-top: 6px; font-size: 11px;
+    color: #2563eb; text-decoration: none; font-weight: 500;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* ─── Text Block (摘要, 提示) ─── */
+.text-block {
+    font-size: 15px; color: #475569; line-height: 1.8;
+    padding: 8px 14px; margin: 4px 0 6px;
+    background: #f8fafc; border-radius: 6px;
+    border-left: 3px solid #f59e0b;
+}
+.text-block a { color: #2563eb; text-decoration: none; }
+.text-block a:hover { text-decoration: underline; }
+
+/* ─── Source link (📎) ─── */
+.source-link {
+    font-size: 11px; color: #94a3b8; padding: 2px 14px;
+    margin: 0 0 6px; word-break: break-all;
+}
+.source-link a { color: #64748b; text-decoration: none; }
+.source-link a:hover { color: #2563eb; }
+
+/* ─── 老K视角块 ─── */
+.laok-block {
+    font-size: 16px; color: #92400e; line-height: 1.8;
+    padding: 12px 16px; margin: 6px 0;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-radius: 8px; border-left: 4px solid #f59e0b;
+    font-weight: 500;
+}
+
+/* ─── CTA Block ─── */
+.cta-block {
+    text-align: center; margin: 12px 0; padding: 12px 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-link {
+    font-size: 14px; margin: 4px 0;
+}
+.cta-link a {
+    color: #2563eb; text-decoration: none; font-weight: 600;
+}
+.cta-link a:hover { text-decoration: underline; }
+
+/* ─── Navigation ─── */
+.nav-links {
+    display: flex; justify-content: space-between; margin: 16px 0;
+}
+.nav-links a {
+    padding: 8px 14px; background: white; border-radius: 8px;
+    text-decoration: none; color: #2563eb; font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: background 0.15s;
+}
+.nav-links a:hover { background: #eff6ff; }
+
+/* ─── CTA Banner ─── */
+.cta-box {
+    text-align: center; margin: 16px 0; padding: 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-box p { font-size: 15px; color: #475569; margin-bottom: 10px; }
+.cta-box .btn {
+    display: inline-block; padding: 10px 24px; background: #2563eb;
+    color: white; border-radius: 8px; text-decoration: none;
+    font-size: 16px; font-weight: 600; transition: background 0.15s;
+}
+.cta-box .btn:hover { background: #1d4ed8; }
+
+/* ─── Footer ─── */
+.footer {
+    text-align: center; padding: 20px 14px; color: #94a3b8; font-size: 11px;
+    border-top: 1px solid #e2e8f0; margin-top: 12px;
+}
+.footer a { color: #2563eb; text-decoration: none; }
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .container { padding: 8px; }
+    .news-card { padding: 8px 10px; }
+    .section-label { font-size: 15px; padding: 12px 10px 6px; }
+    .card-body { font-size: 15px; }
+    .laok-block { font-size: 15px; padding: 10px 12px; }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>📰 每日行业快讯</h1>
+    <div class="subtitle">思派精益智能工厂领航员</div>
+    <div class="date-badge">2026年07月07日</div>
+</div>
+<div class="container">
+<p class="card-body">2026年07月07日 | 思派精益智能工厂领航员</p>
+<div class="section-label">🔥 今日头条</div>
+<p class="card-body">1. <strong>工业和信息化部、商务部等五部门联合启动2026年新能源汽车下乡活动</strong></p>
+<p class="card-body">工信部会同国家发改委、农业农村部、国家能源局在新疆塔城、海南澄迈同时启动2026年新能源汽车下乡活动。活动自2020年启动以来，通过制定下乡车型推荐目录、举办专场活动等形式，带动乡村地区新能源汽车销售及配套服务体系建设。</p>
+<p class="card-body">2. <strong>两部委关于开展农业领域机器人典型应用场景遴选工作的通知</strong></p>
+<p class="card-body">工信部办公厅、农业农村部办公厅联合发布通知，开展农业领域机器人典型应用场景遴选工作。通知要求各地推荐已实际应用并取得良好效果的机器人场景，旨在推动农业机器人产业发展。</p>
+<p class="card-body">3. <strong>哈工大在读博士以百亿市值冲港股IPO，创始三人只剩一人</strong></p>
+<p class="card-body">珞石机器人港股IPO定价38港元，对应市值99.46亿港元，合计募资8.75亿港元，五家基石认购31.4%。该公司由哈工大在读博士创立，但创始团队已发生变动。</p>
+<div class="section-label">📌 政策动态</div>
+<p class="card-body">1、工业和信息化部、商务部等五部门联合启动2026年新能源汽车下乡活动</p>
+<p class="card-body">工信部会同国家发改委、农业农村部、国家能源局在新疆塔城、海南澄迈同时启动2026年新能源汽车下乡活动。活动自2020年启动以来，通过制定下乡车型推荐目录、举办专场活动等形式，带动乡村地区新能源汽车销售及配套服务体系建设。</p>
+<p class="card-body">🔗 http://www.miit.gov.cn/xwfb/gxdt/sjdt/art/2026/art_352714e8c8024dd99957867de040e81a.html</p>
+<p class="card-body">2、两部委关于开展农业领域机器人典型应用场景遴选工作的通知</p>
+<p class="card-body">工信部办公厅、农业农村部办公厅联合发布通知，开展农业领域机器人典型应用场景遴选工作。通知要求各地推荐已实际应用并取得良好效果的机器人场景，旨在推动农业机器人产业发展。</p>
+<p class="card-body">🔗 http://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_750f6bdfb49e49188136c7bcb3b65dc7.html</p>
+<p class="card-body">3、中华人民共和国工业和信息化部 商务部 海关总署 市场监管总局公告2026年第16号</p>
+<p class="card-body">四部门联合发布关于乘用车企业平均燃料消耗量与新能源汽车积分并行管理办法的公告，涉及2025年度积分核算等事项。该政策直接影响汽车制造企业的合规与生产规划。</p>
+<p class="card-body">🔗 http://www.miit.gov.cn/zwgk/zcwj/wjfb/gg/art/2026/art_301fff2dc3c3434f94f781026672b4ae.html</p>
+<p class="card-body">4、今年“两重”建设项目清单全部下达完毕</p>
+<p class="card-body">国家发展改革委消息，2026年第三批“两重”建设项目已下达，共安排超长期特别国债资金1935亿元。至此，今年“两重”建设项目清单已全部下达完毕，涉及重大基础设施和重点领域建设。</p>
+<p class="card-body">🔗 https://36kr.com/newsflashes/3884114771996673?f=rss</p>
+<div class="section-label">🚀 技术前沿</div>
+<p class="card-body">1、在联合国，这家中国公司给AI“减负”：不堆算力，而是给机器人装了个“类脑”</p>
+<p class="card-body">一家中国公司在联合国展示类脑AI技术，通过模拟人脑神经网络降低算力需求，为机器人提供高效智能。该技术有望降低工业机器人的部署成本。</p>
+<p class="card-body">🔗 https://www.qbitai.com/2026/07/444733.html</p>
+<p class="card-body">2、极简方案刷新扩散模型推理纪录，阿里清华论文入选ICML杰出论文</p>
+<p class="card-body">阿里与清华合作提出的极简方案在扩散模型推理上刷新纪录，相关论文入选ICML杰出论文。该技术可提升AI生成效率，对工业视觉检测等场景有潜在应用价值。</p>
+<p class="card-body">🔗 https://www.qbitai.com/2026/07/444721.html</p>
+<p class="card-body">3、字节、宇树、BAT等40+产品大咖齐聚，2026奇点智能产品大会最新最全日程来了！</p>
+<p class="card-body">2026奇点智能产品大会将汇聚字节跳动、宇树科技、BAT等40余位产品大咖，探讨AI与机器人产品创新。大会聚焦智能产品落地，对制造业智能化有参考意义。</p>
+<p class="card-body">🔗 https://www.qbitai.com/2026/07/444043.html</p>
+<p class="card-body">4、蔚来世界模型OTA，70万用户没人被留在旧版本</p>
+<p class="card-body">蔚来汽车通过OTA升级世界模型，覆盖70万用户，实现全量更新。该技术展示了汽车智能化中的持续迭代能力，对制造业设备远程升级有借鉴意义。</p>
+<p class="card-body">🔗 https://www.qbitai.com/2026/07/443868.html</p>
+<div class="section-label">🏭 标杆案例</div>
+<p class="card-body">1、哈工大在读博士以百亿市值冲港股IPO，创始三人只剩一人</p>
+<p class="card-body">珞石机器人港股IPO定价38港元，对应市值99.46亿港元，合计募资8.75亿港元，五家基石认购31.4%。该公司由哈工大在读博士创立，但创始团队已发生变动。</p>
+<p class="card-body">🔗 https://36kr.com/p/3883708118921480?f=rss</p>
+<p class="card-body">2、前西门子、罗罗电动飞行团队创业做航空电驱系统，两轮连融数千万元</p>
+<p class="card-body">开普动能连续完成种子轮及天使轮融资，合计数千万元，由零以资本领投、新鼎资本跟投。该公司由前西门子、罗罗电动飞行团队创立，专注航空电驱系统，eVTOL产业进入工程化阶段。</p>
+<p class="card-body">🔗 https://36kr.com/p/3883721315971078?f=rss</p>
+<p class="card-body">3、赛意信息：上半年净利润同比预增188.36%—257.01%</p>
+<p class="card-body">赛意信息披露业绩预告，预计2026年上半年净利润5250万元至6500万元，同比增长188.36%至257.01%。该公司为制造业提供数字化解决方案，业绩增长反映智能制造需求旺盛。</p>
+<p class="card-body">🔗 https://36kr.com/newsflashes/3884108848656647?f=rss</p>
+<p class="card-body">4、德福科技：拟定增募资不超28亿元</p>
+<p class="card-body">德福科技公告拟定增募资不超过28亿元，用于5万吨人工智能高端电子电路AI铜箔项目和补充流动资金。该项目聚焦AI铜箔，属于智能制造上游材料领域。</p>
+<p class="card-body">🔗 https://36kr.com/newsflashes/3884101499498497?f=rss</p>
+<div class="section-label laok-label">👨‍🏫 老K视角</div>
+<p class="card-body">1. <strong>新能源汽车下乡，机加工厂的机会来了</strong></p>
+<p class="card-body">工信部等五部门启动2026年新能源汽车下乡活动，这意味着农村市场对汽车零部件的需求将增加。做汽配的老板可以关注下乡车型的配套需求，尤其是性价比高的零部件，提前布局渠道。</p>
+<p class="card-body">2. <strong>机器人应用场景遴选，拿补贴的好时机</strong></p>
+<p class="card-body">两部委开展农业领域机器人典型应用场景遴选，虽然聚焦农业，但释放了政策鼓励机器人落地的信号。机加工厂如果上了自动化产线，可以留意地方配套政策，争取技改补贴。</p>
+<p class="card-body">3. <strong>赛意信息业绩暴增，数字化服务商吃香</strong></p>
+<p class="card-body">赛意信息上半年净利润预增188%以上，说明制造业数字化转型需求强劲。工厂老板如果还在犹豫上MES或ERP，现在正是窗口期，服务商报价可能还会涨。</p>
+<p class="card-body">4. <strong>珞石机器人IPO，机器人赛道资本热</strong></p>
+<p class="card-body">珞石机器人以近百亿市值港股上市，募资8.75亿港元，显示资本市场对工业机器人信心足。但创始团队变动提醒我们，技术创业风险高，工厂引入机器人时更要关注供应商的稳定性和服务能力。</p>
+<p class="card-body"><strong>提醒：</strong> 今天没有直接针对机加工的政策，但“两重”建设项目清单全部下达，1935亿元超长期特别国债资金到位，基建和制造业相关项目会陆续启动，留意本地项目招标信息。</p>
+<p class="card-body">2026年07月07日</p>
+    <div class="cta-box">
+        <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
+        <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">← 返回列表</a>
+        <a href="2026-07-06.html">下期 →</a>
+    </div>
+    <div class="footer">
+        <p>思派工业技术（深圳）有限公司</p>
+        <p>📱 关注公众号「思派工业——精益智能工厂领航员」</p>
+    </div>
+</div>
+</body>
+</html>
