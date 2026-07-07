@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思派工业 · 每日行业快讯</title>
+<style>
+/* ─── Reset & Base ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f0f2f5; color: #1a1a2e; line-height: 1.5;
+}
+
+/* ─── Header (sticky) ─── */
+.header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    color: white; padding: 28px 20px 20px; text-align: center;
+    position: sticky; top: 0; z-index: 10;
+}
+.header h1 { font-size: 20px; font-weight: 700; letter-spacing: 1px; }
+.header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+.header .date-badge {
+    display: inline-block; margin-top: 8px; padding: 3px 12px;
+    background: rgba(255,255,255,0.15); border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+}
+
+/* ─── Container ─── */
+.container { max-width: 680px; margin: 0 auto; padding: 12px; }
+
+/* ─── Section Label ─── */
+.section-label {
+    font-size: 17px; font-weight: 700; color: #1e3a5f;
+    padding: 14px 14px 8px; margin-top: 8px;
+    border-bottom: 2px solid #e2e8f0; letter-spacing: 0.5px;
+}
+
+/* 老K视角节标题特殊色 */
+.laok-label {
+    color: #d97706;
+    border-bottom-color: #fde68a;
+}
+
+/* ─── News Card (compact) ─── */
+.news-card {
+    background: white; border-radius: 8px; padding: 10px 14px;
+    margin: 6px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.15s;
+    border-left: 3px solid #2563eb;
+}
+.news-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+.card-body {
+    font-size: 16px; color: #334155; line-height: 1.8;
+}
+.card-body strong { color: #0f172a; }
+
+.card-link {
+    display: inline-block; margin-top: 6px; font-size: 11px;
+    color: #2563eb; text-decoration: none; font-weight: 500;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* ─── Text Block (摘要, 提示) ─── */
+.text-block {
+    font-size: 15px; color: #475569; line-height: 1.8;
+    padding: 8px 14px; margin: 4px 0 6px;
+    background: #f8fafc; border-radius: 6px;
+    border-left: 3px solid #f59e0b;
+}
+.text-block a { color: #2563eb; text-decoration: none; }
+.text-block a:hover { text-decoration: underline; }
+
+/* ─── Source link (📎) ─── */
+.source-link {
+    font-size: 11px; color: #94a3b8; padding: 2px 14px;
+    margin: 0 0 6px; word-break: break-all;
+}
+.source-link a { color: #64748b; text-decoration: none; }
+.source-link a:hover { color: #2563eb; }
+
+/* ─── 老K视角块 ─── */
+.laok-block {
+    font-size: 16px; color: #92400e; line-height: 1.8;
+    padding: 12px 16px; margin: 6px 0;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-radius: 8px; border-left: 4px solid #f59e0b;
+    font-weight: 500;
+}
+
+/* ─── CTA Block ─── */
+.cta-block {
+    text-align: center; margin: 12px 0; padding: 12px 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-link {
+    font-size: 14px; margin: 4px 0;
+}
+.cta-link a {
+    color: #2563eb; text-decoration: none; font-weight: 600;
+}
+.cta-link a:hover { text-decoration: underline; }
+
+/* ─── Navigation ─── */
+.nav-links {
+    display: flex; justify-content: space-between; margin: 16px 0;
+}
+.nav-links a {
+    padding: 8px 14px; background: white; border-radius: 8px;
+    text-decoration: none; color: #2563eb; font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: background 0.15s;
+}
+.nav-links a:hover { background: #eff6ff; }
+
+/* ─── CTA Banner ─── */
+.cta-box {
+    text-align: center; margin: 16px 0; padding: 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-box p { font-size: 15px; color: #475569; margin-bottom: 10px; }
+.cta-box .btn {
+    display: inline-block; padding: 10px 24px; background: #2563eb;
+    color: white; border-radius: 8px; text-decoration: none;
+    font-size: 16px; font-weight: 600; transition: background 0.15s;
+}
+.cta-box .btn:hover { background: #1d4ed8; }
+
+/* ─── Footer ─── */
+.footer {
+    text-align: center; padding: 20px 14px; color: #94a3b8; font-size: 11px;
+    border-top: 1px solid #e2e8f0; margin-top: 12px;
+}
+.footer a { color: #2563eb; text-decoration: none; }
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .container { padding: 8px; }
+    .news-card { padding: 8px 10px; }
+    .section-label { font-size: 15px; padding: 12px 10px 6px; }
+    .card-body { font-size: 15px; }
+    .laok-block { font-size: 15px; padding: 10px 12px; }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>📰 每日行业快讯</h1>
+    <div class="subtitle">思派精益智能工厂领航员</div>
+    <div class="date-badge">2026年07月08日</div>
+</div>
+<div class="container">
+<p class="card-body">2026年07月08日 | 思派精益智能工厂领航员</p>
+<div class="section-label">🔥 今日头条</div>
+<p class="card-body">1. <strong>工业和信息化部等八部门印发《关于推动工业互联网高质量发展的实施意见》</strong></p>
+<p class="card-body">工信部等八部门联合印发《关于推动工业互联网高质量发展的实施意见》，提出到2028年建成覆盖全国、高效可靠的工业互联网网络基础设施，培育一批具有国际竞争力的工业互联网平台企业，推动制造业数字化转型。该意见明确了网络、平台、安全三大体系建设重点，并部署了中小企业上云用数赋智等专项行动。</p>
+<p class="card-body">2. <strong>蚂蚁灵波发布空间感知模型LingBot-Depth 2.0，机器人视觉再突破</strong></p>
+<p class="card-body">蚂蚁灵波正式发布空间感知模型LingBot-Depth 2.0，该模型基于1.5亿数据训练，实现了更精准的深度估计和空间理解能力，可显著提升机器人在复杂环境中的自主导航和操作精度。</p>
+<p class="card-body">3. <strong>openJiuwen首发多模态Skill范式Skill-Omni，让机器人技能学习“有图可依”</strong></p>
+<p class="card-body">openJiuwen团队发布多模态Skill范式Skill-Omni，将文字说明书转化为多模态经验库，使机器人能够通过视觉和语言联合学习技能，降低编程门槛，提升柔性制造场景下的快速换产能力。</p>
+<div class="section-label">📌 政策动态</div>
+<p class="card-body">1、两部委关于开展农业领域机器人典型应用场景遴选工作的通知</p>
+<p class="card-body">工信部办公厅、农业农村部办公厅联合发布通知，面向农业领域遴选机器人典型应用场景，旨在推动机器人技术在农业种植、养殖、加工等环节的规模化应用，提升农业自动化水平。申报截止日期为2026年8月30日。</p>
+<p class="card-body">2、市场监管总局多举措整治“内卷式”竞争</p>
+<p class="card-body">市场监管总局部署16项专项行动整治“内卷式”竞争，涵盖加强监管执法、深化平台治理、强化源头规范等方面，明确39项预期成果，旨在维护公平竞争市场秩序，促进制造业健康发展。</p>
+<div class="section-label">🚀 技术前沿</div>
+<p class="card-body">1、蚂蚁灵波开源首个空间原生的具身视觉基模</p>
+<p class="card-body">蚂蚁灵波宣布开源首个空间原生的具身视觉基模，该基模可直接用于机器人视觉感知任务，降低开发者部署成本，加速具身智能在工业场景中的应用落地。</p>
+<div class="section-label laok-label">👨‍🏫 老K视角</div>
+<p class="card-body">1. 八部门联合推动工业互联网高质量发展，机加工/汽配工厂应重点关注中小企业上云用数赋智专项行动，争取政策补贴和试点机会。</p>
+<p class="card-body">2. 机器人视觉和技能学习技术快速迭代，LingBot-Depth 2.0和Skill-Omni等成果表明AI正从实验室走向产线，工厂可提前规划引入视觉引导的柔性自动化方案。</p>
+<p class="card-body">3. 市场监管总局整治“内卷式”竞争，有利于规范行业秩序，工厂应聚焦产品差异化而非价格战，提升核心竞争力。</p>
+<p class="card-body">4. 提醒：农业领域机器人场景遴选与机加工/汽配行业无关，但可关注其技术外溢效应；同时注意区分消费级AI与工业AI，避免盲目跟风。</p>
+<p class="card-body">2026年07月08日</p>
+    <div class="cta-box">
+        <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
+        <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">← 返回列表</a>
+        <a href="2026-07-07.html">下期 →</a>
+    </div>
+    <div class="footer">
+        <p>思派工业技术（深圳）有限公司</p>
+        <p>📱 关注公众号「思派工业——精益智能工厂领航员」</p>
+    </div>
+</div>
+</body>
+</html>
