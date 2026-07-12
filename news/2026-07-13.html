@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思派工业 · 每日行业快讯</title>
+<style>
+/* ─── Reset & Base ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f0f2f5; color: #1a1a2e; line-height: 1.5;
+}
+
+/* ─── Header (sticky) ─── */
+.header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    color: white; padding: 28px 20px 20px; text-align: center;
+    position: sticky; top: 0; z-index: 10;
+}
+.header h1 { font-size: 20px; font-weight: 700; letter-spacing: 1px; }
+.header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+.header .date-badge {
+    display: inline-block; margin-top: 8px; padding: 3px 12px;
+    background: rgba(255,255,255,0.15); border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+}
+
+/* ─── Container ─── */
+.container { max-width: 680px; margin: 0 auto; padding: 12px; }
+
+/* ─── Section Label ─── */
+.section-label {
+    font-size: 17px; font-weight: 700; color: #1e3a5f;
+    padding: 14px 14px 8px; margin-top: 8px;
+    border-bottom: 2px solid #e2e8f0; letter-spacing: 0.5px;
+}
+
+/* 老K视角节标题特殊色 */
+.laok-label {
+    color: #d97706;
+    border-bottom-color: #fde68a;
+}
+
+/* ─── News Card (compact) ─── */
+.news-card {
+    background: white; border-radius: 8px; padding: 10px 14px;
+    margin: 6px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.15s;
+    border-left: 3px solid #2563eb;
+}
+.news-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+.card-body {
+    font-size: 16px; color: #334155; line-height: 1.8;
+}
+.card-body strong { color: #0f172a; }
+
+.card-link {
+    display: inline-block; margin-top: 6px; font-size: 11px;
+    color: #2563eb; text-decoration: none; font-weight: 500;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* ─── Text Block (摘要, 提示) ─── */
+.text-block {
+    font-size: 15px; color: #475569; line-height: 1.8;
+    padding: 8px 14px; margin: 4px 0 6px;
+    background: #f8fafc; border-radius: 6px;
+    border-left: 3px solid #f59e0b;
+}
+.text-block a { color: #2563eb; text-decoration: none; }
+.text-block a:hover { text-decoration: underline; }
+
+/* ─── Source link (📎) ─── */
+.source-link {
+    font-size: 11px; color: #94a3b8; padding: 2px 14px;
+    margin: 0 0 6px; word-break: break-all;
+}
+.source-link a { color: #64748b; text-decoration: none; }
+.source-link a:hover { color: #2563eb; }
+
+/* ─── 老K视角块 ─── */
+.laok-block {
+    font-size: 16px; color: #92400e; line-height: 1.8;
+    padding: 12px 16px; margin: 6px 0;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-radius: 8px; border-left: 4px solid #f59e0b;
+    font-weight: 500;
+}
+
+/* ─── CTA Block ─── */
+.cta-block {
+    text-align: center; margin: 12px 0; padding: 12px 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-link {
+    font-size: 14px; margin: 4px 0;
+}
+.cta-link a {
+    color: #2563eb; text-decoration: none; font-weight: 600;
+}
+.cta-link a:hover { text-decoration: underline; }
+
+/* ─── Navigation ─── */
+.nav-links {
+    display: flex; justify-content: space-between; margin: 16px 0;
+}
+.nav-links a {
+    padding: 8px 14px; background: white; border-radius: 8px;
+    text-decoration: none; color: #2563eb; font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: background 0.15s;
+}
+.nav-links a:hover { background: #eff6ff; }
+
+/* ─── CTA Banner ─── */
+.cta-box {
+    text-align: center; margin: 16px 0; padding: 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-box p { font-size: 15px; color: #475569; margin-bottom: 10px; }
+.cta-box .btn {
+    display: inline-block; padding: 10px 24px; background: #2563eb;
+    color: white; border-radius: 8px; text-decoration: none;
+    font-size: 16px; font-weight: 600; transition: background 0.15s;
+}
+.cta-box .btn:hover { background: #1d4ed8; }
+
+/* ─── Footer ─── */
+.footer {
+    text-align: center; padding: 20px 14px; color: #94a3b8; font-size: 11px;
+    border-top: 1px solid #e2e8f0; margin-top: 12px;
+}
+.footer a { color: #2563eb; text-decoration: none; }
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .container { padding: 8px; }
+    .news-card { padding: 8px 10px; }
+    .section-label { font-size: 15px; padding: 12px 10px 6px; }
+    .card-body { font-size: 15px; }
+    .laok-block { font-size: 15px; padding: 10px 12px; }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>📰 每日行业快讯</h1>
+    <div class="subtitle">思派精益智能工厂领航员</div>
+    <div class="date-badge">2026年07月13日</div>
+</div>
+<div class="container">
+<p class="card-body">2026年07月13日 | 思派精益智能工厂领航员</p>
+<div class="section-label">🔥 今日头条</div>
+<p class="card-body">1. <strong>中国首个十万卡集群落成！全国产算力支撑“十万卡时代”</strong></p>
+<p class="card-body">中国首个十万卡集群正式落成，由全国产算力支撑，已跑通300余项应用，覆盖从FP64到INT8全精度。该集群将极大提升国内AI训练能力，为智能制造等场景提供算力基础。</p>
+<p class="card-body">2. <strong>近百名玩家涌入具身数据：一年融资44.7亿，谁能真靠“卖数据”赚钱？</strong></p>
+<p class="card-body">具身数据赛道火热，一年内融资总额达44.7亿元，近百家企业涌入。行业出现多种数据采集模式，包括在营业厅设置采集点、免费上门保洁等，但商业模式仍待验证。</p>
+<div class="section-label">📌 政策动态</div>
+<p class="card-body">1、工业和信息化部召开重点建议提案办理座谈会</p>
+<p class="card-body">2026年7月8日，工信部副部长熊继军主持召开座谈会，交流芯片和算法自主创新、光电子产业集群建设及企业数智化转型相关重点建议提案办理情况。全国工商联、全国人大财经委等部门参会，推动制造业数字化转型政策落地。</p>
+<div class="section-label">🚀 技术前沿</div>
+<p class="card-body">1、从零开始预训练，蚂蚁灵波发布具身原生世界动作模型LingBot-VA 2.0</p>
+<p class="card-body">蚂蚁集团旗下灵波发布具身原生世界动作模型LingBot-VA 2.0，该模型从零开始预训练，能够理解并执行复杂物理世界动作，为工业机器人自主操作提供技术支撑。</p>
+<p class="card-body">2、98年哈工大教授创业，要做人形灵巧操作世界模型</p>
+<p class="card-body">哈尔滨工业大学98年教授创业，致力于开发人形灵巧操作世界模型，从采集触觉、对齐触觉到使用触觉，推动机器人精细操作能力提升，有望应用于精密装配等场景。</p>
+<div class="section-label laok-label">👨‍🏫 老K视角</div>
+<p class="card-body">1. 十万卡集群落成是算力国产化的里程碑，机加工工厂未来可借助云端AI进行工艺优化和缺陷检测，但需关注数据安全与传输成本。</p>
+<p class="card-body">2. 具身数据赛道融资火爆，但“卖数据”模式尚未跑通，工厂若参与数据采集需评估投入产出比，避免盲目跟风。</p>
+<p class="card-body">3. 灵巧操作模型和具身智能进展加速，人形机器人进厂替代复杂装配工序的可能性在增加，建议关注相关技术成熟度。</p>
+<p class="card-body">4. 工信部数智化转型座谈会释放政策信号，企业应积极申报智能制造试点项目，争取补贴与技术支持。</p>
+<p class="card-body">提醒：警惕具身数据采集中的隐私合规风险，避免因数据采集引发法律纠纷。</p>
+<p class="card-body">2026年07月13日</p>
+    <div class="cta-box">
+        <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
+        <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">← 返回列表</a>
+        <a href="2026-07-10.html">下期 →</a>
+    </div>
+    <div class="footer">
+        <p>思派工业技术（深圳）有限公司</p>
+        <p>📱 关注公众号「思派工业——精益智能工厂领航员」</p>
+    </div>
+</div>
+</body>
+</html>
