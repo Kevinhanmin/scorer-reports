@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思派工业 · 每日行业快讯</title>
+<style>
+/* ─── Reset & Base ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f0f2f5; color: #1a1a2e; line-height: 1.5;
+}
+
+/* ─── Header (sticky) ─── */
+.header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    color: white; padding: 28px 20px 20px; text-align: center;
+    position: sticky; top: 0; z-index: 10;
+}
+.header h1 { font-size: 20px; font-weight: 700; letter-spacing: 1px; }
+.header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+.header .date-badge {
+    display: inline-block; margin-top: 8px; padding: 3px 12px;
+    background: rgba(255,255,255,0.15); border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+}
+
+/* ─── Container ─── */
+.container { max-width: 680px; margin: 0 auto; padding: 12px; }
+
+/* ─── Section Label ─── */
+.section-label {
+    font-size: 18px; font-weight: 800; color: #0f172a;
+    padding: 16px 16px 10px; margin-top: 12px;
+    border-bottom: 2px solid #e2e8f0;
+    letter-spacing: 0.5px;
+}
+/* 今日头条 — same as base section-label */
+/* 政策动态 — 蓝色 */
+.section-label.policy-label {
+    border-left-color: #0891b2;
+    background: linear-gradient(90deg, #ecfeff 0%, transparent 100%);
+}
+/* 技术前沿 — 紫色 */
+.section-label.tech-label {
+    border-left-color: #7c3aed;
+    background: linear-gradient(90deg, #f5f3ff 0%, transparent 100%);
+}
+/* 老K视角节标题特殊色 */
+.laok-label {
+    color: #d97706;
+    border-bottom-color: #fde68a;
+    border-left-color: #f59e0b;
+    background: linear-gradient(90deg, #fffbeb 0%, transparent 100%);
+}
+
+/* ─── Headline items — 今日头条独立卡片 ─── */
+.headline-item {
+    background: white; border-radius: 10px; padding: 14px 16px;
+    margin: 10px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-left: 3px solid #dc2626;
+}
+.headline-item .card-body { font-size: 16px; }
+.headline-item .card-body strong { color: #991b1b; }
+
+/* ─── Policy / Tech cards ─── */
+.policy-card { border-left-color: #0891b2; }
+.tech-card { border-left-color: #7c3aed; }
+
+/* ─── News Card (compact) ─── */
+.news-card {
+    background: white; border-radius: 8px; padding: 10px 14px;
+    margin: 6px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.15s;
+    border-left: 3px solid #2563eb;
+}
+.news-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+.card-body {
+    font-size: 16px; color: #334155; line-height: 1.8;
+}
+.card-body strong { color: #0f172a; }
+
+.card-link {
+    display: inline-block; margin-top: 6px; font-size: 11px;
+    color: #2563eb; text-decoration: none; font-weight: 500;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* ─── Text Block (摘要, 提示) ─── */
+.text-block {
+    font-size: 16px; color: #475569; line-height: 1.8;
+    padding: 8px 14px; margin: 4px 0 6px;
+    background: #f8fafc; border-radius: 6px;
+    border-left: 3px solid #f59e0b;
+}
+.text-block a { color: #2563eb; text-decoration: none; }
+.text-block a:hover { text-decoration: underline; }
+
+/* ─── Source link (📎) ─── */
+.source-link {
+    font-size: 11px; color: #94a3b8; padding: 2px 14px;
+    margin: 0 0 6px; word-break: break-all;
+}
+.source-link a { color: #64748b; text-decoration: none; }
+.source-link a:hover { color: #2563eb; }
+
+/* ─── 老K视角块 ─── */
+.laok-block {
+    font-size: 16px; color: #92400e; line-height: 1.8;
+    padding: 12px 16px; margin: 6px 0;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-radius: 8px; border-left: 4px solid #f59e0b;
+    font-weight: 500;
+}
+
+/* ─── CTA Block ─── */
+.cta-block {
+    text-align: center; margin: 12px 0; padding: 12px 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-link {
+    font-size: 14px; margin: 4px 0;
+}
+.cta-link a {
+    color: #2563eb; text-decoration: none; font-weight: 600;
+}
+.cta-link a:hover { text-decoration: underline; }
+
+/* ─── Navigation ─── */
+.nav-links {
+    display: flex; justify-content: space-between; margin: 16px 0;
+}
+.nav-links a {
+    padding: 8px 14px; background: white; border-radius: 8px;
+    text-decoration: none; color: #2563eb; font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: background 0.15s;
+}
+.nav-links a:hover { background: #eff6ff; }
+
+/* ─── CTA Banner ─── */
+.cta-box {
+    text-align: center; margin: 16px 0; padding: 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-box p { font-size: 15px; color: #475569; margin-bottom: 10px; }
+.cta-box .btn {
+    display: inline-block; padding: 10px 24px; background: #2563eb;
+    color: white; border-radius: 8px; text-decoration: none;
+    font-size: 16px; font-weight: 600; transition: background 0.15s;
+}
+.cta-box .btn:hover { background: #1d4ed8; }
+
+/* ─── Footer ─── */
+.footer {
+    text-align: center; padding: 20px 14px; color: #94a3b8; font-size: 11px;
+    border-top: 1px solid #e2e8f0; margin-top: 12px;
+}
+.footer a { color: #2563eb; text-decoration: none; }
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .container { padding: 8px; }
+    .news-card { padding: 8px 10px; }
+    .section-label { font-size: 15px; padding: 12px 10px 6px; }
+    .card-body { font-size: 15px; }
+    .laok-block { font-size: 15px; padding: 10px 12px; }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>📰 每日行业快讯</h1>
+    <div class="subtitle">思派精益智能工厂领航员</div>
+    <div class="date-badge">2026年09月28日</div>
+</div>
+<div class="container">
+<div class="news-card"><p class="card-body">2026年09月28日 | 思派精益智能工厂领航员</p></div>
+<div class="section-label">🔥 今日头条</div>
+<div class="news-card"><p class="card-body">1. <strong>习近平就发展先进制造业作出重要指示 李强出席全国先进制造业大会并讲话</strong></p><p class="card-body">中共中央总书记、国家主席、中央军委主席习近平近日就发展先进制造业作出重要指示，强调持续做大做强先进制造业，为推进中国式现代化提供有力支撑。国务院总理李强出席全国先进制造业大会并讲话，制造强国建设被摆在更加突出的位置。</p></div>
+<div class="news-card"><p class="card-body">2. <strong>IFR：2025年中国工业机器人新安装量达35.4万台 占全球59%创历史新高</strong></p><p class="card-body">国际机器人联合会（IFR）9月24日发布最新报告，2025年中国工业机器人新安装量达35.4万台，约占全球总安装量的59%，创历史新高，中国蝉联全球最大工业机器人市场。报告预计到2029年中国市场有望保持年均5%至10%的增长率。</p></div>
+<div class="news-card"><p class="card-body">3. <strong>友嘉国际携手西门子举办机加工智能自动化产线集成研讨会 实到105人</strong></p><p class="card-body">友嘉国际数控机床有限公司与西门子联合举办“智造齐鲁·产线新生——机加工智能自动化产线集成研讨会”，直面多品种小批量排产常态下的机加工车间自动化痛点。活动以从“搭建”到“数字孪生验证”再到“柔性投产”的全链路实景展示，呈现智能产线完整落地路径，邀请用户67人次、实到105人。</p></div>
+<div class="section-label policy-label">📌 政策动态</div>
+<div class="news-card"><p class="card-body">1、三部门印发《轻工纺织产业发展“十五五”规划》</p><p class="card-body">工业和信息化部、商务部、市场监管总局联合印发《轻工纺织产业发展“十五五”规划》（工信部联规〔2026〕211号），成文日期2026年9月7日，9月22日发布。规划由消费品工业司牵头，对轻工纺织产业未来五年发展作出系统部署。</p></div>
+<div class="news-card"><p class="card-body">2、国新办举行政策例行吹风会 介绍加强中小企业回款难问题治理有关工作情况</p><p class="card-body">2026年9月14日，国务院新闻办公室举行国务院政策例行吹风会，工业和信息化部副部长柯吉欣会同中国人民银行、国务院国资委、市场监管总局、中国证监会有关负责人出席，介绍加强中小企业回款难问题治理有关工作情况并答记者问。</p></div>
+<div class="section-label tech-label">🚀 技术前沿</div>
+<div class="news-card"><p class="card-body">1、2026年重塑工业连接的7大物联网趋势</p><p class="card-body">工业物联网正从单一设备联网走向覆盖设备、网络、数据和生产系统的整体连接架构。进入2026年，工业现场的核心问题已从“如何连接更多设备”转向如何在复杂环境中实现稳定通信、实时计算、数据互通和安全管理，OPC UA、MQTT、Sparkplug等协议与专用5G、Wi-Fi 6/6E、边缘AI形成互补。</p></div>
+<div class="news-card"><p class="card-body">2、机器人皮肤衣从实验室走向实体应用 百亿级赛道爆发前夜</p><p class="card-body">机器人皮肤（Robotic Skin）最早由迪士尼研究中心于2015年研发，是一种基于气压感应的柔性触觉模组，采用多材料3D打印技术制造，通过内置密闭气腔和反馈控制器检测外部压力。该技术正从实验室走向实体应用，赋予刚性机械臂柔软、安全的交互能力，被视为百亿级赛道。</p></div>
+<div class="section-label">🏭 标杆案例</div>
+<div class="news-card"><p class="card-body">1、欧姆龙自动化（中国）总经理朱左江谈三十年制造现场沉淀：先精益，后数字，再谈AI</p></div>
+<div class="news-card"><p class="card-body">欧姆龙自动化（中国）有限公司总经理朱左江在年度对话中回顾在华三十年历程，强调数字化的价值兑现最终要回归现场。其核心理念为“先精益，后数字，再谈AI”，精益生产是数字化与AI落地的前提，为中国制造从“从好到强”的关口提供实践路径。</p></div>
+<div class="news-card"><p class="card-body">2、1-8月机械工业生产保持较快增长 专用设备制造业增加值增长9.2%</p></div>
+<div class="news-card"><p class="card-body">国家统计局最新数据显示，2026年1-8月机械工业主要涉及的五个大类行业增加值同比保持增长，其中通用设备制造业增长8.1%，专用设备制造业增长9.2%，汽车制造业增长7.4%，电气机械和器材制造业增长6.9%，仪器仪表制造业增长10.1%。固定资产投资方面，通用设备制造业增长0.9%，专用设备制造业下降9%，汽车制造业下降6%。</p></div>
+<div class="section-label laok-label">👨‍🏫 老K视角</div>
+<div class="news-card"><p class="card-body"><strong>先进制造业的顶层定调，是今年最值得反复读的一条信号。</strong> 习近平专门就发展先进制造业作出重要指示、李强出席全国先进制造业大会，这个规格不是例行公事。对做机加工、汽配的老板来说，这意味着未来几年设备更新、数字化改造、专项补贴的政策窗口大概率会继续打开，但门槛也会提高——政策要的是“先进”，不是“有设备”。</p></div>
+<div class="news-card"><p class="card-body"><strong>机器人装机的数字要拆开看。</strong> IFR说2025年中国新装35.4万台、占全球59%，听着提气，但年均5%-10%的增速预期说明爆发期已过，进入存量替换和渗透率爬坡阶段。对工厂的实际含义是：机器人不再是稀缺产能，而是标配工具，真正的差距转移到“怎么用”——柔性换型、产线集成、数字孪生验证这些软能力上。友嘉和西门子那场研讨会实到105人、超邀约近六成，说明机加工车间对多品种小批量自动化的焦虑是真实且普遍的。</p></div>
+<div class="news-card"><p class="card-body"><strong>“先精益，后数字，再谈AI”这句话，建议贴在车间墙上。</strong> 欧姆龙在华三十年总结出的这条路径，恰恰是很多工厂踩坑的地方——产线节拍都没理顺就上MES，工位物料摆放都没标准化就谈AI质检，最后系统成了摆设。数字化的钱要花在精益改善之后，顺序错了，投入就是沉没成本。</p></div>
+<div class="news-card"><p class="card-body"><strong>回款难治理被拿到国新办吹风会层面，是中小工厂的实质利好。</strong> 工信部联合央行、国资委、市场监管总局、证监会一起出面，说明这是跨部门的系统性动作。对汽配、机加工这类账期长、垫资重的行业，账款回收效率直接决定现金流生死，值得持续关注后续落地细则。</p></div>
+<div class="news-card"><p class="card-body"><strong>一个提醒：</strong> 1-8月数据里，专用设备制造业和汽车制造业的固定资产投资分别下降9%和6%，增加值却在涨。这说明行业正在靠存量产能提效而非扩产拉动，老板们今年别急着上产能，把钱花在良率、OEE和交期上更划算。</p></div>
+<div class="news-card"><p class="card-body">2026年09月28日</p></div>
+    <div class="cta-box">
+        <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
+        <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">← 返回列表</a>
+        <a href="2026-09-27.html">下期 →</a>
+    </div>
+    <div class="footer">
+        <p>思派工业技术（深圳）有限公司</p>
+        <p>📱 关注公众号「思派工业——精益智能工厂领航员」</p>
+    </div>
+</div>
+</body>
+</html>
