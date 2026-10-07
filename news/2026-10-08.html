@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思派工业 · 每日行业快讯</title>
+<style>
+/* ─── Reset & Base ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f0f2f5; color: #1a1a2e; line-height: 1.5;
+}
+
+/* ─── Header (sticky) ─── */
+.header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    color: white; padding: 28px 20px 20px; text-align: center;
+    position: sticky; top: 0; z-index: 10;
+}
+.header h1 { font-size: 20px; font-weight: 700; letter-spacing: 1px; }
+.header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+.header .date-badge {
+    display: inline-block; margin-top: 8px; padding: 3px 12px;
+    background: rgba(255,255,255,0.15); border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+}
+
+/* ─── Container ─── */
+.container { max-width: 680px; margin: 0 auto; padding: 12px; }
+
+/* ─── Section Label ─── */
+.section-label {
+    font-size: 18px; font-weight: 800; color: #0f172a;
+    padding: 16px 16px 10px; margin-top: 12px;
+    border-bottom: 2px solid #e2e8f0;
+    letter-spacing: 0.5px;
+}
+/* 今日头条 — same as base section-label */
+/* 政策动态 — 蓝色 */
+.section-label.policy-label {
+    border-left-color: #0891b2;
+    background: linear-gradient(90deg, #ecfeff 0%, transparent 100%);
+}
+/* 技术前沿 — 紫色 */
+.section-label.tech-label {
+    border-left-color: #7c3aed;
+    background: linear-gradient(90deg, #f5f3ff 0%, transparent 100%);
+}
+/* 老K视角节标题特殊色 */
+.laok-label {
+    color: #d97706;
+    border-bottom-color: #fde68a;
+    border-left-color: #f59e0b;
+    background: linear-gradient(90deg, #fffbeb 0%, transparent 100%);
+}
+
+/* ─── Headline items — 今日头条独立卡片 ─── */
+.headline-item {
+    background: white; border-radius: 10px; padding: 14px 16px;
+    margin: 10px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-left: 3px solid #dc2626;
+}
+.headline-item .card-body { font-size: 16px; }
+.headline-item .card-body strong { color: #991b1b; }
+
+/* ─── Policy / Tech cards ─── */
+.policy-card { border-left-color: #0891b2; }
+.tech-card { border-left-color: #7c3aed; }
+
+/* ─── News Card (compact) ─── */
+.news-card {
+    background: white; border-radius: 8px; padding: 10px 14px;
+    margin: 6px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.15s;
+    border-left: 3px solid #2563eb;
+}
+.news-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+.card-body {
+    font-size: 16px; color: #334155; line-height: 1.8;
+}
+.card-body strong { color: #0f172a; }
+
+.card-link {
+    display: inline-block; margin-top: 6px; font-size: 11px;
+    color: #2563eb; text-decoration: none; font-weight: 500;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* ─── Text Block (摘要, 提示) ─── */
+.text-block {
+    font-size: 16px; color: #475569; line-height: 1.8;
+    padding: 8px 14px; margin: 4px 0 6px;
+    background: #f8fafc; border-radius: 6px;
+    border-left: 3px solid #f59e0b;
+}
+.text-block a { color: #2563eb; text-decoration: none; }
+.text-block a:hover { text-decoration: underline; }
+
+/* ─── Source link (📎) ─── */
+.source-link {
+    font-size: 11px; color: #94a3b8; padding: 2px 14px;
+    margin: 0 0 6px; word-break: break-all;
+}
+.source-link a { color: #64748b; text-decoration: none; }
+.source-link a:hover { color: #2563eb; }
+
+/* ─── 老K视角块 ─── */
+.laok-block {
+    font-size: 16px; color: #92400e; line-height: 1.8;
+    padding: 12px 16px; margin: 6px 0;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-radius: 8px; border-left: 4px solid #f59e0b;
+    font-weight: 500;
+}
+
+/* ─── CTA Block ─── */
+.cta-block {
+    text-align: center; margin: 12px 0; padding: 12px 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-link {
+    font-size: 14px; margin: 4px 0;
+}
+.cta-link a {
+    color: #2563eb; text-decoration: none; font-weight: 600;
+}
+.cta-link a:hover { text-decoration: underline; }
+
+/* ─── Navigation ─── */
+.nav-links {
+    display: flex; justify-content: space-between; margin: 16px 0;
+}
+.nav-links a {
+    padding: 8px 14px; background: white; border-radius: 8px;
+    text-decoration: none; color: #2563eb; font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: background 0.15s;
+}
+.nav-links a:hover { background: #eff6ff; }
+
+/* ─── CTA Banner ─── */
+.cta-box {
+    text-align: center; margin: 16px 0; padding: 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-box p { font-size: 15px; color: #475569; margin-bottom: 10px; }
+.cta-box .btn {
+    display: inline-block; padding: 10px 24px; background: #2563eb;
+    color: white; border-radius: 8px; text-decoration: none;
+    font-size: 16px; font-weight: 600; transition: background 0.15s;
+}
+.cta-box .btn:hover { background: #1d4ed8; }
+
+/* ─── Footer ─── */
+.footer {
+    text-align: center; padding: 20px 14px; color: #94a3b8; font-size: 11px;
+    border-top: 1px solid #e2e8f0; margin-top: 12px;
+}
+.footer a { color: #2563eb; text-decoration: none; }
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .container { padding: 8px; }
+    .news-card { padding: 8px 10px; }
+    .section-label { font-size: 15px; padding: 12px 10px 6px; }
+    .card-body { font-size: 15px; }
+    .laok-block { font-size: 15px; padding: 10px 12px; }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>📰 每日行业快讯</h1>
+    <div class="subtitle">思派精益智能工厂领航员</div>
+    <div class="date-badge">2026年10月08日</div>
+</div>
+<div class="container">
+<div class="news-card"><p class="card-body">2026年10月08日 | 思派精益智能工厂领航员</p></div>
+<div class="section-label">🔥 今日头条</div>
+<div class="news-card"><p class="card-body">1. <strong>国新办举行国务院政策例行吹风会 介绍加强中小企业回款难问题治理有关工作情况</strong></p><p class="card-body">2026年9月14日下午，国务院新闻办公室举行国务院政策例行吹风会，介绍加强中小企业回款难问题治理有关工作情况。工业和信息化部副部长柯吉欣，会同中国人民银行金融市场司司长曹媛媛、国务院国资委财务监管与运行评价局负责人裴仁佺、市场监管总局信用监管司司长周卫军、中国证监会上市公司监管司司长郭瑞明出席吹风会，介绍有关情况并答记者问。以下为政策吹风会实录。国务院新闻办新闻局副局长、新闻发言人周建设：女士们</p></div>
+<div class="news-card"><p class="card-body">2. <strong>AI + SRE ≠ AISRE：AI 如何真正进入生产运维闭环｜QCon上海</strong></p><p class="card-body">AI + SRE ≠ AISRE：AI 如何真正进入生产运维闭环｜QCon上海</p></div>
+<div class="news-card"><p class="card-body">3. <strong>从依赖专家到开发者自助：一家银行的平台文化转型</strong></p><p class="card-body">从依赖专家到开发者自助：一家银行的平台文化转型</p></div>
+<div class="section-label policy-label">📌 政策动态</div>
+<div class="news-card"><p class="card-body">1、第二次中国—新西兰新能源汽车对话在京举行</p><p class="card-body">2026年9月22日，工业和信息化部总工程师王卫明与新西兰城市、环境、区域和交通部副部长克里斯·尼斯在北京共同主持召开第二次中新新能源汽车对话。王卫明表示，建立新能源汽车对话机制是落实中新两国领导人重要共识的务实举措。双方于去年12月在新西兰惠灵顿共同举行首次中新新能源汽车对话，为两国产业合作奠定了重要基础。工业和信息化部愿同新西兰城市、环境、区域和交通部继续加强新能源汽车领域对话交流。克里斯·尼</p></div>
+<div class="news-card"><p class="card-body">2、四部门关于开展2026年度享受增值税加计抵减政策的集成电路企业清单制定工作的通知</p><p class="card-body">发文机关：工业和信息化部国家发展改革委财政部税务总局标题：工业和信息化部国家发展改革委财政部税务总局关于开展2026年度享受增值税加计抵减政策的集成电路企业清单制定工作的通知发文字号：工信部联电子函〔2026〕326号成文日期：2026-09-29发布日期：2026-09-30发布机构：电子信息司分类：电子信息工业和信息化部国家发展改革委财政部税务总局关于开展2026年度享受增值税加计抵减政策的集</p></div>
+<div class="news-card"><p class="card-body">3、三部门关于印发《轻工纺织产业发展“十五五”规划》的通知</p><p class="card-body">发文机关：工业和信息化部商务部市场监管总局标题：工业和信息化部商务部市场监管总局关于印发《轻工纺织产业发展“十五五”规划》的通知发文字号：工信部联规〔2026〕211号成文日期：2026-09-07发布日期：2026-09-22发布机构：消费品工业司分类：产业政策工业和信息化部商务部市场监管总局关于印发《轻工纺织产业发展“十五五”规划》的通知工信部联规〔2026〕211号各省、自治区、直辖市及计划</p></div>
+<div class="section-label tech-label">🚀 技术前沿</div>
+<div class="news-card"><p class="card-body">1、Meshy 跻身 a16z 消费级 AI 应用月收入 Top 50，为榜单唯一 AI 3D 公司</p><p class="card-body">在 a16z 首份消费级 AI 应用月收入榜单中，Meshy 位列第 31 名，与 OpenAI、Anthropic、Canva、Superhuman、Higgsfield 等共同上榜</p></div>
+<div class="news-card"><p class="card-body">2、刚刚，Hinton发了首篇RSI论文</p><p class="card-body">AI已经开始真正进入「造下一代AI」的流水线</p></div>
+<div class="news-card"><p class="card-body">3、技能之光照亮智造未来|从第48届世赛看工业企业的育才共识</p><p class="card-body">|从第48届世界技能大赛看工业企业的育才共识人口红利在消退，产业升级在加速，AI正在重塑岗位结构。制造业早些年提机器换人，到今天讲AI取代人。但真正深入一线的人才知道，事情并非那么简单。与之相反的是，机器越多，AI越先进，越需要人。但这类人，并非普通的技工，而是懂机械、懂电气、懂编程、能现场解决问题的复合型技能人才。9月23日，工控小编走进国家会展中心（上海），备受瞩目的第48届世界技能大赛的现场</p></div>
+<div class="section-label">🏭 标杆案例</div>
+<div class="news-card"><p class="card-body">1、工业和信息化部举行升国旗仪式 庆祝中华人民共和国成立77周年</p></div>
+<div class="news-card"><p class="card-body">国旗仪式，庆祝中华人民共和国成立77周年。部领导出席。上午8时，升国旗仪式正式开始。在激昂雄壮的《义勇军进行曲》声中，鲜艳的五星红旗缓缓升起。参加仪式的全体干部职工庄严肃立、精神抖擞，向国旗行注目礼，表达对伟大祖国的美好祝福。新征程上，工业和信息化系统全体干部职工将深入贯彻落实习近平总书记关于发展先进制造业的重要指示和全国先进制造业大会精神，统筹高质量发展和高水平安全，推进科技创新和产业创新深度融</p></div>
+<div class="news-card"><p class="card-body">2、工业和信息化系统国际合作工作座谈会在哈尔滨召开</p></div>
+<div class="news-card"><p class="card-body">合作工作座谈会在黑龙江省哈尔滨市召开。会议深入学习贯彻习近平外交思想，贯彻落实习近平总书记关于发展先进制造业的重要指示和全国先进制造业大会精神，总结近期工业和信息化领域国际合作工作，研究部署下一阶段重点工作。工业和信息化部副部长熊继军出席会议并讲话。会议指出，工业和信息化国际合作是依托产业合作服务国家外交大局、以高水平对外开放推进先进制造业的重要支撑。要认真学习贯彻习近平外交思想，深刻领会、系统掌</p></div>
+<div class="news-card"><p class="card-body">3、人形机器人量产元年：从造得出来，到卖得出去，再到用得上</p></div>
+<div class="news-card"><p class="card-body">2026年被业界视为“人形机器人量产元年”。一大批人形机器人已经进入工厂，在真实的工业场景中执行作业，涉及纺织、汽车、消费电子等产业。据《2026年人形机器人产业发展报告》，今年上半年，中国人形机器人出货量超过4万台，占全球总出货量的97%，全年整机产量有望突破10万台。量产趋势已经确立，下一步的竞争将转向更细分的场景与领域。但比出货量数字更有新闻性的，是这些机器人正在被同类制造出来。优必选柳州超</p></div>
+<div class="section-label laok-label">👨‍🏫 老K视角</div>
+<div class="laok-block">💡 老K提醒：今日内容由LLM处理，因LLM调用失败使用降级方案。建议检查API配置。</div>
+<div class="news-card"><p class="card-body">2026年10月08日</p></div>
+    <div class="cta-box">
+        <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
+        <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">← 返回列表</a>
+        <a href="2026-10-07.html">下期 →</a>
+    </div>
+    <div class="footer">
+        <p>思派工业技术（深圳）有限公司</p>
+        <p>📱 关注公众号「思派工业——精益智能工厂领航员」</p>
+    </div>
+</div>
+</body>
+</html>
