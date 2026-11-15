@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思派工业 · 每日行业快讯</title>
+<style>
+/* ─── Reset & Base ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f0f2f5; color: #1a1a2e; line-height: 1.5;
+}
+
+/* ─── Header (sticky) ─── */
+.header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    color: white; padding: 28px 20px 20px; text-align: center;
+    position: sticky; top: 0; z-index: 10;
+}
+.header h1 { font-size: 20px; font-weight: 700; letter-spacing: 1px; }
+.header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+.header .date-badge {
+    display: inline-block; margin-top: 8px; padding: 3px 12px;
+    background: rgba(255,255,255,0.15); border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+}
+
+/* ─── Container ─── */
+.container { max-width: 680px; margin: 0 auto; padding: 12px; }
+
+/* ─── Section Label ─── */
+.section-label {
+    font-size: 18px; font-weight: 800; color: #0f172a;
+    padding: 16px 16px 10px; margin-top: 12px;
+    border-bottom: 2px solid #e2e8f0;
+    letter-spacing: 0.5px;
+}
+/* 今日头条 — same as base section-label */
+/* 政策动态 — 蓝色 */
+.section-label.policy-label {
+    border-left-color: #0891b2;
+    background: linear-gradient(90deg, #ecfeff 0%, transparent 100%);
+}
+/* 技术前沿 — 紫色 */
+.section-label.tech-label {
+    border-left-color: #7c3aed;
+    background: linear-gradient(90deg, #f5f3ff 0%, transparent 100%);
+}
+/* 老K视角节标题特殊色 */
+.laok-label {
+    color: #d97706;
+    border-bottom-color: #fde68a;
+    border-left-color: #f59e0b;
+    background: linear-gradient(90deg, #fffbeb 0%, transparent 100%);
+}
+
+/* ─── Headline items — 今日头条独立卡片 ─── */
+.headline-item {
+    background: white; border-radius: 10px; padding: 14px 16px;
+    margin: 10px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-left: 3px solid #dc2626;
+}
+.headline-item .card-body { font-size: 16px; }
+.headline-item .card-body strong { color: #991b1b; }
+
+/* ─── Policy / Tech cards ─── */
+.policy-card { border-left-color: #0891b2; }
+.tech-card { border-left-color: #7c3aed; }
+
+/* ─── News Card (compact) ─── */
+.news-card {
+    background: white; border-radius: 8px; padding: 10px 14px;
+    margin: 6px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.15s;
+    border-left: 3px solid #2563eb;
+}
+.news-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+.card-body {
+    font-size: 16px; color: #334155; line-height: 1.8;
+}
+.card-body strong { color: #0f172a; }
+
+.card-link {
+    display: inline-block; margin-top: 6px; font-size: 11px;
+    color: #2563eb; text-decoration: none; font-weight: 500;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* ─── Text Block (摘要, 提示) ─── */
+.text-block {
+    font-size: 16px; color: #475569; line-height: 1.8;
+    padding: 8px 14px; margin: 4px 0 6px;
+    background: #f8fafc; border-radius: 6px;
+    border-left: 3px solid #f59e0b;
+}
+.text-block a { color: #2563eb; text-decoration: none; }
+.text-block a:hover { text-decoration: underline; }
+
+/* ─── Source link (📎) ─── */
+.source-link {
+    font-size: 11px; color: #94a3b8; padding: 2px 14px;
+    margin: 0 0 6px; word-break: break-all;
+}
+.source-link a { color: #64748b; text-decoration: none; }
+.source-link a:hover { color: #2563eb; }
+
+/* ─── 老K视角块 ─── */
+.laok-block {
+    font-size: 16px; color: #92400e; line-height: 1.8;
+    padding: 12px 16px; margin: 6px 0;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-radius: 8px; border-left: 4px solid #f59e0b;
+    font-weight: 500;
+}
+
+/* ─── CTA Block ─── */
+.cta-block {
+    text-align: center; margin: 12px 0; padding: 12px 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-link {
+    font-size: 14px; margin: 4px 0;
+}
+.cta-link a {
+    color: #2563eb; text-decoration: none; font-weight: 600;
+}
+.cta-link a:hover { text-decoration: underline; }
+
+/* ─── Navigation ─── */
+.nav-links {
+    display: flex; justify-content: space-between; margin: 16px 0;
+}
+.nav-links a {
+    padding: 8px 14px; background: white; border-radius: 8px;
+    text-decoration: none; color: #2563eb; font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: background 0.15s;
+}
+.nav-links a:hover { background: #eff6ff; }
+
+/* ─── CTA Banner ─── */
+.cta-box {
+    text-align: center; margin: 16px 0; padding: 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-box p { font-size: 15px; color: #475569; margin-bottom: 10px; }
+.cta-box .btn {
+    display: inline-block; padding: 10px 24px; background: #2563eb;
+    color: white; border-radius: 8px; text-decoration: none;
+    font-size: 16px; font-weight: 600; transition: background 0.15s;
+}
+.cta-box .btn:hover { background: #1d4ed8; }
+
+/* ─── Footer ─── */
+.footer {
+    text-align: center; padding: 20px 14px; color: #94a3b8; font-size: 11px;
+    border-top: 1px solid #e2e8f0; margin-top: 12px;
+}
+.footer a { color: #2563eb; text-decoration: none; }
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .container { padding: 8px; }
+    .news-card { padding: 8px 10px; }
+    .section-label { font-size: 15px; padding: 12px 10px 6px; }
+    .card-body { font-size: 15px; }
+    .laok-block { font-size: 15px; padding: 10px 12px; }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>📰 每日行业快讯</h1>
+    <div class="subtitle">思派精益智能工厂领航员</div>
+    <div class="date-badge">2026年11月16日</div>
+</div>
+<div class="container">
+<div class="news-card"><p class="card-body">2026年11月16日 | 思派精益智能工厂领航员</p></div>
+<div class="section-label">🔥 今日头条</div>
+<div class="news-card"><p class="card-body">1. <strong>工信部等四部门公布工业产品碳足迹核算规则团体标准推荐清单（第四批）</strong></p><p class="card-body">工信部、生态环境部、国家发改委、市场监管总局联合发布第四批工业产品碳足迹核算规则团体标准推荐清单，文号工信部联节函〔2026〕384号。清单为机加工、汽配等出口型工厂提供统一的碳足迹核算依据，直接关系到供应链碳数据填报与客户审核。</p></div>
+<div class="news-card"><p class="card-body">2. <strong>2026年前三季度机床工具行业营业收入同比增长7.5%，利润总额增长20.5%</strong></p><p class="card-body">中国机床工具工业协会数据显示，前三季度行业整体营业收入同比增长7.5%，利润总额同比增长20.5%但增速明显放缓。行业呈现整体稳增、分化加剧态势，同时面临盈利能力偏弱、出口市场环境复杂等挑战。</p></div>
+<div class="news-card"><p class="card-body">3. <strong>智元机器人精灵G2在3C精密产线连续作业8小时，成功率99.5%以上</strong></p><p class="card-body">在南昌龙旗科技智能制造中心，智元机器人精灵G2以正式员工身份完成精密上下料与人机协同作业，连续8小时无重大异常，作业成功率99.5%以上，单道工序18至20秒，每小时吞吐310件产品。同期它石智航与安波福签约，计划2026年内完成百台级工业具身机器人部署，覆盖柔性组装、检测协同等8大工段。</p></div>
+<div class="section-label policy-label">📌 政策动态</div>
+<div class="news-card"><p class="card-body">1、国家发展改革委等五部门关于印发《实施全面节约战略行动方案》的通知</p><p class="card-body">国家发改委、工信部、自然资源部、水利部、国管局联合印发《实施全面节约战略行动方案》（发改环资〔2026〕1424号）。方案要求推进各类资源节约集约利用，加快经济社会发展全面绿色转型，涉及工业企业的用能、用水与原材料集约管理要求。</p></div>
+<div class="news-card"><p class="card-body">2、工信部召开大力发展信息技术产业增强先进制造业发展动力推进会</p><p class="card-body">工业和信息化部副部长熊继军出席在杭州召开的增强先进制造业发展动力推进会并讲话，总结交流信息技术赋能先进制造业的经验做法，研究部署下一阶段重点工作。会议落实全国先进制造业大会部署要求，指向信息技术与制造业融合的后续政策落地。</p></div>
+<div class="section-label tech-label">🚀 技术前沿</div>
+<div class="news-card"><p class="card-body">1、中国工业互联网研究院推进具身智能与工程机械融合应用</p><p class="card-body">中国工业互联网研究院联合徐州威卡电子、北京谋先飞等合作伙伴，推进工程机械具身智能技术验证与多场景实景数据采集。'威卡工程机械具身智能数据集'已上线HuggingFace，相关模型评测、标准研究与中试平台建设同步推进，为工程机械场景的具身智能落地建立数据与评测基础。</p></div>
+<div class="news-card"><p class="card-body">2、人形机器人产业迈向'1—10'新阶段，2026年转向规模化交付与真实场景作业</p><p class="card-body">华源证券研报指出，人形机器人产业正从小批量验证迈向'1-10'新阶段，核心特征是从技术验证转向收入可量化兑现与物理AI驱动能力质变。2026年以来国内产业重心转向规模化交付与真实场景作业，产业放量持续兑现。</p></div>
+<div class="section-label">🏭 标杆案例</div>
+<div class="news-card"><p class="card-body">1、它石智航与安波福签约，计划2026年内完成百台级工业具身机器人部署</p></div>
+<div class="news-card"><p class="card-body">它石智航与安波福签署协议，计划2026年内在安波福完成百台级工业具身机器人部署，覆盖柔性组装、检测协同、生产管理等8大工段。该部署规模为汽配供应链企业引入具身机器人提供了可参照的落地路径与工段覆盖范围。</p></div>
+<div class="news-card"><p class="card-body">2、Aurora与Stratasys用3D打印制造80%机体结构，无人机制造时间缩短50%</p></div>
+<div class="news-card"><p class="card-body">航空航天企业Aurora Flight Sciences与Stratasys合作，一架翼展约2.9米、飞行速度超240km/h的喷气式固定翼无人机，34个主要部件中26个通过3D打印制造，约占机体结构总重量的80%，制造时间缩短50%。该案例展示了增材制造在复杂结构件小批量生产中的效率优势。</p></div>
+<div class="news-card"><p class="card-body">3、精雕科技发布5款精密数控加工中心新机型，同步分享数控系统与CAM软件</p></div>
+<div class="news-card"><p class="card-body">精雕科技举行2026年度新产品、新技术发布会，以'全链协同·智创共赢'为主题集中发布5款精密数控加工中心新机型，并围绕精雕数控系统、CAM软件、数字化精密加工技术展开分享，汇聚400余家用户企业及合作伙伴参会。</p></div>
+<div class="section-label laok-label">👨‍🏫 老K视角</div>
+<div class="news-card"><p class="card-body"><strong>1. 碳足迹清单落到第四批，出口型汽配厂要提前备数据。</strong> 工信部等四部门这次发的是团体标准推荐清单，不是强制国标，但客户审核和海外供应链问卷会直接引用。建议把主要出口件的材料、能耗、工序数据先按清单口径建台账，别等客户来催。</p></div>
+<div class="news-card"><p class="card-body"><strong>2. 机床行业营收增7.5%、利润增20.5%，但增速在放缓。</strong> 分化加剧意味着通用机型价格战还会持续，做专机、做交钥匙产线的厂子议价能力更强。老板们排产时要把回款周期和出口市场的不确定性算进去，别被营收数字迷惑。</p></div>
+<div class="news-card"><p class="card-body"><strong>3. 具身机器人进厂已经从演示走到产线级数据。</strong> 智元在龙旗8小时成功率99.5%、它石在安波福百台级部署，这两个数字比任何发布会都有说服力。机加工和汽配的上下料、检测协同工位是最先被替代的场景，建议先拿一个工位做3个月实测，算清节拍、良率和维护成本再谈扩线。</p></div>
+<div class="news-card"><p class="card-body"><strong>4. 3D打印在复杂结构件上已经能省一半制造时间。</strong> Aurora那架无人机80%机体重量靠增材制造，对做小批量、多品种结构件的工厂是个信号：工装夹具、轻量化支架这类非标件，可以开始评估外协打印替代传统开模。</p></div>
+<div class="news-card"><p class="card-body"><strong>提醒：</strong> 今天工信部几条会议新闻都是方向性部署，没有具体补贴或申报窗口，别急着解读成利好；真正要盯的是碳足迹清单和全面节约方案里落到企业头上的核算与用能要求。</p></div>
+<div class="news-card"><p class="card-body">2026年11月16日</p></div>
+    <div class="cta-box">
+        <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
+        <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">← 返回列表</a>
+        <a href="2026-11-13.html">下期 →</a>
+    </div>
+    <div class="footer">
+        <p>思派工业技术（深圳）有限公司</p>
+        <p>📱 关注公众号「思派工业——精益智能工厂领航员」</p>
+    </div>
+</div>
+</body>
+</html>
