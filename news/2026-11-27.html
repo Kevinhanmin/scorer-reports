@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思派工业 · 每日行业快讯</title>
+<style>
+/* ─── Reset & Base ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    background: #f0f2f5; color: #1a1a2e; line-height: 1.5;
+}
+
+/* ─── Header (sticky) ─── */
+.header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #2563eb 100%);
+    color: white; padding: 28px 20px 20px; text-align: center;
+    position: sticky; top: 0; z-index: 10;
+}
+.header h1 { font-size: 20px; font-weight: 700; letter-spacing: 1px; }
+.header .subtitle { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+.header .date-badge {
+    display: inline-block; margin-top: 8px; padding: 3px 12px;
+    background: rgba(255,255,255,0.15); border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+}
+
+/* ─── Container ─── */
+.container { max-width: 680px; margin: 0 auto; padding: 12px; }
+
+/* ─── Section Label ─── */
+.section-label {
+    font-size: 18px; font-weight: 800; color: #0f172a;
+    padding: 16px 16px 10px; margin-top: 12px;
+    border-bottom: 2px solid #e2e8f0;
+    letter-spacing: 0.5px;
+}
+/* 今日头条 — same as base section-label */
+/* 政策动态 — 蓝色 */
+.section-label.policy-label {
+    border-left-color: #0891b2;
+    background: linear-gradient(90deg, #ecfeff 0%, transparent 100%);
+}
+/* 技术前沿 — 紫色 */
+.section-label.tech-label {
+    border-left-color: #7c3aed;
+    background: linear-gradient(90deg, #f5f3ff 0%, transparent 100%);
+}
+/* 老K视角节标题特殊色 */
+.laok-label {
+    color: #d97706;
+    border-bottom-color: #fde68a;
+    border-left-color: #f59e0b;
+    background: linear-gradient(90deg, #fffbeb 0%, transparent 100%);
+}
+
+/* ─── Headline items — 今日头条独立卡片 ─── */
+.headline-item {
+    background: white; border-radius: 10px; padding: 14px 16px;
+    margin: 10px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-left: 3px solid #dc2626;
+}
+.headline-item .card-body { font-size: 16px; }
+.headline-item .card-body strong { color: #991b1b; }
+
+/* ─── Policy / Tech cards ─── */
+.policy-card { border-left-color: #0891b2; }
+.tech-card { border-left-color: #7c3aed; }
+
+/* ─── News Card (compact) ─── */
+.news-card {
+    background: white; border-radius: 8px; padding: 10px 14px;
+    margin: 6px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.15s;
+    border-left: 3px solid #2563eb;
+}
+.news-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+.card-body {
+    font-size: 16px; color: #334155; line-height: 1.8;
+}
+.card-body strong { color: #0f172a; }
+
+.card-link {
+    display: inline-block; margin-top: 6px; font-size: 11px;
+    color: #2563eb; text-decoration: none; font-weight: 500;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* ─── Text Block (摘要, 提示) ─── */
+.text-block {
+    font-size: 16px; color: #475569; line-height: 1.8;
+    padding: 8px 14px; margin: 4px 0 6px;
+    background: #f8fafc; border-radius: 6px;
+    border-left: 3px solid #f59e0b;
+}
+.text-block a { color: #2563eb; text-decoration: none; }
+.text-block a:hover { text-decoration: underline; }
+
+/* ─── Source link (📎) ─── */
+.source-link {
+    font-size: 11px; color: #94a3b8; padding: 2px 14px;
+    margin: 0 0 6px; word-break: break-all;
+}
+.source-link a { color: #64748b; text-decoration: none; }
+.source-link a:hover { color: #2563eb; }
+
+/* ─── 老K视角块 ─── */
+.laok-block {
+    font-size: 16px; color: #92400e; line-height: 1.8;
+    padding: 12px 16px; margin: 6px 0;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-radius: 8px; border-left: 4px solid #f59e0b;
+    font-weight: 500;
+}
+
+/* ─── CTA Block ─── */
+.cta-block {
+    text-align: center; margin: 12px 0; padding: 12px 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-link {
+    font-size: 14px; margin: 4px 0;
+}
+.cta-link a {
+    color: #2563eb; text-decoration: none; font-weight: 600;
+}
+.cta-link a:hover { text-decoration: underline; }
+
+/* ─── Navigation ─── */
+.nav-links {
+    display: flex; justify-content: space-between; margin: 16px 0;
+}
+.nav-links a {
+    padding: 8px 14px; background: white; border-radius: 8px;
+    text-decoration: none; color: #2563eb; font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: background 0.15s;
+}
+.nav-links a:hover { background: #eff6ff; }
+
+/* ─── CTA Banner ─── */
+.cta-box {
+    text-align: center; margin: 16px 0; padding: 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 10px; border: 1px solid #bfdbfe;
+}
+.cta-box p { font-size: 15px; color: #475569; margin-bottom: 10px; }
+.cta-box .btn {
+    display: inline-block; padding: 10px 24px; background: #2563eb;
+    color: white; border-radius: 8px; text-decoration: none;
+    font-size: 16px; font-weight: 600; transition: background 0.15s;
+}
+.cta-box .btn:hover { background: #1d4ed8; }
+
+/* ─── Footer ─── */
+.footer {
+    text-align: center; padding: 20px 14px; color: #94a3b8; font-size: 11px;
+    border-top: 1px solid #e2e8f0; margin-top: 12px;
+}
+.footer a { color: #2563eb; text-decoration: none; }
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .container { padding: 8px; }
+    .news-card { padding: 8px 10px; }
+    .section-label { font-size: 15px; padding: 12px 10px 6px; }
+    .card-body { font-size: 15px; }
+    .laok-block { font-size: 15px; padding: 10px 12px; }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>📰 每日行业快讯</h1>
+    <div class="subtitle">思派精益智能工厂领航员</div>
+    <div class="date-badge">2026年11月27日</div>
+</div>
+<div class="container">
+<div class="news-card"><p class="card-body">2026年11月27日 | 思派精益智能工厂领航员</p></div>
+<div class="section-label">🔥 今日头条</div>
+<div class="news-card"><p class="card-body">1. <strong>三部门印发《新一代通信网建设实施方案》，2030年建成性能领先网络</strong></p><p class="card-body">工信部、国家网信办、国家发改委联合印发《新一代通信网建设实施方案》（工信部联通信〔2026〕267号），提出到2030年建成性能领先的新一代通信网。方案强调适度超前建设，抢占数字产业变革制高点，工业制造场景被列入重点应用方向。对机加工、汽配工厂而言，5G/6G专网与产线设备联网的基建节奏将直接影响后续数字化改造的通信成本。</p></div>
+<div class="news-card"><p class="card-body">2. <strong>工信部回应汽车供应商账款支付调研：系统治理账期问题</strong></p><p class="card-body">针对中汽协发布的《关于开展汽车企业供应商账款支付调研评估工作的通知》，工信部有关负责人回应称，工信部、国家发改委、市场监管总局已建立行业企业交流会商机制，远近结合、综合施策开展治理。汽车零部件供应商长期被拖欠货款的问题被纳入规范汽车产业竞争秩序的重点工作。汽配厂老板应关注后续调研评估结果对主机厂账期约束的实际力度。</p></div>
+<div class="news-card"><p class="card-body">3. <strong>埃斯顿发布EMP800新一代中大型智能运动控制器</strong></p><p class="card-body">埃斯顿推出EMP800系列新一代高性能中大型智能运动控制器，聚焦高速高精控制、复杂轨迹规划与多轴协同，攻破控制性能、工程开发效率与核心技术自主可控瓶颈。gongkong数据显示，2026年上半年中大型PLC市场增长分化，电子制造设备受AI算力、存储和芯片需求带动，内需与出口均表现较好。对做高端装备配套的机加工厂，国产中大型控制器的成熟意味着产线电控方案多了一个降本选项。</p></div>
+<div class="section-label policy-label">📌 政策动态</div>
+<div class="news-card"><p class="card-body">1、三部门关于印发《新一代通信网建设实施方案》的通知</p><p class="card-body">工信部、国家网信办、国家发改委联合发布《新一代通信网建设实施方案》，发文字号工信部联通信〔2026〕267号，成文日期2026年11月17日。方案明确到2030年建成性能领先的新一代通信网，坚持适度超前建设。工业制造、具身智能等场景被列为潜在应用方向，工厂网络化改造的政策窗口进一步打开。</p></div>
+<div class="news-card"><p class="card-body">2、工信部召开大力发展信息技术产业增强先进制造业发展动力推进会</p><p class="card-body">工信部在杭州召开增强先进制造业发展动力推进会，副部长熊继军出席讲话，总结交流信息技术赋能先进制造业的经验做法并部署下一阶段重点工作。会议要求落实全国先进制造业大会部署，把发展先进制造业作为重大政治任务。信息技术与制造业融合的政策导向持续强化，工厂数字化改造可留意后续配套细则。</p></div>
+<div class="news-card"><p class="card-body">3、第十五届全国减轻企业负担政策宣传周启动</p><p class="card-body">工信部副部长辛国斌出席第十五届全国减轻企业负担政策宣传周启动会并讲话，强调常态化解决企业账款拖欠问题，减税降费政策红利持续释放、金融支持实体经济力度加大。会议聚焦稳就业、稳企业、稳市场、稳预期。对中小机加工厂而言，账款拖欠治理与减负政策的落地进度值得持续跟踪。</p></div>
+<div class="section-label tech-label">🚀 技术前沿</div>
+<div class="news-card"><p class="card-body">1、埃斯顿EMP800新一代中大型智能运动控制器发布</p><p class="card-body">EMP800系列面向高端装备与智能制造场景，聚焦高速高精控制、复杂轨迹规划与多轴协同，重点突破控制性能、工程开发效率和核心技术自主可控三大瓶颈。当前中大型PLC市场增长分化，电子制造设备受AI算力与芯片需求带动表现较好。国产中大型运动控制器的迭代，为机加工产线电控国产替代提供了新选择。</p></div>
+<div class="news-card"><p class="card-body">2、AMD联合中科慧灵完成人形机器人端侧AI验证，探索大小脑双处理器架构</p><p class="card-body">AMD与中科慧灵合作完成人形机器人端侧AI验证，采用大小脑双处理器架构，将实时运动控制与高层智能决策分置于不同处理器。该架构思路对工业机器人控制器设计有参考价值，端侧算力下沉可降低对云端通信的依赖。对考虑引入协作机器人或人形机器人上产线的工厂，端侧架构成熟度是评估落地可行性的关键指标。</p></div>
+<div class="news-card"><p class="card-body">3、具微科技潘多拉方案：90秒自动换装补能支撑机器人无人化值守</p><p class="card-body">具微科技推出潘多拉全栈方案，实现90秒自动换装与补能，破解工业机器人连续作业的续航与换装难题。方案面向无人化值守场景，减少人工干预频次。对计划上夜班无人化产线的机加工厂，机器人自动补能是提升设备综合利用率（OEE）的实用环节。</p></div>
+<div class="section-label">🏭 标杆案例</div>
+<div class="news-card"><p class="card-body">1、京东德国奥伯豪森1号仓投用超700台自研机器人，履约效率提升3倍</p></div>
+<div class="news-card"><p class="card-body">京东物流完成德国奥伯豪森1号仓智能化设备规模部署，投用超700台自研智狼、天狼机器人等自动化设备，仓库约4万平方米。单日出入库货物处理量可达35万件，全流程履约效率相较传统模式提升3倍，成为欧洲自动化程度最高的物流仓库之一。其大规模多机协同调度与仓储自动化部署经验，对工厂内部物流与线边仓改造有直接借鉴意义。</p></div>
+<div class="news-card"><p class="card-body">2、三秒节拍考验人形机器人：部分车企撤下产线试点</p></div>
+<div class="news-card"><p class="card-body">人形机器人在汽车工厂的试点遭遇现实考验，产线三秒级节拍要求远超当前人形机器人的作业速度与稳定性，部分车企已撤下产线试点。宝马与Figure在美国工厂的钣金上下料试点、吉利等国内车企的尝试均显示，环境可控的工业场景仍是人形机器人首选试验场，但节拍与可靠性尚未达标。机加工厂在评估人形机器人替代上下料工位时，应把节拍匹配度作为首要验证项。</p></div>
+<div class="news-card"><p class="card-body">3、2026世界智能制造十大科技进展发布，西门子Eigen工程智能体入选</p></div>
+<div class="news-card"><p class="card-body">2026世界智能制造大会在南京召开，中国工程院院士李培根发布2026世界智能制造十大科技进展与中国智能制造十大科技进展。面向工业自动化工程的西门子Eigen工程智能体入选，代表工程侧AI智能体在自动化项目落地中的方向。对工厂而言，工程智能体若能压缩产线编程与调试周期，将直接缩短自动化改造的交付时间。</p></div>
+<div class="section-label laok-label">👨‍🏫 老K视角</div>
+<div class="news-card"><p class="card-body"><strong>1. 通信基建先行，工厂联网成本要重算。</strong> 三部门《新一代通信网建设实施方案》把时间表定到2030年，且明确"适度超前建设"。对机加工厂来说，这意味着未来几年5G/6G专网、设备联网的资费与覆盖会持续改善，现在做产线数字化规划时，网络方案不必再按"贵且不稳"的老经验做保守假设，可以适当把设备上云、远程运维纳入中期预算。</p></div>
+<div class="news-card"><p class="card-body"><strong>2. 账期治理动真格，汽配厂现金流要盯紧。</strong> 工信部对汽车供应商账款支付调研评估的回应，措辞是"系统深入开展治理"，配合减负宣传周强调的"常态化解决企业账款拖欠"，信号很明确。建议汽配老板把主机厂账期条款、验收结算节点重新梳理一遍，调研评估期间是反映问题的窗口期，别只等通知。</p></div>
+<div class="news-card"><p class="card-body"><strong>3. 人形机器人上产线，先别急着掏钱。</strong> 三秒节拍把一批车企试点逼退，这是最实在的提醒。人形机器人在上下料、搬运工位的节拍和可靠性还没过关，现阶段更务实的路径是协作机器人+自动补能方案（如90秒换装），先把夜班无人化的单点工位跑通，再谈整线。</p></div>
+<div class="news-card"><p class="card-body"><strong>4. 国产中大型控制器到了可用阶段。</strong> 埃斯顿EMP800这类产品的迭代，加上电子制造设备需求回暖，说明国产运动控制在高速高精场景的成熟度在提升。做高端装备配套的工厂，可以在新产线电控选型时做一次国产与进口的并行测试，用数据说话，别凭品牌惯性下单。</p></div>
+<div class="news-card"><p class="card-body"><strong>提醒：</strong> 今日素材中6G试点、世界智能制造大会等内容偏宏观与会议性质，未纳入版块；农业机器人、汽车国际合作圆桌会与机加工/汽配经营无直接关系，已剔除。老板们本周重点看两件事：账期调研的参与方式，以及自家产线网络改造的预算窗口。</p></div>
+<div class="news-card"><p class="card-body">2026年11月27日</p></div>
+    <div class="cta-box">
+        <p>🏭 您的工厂每年隐性浪费可能高达百万？免费体检 3 分钟出报告</p>
+        <a class="btn" href="https://sptechsz.com/reports/report_query.html">👉 免费工厂体检</a>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">← 返回列表</a>
+        <a href="2026-11-26.html">下期 →</a>
+    </div>
+    <div class="footer">
+        <p>思派工业技术（深圳）有限公司</p>
+        <p>📱 关注公众号「思派工业——精益智能工厂领航员」</p>
+    </div>
+</div>
+</body>
+</html>
